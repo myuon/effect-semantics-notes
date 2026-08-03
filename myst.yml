@@ -1,0 +1,46 @@
+version: 1
+
+project:
+  title: Effect Semantics Research Notes
+  description: >-
+    Living research notes on structure-preserving extensions of effect
+    semantics, shallow handlers, graded monads, and logical relations.
+  keywords:
+    - algebraic effects
+    - effect handlers
+    - shallow handlers
+    - graded monads
+    - operational semantics
+    - denotational semantics
+    - logical relations
+  license: CC-BY-4.0
+  toc:
+    - file: README.md
+    - title: Working foundation
+      children:
+        - file: research-map.md
+        - file: baseline-calculus-v1.md
+        - file: objects-and-notation.md
+    - title: Mathematical development
+      children:
+        - file: candidate-constructions.md
+        - file: claims-ledger.md
+        - file: open-questions.md
+    - title: Research context
+      children:
+        - file: literature-map.md
+        - file: work-log.md
+    - title: Archive
+      children:
+        - file: minimal-calculus-v0.md
+
+site:
+  template: book-theme
+  title: Effect Semantics Notes
+  options:
+    numbered_references: true
+    hide_footer_links: false
+  actions:
+    - title: View source on GitHub
+      url: https://github.com/myuon/effect-semantics-notes
+
