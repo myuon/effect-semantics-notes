@@ -83,3 +83,34 @@ effect annotations を上界として扱いながら、handler rule は先頭 op
 ### Next mathematical task
 
 標準的な effect rows + forwarding と、sequential grades + explicit head shapes を小さな例で比較する。
+
+## 2026-08-04 — Rows versus head shapes
+
+### Defined
+
+Head shape $s\subseteq\{\checkmark\}+L$ and sequential composition
+
+$$
+s\blacktriangleright t
+=(s\setminus\{\checkmark\})
+\cup
+\begin{cases}
+t & \checkmark\in s,\\
+\varnothing & \checkmark\notin s.
+\end{cases}
+$$
+
+### Derived
+
+- $\blacktriangleright$ is associative.
+- $\{\checkmark\}$ is a two-sided identity.
+- composition is monotone under subset inclusion.
+- rows collapse `log; ask` and `ask; log`, while head shapes distinguish them.
+
+### Limitation found
+
+Simple head sets determine which head operations are possible, so they repair progress. They do not determine the grade and head shape of the continuation captured behind each operation. Precise shallow handler typing requires residual-aware shape information.
+
+### Next mathematical task
+
+Compare residual-aware shapes with the polynomial free shallow layer. Attempt an explicit representation theorem rather than adding another independent index prematurely.

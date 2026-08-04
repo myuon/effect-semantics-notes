@@ -26,6 +26,11 @@
 | C-020 | Derived | arbitrary graded monad + primitive operations だけでは syntax-directed shallow handler を一様に定義できない | collapsed one-point model | categorical non-definability statement に精密化 |
 | C-021 | Rejected | Baseline v1 as written が unrestricted subeffecting の下で progress modulo operations を満たす | mismatched exposed operation counterexample | forwarding または head refinement を追加 |
 | C-022 | Candidate | effect upper bound と observable head shape を別 index にする | C-020; C-021 | row+forwarding calculus と比較 |
+| C-023 | Derived | head-shape composition $s\blacktriangleright t$ は結合的で $\{\checkmark\}$ を単位元に持つ | case analysis on return membership | algebraic proofを補題化 |
+| C-024 | Derived | head shapes は subset ordering の下で noncommutative preordered monoid を成す | C-023; monotonicity | counterexampleで非可換性を明示 |
+| C-025 | Derived | simple head shapes は handler progress を保証できるが residual continuation の型を復元できない | refined handler typing attempt | residual-aware shapeを定義 |
+| C-026 | Conjecture | residual-aware head shape は free shallow layer の polynomial presentation と一致する | C-025; Candidate A | representation/isomorphismを構成 |
+| C-027 | Derived | rows は `log; ask` と `ask; log` を区別しないが head shapes は区別する | P-002; P-003 | operational correspondenceを定式化 |
 
 ## 証明完了の基準
 

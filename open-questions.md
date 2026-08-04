@@ -85,3 +85,20 @@ Baseline v1 の effect annotation は上界であり、handler が要求する h
 - exact/canonical effect derivation
 
 判定基準は、操作的 progress、意味論的 decomposition、subeffect coherence、元の modular-extension という目的の四点。
+
+**Partial result:** simple head shapes form a preordered monoid and repair progress, but do not carry the residual continuation grade/shape needed for precise handler clauses.
+
+## Q-010: residual-aware shape は独立した型構造か
+
+候補は
+
+$$
+X+\coprod_{\operatorname{op}:P\to R}
+P\times(T_{e,s}X)^R.
+$$
+
+これは free shallow layer の carrier とほぼ同じ形をしている。次を判定する。
+
+- syntax index として別に持つ必要があるか
+- semantic free construction から inversion principle として導けるか
+- operational model と denotational model の両方で同じ polynomial lifting を使えるか
