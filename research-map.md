@@ -10,7 +10,7 @@ $$
 
 ここで $S$ は operational model、$T$ は denotational model の候補である。両者が同じ圏上にあるとは仮定しない。最初から関数 $S\to T$ を要求するのではなく、morphism、simulation、logical relation のいずれが適切かを調べる。
 
-構文上の基準言語は [Baseline calculus v1](baseline-calculus-v1.md) とする。これは元の修論の再現ではなく、以後の主張を検査可能にするため固定した working calculus である。
+構文上の基準言語は [Exact-layer calculus v2](exact-layer-calculus-v2.md) とする。extended effect indexはupper boundではなく、base-effect monoidとfree-operation monoidの自由積によるexact alternating layer structureとして読む。
 
 ## 中心的な研究課題
 

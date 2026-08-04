@@ -114,3 +114,29 @@ Simple head sets determine which head operations are possible, so they repair pr
 ### Next mathematical task
 
 Compare residual-aware shapes with the polynomial free shallow layer. Attempt an explicit representation theorem rather than adding another independent index prematurely.
+
+## 2026-08-04 — Return to exact typed free layers
+
+### Correction
+
+The previous Baseline v1 incorrectly interpreted extended effects as ordinary upper bounds. The intended structure is an exact alternating layer index.
+
+### Adopted
+
+$$
+\widehat E=B*\mathcal D^*
+$$
+
+where $B$ is the base-effect monoid and $\mathcal D^*$ is the free monoid of free-operation types.
+
+### Handler discipline
+
+A shallow handler carries an operation type $\Delta$ and primitively eliminates only an exposed matching $\Delta$-layer. A mismatching handler is not typed by the primitive rule.
+
+### Consequence
+
+An independent head-shape index is unnecessary on the main line. The typed free layer already carries return/operation/parameter/residual-continuation data.
+
+### Next mathematical task
+
+Choose between $X+H_\Delta(K)$ and $K+H_\Delta(K)$ by reconstructing unit and bind for alternating words. Then formulate handler lifting through an outer base segment.

@@ -22,15 +22,16 @@
 
 1. [Research map](research-map.md) — 問題全体と現在地
 2. [Objects and notation](objects-and-notation.md) — 登場する対象と記法
-3. [Baseline calculus v1](baseline-calculus-v1.md) — 以後の基準として固定する言語
-4. [Minimal calculus v0](minimal-calculus-v0.md) — v1以前の探索記録
-5. [Semantic interface v1](semantic-interface-v1.md) — graded monadだけで何ができ、何が不足するか
-6. [Head-shape calculus v1](head-shape-calculus-v1.md) — forwardingとの比較とrefined calculus
+3. [Exact-layer calculus v2](exact-layer-calculus-v2.md) — 現在のworking calculus
+4. [Semantic interface v1](semantic-interface-v1.md) — graded monadだけで何ができ、何が不足するか
+5. [Baseline calculus v1](baseline-calculus-v1.md) — upper-bound解釈を試した旧案
+6. [Head-shape calculus v1](head-shape-calculus-v1.md) — 旧案の問題を診断した探索記録
 7. [Candidate constructions](candidate-constructions.md) — 構成案と計算
 8. [Claims ledger](claims-ledger.md) — 既知・予想・未検証の台帳
 9. [Open questions](open-questions.md) — 設計判断と未解決点
 10. [Literature map](literature-map.md) — 関連研究を主張ごとに整理する場所
 11. [Work log](work-log.md) — 議論と変更の履歴
+12. [Minimal calculus v0](minimal-calculus-v0.md) — 初期の探索記録
 
 ## ステータス記法
 

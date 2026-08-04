@@ -54,18 +54,24 @@ $$
 
 ## Extended effect words
 
-**Candidate.** 拡張 effect は base effects と interfaces の有限交互列
+**Working definition.** Base-effect monoidを $B$、interfaces上のfree monoidを $\mathcal D^*$ とし、拡張effect monoidをfree product
+
+$$
+\widehat E=B*\mathcal D^*
+$$
+
+とする。reduced normal formは base effects と nonempty free-operation words の有限交互列である。細粒度表記では
 
 $$
 b_0\,\Delta_1\,b_1\cdots\Delta_n\,b_n
 $$
 
-で表す。交換則は置かず、順序を観測可能な評価構造として保存する。
+で表す。交換則は置かず、順序を意味論的layer structureとして保存する。
 
 未決定事項:
 
 - 空の base segment/interface を正規形から除くか
-- effect word の結合を構文的に定義するか商として定義するか
+- free productをreduced wordsとして実装するか、coproductの普遍性から抽象的に扱うか
 - componentwise subeffecting 以外の weakening を許すか
 - 同一 interface の反復をまとめるか区別するか
 
@@ -78,4 +84,3 @@ $$
 3. **Observational:** TT-lifting または biorthogonality による relation
 
 strict case は relational case の graph として埋め込める可能性がある。
-

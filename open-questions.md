@@ -86,7 +86,7 @@ Baseline v1 の effect annotation は上界であり、handler が要求する h
 
 判定基準は、操作的 progress、意味論的 decomposition、subeffect coherence、元の modular-extension という目的の四点。
 
-**Partial result:** simple head shapes form a preordered monoid and repair progress, but do not carry the residual continuation grade/shape needed for precise handler clauses.
+**Resolved for the main line:** 分離しない。exact typed free layerがheadとresidual continuationを直接保持する。head shapesはそのabstractionとしてのみ残す。
 
 ## Q-010: residual-aware shape は独立した型構造か
 
@@ -102,3 +102,31 @@ $$
 - syntax index として別に持つ必要があるか
 - semantic free construction から inversion principle として導けるか
 - operational model と denotational model の両方で同じ polynomial lifting を使えるか
+
+**Current answer:** independent shapeではなくtyped free-layer polynomialとして扱う。
+
+## Q-011: free-product normal formの粒度
+
+$B*\mathcal D^*$ の標準的reduced wordは $B$ のnon-unit elementsと $\mathcal D^*$ のnonempty wordsを交互に持つ。個々の $\Delta$ を必ず一層として露出する場合、free-operation block内部をさらに分解して表記する必要がある。
+
+決めること:
+
+- consecutive free operation typesを一つのblockとして扱うか
+- identity base segmentを挟んで一層ずつ扱うか
+- handler eliminationがblockの先頭だけを除くか、typed block全体を扱うか
+
+## Q-012: free-layerのreturn branch
+
+候補:
+
+$$
+X+H_\Delta(K)
+$$
+
+または
+
+$$
+K+H_\Delta(K).
+$$
+
+前者はstandard shallow return clause、後者はlayer skip/tail preservationに対応する。元のtyping ruleとbindを再構成して決める。

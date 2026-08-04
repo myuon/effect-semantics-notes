@@ -2,7 +2,7 @@
 
 ## Status
 
-**Candidate refinement.** Baseline v1 の欠陥を修正する二案を比較し、sequential effects と独立した head-shape index を定義する。
+**Archived diagnostic.** Baseline v1 のupper-bound解釈を修正するための探索だった。現在のmain lineでは、typed free layer自体がreturn/operation/residual continuationを保持するため、独立したhead-shape indexは採用しない。
 
 ## 1. The common operational problem
 
@@ -439,4 +439,3 @@ Keep both levels:
 3. refine shapes to residual-aware polynomial descriptions only where precise handler typing requires them.
 
 The next question is whether residual-aware shapes are merely the datatype presentation of the free shallow layer already under consideration. If so, a separate novel type system may be unnecessary: the semantic extension itself supplies the required shape.
-

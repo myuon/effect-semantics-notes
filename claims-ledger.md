@@ -31,6 +31,11 @@
 | C-025 | Derived | simple head shapes は handler progress を保証できるが residual continuation の型を復元できない | refined handler typing attempt | residual-aware shapeを定義 |
 | C-026 | Conjecture | residual-aware head shape は free shallow layer の polynomial presentation と一致する | C-025; Candidate A | representation/isomorphismを構成 |
 | C-027 | Derived | rows は `log; ask` と `ask; log` を区別しないが head shapes は区別する | P-002; P-003 | operational correspondenceを定式化 |
+| C-028 | Established | Main lineのextended effect monoidは $B*\mathcal D^*$ であり、indexはupper boundではなくlayer structureを表す | Exact-layer calculus v2 | normal-form theoremを証明 |
+| C-029 | Established | Shallow handlerはoperation type $\Delta$ でindexされ、matching exposed $\Delta$-layerだけをprimitiveにeliminateする | Exact-layer calculus v2 | clause effectsを確定 |
+| C-030 | Rejected | 独立したhead-shape indexをmain calculusに追加する | typed free layer already carries full head data | abstractionとしてのみ保存 |
+| C-031 | Conjecture | matching handlerはouter base segmentを通してcanonicalにliftできる | base functoriality/strength/algebra laws | exact lifting diagramを定義 |
+| C-032 | Question | free-layer return branchは $X$ かtail carrier $K$ か | original typing/evaluation intent | unitとbindの型から判定 |
 
 ## 証明完了の基準
 
