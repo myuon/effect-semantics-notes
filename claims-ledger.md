@@ -94,6 +94,11 @@
 | C-088 | Candidate | Natural sections $\delta_{b,e}:T_{be}\to T_bT_e$ とunit/coassociativity coherenceを仮定すればmiddle paddingを構成できる | C-086; section laws | monad lawsとpadding naturalityを完全計算 |
 | C-089 | Candidate | Raw segmented gradesを$T_bT_e$で解釈すればsplitなしにboundary insertionできるが、base $T_{be}$へのconservativityは$\mu$によるlax flatteningになる | segmented-word construction | Writer modelでflattening adequacyを検証 |
 | C-090 | Candidate | Free interaction semanticsを先に構成し$T$へ解釈すればarbitrary base modelをtargetとして保てるが、carrier equalityではなくfree refinement theoremになる | interaction-tree construction | segmented Writerとの比較計算 |
+| C-091 | Derived | Writerでmiddle paddingを入れることはlogのcutを選ぶことに相当し、左端・右端を含む複数の$\mu_{w,w}$のsectionが存在する | Writer concatenation | split coherenceの一般則と比較 |
+| C-092 | Counterexample | Grade $\Delta\Delta$ の一operation programでpositional eliminatorは`op;skip`をhandleし`skip;op`を残すため、padding proofを観測する | repeated-padding Writer test | positional denotationをcore handlerから分離 |
+| C-093 | Rejected | Local algebra $h(\mathsf{inl}(z))=z$ がfirst-actual-head source handlerを一般に解釈する | C-092; skip is not final return | skip traversalまたはfree-tree semanticsへ置換 |
+| C-094 | Derived | Finite Writer interaction tree上のhandlerはTellにだけ再帰し、matching free nodeでclause bind、other free nodeでidentityとすればdirect operational rulesと一致する | TW-Ret--TW-Other | operational adequacyを帰納証明 |
+| C-095 | Preferred candidate | Main denotationはpadding nodeを持たないfree interaction treeをordered trace upper boundsでgradeし、base-only fragmentを$T$へ解釈するrefinementとする | C-086--C-094 | graded tree carrierとWriter adequacyを定義 |
 
 ## 証明完了の基準
 

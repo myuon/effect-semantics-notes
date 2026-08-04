@@ -2,12 +2,15 @@
 
 ## Status
 
-**First adopted Stage 3 construction: exhaustive handler over one optional free layer.**
+**Positional-layer construction; not the adopted first-actual-head semantics without additional skip traversal.**
 
-This page constructs the denotation of the core shallow handler from the
-optional-layer carrier. It is deliberately local: we assume the extended graded
-monad and its weakening maps exist, then define $H_\Delta$ and verify its two
-characteristic equations.
+This page constructs a local eliminator from an optional-layer carrier. The
+Writer comparison later showed that its skip case stops at a static boundary,
+whereas the adopted source handler searches through base computation to the
+first actual free request. It should therefore be read as a positional-layer
+construction unless supplemented with skip traversal or an observational
+quotient. See
+[Writer representation comparison v1](writer-representation-comparison-v1.md).
 
 ## 1. Assumed extended graded structure
 
@@ -361,7 +364,8 @@ components.
 ## 10. What is proved and what remains
 
 Given the assumed extended graded monad, optional-layer isomorphism, and
-coherent weakening, we have constructed $H_\Delta$ and established:
+coherent weakening, we have constructed a **positional** $H_\Delta$ and
+established:
 
 1. correct typing $b\Delta e\to be'e$;
 2. identity/skip equation;
@@ -371,7 +375,11 @@ coherent weakening, we have constructed $H_\Delta$ and established:
 6. naturality in the result type;
 7. agreement with the concrete Writer examples.
 
-The major remaining obligation is now sharply isolated:
+This does not yet establish agreement with the adopted source handler when a
+skip is followed by another free layer. The repeated-padding counterexample in
+the Writer comparison rejects that identification.
+
+For the positional construction, the major remaining obligation is:
 
 > construct $\widehat T$ and its coherent optional-layer weakening from an
 > arbitrary base graded monad $T$, rather than assuming them.

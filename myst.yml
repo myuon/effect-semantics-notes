@@ -42,6 +42,7 @@ project:
         - file: stage2-operational-metatheory-v1.md
         - file: shallow-handler-denotation-v1.md
         - file: middle-padding-obstruction-v1.md
+        - file: writer-representation-comparison-v1.md
         - file: candidate-constructions.md
         - file: claims-ledger.md
         - file: open-questions.md

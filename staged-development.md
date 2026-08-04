@@ -68,6 +68,8 @@ The first Stage 3 denotational construction is [Shallow handler denotation v1](s
 
 [Middle-padding obstruction v1](middle-padding-obstruction-v1.md) shows that proof-relevant word embeddings alone do not construct padding: inserting $\Delta$ between $b$ and $e$ requires a split $T_{be}\to T_bT_e$, opposite to graded multiplication. The representation theorem must therefore assume split structure, preserve syntactic segmentation, elaborate before flattening, or use a free interaction refinement.
 
+[Writer representation comparison v1](writer-representation-comparison-v1.md) gives the decisive repeated-padding counterexample: a positional optional-layer eliminator distinguishes `op;skip` from `skip;op`, while the adopted source handler must inspect the same first actual operation in both cases. The main direction therefore moves to proof-irrelevant free interaction trees graded by trace upper bounds.
+
 ## Stage 2 — Add shallow handlers
 
 Stage 1のcalculusにmatching shallow handlerを追加する。
