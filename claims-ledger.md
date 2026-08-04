@@ -99,6 +99,11 @@
 | C-093 | Rejected | Local algebra $h(\mathsf{inl}(z))=z$ がfirst-actual-head source handlerを一般に解釈する | C-092; skip is not final return | skip traversalまたはfree-tree semanticsへ置換 |
 | C-094 | Derived | Finite Writer interaction tree上のhandlerはTellにだけ再帰し、matching free nodeでclause bind、other free nodeでidentityとすればdirect operational rulesと一致する | TW-Ret--TW-Other | operational adequacyを帰納証明 |
 | C-095 | Preferred candidate | Main denotationはpadding nodeを持たないfree interaction treeをordered trace upper boundsでgradeし、base-only fragmentを$T$へ解釈するrefinementとする | C-086--C-094 | graded tree carrierとWriter adequacyを定義 |
+| C-096 | Derived | Downward-closed finite trace languagesはunionをjoin、downward-closed concatenationを積とするunital quantaleを成す | subsequence preorder; word concatenation | general base gradesへの置換を検討 |
+| C-097 | Derived | Finite Writer interaction treesをpath trace inclusionでindexするとtrace-language graded monadを成す | WT-001; structural tree monad laws | strengthとvalue-type constructorsを追加 |
+| C-098 | Derived | First-free-head transformer $\Phi_{\Delta,K}$ はmatching traceの最初の$\Delta$をclause language $K$で置換し、return/other-interface traceを保存するmonotone grade mapである | trace case analysis | composition/naturality lawsを計算 |
+| C-099 | Derived | Tree shallow handlerは$\mathsf{Tree}_L X\to\mathsf{Tree}_{\Phi_{\Delta,K}(L)}X$を与え、direct operational semanticsの四ケースと一致する | WT-002 | Writer operational adequacyを証明 |
+| C-100 | Counterexample | Optional bound $\Delta\mathbf w\Delta$ のtrace $\mathbf w\Delta$ はhandling後$\mathbf wK$となり、simple output $K\mathbf w\Delta$では一般にboundできない | noncommutativity; first optional token skipped | principal-word ruleの成立条件をcharacterize |
 
 ## 証明完了の基準
 

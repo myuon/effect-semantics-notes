@@ -70,6 +70,8 @@ The first Stage 3 denotational construction is [Shallow handler denotation v1](s
 
 [Writer representation comparison v1](writer-representation-comparison-v1.md) gives the decisive repeated-padding counterexample: a positional optional-layer eliminator distinguishes `op;skip` from `skip;op`, while the adopted source handler must inspect the same first actual operation in both cases. The main direction therefore moves to proof-irrelevant free interaction trees graded by trace upper bounds.
 
+[Writer trace-graded trees v1](writer-trace-graded-trees-v1.md) carries out that construction. Downward-closed ordered trace languages form the grade quantale, finite Writer/free-operation trees form a graded monad, and the shallow handler has a monotone first-free-head grade transformer $\Phi_{\Delta,K}$.
+
 ## Stage 2 — Add shallow handlers
 
 Stage 1のcalculusにmatching shallow handlerを追加する。
