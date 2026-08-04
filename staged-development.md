@@ -25,7 +25,7 @@ Exit condition: syntax、typing、reductionを固定し、substitution、preserv
 
 ## Stage 1 — Add free operations
 
-Stage 0へのconservative extensionとして、free interfaces $\Delta$ とfree operation nodesだけを追加する。
+Stage 0へのconservative extensionとして、free interfaces $\Delta$ とsimple free-operation computationsだけを追加する。base calculusと同様、operation term自身はcontinuationを引数に取らない。
 
 この段階で初めて検討するもの:
 
@@ -66,4 +66,3 @@ K(X)+\mathsf{Op}_\Delta(K(X)).
 $$
 
 carrierを先に選び、syntaxやreductionをそれに合わせることはしない。
-

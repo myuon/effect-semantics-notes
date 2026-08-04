@@ -1,102 +1,113 @@
 # Base calculus examples v1
 
-## 1. Two levels of execution
+## 1. Operations do not contain continuations
 
-[Base calculus v1](base-calculus-v1.md) のinternal reductionを
-
-$$
-M\longrightarrow M'
-$$
-
-と書く。このrelationはpure computationを進めるが、露出したbase operation
+In [Base calculus v1](base-calculus-v1.md), a base operation is a computation
 
 $$
-\beta(V;y.M)
+\beta(V):R_\beta!|\beta|.
 $$
 
-を勝手に実行しない。したがってcalculus単体での最終観測は
+For example,
 
 $$
-\mathsf{return}\;V
+\mathsf{tell}(\text{"a"}):1!w.
 $$
 
-またはbase-operation requestである。
+The operation takes only its parameter. A subsequent computation is written with ordinary `let`:
 
-具体的な`Writer`や`State`の結果も計算したい場合は、configuration
+```text
+let u <- tell("a") in
+M
+```
+
+The continuation is therefore not part of `tell`. Metatheoretically, the surrounding evaluation context
+
+```text
+let u <- [-] in M
+```
+
+remembers what to do after the operation returns.
+
+Internal reduction is written $M\longrightarrow M'$. It reduces pure computation, but it does not execute a base operation. A request inside an evaluation context has the form
 
 $$
-\langle M,s\rangle
+\mathcal E[\beta(V)].
 $$
 
-を使い、base machineの状態 $s$ とoperationへの応答ruleを追加する。以下ではinternal stepsとmachine stepsを区別して表示する。
+A concrete base machine responds with a value $W:R_\beta$ by replacing the request with $\mathsf{return}\;W$:
+
+$$
+\mathcal E[\beta(V)]
+\rightsquigarrow
+\mathcal E[\mathsf{return}\;W].
+$$
 
 ## 2. Example A — Pure return and function application
-
-Program:
 
 ```text
 let f <- return (fun x -> return x) in
 f true
 ```
 
-First, `R-Let-Return`:
+By `R-Let-Return` and then `R-Beta`:
 
 ```text
 --> (fun x -> return x) true
-```
-
-Then `R-Beta`:
-
-```text
 --> return true
 ```
 
 Hence
 
 $$
-M\longrightarrow^*\mathsf{return}\;\mathsf{true}.
+M\longrightarrow^*\mathsf{return}\;\mathsf{true}
 $$
 
-The effect is pure:
+with pure effect $1$.
 
-$$
-\Gamma\vdash M:\mathsf{Bool}!1.
-$$
-
-## 3. Example B — Exposing one base request
+## 3. Example B — One operation request
 
 Assume
 
 $$
-\mathsf{tell}:\mathsf{String}\to1
+\mathsf{tell}:\mathsf{String}\to1,
+\qquad |\mathsf{tell}|=w.
 $$
 
-with grade $|\mathsf{tell}|=w$. Consider:
+Consider:
 
 ```text
-let x <- tell("a"; u. return true) in
-return x
+let u <- tell("a") in
+return true
 ```
 
-By `R-Let-Base`:
+There is no internal reduction rule for `tell("a")`. Instead, the whole program is already a request form
+
+$$
+\mathcal E[\mathsf{tell}(\text{"a"})]
+$$
+
+with
 
 ```text
--->
-tell("a"; u.
-  let x <- return true in
-  return x)
+E = let u <- [-] in return true
 ```
 
-This is a head form. Internal reduction stops here: the `let` inside the suspended continuation is not evaluated before `tell` receives a result.
+The operation itself is just
 
-The type-and-effect derivation gives
+```text
+tell("a")
+```
+
+and does not receive `u` or `return true` as arguments.
+
+Its typing is
 
 $$
-\mathsf{tell}(\text{"a"};u.\mathsf{return}\;\mathsf{true})
-:\mathsf{Bool}!(w\cdot1)=\mathsf{Bool}!w
+\mathsf{tell}(\text{"a"}):1!w.
 $$
 
-and the whole program has effect
+The enclosing `let` has effect
 
 $$
 w\cdot1=w.
@@ -104,75 +115,79 @@ $$
 
 ## 4. Writer machine
 
-Instantiate the base machine state by a log
+Let a Writer configuration be
 
 $$
+\langle M,\ell\rangle,
+\qquad
 \ell\in\mathsf{List}(\mathsf{String}).
 $$
 
-Internal steps lift to configurations:
+Internal reductions lift without changing the log:
 
 $$
 \frac{M\longrightarrow M'}
 {\langle M,\ell\rangle\longrightarrow_W\langle M',\ell\rangle}.
 $$
 
-The Writer response rule is
+The Writer response rule is contextual:
 
 $$
-\langle\mathsf{tell}(s;u.M),\ell\rangle
+\langle\mathcal E[\mathsf{tell}(s)],\ell\rangle
 \longrightarrow_W
-\langle M[*/u],\ell\mathbin{+\!+}[s]\rangle.
+\langle\mathcal E[\mathsf{return}\;*],
+\ell\mathbin{+\!+}[s]\rangle.
 \tag{W-Tell}
 $$
 
-Here $+\!+$ is list concatenation.
+It appends the message and returns the unit value to the request site.
 
 ### Example C — Two ordered writes
 
-Program:
-
 ```text
-let x <- tell("a"; u. return true) in
-tell("b"; v. return x)
+let u <- tell("a") in
+let v <- tell("b") in
+return true
 ```
 
 Start with an empty log:
 
 ```text
-< let x <- tell("a"; u. return true) in
-    tell("b"; v. return x),
+< let u <- tell("a") in
+  let v <- tell("b") in
+  return true,
   [] >
 ```
 
-`R-Let-Base` exposes the first request:
+The first `W-Tell` replaces the request by `return *`:
 
 ```text
 -->W
-< tell("a"; u.
-    let x <- return true in
-    tell("b"; v. return x)),
-  [] >
-```
-
-`W-Tell` records `"a"` and resumes the continuation:
-
-```text
--->W
-< let x <- return true in
-    tell("b"; v. return x),
+< let u <- return * in
+  let v <- tell("b") in
+  return true,
   ["a"] >
 ```
 
-`R-Let-Return` substitutes `true` for `x`:
+Then `R-Let-Return`:
 
 ```text
 -->W
-< tell("b"; v. return true),
+< let v <- tell("b") in
+  return true,
   ["a"] >
 ```
 
-The second `W-Tell` step gives:
+The second Writer response:
+
+```text
+-->W
+< let v <- return * in
+  return true,
+  ["a", "b"] >
+```
+
+Finally:
 
 ```text
 -->W
@@ -180,105 +195,102 @@ The second `W-Tell` step gives:
   ["a", "b"] >
 ```
 
-Thus the result value is `true` and the observable log is exactly
-
-$$
-[\text{"a"},\text{"b"}].
-$$
-
-The effect is
+Thus the result is `true`, the log is `["a","b"]`, and the effect is
 
 $$
 w\cdot w.
 $$
 
-The order in the operational log agrees with the left-to-right order of the monoid product.
-
 ## 5. State machine
 
-Use a Boolean store $s\in\mathsf{Bool}$ and operations
+Use operations
 
 $$
 \mathsf{get}:1\to\mathsf{Bool},
 \qquad
-\mathsf{put}:\mathsf{Bool}\to1.
+\mathsf{put}:\mathsf{Bool}\to1
 $$
 
-Machine rules:
+and a Boolean store $s$. The contextual response rules are
 
 $$
-\langle\mathsf{get}(*;x.M),s\rangle
+\langle\mathcal E[\mathsf{get}(*)],s\rangle
 \longrightarrow_S
-\langle M[s/x],s\rangle,
+\langle\mathcal E[\mathsf{return}\;s],s\rangle,
 \tag{S-Get}
 $$
 
 $$
-\langle\mathsf{put}(s';u.M),s\rangle
+\langle\mathcal E[\mathsf{put}(s')],s\rangle
 \longrightarrow_S
-\langle M[*/u],s'\rangle.
+\langle\mathcal E[\mathsf{return}\;*],s'\rangle.
 \tag{S-Put}
 $$
 
-As with Writer, internal reductions lift without changing the store.
-
 ### Example D — Read, branch, then write
 
-Program:
-
 ```text
-get(*; x.
-  if x then
-    put(false; u. return x)
-  else
-    put(true; u. return x))
+let x <- get(*) in
+if x then
+  let u <- put(false) in return x
+else
+  let u <- put(true) in return x
 ```
 
-Run it from store `true`:
+Run it from state `true`:
 
 ```text
-< get(*; x.
-    if x then
-      put(false; u. return x)
-    else
-      put(true; u. return x)),
+< let x <- get(*) in
+  if x then
+    let u <- put(false) in return x
+  else
+    let u <- put(true) in return x,
   true >
 ```
 
-`S-Get` substitutes the current state:
+`S-Get` returns the current state at the request site:
+
+```text
+-->S
+< let x <- return true in
+  if x then
+    let u <- put(false) in return x
+  else
+    let u <- put(true) in return x,
+  true >
+```
+
+`R-Let-Return` and `R-If-True`:
 
 ```text
 -->S
 < if true then
-    put(false; u. return true)
+    let u <- put(false) in return true
   else
-    put(true; u. return true),
+    let u <- put(true) in return true,
+  true >
+
+-->S
+< let u <- put(false) in return true,
   true >
 ```
 
-`R-If-True`:
+`S-Put` supplies unit and changes the state:
 
 ```text
 -->S
-< put(false; u. return true), true >
-```
+< let u <- return * in return true,
+  false >
 
-`S-Put`:
-
-```text
 -->S
 < return true, false >
 ```
 
-The returned value is the old state `true`; the final store is `false`.
-
-Starting from `false` instead gives
+The program returns the old bit and flips the stored bit. From initial state `false`, it instead reaches
 
 ```text
 < return false, true >
 ```
-
-so this program returns the old bit and flips the stored bit.
 
 If $|\mathsf{get}|=r$ and $|\mathsf{put}|=w$, its effect is
 
@@ -286,55 +298,34 @@ $$
 r\cdot w.
 $$
 
-In general this need not equal $w\cdot r$: the annotation preserves operational order.
+## 6. Example E — Upper-bound effect
 
-## 6. Example E — Why the current base effect is an upper bound
-
-Assume
-
-$$
-1\leq w.
-$$
-
-Consider:
+Assume $1\leq w$. Consider:
 
 ```text
 if false then
-  tell("unreachable"; u. return true)
+  let u <- tell("unreachable") in return true
 else
   return false
 ```
 
-The then branch has effect $w$. The else branch initially has effect $1$, then `T-Sub` assigns it effect $w$. Hence `T-If` assigns the whole expression effect $w$.
+The then branch has effect $w$. The else branch has effect $1$ and can be widened to $w$ by `T-Sub`. Thus the whole computation has effect $w$.
 
-Operationally, however,
+Operationally:
 
 ```text
-if false then
-  tell("unreachable"; u. return true)
-else
-  return false
-
 --> return false
 ```
 
-No `tell` request occurs. Therefore the judgment
+No Writer request occurs. Hence the current annotation is an upper bound, not an exact claim that `tell` definitely executes.
 
-$$
-\Gamma\vdash M:\mathsf{Bool}!w
-$$
+## 7. Summary
 
-does not claim that $w$ definitely occurs. It states that $w$ is a safe upper approximation of possible base effects.
-
-This example is the first decision test for Stage 0. If the intended base system must instead record exact traces, `T-Sub` and the branching rule must be changed before adding free operations.
-
-## 7. Summary of observable outcomes
-
-| Example | Internal head/result | Concrete machine result | Effect |
+| Example | First observation | Concrete result | Effect |
 |---|---|---|---|
 | A: pure function | `return true` | — | $1$ |
-| B: one request | exposed `tell "a"` | Writer: `return true`, log `["a"]` | $w$ |
-| C: two writes | exposed first `tell` | Writer: `return true`, log `["a","b"]` | $w\cdot w$ |
-| D: state flip | exposed `get` | from `true`: value `true`, state `false` | $r\cdot w$ |
-| E: unreachable write | `return false` | Writer log remains empty | upper bound $w$ |
+| B: one request | $\mathcal E[\mathsf{tell}(\text{"a"})]$ | Writer returns unit at the hole | $w$ |
+| C: two writes | first contextual `tell` request | value `true`, log `["a","b"]` | $w\cdot w$ |
+| D: state flip | contextual `get` request | from `true`: value `true`, state `false` | $r\cdot w$ |
+| E: unreachable write | `return false` | empty Writer log | upper bound $w$ |
 

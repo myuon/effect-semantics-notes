@@ -19,7 +19,7 @@
 - fine-grain call-by-value
 - valuesとcomputationsを構文的に分離
 - simply typed、再帰なし
-- base operationsはcontinuationを明示したnodeで表す
+- base operationは結果を返す単純なcomputationとして表す
 - base effectsは順序付き逐次合成を持つ
 - effect annotationは現段階では安全な上界として読む
 - subeffectingのproof自体はprogramから観測できない
@@ -107,11 +107,19 @@ M,N ::= {}& \mathsf{return}\;V\\
 &\mid\mathsf{case}\;V\;\mathsf{of}\;
   \mathsf{inl}\;x\Rightarrow M
   \mid\mathsf{inr}\;y\Rightarrow N\\
-&\mid\beta(V;y.M).
+&\mid\beta(V).
 \end{aligned}
 $$
 
-$\beta(V;y.M)$ はparameter $V$ でbase operationを要求し、そのresultを $y$ としてcontinuation $M$ を実行するexplicit operation nodeである。
+$\beta(V)$ はparameter $V$ でbase operationを要求し、結果型 $R_\beta$ の値を返すcomputationである。operation自身はcontinuationを構文引数に取らない。
+
+後続計算はordinary sequencingで書く。
+
+```text
+let y <- beta(V) in M
+```
+
+ここでcontinuationに相当するものはoperation termの一部ではなく、外側のevaluation context `let y <- [-] in M` である。
 
 ## 5. Typing judgments
 
@@ -185,9 +193,8 @@ The sum-elimination rule likewise requires both branches to have a common result
 $$
 \frac{
 \beta:P\to R\in\Sigma_B
-\quad\Gamma\vdash V:P
-\quad\Gamma,y:R\vdash M:A!b}
-{\Gamma\vdash\beta(V;y.M):A!(|\beta|\cdot b)}.
+\quad\Gamma\vdash V:P}
+{\Gamma\vdash\beta(V):R!|\beta|}.
 \tag{T-Base-Op}
 $$
 
@@ -203,19 +210,31 @@ $$
 
 ## 6. Operational head forms
 
-Head forms are
+Direct head forms are
 
 $$
 Q ::= \mathsf{return}\;V
-\mid\beta(V;y.M).
+\mid\beta(V).
 $$
 
-A closed computation either takes an internal step, returns a value, or exposes a base-operation request. The calculus itself does not choose a concrete implementation of $\beta$.
+A base-operation request may occur inside a sequencing context. Thus the observable request forms are
+
+$$
+\mathcal E[\beta(V)].
+$$
+
+A closed computation either takes an internal step, returns a value, or has this request form. The calculus itself does not choose a concrete implementation of $\beta$.
 
 This gives two compatible readings later:
 
-1. $\beta(V;y.M)$ is an observable request in a labelled transition semantics;
-2. an external base machine supplies a result $W:R_\beta$ and resumes $M[W/y]$.
+1. $\mathcal E[\beta(V)]$ is an observable request in a labelled transition semantics;
+2. an external base machine supplies a result $W:R_\beta$ by replacing the request with $\mathsf{return}\;W$:
+
+$$
+\mathcal E[\beta(V)]
+\rightsquigarrow
+\mathcal E[\mathsf{return}\;W].
+$$
 
 The internal reduction relation below is independent of that choice.
 
@@ -250,15 +269,6 @@ $$
 $$
 
 $$
-\mathsf{let}\;x\leftarrow\beta(V;y.M)\;\mathsf{in}\;N
-\longrightarrow
-\beta(V;y.\mathsf{let}\;x\leftarrow M\;\mathsf{in}\;N),
-\tag{R-Let-Base}
-$$
-
-with the usual freshness conditions, and
-
-$$
 \mathsf{if}\;\mathsf{true}\;\mathsf{then}\;M\;\mathsf{else}\;N
 \longrightarrow M,
 \tag{R-If-True}
@@ -270,7 +280,7 @@ $$
 \tag{R-If-False}
 $$
 
-The standard rules for sum case are analogous. Reduction does not proceed inside the continuation of an exposed operation node $\beta(V;y.M)$ before an operation result is supplied.
+The standard rules for sum case are analogous. There is no `R-Let-Base` bubbling rule. A term $\mathcal E[\beta(V)]$ exposes a request together with its surrounding evaluation context; the operation syntax itself contains no continuation.
 
 ## 8. Characteristic calculation
 
@@ -283,24 +293,26 @@ $$
 be a base operation. Then
 
 ```text
-let x <- tell("a"; u. return true) in
-tell("b"; v. return x)
+let u <- tell("a") in
+let v <- tell("b") in
+return true
 ```
 
-reduces by `R-Let-Base` to
+has request form
 
 ```text
-tell("a"; u.
-  let x <- return true in
-  tell("b"; v. return x))
+E[tell("a")]
 ```
 
-and then, inside the suspended continuation once `tell "a"` is resumed, by `R-Let-Return` to
+where
 
 ```text
-tell("a"; u.
-  tell("b"; v. return true))
+E = let u <- [-] in
+    let v <- tell("b") in
+    return true
 ```
+
+A Writer machine responds with `return *`; subsequent `R-Let-Return` exposes `tell("b")`. The complete calculation appears in [Base calculus examples v1](base-calculus-examples-v1.md).
 
 The effect typing records the same order:
 
@@ -336,20 +348,14 @@ $$
 \Gamma\vdash M':A!b.
 $$
 
-For `R-Let-Base`, the relevant equality is precisely monoid associativity:
-
-$$
-(|\beta|\cdot b)\cdot c
-=
-|\beta|\cdot(b\cdot c).
-$$
+Internal preservation uses substitution for `R-Beta` and `R-Let-Return`, and common branch effects for conditional/case reduction. Base-machine response steps are treated separately because they discharge an observed operation rather than being internal reductions.
 
 ### B-003 — Decomposition
 
 A closed well-typed computation is exactly one of:
 
 1. $\mathsf{return}\;V$;
-2. $\beta(V;y.M)$;
+2. a request form $\mathcal E[\beta(V)]$;
 3. able to take a unique internal reduction step.
 
 ### B-004 — Effect soundness interface
