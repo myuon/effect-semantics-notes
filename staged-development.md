@@ -48,6 +48,8 @@ Current candidate: [Free-operation extension v1](free-operation-extension-v1.md)
 
 Upper-bound alternative: [Optional free layers v1](optional-free-layers-v1.md) allows $1\to\Delta$, replaces exact operation nodes by skip-or-operation layers, and identifies proof-relevant padding coherence as the main additional requirement. This direction currently better matches the intended user-facing language.
 
+The supplied thesis Definition 21 is analyzed in [Reading of the original design](original-design-reading.md). Its coercion $be\leq b\Delta e$ makes optional upper-bound layers part of the original philosophy, while its unexplained value-clause lifting and padding coherence remain to be repaired.
+
 ## Stage 2 — Add shallow handlers
 
 Stage 1のcalculusにmatching shallow handlerを追加する。

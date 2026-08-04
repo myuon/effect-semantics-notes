@@ -33,6 +33,7 @@ project:
       children:
         - file: free-operation-extension-v1.md
         - file: optional-free-layers-v1.md
+        - file: original-design-reading.md
         - file: candidate-constructions.md
         - file: claims-ledger.md
         - file: open-questions.md

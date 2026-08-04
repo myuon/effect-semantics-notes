@@ -55,6 +55,8 @@
 | C-049 | Candidate | $1\to\Delta$ をproof-relevant padding morphismとして加えるとoptional layerは $\mathsf{Layer}_\Delta Z=Z+\mathsf{Op}_\Delta Z$ で解釈できる | word-embedding grading category | categorical compositionとbind naturalityを証明 |
 | C-050 | Derived | proof-irrelevantな自由paddingでは $\Delta\to\Delta\Delta$ の挿入位置が複数あり、one-layer handlersがそれらを区別しうる | `skip;op` vs `op;skip` | proof relevanceまたはcanonical elaborationを選択 |
 | C-051 | Candidate | matching shallow、unmatched-searching forwarding、final returnを分離したhandler policyがoptional upper-bound layersと整合する | C-049; explicit forwarding semantics | Stage 2 operational rulesを定義 |
+| C-052 | Established from source | Original Definition 21はcoercion $be\leq b\Delta e$ とvalue equationを要求しており、free tokenをexact occurrenceではなくoptional upper boundとして扱う | supplied thesis excerpt | operational reconstructionで $(c_{\mathsf{val}})^\sharp$ を導出 |
+| C-053 | Question | Original value lifting $T_{be}A\to T_{be'e}C$ はordinary bindではなくlayer-local effect insertionを要求する | effect order in Definition 21 | concrete operational examplesで妥当なorderを決定 |
 
 ## 証明完了の基準
 
