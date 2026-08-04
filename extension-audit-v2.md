@@ -27,7 +27,7 @@ This is the main experiment ledger for the revised program.  Each candidate exte
 | Instance | Syntax/examples | Operational decomposition | Preservation | Empty-row safety | Deep elimination | Denotational correspondence |
 |---|---:|---:|---:|---:|---:|---:|
 | Pure | fixed | inherited as Writer without `tell` | paper proof | paper proof | paper proof | open |
-| Writer | complete | paper proof | paper proof | paper proof | paper proof | open |
+| Writer | complete | paper proof | paper proof | paper proof | paper proof | paper proof, termination-conditional adequacy |
 | State | planned | open | open | open | open | open |
 | Exception | planned | open | open | open | open | open |
 

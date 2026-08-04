@@ -177,6 +177,11 @@
 | C-171 | Derived on paper | new syntaxを使わないWriter programは言語拡張に対してconservativeである | old reduction rules unchanged | denotational embeddingで再証明 |
 | C-172 | Derived conditional | identity-return handlerはbase-only Writer programのvalueとlogを保存する | no free request; base steps lift under handler | nonidentity return clauseを明示的反例として保持 |
 | C-173 | Counterexample | 同じfree row $\{\mathsf{Ask}\}$でもeffectful deep clauseのWriter出力は$\epsilon,a,aa$になりうるため、rowだけからprecise output base gradeは決まらない | zero/one/two request programs | principal-grade transformerの不可能性へ精密化 |
+| C-174 | Derived on paper | Writer-normalized interaction tree $W\times(A+\sum P\times(R\to\mathsf{WTree}A))$ はrow-refined monadを成す | Writer monoid; well-founded free requests | formal monad recordまたはmechanization |
+| C-175 | Derived on paper | standard deep handlerはmatching nodeをclauseで解釈し、nonmatching nodeのcontinuationへ再帰するtree foldとして定義できる | C-167; exhaustive clauses; WTree recursion | State transformer presentationと比較 |
+| C-176 | Derived on paper | Writer direct reductionはconfiguration tree denotationを一stepごとに保存する | C-169; C-174--C-175; semantic substitution | 全congruence casesのindependent audit |
+| C-177 | Derived conditional | closed evaluationがreturnまたはrequestへ到達するならWriter operational observationとWTreeのroot constructorは双方向に一致する | C-168; C-176; constructor disjointness | unrestricted multi-shot normalizationを証明 |
+| C-178 | Impossibility theorem on paper | exact input Writer grade、unordered row、single clause gradeだけから全programのexact handled Writer gradeを計算する関数は存在しない | free Writer monoid; zero/one/two request counterexample | upper-bound transformerに必要な最小追加構造を比較 |
 
 ## 証明完了の基準
 

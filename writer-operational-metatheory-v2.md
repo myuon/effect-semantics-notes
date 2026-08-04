@@ -454,6 +454,6 @@ The following are not proved on this page.
 - a principal Writer-grade transformer for effectful handlers;
 - contextual equivalence or logical relations.
 
-The next development should define the concrete tree semantics and prove that
-one operational reduction preserves its denotation.  Adequacy can then be
-proved by the same return/request decomposition used above.
+The concrete normalized tree semantics, one-step soundness, conditional
+adequacy, handler commutation, and exact-grade obstruction are developed in
+[Writer deep-tree semantics v2](writer-deep-tree-semantics-v2.md).
