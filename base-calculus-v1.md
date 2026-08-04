@@ -366,3 +366,5 @@ No free-operation or handler rule may be added to this page. Stage 0 is complete
 - the intended reading of base effect annotations as upper bounds has been confirmed or explicitly replaced.
 
 Only then create Stage 1 by adding free operations as a conservative extension.
+
+Worked reductions and concrete Writer/State instantiations are collected in [Base calculus examples v1](base-calculus-examples-v1.md).

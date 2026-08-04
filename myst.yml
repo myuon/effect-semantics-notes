@@ -21,6 +21,7 @@ project:
         - file: research-map.md
         - file: staged-development.md
         - file: base-calculus-v1.md
+        - file: base-calculus-examples-v1.md
         - file: exact-layer-calculus-v2.md
         - file: semantic-interface-v1.md
         - file: objects-and-notation.md
