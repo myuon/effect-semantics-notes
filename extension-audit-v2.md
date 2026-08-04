@@ -28,12 +28,20 @@ This is the main experiment ledger for the revised program.  Each candidate exte
 |---|---:|---:|---:|---:|---:|---:|
 | Pure | fixed | inherited as Writer without `tell` | paper proof | paper proof | paper proof | open |
 | Writer | complete | paper proof | paper proof | paper proof | paper proof | paper proof, termination-conditional adequacy |
-| State | planned | open | open | open | open | open |
-| Exception | planned | open | open | open | open | open |
+| State | complete | paper proof | paper proof | paper proof | paper proof | paper proof, termination-conditional adequacy |
+| Exception | complete, including old `try` | paper proof with raise outcome | paper proof | paper proof for new row | paper proof | paper proof, termination-conditional adequacy |
 
 “Paper proof” means a proof argument is written in these notes but is not yet
 machine checked.  The Writer arguments are in [Writer operational metatheory
 v2](writer-operational-metatheory-v2.md).
+
+State results are in [State deep-handler study
+v2](state-deep-handler-study-v2.md) and [State free-tree semantics
+v2](state-free-tree-semantics-v2.md).  Exception results are in [Exception
+handler interaction v2](exception-handler-interaction-v2.md) and [Exception
+free-tree semantics v2](exception-free-tree-semantics-v2.md).  The extracted
+common boundary is [Concrete base comparison
+v2](concrete-base-comparison-v2.md).
 
 ## First boundary example: effectful clauses
 

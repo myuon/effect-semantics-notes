@@ -148,3 +148,58 @@ This exposes enough structure for operational proofs without claiming that opaqu
 
 We do not require every effect system in the literature to instantiate one fixed record unchanged.  A useful theorem may instead quantify over a small family of packages and state explicitly where capability, protocol, or scoped-effect systems require a different interface.
 
+## Revision after the concrete instances
+
+The Pure, Writer, State, and Exception studies show that the tentative package
+above should be factored rather than offered as one mandatory record.
+
+### `BaseSafety`
+
+- old syntax and typing;
+- unique active CBV context;
+- deterministic base step or classified base outcome;
+- base primitives silent in the new free row;
+- base steps lift through pending new handlers.
+
+This layer is sufficient for the candidate generic preservation, progress,
+empty-row safety, deep discharge, and language conservativity theorem.
+
+### `BaseResumptionModel`
+
+A presentation equivalent in role to
+
+$$
+\mathsf{Res}_{T,\Sigma}A
+\cong
+T(A+\Sigma(\mathsf{Res}_{T,\Sigma}A)),
+$$
+
+or an operational behavior-tree interface exposing base return, base nonreturn
+outcomes, and new free requests with continuations.
+
+This is additional to monad composition.  It supports handler folds and
+operational/denotational correspondence.
+
+### `BaseObservation`
+
+Ground observations and an adequacy/simulation interface for the chosen
+resumption presentation.
+
+### `HandlerInteraction`
+
+Laws or operational choices for:
+
+- continuation discard and duplication;
+- global versus backtracking state;
+- scope of old handlers around newly executed clauses;
+- algebraicity or nonalgebraicity of base operations.
+
+### `BaseEffectAbstraction`
+
+A static abstraction of the intensional behavior and, when possible, a sound
+transformer for handling.  Writer and State show that an unordered free row
+alone cannot supply an exact transformer for nontrivial base grades.
+
+The detailed comparison is [Concrete base comparison
+v2](concrete-base-comparison-v2.md).  This factorization supersedes the idea
+that every preservation result should require the full package at once.

@@ -182,6 +182,14 @@
 | C-176 | Derived on paper | Writer direct reductionはconfiguration tree denotationを一stepごとに保存する | C-169; C-174--C-175; semantic substitution | 全congruence casesのindependent audit |
 | C-177 | Derived conditional | closed evaluationがreturnまたはrequestへ到達するならWriter operational observationとWTreeのroot constructorは双方向に一致する | C-168; C-176; constructor disjointness | unrestricted multi-shot normalizationを証明 |
 | C-178 | Impossibility theorem on paper | exact input Writer grade、unordered row、single clause gradeだけから全programのexact handled Writer gradeを計算する関数は存在しない | free Writer monoid; zero/one/two request counterexample | upper-bound transformerに必要な最小追加構造を比較 |
+| C-179 | Derived on paper | State instanceはdeterministic decomposition、free-row preservation/progress、empty-row safety、deep elimination、base conservativityを満たす | total deterministic `get`/`put`; common handler calculus | mechanizationまたはproof audit |
+| C-180 | Derived on paper | State-resumption tree $S\to(A\times S+\sum P\times S\times(R\to\mathsf{STree}A))$ はglobal sequential Stateとfree requestsを合成しdirect semanticsをsoundに解釈する | State threading; structural request recursion | backtracking State presentationと比較 |
+| C-181 | Impossibility theorem on paper | exact input State relation、unordered row、single clause relationだけから全programのexact handled State relationは決まらない | zero/one/two request increment examples | closure/count/refinementを比較 |
+| C-182 | Derived on paper | base `try`を含むException instanceはreturn/step/base raise/free requestの決定的分解とnew-row safety/deep eliminationを満たす | nearest base/free handlers; nominal matching | full typing rulesを展開 |
+| C-183 | Counterexample | base `try`とnew free handlerはclause-generated raiseについて一般にcommuteしない | clause executes outside captured continuation; discarded resumption | general HandlerInteraction lawへ反映 |
+| C-184 | Derived on paper | Exception-resumption tree $A+X+\sum P\times(R\to\mathsf{XTree}A)$ 上でbase `try`とnew deep handlerのscope差を正確に解釈できる | structural folds for try and free handler | other abortive base effectsで検証 |
+| C-185 | Synthesis candidate | BaseSafetyだけでnew-row preservation/progress/empty-row safety/deep discharge/language conservativityを一般化し、BaseResumptionModelを加えるとhandler foldとconditional adequacyを一般化できる | C-168--C-184; Concrete base comparison v2 | precise generic theoremを定式化 |
+| C-186 | Boundary | precise output base gradeにはBaseEffectAbstractionに加えてcount/order/scope等のHandlerInteractionが必要で、unordered rowだけでは不足する | C-178; C-181; C-183 | generic safety theoremから別layerとして分離 |
 
 ## 証明完了の基準
 

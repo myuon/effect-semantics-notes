@@ -269,9 +269,9 @@ For each base, proceed in the same order.
 9. Record exactly which base laws the proof used.
 10. Add one counterexample obtained by removing a used law.
 
-Only after this table is complete for Pure, Writer, State, and Exception do we
-revise [Base semantic package v2](base-semantic-package-v2.md) into a proposed
-general theorem interface.
+The first table is now complete at paper level for Pure, Writer, State, and
+Exception.  Its extracted common structure and first genuine design fork are
+recorded in [Concrete base comparison v2](concrete-base-comparison-v2.md).
 
 ## Immediate next task
 

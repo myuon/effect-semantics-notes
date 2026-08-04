@@ -30,6 +30,12 @@ project:
         - file: writer-deep-handler-examples-v2.md
         - file: writer-operational-metatheory-v2.md
         - file: writer-deep-tree-semantics-v2.md
+        - file: state-deep-handler-study-v2.md
+        - file: state-free-tree-semantics-v2.md
+        - file: exception-handler-interaction-v2.md
+        - file: exception-free-tree-semantics-v2.md
+        - file: concrete-base-comparison-v2.md
+        - file: generic-safety-extension-v2.md
         - file: novelty-map-v2.md
     - title: Base-language foundation
       children:
