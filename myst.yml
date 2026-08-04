@@ -35,6 +35,7 @@ project:
         - file: optional-free-layers-v1.md
         - file: original-design-reading.md
         - file: optional-handler-tests-v1.md
+        - file: intended-shallow-matcher-v1.md
         - file: candidate-constructions.md
         - file: claims-ledger.md
         - file: open-questions.md

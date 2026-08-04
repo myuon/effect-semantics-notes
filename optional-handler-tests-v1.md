@@ -4,6 +4,8 @@
 
 **Exploratory Stage 2 tests; no handler design is adopted yet.**
 
+> **Revision:** The effectful `return` clause and first-class continuation used in P-001--P-010 are deliberately more general than the clarified core syntax. The current reconstruction is [Intended shallow matcher v1](intended-shallow-matcher-v1.md), where fallback is identity and the continuation resumes implicitly exactly once. This page remains useful as a boundary test for possible future generalizations.
+
 These programs compare:
 
 1. a conventional whole-computation shallow handler that searches through base/mismatching operations;
@@ -572,4 +574,3 @@ or
 ```
 
 The first selects a conventional whole-computation handler. The second selects the original positional layer-replacement philosophy and requires the calculus to expose/suspend the tail boundary explicitly.
-

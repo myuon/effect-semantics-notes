@@ -208,3 +208,4 @@ The next task should therefore not begin with the end formula in Remark 22. It s
 
 This follows the original philosophy without inheriting its unresolved assumptions.
 
+After clarification of the surface syntax, the current operational reconstruction is [Intended shallow matcher v1](intended-shallow-matcher-v1.md). In particular, the core fallback is identity and the matching continuation is resumed implicitly exactly once; arbitrary effectful value clauses and user-controlled continuation usage are treated as later generalizations.

@@ -60,6 +60,9 @@
 | C-054 | Derived conditional | left-to-right CBV searching handlerではpadded no-operation pathのeffect orderは $bee'$ だが、matching pathは $be'e$ になる | Optional handler tests P-002--P-005 | common upper boundまたはpositional semanticsを選択 |
 | C-055 | Derived | continuationの無視・複製によりtail effectの使用回数が変わるため、固定出力 $be'e$ にはaffinity/idempotence/usage-sensitive typingのいずれかが必要である | P-006--P-007 | handler continuation disciplineを選択 |
 | C-056 | Derived | repeated paddingのproof relevanceはhandler styleに依存し、positional handlerはpadding位置を観測するがsearching handlerはquotientできる可能性がある | P-010 | main handler philosophyを選択 |
+| C-057 | Adopted reconstruction | Core shallow matcherのmatching branchはoperation resultを生成し、captured continuationを暗黙にexactly once再開し、同じhandlerを再設置しない | clarified source-language intent | formal typing/reduction ruleをStage 2 calculusへ統合 |
+| C-058 | Adopted reconstruction | Core matcherのvalue/unmatched behaviorはeffectful return clauseではなくimplicit identity fallbackである | clarified `_ -> y` syntax | unmatched forwardingのhead-form ruleを型付け |
+| C-059 | Derived conditional | $1\leq e'$ の下でno-match path $be$ とmatching path $be'e$ は共通upper bound $be'e$ を持つ | optional effect insertion; C-057--C-058 | padding coherenceまたはtrace-bound semanticsを構成 |
 
 ## 証明完了の基準
 
