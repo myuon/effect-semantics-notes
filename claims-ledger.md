@@ -126,6 +126,11 @@
 | C-120 | Derived | Exact handler-path lemmaによりexhaustive structural handlerは$\Phi_{\Delta,K}$でgradeされresult typeにnaturalである | FE-011--FE-015 | clause environment naturalityを追加確認 |
 | C-121 | Derived | Gradeを忘れた$\mathsf{GTree}$はcombined polynomial signature上のfree monadである | FE-016; small W-types in Set | graded universal propertyの必要性を評価 |
 | C-122 | Main theorem proved on paper | `Set`におけるFree extension theorem FE-017はquantale、strong graded monad、primitive、proof-irrelevant weakening、shallow handler、ungraded initialityを与える | C-118--C-121 | mechanizationまたはpeer proof audit |
+| C-123 | Derived obstruction | pathwiseに$J(b)$でboundされたbase treeだけからは、任意のpreordered monoid上でroot後続枝の共通residual gradeを復元する原理が与えられない | absence of joins/factorization | concrete finite counterexampleまたは十分条件を追加 |
+| C-124 | Derived | grade導出付き$\mathsf{BTree}_b$はtrace-soundでtyped return/bindを持つ | BI-001--BI-003 | mechanizationでderivation datatypeを実装 |
+| C-125 | Derived | 任意のcoherent $B$-graded monadとgrade-correct primitivesはtyped base treeからreturn/bind/weakening/primitivesを保存するcanonical foldを受け取る | BI-004--BI-005 | source typing coherence theoremと接続 |
+| C-126 | Derived | primitive-preserving graded monad morphismはtyped base foldsと可換する | BI-006 | logical relation版を証明 |
+| C-127 | Main theorem proved on paper | Base interpretation layer BI-008はtyped fold、coherence、strength preservation、morphism liftingを与える | C-124--C-126 | conditional adequacy layerへ進む |
 
 ## 証明完了の基準
 

@@ -78,6 +78,8 @@ The first Stage 3 denotational construction is [Shallow handler denotation v1](s
 
 [Free extension theorem v1](free-extension-theorem-v1.md) gives the detailed proof of the first main-theorem layer in `Set`: quantale laws, strong graded-monad laws, proof-irrelevant weakening, primitive operations, first-free-head handler grading and naturality, and the underlying free-monad universal property.
 
+[Typed base interpretation theorem v1](typed-base-interpretation-theorem-v1.md) proves the second layer. It replaces the over-strong idea of folding every path-bounded base tree by the precise derivation-indexed theorem: source typing supplies the residual-grade factorization needed to fold into an arbitrary $B$-graded monad $T$.
+
 ## Stage 2 — Add shallow handlers
 
 Stage 1のcalculusにmatching shallow handlerを追加する。
