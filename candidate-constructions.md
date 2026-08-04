@@ -100,7 +100,7 @@ $$
 ## Alternative B: recursive/free-monad construction
 
 $$
-MX\cong T(X+H_\Delta MX)
+MX\cong T(X+\mathsf{Op}_\Delta MX)
 $$
 
 の初期代数や自由モナドで全ての operation tree を一度に作る案。

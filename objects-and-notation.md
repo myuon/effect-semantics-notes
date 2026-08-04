@@ -41,7 +41,7 @@ $$
 一層の operation shape の候補は
 
 $$
-H_\Delta X
+\mathsf{Op}_\Delta X
 =
 \coprod_i A_i\times X^{B_i}.
 $$
@@ -49,7 +49,7 @@ $$
 return/tail branch を含めた polynomial は
 
 $$
-P_\Delta X = X + H_\Delta X.
+P_\Delta X = X + \mathsf{Op}_\Delta X.
 $$
 
 ## Extended effect words

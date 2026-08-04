@@ -120,13 +120,13 @@ $B*\mathcal D^*$ の標準的reduced wordは $B$ のnon-unit elementsと $\mathc
 候補:
 
 $$
-X+H_\Delta(K)
+X+\mathsf{Op}_\Delta(K)
 $$
 
 または
 
 $$
-K+H_\Delta(K).
+K+\mathsf{Op}_\Delta(K).
 $$
 
 前者はstandard shallow return clause、後者はlayer skip/tail preservationに対応する。元のtyping ruleとbindを再構成して決める。

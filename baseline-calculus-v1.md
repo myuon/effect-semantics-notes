@@ -406,7 +406,7 @@ Contextual equivalence and complete abstraction are explicitly postponed.
 Baseline v1 gives $[\Delta]\cdot e$ an operational, leading-operation interpretation. It does not yet justify the earlier candidate
 
 $$
-T_b(\widehat T_eX+H_\Delta(\widehat T_eX)).
+T_b(\widehat T_eX+\mathsf{Op}_\Delta(\widehat T_eX)).
 $$
 
 That expression may instead describe a handler operating underneath a base prefix or a designated semantic layer. The planned comparison is:

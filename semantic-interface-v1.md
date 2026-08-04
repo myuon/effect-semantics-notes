@@ -156,7 +156,7 @@ return clause と operation clause が異なる結果を返す handler は、こ
 標準的な shallow handler に直接対応する head functor を
 
 $$
-H_\Delta Z
+\mathsf{Op}_\Delta Z
 =
 \coprod_{\operatorname{op}:P\to R\in\Delta}
 P\times Z^R
@@ -169,7 +169,7 @@ $$
 $$
 \mathsf{Head}_{\Delta,e}(X)
 =
-X+H_\Delta(T_eX).
+X+\mathsf{Op}_\Delta(T_eX).
 $$
 
 要素的には
@@ -217,7 +217,7 @@ Extended operational/denotational carrier を、head form が構造として残�
 
 $$
 \mathsf{Head}_{\Delta,e}(X)
-=X+H_\Delta(T_eX).
+=X+\mathsf{Op}_\Delta(T_eX).
 $$
 
 利点:
@@ -240,7 +240,7 @@ $$
 \mathsf{out}_{\Delta,e,X}:
 T_{[\Delta]\cdot e}X
 \to
-X+H_\Delta(T_eX)
+X+\mathsf{Op}_\Delta(T_eX)
 $$
 
 を要求する。

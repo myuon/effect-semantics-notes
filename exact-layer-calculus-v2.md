@@ -131,10 +131,10 @@ $$
 
 と略記する。
 
-Interface $\Delta$ のpolynomial signature functorを
+Interface $\Delta$ のone-operation shape functorを
 
 $$
-H_\Delta Z
+\mathsf{Op}_\Delta Z
 =
 \coprod_{\operatorname{op}:P\to R\in\Delta}
 P\times Z^R
@@ -147,7 +147,7 @@ $$
 $$
 \widehat T_{\Delta\cdot b\cdot E}X
 =
-X+H_\Delta(K_{b,E}(X)).
+X+\mathsf{Op}_\Delta(K_{b,E}(X)).
 $$
 
 すなわち要素は
@@ -173,17 +173,17 @@ $$
 もし元のcalculusで「そのfree layerをskipしてtail computationを残す」constructorが必要なら、carrierは別途
 
 $$
-K_{b,E}(X)+H_\Delta(K_{b,E}(X))
+K_{b,E}(X)+\mathsf{Op}_\Delta(K_{b,E}(X))
 $$
 
 とする必要がある。この二案は同一ではないため、後でtyping rulesから決定する。
 
 ## 6. Typed shallow handlers
 
-A shallow handler is indexed by the operation type it eliminates:
+A shallow handler is indexed by the operation type it eliminates. To distinguish it from the operation-shape functor, write
 
 $$
-H_\Delta.
+\mathcal H_\Delta.
 $$
 
 Its clauses are
@@ -203,8 +203,8 @@ $$
 By coproduct elimination,
 
 $$
-\llbracket H_\Delta\rrbracket:
-X+H_\Delta(T_b(\widehat T_EX))
+\llbracket \mathcal H_\Delta\rrbracket:
+X+\mathsf{Op}_\Delta(T_b(\widehat T_EX))
 \to C.
 $$
 
@@ -218,11 +218,11 @@ $$
 \frac{
 \Gamma\vdash M:A!(\Delta\cdot b\cdot E)
 \qquad
-\Gamma\vdash H_\Delta:A\Rightarrow C
+\Gamma\vdash \mathcal H_\Delta:A\Rightarrow C
 }
 {
 \Gamma\vdash
-\mathsf{handle}^{\mathsf{sh}}_\Delta M\;\mathsf{with}\;H_\Delta
+\mathsf{handle}^{\mathsf{sh}}_\Delta M\;\mathsf{with}\;\mathcal H_\Delta
 :C!F
 }.
 $$
@@ -283,7 +283,7 @@ The type
 
 $$
 \widehat T_{\Delta\cdot b\cdot E}X
-=X+H_\Delta(T_b(\widehat T_EX))
+=X+\mathsf{Op}_\Delta(T_b(\widehat T_EX))
 $$
 
 already exposes exactly the information that the previous head-shape proposal attempted to approximate:
@@ -310,7 +310,7 @@ An arbitrary rule that changes the exposed factor from $\Delta$ to unrelated $\G
 ## 12. Immediate proof obligations
 
 1. Prove that $B*\mathcal D^*$ has the claimed alternating normal forms.
-2. Fix whether a free layer has carrier $X+H_\Delta K$ or $K+H_\Delta K$.
+2. Fix whether a free layer has carrier $X+\mathsf{Op}_\Delta K$ or $K+\mathsf{Op}_\Delta K$.
 3. Define unit and sequential bind on all alternating words.
 4. Prove that matching handler equations are well typed.
 5. Define lifting of handler elimination through an outer base segment.
@@ -337,4 +337,3 @@ $$
 $$
 
 such that matching shallow handlers are related and base observations remain adequate under explicit separation assumptions.
-

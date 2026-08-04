@@ -139,4 +139,22 @@ An independent head-shape index is unnecessary on the main line. The typed free 
 
 ### Next mathematical task
 
-Choose between $X+H_\Delta(K)$ and $K+H_\Delta(K)$ by reconstructing unit and bind for alternating words. Then formulate handler lifting through an outer base segment.
+Choose between $X+\mathsf{Op}_\Delta(K)$ and $K+\mathsf{Op}_\Delta(K)$ by reconstructing unit and bind for alternating words. Then formulate handler lifting through an outer base segment.
+
+## 2026-08-04 — Notation separation
+
+The symbol $H_\Delta$ had been overloaded for both an operation-shape functor and a shallow handler. These are distinct. We now write
+
+$$
+\mathsf{Op}_\Delta Z
+=
+\coprod_{\operatorname{op}:P\to R\in\Delta}P\times Z^R
+$$
+
+for the shape of one exposed operation node, and
+
+$$
+\mathcal H_\Delta
+$$
+
+for a shallow handler value/eliminator.
