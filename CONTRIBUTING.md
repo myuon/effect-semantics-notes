@@ -6,13 +6,13 @@ The source of truth is the Markdown in this repository. Mathematics uses
 LaTeX delimiters:
 
 ```markdown
-Inline mathematics: \(T_e X\)
+Inline mathematics: $T_e X$
 
 Display mathematics:
 
-\[
+$$
 T_eT_fX \longrightarrow T_{e\cdot f}X
-\]
+$$
 ```
 
 With MyST installed, start a live preview from the repository root:

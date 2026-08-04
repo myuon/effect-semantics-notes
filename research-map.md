@@ -2,41 +2,41 @@
 
 ## 出発点
 
-ベース effect の添字を preordered monoid \((B,\cdot,I,\leq)\) とし、計算を graded monad で解釈する。
+ベース effect の添字を preordered monoid $(B,\cdot,I,\leq)$ とし、計算を graded monad で解釈する。
 
-\[
+$$
 S_b X \qquad T_b X \qquad (b\in B)
-\]
+$$
 
-ここで \(S\) は operational model、\(T\) は denotational model の候補である。両者が同じ圏上にあるとは仮定しない。最初から関数 \(S\to T\) を要求するのではなく、morphism、simulation、logical relation のいずれが適切かを調べる。
+ここで $S$ は operational model、$T$ は denotational model の候補である。両者が同じ圏上にあるとは仮定しない。最初から関数 $S\to T$ を要求するのではなく、morphism、simulation、logical relation のいずれが適切かを調べる。
 
 構文上の基準言語は [Baseline calculus v1](baseline-calculus-v1.md) とする。これは元の修論の再現ではなく、以後の主張を検査可能にするため固定した working calculus である。
 
 ## 中心的な研究課題
 
-free effect interface \(\Delta\) を追加する操作を \(\mathsf{Sh}_\Delta\) と仮称する。
+free effect interface $\Delta$ を追加する操作を $\mathsf{Sh}_\Delta$ と仮称する。
 
-\[
+$$
 S \mapsto \mathsf{Sh}_\Delta S,
 \qquad
 T \mapsto \mathsf{Sh}_\Delta T.
-\]
+$$
 
 調べたいのは、対象だけでなく対応も持ち上がるかである。
 
-\[
+$$
 q:S\Rightarrow T
 \quad\mapsto\quad
 \mathsf{Sh}_\Delta q:
 \mathsf{Sh}_\Delta S\Rightarrow\mathsf{Sh}_\Delta T
-\]
+$$
 
-\[
+$$
 R:S\rightsquigarrow T
 \quad\mapsto\quad
 \mathsf{Sh}_\Delta R:
 \mathsf{Sh}_\Delta S\rightsquigarrow\mathsf{Sh}_\Delta T.
-\]
+$$
 
 これが成立するとして、さらに以下を問う。
 

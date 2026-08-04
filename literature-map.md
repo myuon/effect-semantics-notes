@@ -30,7 +30,7 @@
 調べること:
 
 - monad relators / simulations
-- two-sided \((S,T)\)-relation lifting
+- two-sided $(S,T)$-relation lifting
 - TT-lifting / biorthogonality
 - graph relations と strict morphisms の対応
 

@@ -25,14 +25,14 @@
 
 **Working choice:** 最初の定理では return または未処理 operation という head form を観察する。強い観察は別 claim に分ける。
 
-## Q-003: operational model \(S\) の正体
+## Q-003: operational model $S$ の正体
 
 - syntax/tree monad
 - evaluator induced monad
 - transition system から得る resumption object
 - term quotient
 
-これにより \(S\) と \(T\) の間に morphism が自然か、relation のみが自然かが変わる。
+これにより $S$ と $T$ の間に morphism が自然か、relation のみが自然かが変わる。
 
 ## Q-004: extended effect words の代数
 
@@ -40,7 +40,7 @@
 
 ## Q-005: 必要な基礎圏の条件
 
-最初は \(\mathbf{Set}\) で計算を確認し、その後に必要条件を抽出する案が有力。想定候補:
+最初は $\mathbf{Set}$ で計算を確認し、その後に必要条件を抽出する案が有力。想定候補:
 
 - finite products / coproducts
 - exponentials または operation arity に対応する powers

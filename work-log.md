@@ -35,7 +35,7 @@ Q-001 を埋め、最小 calculus の typing rules と operational observations 
 
 ### Important finding
 
-標準的 shallow handler の return clause は値を受け取る。一方、既存の Candidate A の左 branch は tail computation \(\widehat T_eX\) である。したがって Candidate A を標準的 shallow-handler semantics と無条件に同一視できない。
+標準的 shallow handler の return clause は値を受け取る。一方、既存の Candidate A の左 branch は tail computation $\widehat T_eX$ である。したがって Candidate A を標準的 shallow-handler semantics と無条件に同一視できない。
 
 これは表記上の小さな問題ではなく、head-normal decomposition と word-layer decomposition という二つの異なる意味論の可能性を示す。
 
