@@ -64,6 +64,10 @@
 | C-058 | Adopted reconstruction | Core matcherのvalue/unmatched behaviorはeffectful return clauseではなくimplicit identity fallbackである | clarified `_ -> y` syntax | unmatched forwardingのhead-form ruleを型付け |
 | C-059 | Derived conditional | $1\leq e'$ の下でno-match path $be$ とmatching path $be'e$ は共通upper bound $be'e$ を持つ | optional effect insertion; C-057--C-058 | padding coherenceまたはtrace-bound semanticsを構成 |
 | C-060 | Adopted definition | Core shallow matcherはscrutineeの最初のvalue/free-request headを一度だけ検査し、matching・value・unmatchedの全ケースでhandlerを再設置しない | clarified shallowness intent | formal Stage 2 evaluation-context rulesを固定 |
+| C-061 | Adopted definition | Stage 2 matcherはinternal step中だけscrutineeを評価し、return/matching free request/unmatched free requestのいずれかを一度処理した時点で消滅する | Shallow matcher calculus v1 | deterministic decompositionを証明 |
+| C-062 | Adopted definition | Base requestはfree matcherの判定対象ではなく、base machineが応答した後も同じmatcherがscrutinee評価を継続する | combined base-machine semantics | Writer machineとの合成遷移系を定義 |
+| C-063 | Derived conditional | branch effect $e'$ がoptional ($1\leq e'$) ならmatching path $be'e$ とno-match path $be$ はhandler output $be'e$ で統一できる | T-Handle-1; monotonicity | residual-effect context lemmaを証明 |
+| C-064 | Proof obligation | T-Handle-1のpreservationには、exposed requestの評価文脈からprefix/request/tail factorizationを復元するtyped context inversion lemmaが必要である | Stage 2 context typing | lemmaを定式化して帰納証明 |
 
 ## 証明完了の基準
 

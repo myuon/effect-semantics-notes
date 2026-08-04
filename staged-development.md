@@ -54,6 +54,8 @@ Concrete return/match/ignore/duplicate/mismatch tests are calculated in [Optiona
 
 The clarified source-level intention is reconstructed in [Intended shallow matcher v1](intended-shallow-matcher-v1.md): branches replace an operation result, the captured continuation resumes implicitly exactly once, and value/unmatched cases use an identity fallback that permanently ends the handler. This removes the arbitrary-return-clause, searching-forwarding, and continuation-usage assumptions from the core language.
 
+The adopted Stage 2 source calculus and its provisional upper-bound typing are fixed in [Shallow matcher calculus v1](shallow-matcher-calculus-v1.md). Its operational rules are now stable; the representation of optional subeffect evidence remains a denotational design choice.
+
 ## Stage 2 — Add shallow handlers
 
 Stage 1のcalculusにmatching shallow handlerを追加する。
