@@ -60,6 +60,8 @@ The first preservation proof is factored through typed residual contexts in [Res
 
 The core language therefore adopts exhaustive interface handlers: a handler indexed by $\Delta$ must provide one clause for every operation in $\Delta$. Partial operation matchers are deferred as a separate extension.
 
+This choice is compared with Koka, Effekt, Frank, OCaml 5, and representative formal calculi in [Handler exhaustiveness survey](handler-exhaustiveness-survey.md). Typed interface-oriented languages support the exhaustive design, while OCaml illustrates dynamically partial forwarding without static effect safety.
+
 ## Stage 2 — Add shallow handlers
 
 Stage 1のcalculusにmatching shallow handlerを追加する。

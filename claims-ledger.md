@@ -76,6 +76,9 @@
 | C-070 | Derived conditional | $\Delta$ の全operationに共通effect $e'$ のbranchがあり $1\leq e'$ ならexhaustive handlerは $b\Delta e\mapsto be'e$ で型付けできる | C-065--C-067; optional branch effects | full preservation theoremを記述 |
 | C-071 | Adopted definition | Coreの$\Delta$-indexed handlerは$\Delta$に属する全operationを重複なくbranchとして持つ | C-068--C-070; T-Handler-WF | preservation proofでinversionを使用 |
 | C-072 | Deferred extension | Partial operation matcherはcoreに含めず、operation-granular indexまたはtrace transformerを導入する将来拡張として扱う | C-068--C-069 | main denotation完成後に再評価 |
+| C-073 | Literature observation | KokaとEffektはeffect/interface handlerを全operationを含む実装単位として扱い、coreのexhaustiveness仮定に近い | official Koka/Effekt documentation | formal rulesとの細部比較を継続 |
+| C-074 | Literature observation | OCaml 5はpartial pattern handlerとouter forwardingを許すが、effect safetyを静的には保証しない | OCaml 5 manual | shallow APIのlabelled semanticsを比較 |
+| C-075 | Derived taxonomy | 他interfaceをambient rowへforwardすることと、同一interface内の一部operationだけをeliminateすることは異なる | Handler exhaustiveness survey; C-068 | future partial extensionでsignature subtractionを検討 |
 
 ## 証明完了の基準
 

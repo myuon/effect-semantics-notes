@@ -38,6 +38,7 @@ project:
         - file: intended-shallow-matcher-v1.md
         - file: shallow-matcher-calculus-v1.md
         - file: residual-context-typing-v1.md
+        - file: handler-exhaustiveness-survey.md
         - file: candidate-constructions.md
         - file: claims-ledger.md
         - file: open-questions.md
