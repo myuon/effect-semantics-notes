@@ -42,6 +42,7 @@
 | C-036 | Adopted definition | 研究はbase calculus、free-operation extension、shallow-handler extension、denotational reconstructionの順に進める | Staged development | Stage 0のB-001--B-003を証明 |
 | C-037 | Adopted definition | Stage 0のbase operation syntaxはcontinuationを含むnodeではなく、単純なcomputation $\beta(V):R_\beta!|\beta|$ である | Base calculus v1 | contextual request decompositionを証明 |
 | C-038 | Literature theorem | CCC、全射に対するparameterized fixed points、binary coproductsは非退化な一つの圏では共存しない | Huwig–Poigné 1990 | value/computation分離を使ったrecursion semanticsを設計 |
+| C-039 | Candidate | Stage 0 calculusはsubeffect coercionsとstrengthを備えた$B$-graded monadで解釈できる | Base denotational semantics v1 | substitution、reduction soundness、coherenceを証明 |
 
 ## 証明完了の基準
 

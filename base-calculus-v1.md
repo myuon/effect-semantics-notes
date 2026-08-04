@@ -188,6 +188,23 @@ $$
 
 The sum-elimination rule likewise requires both branches to have a common result type and effect $b$. `T-Sub` may first widen them to a common upper bound.
 
+Explicitly:
+
+$$
+\frac{
+\Gamma\vdash V:A+B
+\quad
+\Gamma,x:A\vdash M:C!b
+\quad
+\Gamma,y:B\vdash N:C!b}
+{\Gamma\vdash
+\mathsf{case}\;V\;\mathsf{of}\;
+\mathsf{inl}\;x\Rightarrow M
+\mid\mathsf{inr}\;y\Rightarrow N
+:C!b}.
+\tag{T-Case}
+$$
+
 ### Base operation
 
 $$
@@ -280,7 +297,23 @@ $$
 \tag{R-If-False}
 $$
 
-The standard rules for sum case are analogous. There is no `R-Let-Base` bubbling rule. A term $\mathcal E[\beta(V)]$ exposes a request together with its surrounding evaluation context; the operation syntax itself contains no continuation.
+$$
+\mathsf{case}\;(\mathsf{inl}\;V)\;\mathsf{of}\;
+\mathsf{inl}\;x\Rightarrow M
+\mid\mathsf{inr}\;y\Rightarrow N
+\longrightarrow M[V/x],
+\tag{R-Case-Inl}
+$$
+
+$$
+\mathsf{case}\;(\mathsf{inr}\;V)\;\mathsf{of}\;
+\mathsf{inl}\;x\Rightarrow M
+\mid\mathsf{inr}\;y\Rightarrow N
+\longrightarrow N[V/y].
+\tag{R-Case-Inr}
+$$
+
+There is no `R-Let-Base` bubbling rule. A term $\mathcal E[\beta(V)]$ exposes a request together with its surrounding evaluation context; the operation syntax itself contains no continuation.
 
 ## 8. Characteristic calculation
 
