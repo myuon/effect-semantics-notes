@@ -25,6 +25,7 @@ project:
         - file: base-semantic-package-v2.md
         - file: extension-audit-v2.md
         - file: unordered-deep-baseline-v2.md
+        - file: concrete-base-program-v2.md
         - file: novelty-map-v2.md
     - title: Base-language foundation
       children:

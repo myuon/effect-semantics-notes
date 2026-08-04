@@ -92,16 +92,20 @@ The following are working hypotheses, not established results.
 
 ## First research cycle
 
-The first cycle is deliberately small.
+The first cycle is deliberately concrete.  We do not start by proving the
+capability-indexed theorem.
 
-1. Fix the known baseline: recursion-free fine-grain CBV STLC, unordered rows, exhaustive deep handlers.
-2. State and prove its type safety, unhandled-effect safety, elimination, and tree adequacy.
-3. Replace the trivial base by a parameterized base semantic package while keeping handler clauses base-pure.
-4. Identify exactly which baseline proofs lift structurally.
-5. Add base-effectful clauses and search for the first counterexample.
-6. Compare remedies: commutative/idempotent base effects, iteration, counts, or ordered trace refinement.
+1. Fix one common syntax for free operations, unordered rows, and exhaustive deep handlers.
+2. Instantiate it over several concrete bases: pure STLC, Writer, State, and Exception.
+3. For each instance, calculate example programs before proving the baseline property package.
+4. Compare the proofs and identify their genuinely common steps.
+5. Only then extract the smallest base semantic package supporting those steps.
+6. Add base-effectful and multi-shot clauses and search for the first counterexamples.
+7. Compare remedies: commutative/idempotent base effects, iteration, counts, or ordered trace refinement.
 
 The [extension audit](extension-audit-v2.md) records the result of each step.
+The concrete order and choice of examples are fixed in [Concrete base program
+v2](concrete-base-program-v2.md).
 
 ## Success criteria
 
@@ -112,4 +116,3 @@ This direction succeeds even if no single maximal theorem exists.  A useful resu
 - a hierarchy of handler fragments by required base structure;
 - an abstraction theorem relating runtime trees, ordered traces, counts, and unordered rows;
 - a reusable proof recipe for an existing language designer considering handlers.
-

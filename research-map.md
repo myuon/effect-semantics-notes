@@ -10,6 +10,8 @@
 
 最初の比較基準は [Unordered/deep baseline v2](unordered-deep-baseline-v2.md) の STLC、unordered free-effect rows、exhaustive deep handlers である。ここから base language を段階的に一般化し、[Extension audit v2](extension-audit-v2.md) に従って保存性を検査する。
 
+一般定理を先に仮定しない。共通のeffect構文を固定した後、[Concrete base program v2](concrete-base-program-v2.md) に従い Pure、Writer、State、Exception の具体的モデルでプログラム計算と基準定理を個別に確認する。その証明の共通部分から、最後に base semantic package の必要構造を抽出する。
+
 ```{mermaid}
 flowchart LR
   B["Base semantic package"] --> E["Free-operation extension"]
