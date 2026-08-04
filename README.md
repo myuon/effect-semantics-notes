@@ -24,11 +24,12 @@
 2. [Objects and notation](objects-and-notation.md) — 登場する対象と記法
 3. [Baseline calculus v1](baseline-calculus-v1.md) — 以後の基準として固定する言語
 4. [Minimal calculus v0](minimal-calculus-v0.md) — v1以前の探索記録
-5. [Candidate constructions](candidate-constructions.md) — 構成案と計算
-6. [Claims ledger](claims-ledger.md) — 既知・予想・未検証の台帳
-7. [Open questions](open-questions.md) — 設計判断と未解決点
-8. [Literature map](literature-map.md) — 関連研究を主張ごとに整理する場所
-9. [Work log](work-log.md) — 議論と変更の履歴
+5. [Semantic interface v1](semantic-interface-v1.md) — graded monadだけで何ができ、何が不足するか
+6. [Candidate constructions](candidate-constructions.md) — 構成案と計算
+7. [Claims ledger](claims-ledger.md) — 既知・予想・未検証の台帳
+8. [Open questions](open-questions.md) — 設計判断と未解決点
+9. [Literature map](literature-map.md) — 関連研究を主張ごとに整理する場所
+10. [Work log](work-log.md) — 議論と変更の履歴
 
 ## ステータス記法
 

@@ -20,6 +20,7 @@ project:
       children:
         - file: research-map.md
         - file: baseline-calculus-v1.md
+        - file: semantic-interface-v1.md
         - file: objects-and-notation.md
     - title: Mathematical development
       children:
@@ -43,4 +44,3 @@ site:
   actions:
     - title: View source on GitHub
       url: https://github.com/myuon/effect-semantics-notes
-

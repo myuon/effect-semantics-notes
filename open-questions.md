@@ -72,3 +72,16 @@ shallow handler では continuation を同じ handler で再処理しない。�
 標準的 shallow handler は `return V` または最初の `op(V;k)` を観察する。一方 Candidate A は、指定された effect-word layer で `tail computation` または `op(V;k)` を観察する。
 
 元の研究対象がどちらだったかを確定する。両方に意味がある場合は、別の構文操作として定義し、その間の対応定理を探す。
+
+## Q-009: effect と head shape を分離すべきか
+
+Baseline v1 の effect annotation は上界であり、handler が要求する head decomposition を保証しない。
+
+比較対象:
+
+- effect rows + forwarding
+- sequential effect + separate head shape
+- explicit layer type
+- exact/canonical effect derivation
+
+判定基準は、操作的 progress、意味論的 decomposition、subeffect coherence、元の modular-extension という目的の四点。

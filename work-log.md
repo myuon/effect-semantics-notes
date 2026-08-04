@@ -63,3 +63,23 @@ Q-001 を埋め、最小 calculus の typing rules と operational observations 
 ### Next mathematical task
 
 Baseline v1 の denotational interface を定義する。特に exposed operation を graded monad 内でどう表し、`R-Handle-Op` をどの普遍性または case analysis で解釈するかを比較する。
+
+## 2026-08-04 — Semantic interface v1
+
+### Derived
+
+- graded monad + primitive operations で explicit operation nodes を解釈できる。
+- `R-Let-Op` は graded bind associativity から sound になる。
+- arbitrary graded monad には return/operation head decomposition がないため、shallow handler は一様には定義できない。
+
+### Counterexample
+
+一点へ全てを潰す graded monad は unit、bind、primitive operation を持つが、return と operation を識別できない。異なる clauses を選ぶ shallow handler を実装できない。
+
+### Defect found in Baseline v1
+
+effect annotations を上界として扱いながら、handler rule は先頭 operation の interface を effect から読み取っている。unrestricted subeffecting の下では別 interface の operation が露出しうるため、現行 progress claim は成立しない。
+
+### Next mathematical task
+
+標準的な effect rows + forwarding と、sequential grades + explicit head shapes を小さな例で比較する。

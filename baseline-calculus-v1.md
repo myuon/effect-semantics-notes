@@ -4,6 +4,8 @@
 
 **Adopted as the working baseline.**
 
+> **Known issue:** effect upper bounds alone do not guarantee the head shape expected by `T-Handle-Shallow`. See [Semantic interface v1](semantic-interface-v1.md), Sections 8–10. Baseline v1 remains the comparison point, but its progress claim is currently suspended.
+
 この calculus は元の修論の再現ではない。今後の意味論、保存定理、反例を比較するために固定する最小言語である。必要が生じた場合は規則を黙って変更せず、v2 を作り差分を記録する。
 
 ## 1. Design choices
@@ -381,6 +383,8 @@ A closed well-typed computation is one of:
 
 An exposed operation is an observable suspended computation, not a stuck error.
 
+**Status: blocked for Baseline v1 as written.** Unrestricted subeffecting may assign $[\Delta]\cdot e$ to a computation whose exposed operation belongs to another interface, while the handler has no forwarding rule. This is a mathematical defect in v1, not merely a missing proof.
+
 ## 11. Operational observations
 
 For the first adequacy theorem, observations are head forms:
@@ -422,4 +426,3 @@ Define the minimum semantic structure interpreting v1:
 - shallow-handler clause interpretation.
 
 The first target is soundness of `R-Let-Op` and `R-Handle-Op`, not adequacy.
-

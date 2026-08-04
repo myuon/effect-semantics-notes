@@ -21,6 +21,11 @@
 | C-015 | Derived | `R-Let-Op` の両辺の effect は monoid associativity により一致する | T-Let; T-Op | 完全な preservation proof に組み込む |
 | C-016 | Conjecture | Baseline v1 は preservation と progress modulo exposed operations を満たす | substitution; effect coherence | M-001–M-005 を紙上で証明 |
 | C-017 | Question | word-layer construction は v1 の handler-under-base-prefix を実装するか | head-normal semantics; layer semantics | 両意味論を定義して比較図式を作る |
+| C-018 | Derived | graded monad と primitive operations は explicit operation nodes を解釈できる | graded bind; $\mathsf{op}^T:P\to T_{[\Delta]}R$ | substitution semantics に組み込む |
+| C-019 | Derived | `R-Let-Op` の soundness は graded bind associativity から従う | C-018 | formal commuting diagram を追加 |
+| C-020 | Derived | arbitrary graded monad + primitive operations だけでは syntax-directed shallow handler を一様に定義できない | collapsed one-point model | categorical non-definability statement に精密化 |
+| C-021 | Rejected | Baseline v1 as written が unrestricted subeffecting の下で progress modulo operations を満たす | mismatched exposed operation counterexample | forwarding または head refinement を追加 |
+| C-022 | Candidate | effect upper bound と observable head shape を別 index にする | C-020; C-021 | row+forwarding calculus と比較 |
 
 ## 証明完了の基準
 
