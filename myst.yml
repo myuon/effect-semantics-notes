@@ -19,6 +19,7 @@ project:
     - title: Working foundation
       children:
         - file: research-map.md
+        - file: operational-calculus-v1.md
         - file: exact-layer-calculus-v2.md
         - file: semantic-interface-v1.md
         - file: objects-and-notation.md

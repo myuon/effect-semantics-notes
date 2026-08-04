@@ -2,7 +2,7 @@
 
 ## Status
 
-**Adopted as the current working calculus.**
+**Working effect-index proposal.** The syntax and dynamics are now fixed separately in [Operational calculus v1](operational-calculus-v1.md). This page must be checked against that operational core before its carrier candidates are adopted denotationally.
 
 この版では、effect index を通常の「起こりうるeffectsの集合」や上界として読まない。index は base computations と free-operation layers の順序付き構造を記録する。
 
