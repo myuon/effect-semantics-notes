@@ -79,6 +79,11 @@
 | C-073 | Literature observation | KokaとEffektはeffect/interface handlerを全operationを含む実装単位として扱い、coreのexhaustiveness仮定に近い | official Koka/Effekt documentation | formal rulesとの細部比較を継続 |
 | C-074 | Literature observation | OCaml 5はpartial pattern handlerとouter forwardingを許すが、effect safetyを静的には保証しない | OCaml 5 manual | shallow APIのlabelled semanticsを比較 |
 | C-075 | Derived taxonomy | 他interfaceをambient rowへforwardすることと、同一interface内の一部operationだけをeliminateすることは異なる | Handler exhaustiveness survey; C-068 | future partial extensionでsignature subtractionを検討 |
+| C-076 | Adopted definition | Labelled suspension $M\Uparrow\alpha(V;K)$ はoperation response後のresidual computationをmetalevel continuationとして保持する | Stage 2 operational metatheory v1 | denotational operation treeと対応付け |
+| C-077 | Derived | Base suspensionはpending handlerをresponse continuationに保持するが、unmatched free suspensionはhandlerなしのcontinuationをforwardする | S-Handle-Base; S-Handle-Free-Other | nested-handler denotationで自然性を確認 |
+| C-078 | Derived | Exhaustive clause uniquenessとraw request decompositionの下でStage 2 one-step semanticsはdeterministic base machineに対して相対的に決定的である | OS-001--OS-003 | mechanization時にmetalevel continuation equalityを表現 |
+| C-079 | Derived conditional | Stage 2 suspension propagationはresidual-context typingに関してlabelled preservationを満たす | C-065--C-070; typed machine responses | accumulated trace configurationを完全定義 |
+| C-080 | Milestone | Recursion-free Stage 2 coreのoperational designはnested handlersを含めて固定され、denotational validationへ進める | C-057--C-079 | handler denotationを構成 |
 
 ## 証明完了の基準
 

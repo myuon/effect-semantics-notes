@@ -62,6 +62,8 @@ The core language therefore adopts exhaustive interface handlers: a handler inde
 
 This choice is compared with Koka, Effekt, Frank, OCaml 5, and representative formal calculi in [Handler exhaustiveness survey](handler-exhaustiveness-survey.md). Typed interface-oriented languages support the exhaustive design, while OCaml illustrates dynamically partial forwarding without static effect safety.
 
+Nested handlers and machine interaction are completed in [Stage 2 operational metatheory v1](stage2-operational-metatheory-v1.md). Its suspension semantics proves that base requests retain a pending matcher, while an unmatched free request removes it before an outer handler sees the request. This closes the remaining operational design gap.
+
 ## Stage 2 — Add shallow handlers
 
 Stage 1のcalculusにmatching shallow handlerを追加する。

@@ -189,6 +189,12 @@ $\mathcal E$ remains unhandled.
 
 ## 6. Base-machine interaction
 
+The direct rule below is the single-handler instance of the compositional
+labelled semantics in
+[Stage 2 operational metatheory v1](stage2-operational-metatheory-v1.md). In
+particular, nested handlers distinguish base propagation (retain the pending
+handler) from unmatched free propagation (remove it).
+
 Base requests are not candidates for free-operation matching. If the base
 machine responds to
 
