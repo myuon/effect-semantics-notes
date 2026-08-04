@@ -56,6 +56,8 @@ The clarified source-level intention is reconstructed in [Intended shallow match
 
 The adopted Stage 2 source calculus and its provisional upper-bound typing are fixed in [Shallow matcher calculus v1](shallow-matcher-calculus-v1.md). Its operational rules are now stable; the representation of optional subeffect evidence remains a denotational design choice.
 
+The first preservation proof is factored through typed residual contexts in [Residual context typing v1](residual-context-typing-v1.md). It establishes the matching order $e'e$ and shows that plain token elimination is restricted to exhaustive interface handlers; partial forwarding requires a trace-transforming effect type.
+
 ## Stage 2 — Add shallow handlers
 
 Stage 1のcalculusにmatching shallow handlerを追加する。

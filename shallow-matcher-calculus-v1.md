@@ -238,6 +238,12 @@ model.
 
 ## 8. Core handler typing
 
+> **Revision after preservation analysis.** The word-elimination rule below is
+> sound as stated only when the handler covers every operation represented by
+> the selected $\Delta$ token. For partial matchers, an unmatched forwarded
+> operation must remain in the output effect. The complete derivation is in
+> [Residual context typing v1](residual-context-typing-v1.md).
+
 First state the rule for one selected operation
 $\operatorname{op}:P\to R\in\Delta$. Suppose the scrutinee has the upper-bound
 shape
@@ -264,8 +270,10 @@ $$
 \tag{T-Handle-1}
 $$
 
-For several clauses, every clause body must have the corresponding operation
-result type and a common effect upper bound $e'$.
+For the eliminating form, every operation in $\Delta$ must have a clause, and
+every clause body must have the corresponding operation result type and a common
+effect upper bound $e'$. A partial handler still has the same operational rules,
+but requires the trace-transforming type described in the revision above.
 
 This rule records the order of the matching execution:
 
@@ -330,9 +338,10 @@ only removes the matcher. The emitted request therefore has the same parameter,
 result type, and continuation result type as before. Its trace is bounded by the
 no-match bound $be\leq be'e$.
 
-These are preservation calculations, not yet a complete proof: a formal theorem
-requires a residual-effect inversion lemma connecting the syntactic context
-$\mathcal E$ to the factorization $b\Delta e$.
+The residual-effect inversion lemma and the resulting local preservation theorem
+are proved in [Residual context typing v1](residual-context-typing-v1.md). They
+also show why forwarding from a partial handler cannot erase the unmatched
+operation token.
 
 ## 10. Determinism and one-shot decomposition
 

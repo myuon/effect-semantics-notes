@@ -68,6 +68,12 @@
 | C-062 | Adopted definition | Base requestはfree matcherの判定対象ではなく、base machineが応答した後も同じmatcherがscrutinee評価を継続する | combined base-machine semantics | Writer machineとの合成遷移系を定義 |
 | C-063 | Derived conditional | branch effect $e'$ がoptional ($1\leq e'$) ならmatching path $be'e$ とno-match path $be$ はhandler output $be'e$ で統一できる | T-Handle-1; monotonicity | residual-effect context lemmaを証明 |
 | C-064 | Proof obligation | T-Handle-1のpreservationには、exposed requestの評価文脈からprefix/request/tail factorizationを復元するtyped context inversion lemmaが必要である | Stage 2 context typing | lemmaを定式化して帰納証明 |
+| C-065 | Derived | residual context judgment $\Gamma\vdash\mathcal E:R\xRightarrow{e}A$ はreturned-value pluggingとgeneral computation pluggingを満たす | CT-Hole; CT-Let; T-Let | mechanization時にcontext binderを形式化 |
+| C-066 | Derived | exposed request $\mathcal E[\operatorname{op}_\Gamma(V)]$ のprincipal residual effectは $\Gamma e$ にfactorできる | C-065; typing inversion | subeffect derivationを含む完全なinversionを形式化 |
+| C-067 | Derived | matching shallow stepのresidual effect orderはbranch $e'$ の後にcaptured tail $e$ が続く $e'e$ である | substitution; C-065--C-066 | denotational handler equationと照合 |
+| C-068 | Derived | partial matcherがunmatched operationをforwardする場合、そのoperation tokenはoutput effectから消去できない | R-Handle-Forward; C-066 | trace-language/row-transformerの候補を比較 |
+| C-069 | Rejected | partial matcher一般に対して単純なword rule $b\Delta e\mapsto be'e$ を使える | unmatched operation counterexample | exhaustive interface eliminatorに制限、またはgradeを拡張 |
+| C-070 | Derived conditional | $\Delta$ の全operationに共通effect $e'$ のbranchがあり $1\leq e'$ ならexhaustive handlerは $b\Delta e\mapsto be'e$ で型付けできる | C-065--C-067; optional branch effects | full preservation theoremを記述 |
 
 ## 証明完了の基準
 
