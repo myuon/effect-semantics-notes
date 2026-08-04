@@ -82,6 +82,8 @@ The first Stage 3 denotational construction is [Shallow handler denotation v1](s
 
 [Conditional adequacy theorem v1](conditional-adequacy-theorem-v1.md) closes the third layer under explicit assumptions: behavior-tree adequacy, operational/structural shallow-handler commutation, trace-bound soundness, and transport of ground observations through an adequate typed base fold.
 
+[Operational obligations v1](operational-obligations-v1.md) discharges OA-1, OA-2, OA-3, and OA-5 for the fixed recursion-free calculus using unique suspension decomposition, residual typing, and hereditary reducibility. OA-4 is isolated as the definition of a node-compatible external base machine.
+
 ## Stage 2 — Add shallow handlers
 
 Stage 1のcalculusにmatching shallow handlerを追加する。

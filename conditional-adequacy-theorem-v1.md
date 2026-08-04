@@ -6,7 +6,10 @@
 base machine and normalization of the recursion-free source calculus.**
 
 This page separates the theorem that is structural from the assumptions that
-belong to a chosen base language or observation.
+belong to a chosen base language or observation. For the fixed recursion-free
+calculus, OA-1, OA-2, OA-3, and OA-5 are discharged in
+[Operational obligations v1](operational-obligations-v1.md); OA-4 becomes the
+definition of a node-compatible base machine.
 
 ## 1. Three notions that must not be conflated
 

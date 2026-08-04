@@ -135,6 +135,11 @@
 | C-129 | Derived conditional | direct shallow handlerのbehaviorはstructural first-free-head handlerと可換する | AD-004; four head cases | nested examplesを回帰試験化 |
 | C-130 | Derived conditional | base observation adequacy BAを満たす任意の$T$へtyped foldを介してground adequacyをtransportできる | AD-006--AD-007; BI-008 | concrete non-Writer base modelで検証 |
 | C-131 | Main theorem proved conditionally on paper | Adequacy layer AD-008はbehavior-tree equality、handler commutation、grade soundness、base observation transportを与える | C-128--C-130 | OA obligationsの完全証明とrecursion拡張 |
+| C-132 | Derived | fixed Stage 2 calculusはreturn/internal/base/freeのunique combined decompositionを持つ | OD-001--OD-003; OS-001--OS-002 | mechanizationでmetalevel continuation extensionalityを扱う |
+| C-133 | Derived | suspension response typingはprimitive inversionとresidual-context typingから従う | OD-004--OD-005; RC-001--RC-003 | accumulated machine trace configurationを型付け |
+| C-134 | Derived | recursion-free Stage 2 calculusはshallow handlerを含むhereditary head normalizationを満たす | OD-006--OD-010 | reducibilityを形式化 |
+| C-135 | Derived | clause fidelity OA-5はsemantic substitutionから従い、OA-4はnode-compatible base machineのinterface条件である | OD-011--OD-012 | non-Writer machine instanceを追加 |
+| C-136 | Milestone | operational adequacy obligations OA-1--OA-5はfixed calculusとnode-compatible machineに対してpaper levelで閉じた | C-132--C-135 | base observation adequacy BAの一般条件を調べる |
 
 ## 証明完了の基準
 
