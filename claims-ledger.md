@@ -140,6 +140,10 @@
 | C-134 | Derived | recursion-free Stage 2 calculusはshallow handlerを含むhereditary head normalizationを満たす | OD-006--OD-010 | reducibilityを形式化 |
 | C-135 | Derived | clause fidelity OA-5はsemantic substitutionから従い、OA-4はnode-compatible base machineのinterface条件である | OD-011--OD-012 | non-Writer machine instanceを追加 |
 | C-136 | Milestone | operational adequacy obligations OA-1--OA-5はfixed calculusとnode-compatible machineに対してpaper levelで閉じた | C-132--C-135 | base observation adequacy BAの一般条件を調べる |
+| C-137 | Derived | target $T$からoperational base model $O$へのprimitive-preserving graded monad morphismは両者のtyped tree foldを一致させる | BA-001; BI-006 | relation-based variantを定式化 |
+| C-138 | Derived | BAはfold comparisonにground observationをpostcomposeすることで導出できる | BA-002 | observation predicate版を形式化 |
+| C-139 | Derived | graded State machineはBA criterionを満たし、initial/final stateとresultについてadequateである | BA-003 | free handlerを含むState program例を追加 |
+| C-140 | Main theorem proved conditionally on algebraic interface | node-compatible $O$とprimitive-preserving $q:T\to O$があればhandled base-only programsのexact ground adequacyが従う | BA-004; OD-012; AD-004; BI-008 | logical relation criterionへ一般化 |
 
 ## 証明完了の基準
 

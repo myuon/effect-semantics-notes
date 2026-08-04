@@ -50,6 +50,7 @@ project:
         - file: typed-base-interpretation-theorem-v1.md
         - file: conditional-adequacy-theorem-v1.md
         - file: operational-obligations-v1.md
+        - file: base-observation-criterion-v1.md
         - file: candidate-constructions.md
         - file: claims-ledger.md
         - file: open-questions.md

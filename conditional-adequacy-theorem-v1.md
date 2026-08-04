@@ -237,7 +237,9 @@ $$
 
 For a yes/no contextual observation one may instead assume reflection and
 preservation separately. Writer satisfies BA with the ordered log and returned
-ground value.
+ground value. A reusable sufficient condition, together with Writer and State
+instances, is proved in
+[Base observation adequacy criterion v1](base-observation-criterion-v1.md).
 
 ### Theorem AD-006 — Conditional target adequacy
 

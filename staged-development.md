@@ -84,6 +84,8 @@ The first Stage 3 denotational construction is [Shallow handler denotation v1](s
 
 [Operational obligations v1](operational-obligations-v1.md) discharges OA-1, OA-2, OA-3, and OA-5 for the fixed recursion-free calculus using unique suspension decomposition, residual typing, and hereditary reducibility. OA-4 is isolated as the definition of a node-compatible external base machine.
 
+[Base observation adequacy criterion v1](base-observation-criterion-v1.md) discharges the remaining BA assumption whenever the target model maps by a primitive-preserving graded monad morphism into the operational observation model. Writer is the identity instance; a State machine provides the first non-Writer check.
+
 ## Stage 2 — Add shallow handlers
 
 Stage 1のcalculusにmatching shallow handlerを追加する。
