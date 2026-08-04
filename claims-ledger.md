@@ -52,6 +52,9 @@
 | C-046 | Derived conditional | exact free-operation extensionはStage 0のsubstitution、type safety、deterministic decomposition、base conservativityを保存する | no insertion/deletion of free tokens | labelled machine preservationを完全展開 |
 | C-047 | Derived conditional | recursion-free Writer adequacyはexact free interaction treeとのadequacyへ持ち上がる | C-042; C-045; exact-effect inversion | word-length inductionを完全展開 |
 | C-048 | Derived | optional free-operation pathを同一gradeで型付けするにはpadding/weakening/explicit boundaryのいずれかが追加で必要である | exact skeleton preorder | Stage 2前にoptional layerを採用するか決定 |
+| C-049 | Candidate | $1\to\Delta$ をproof-relevant padding morphismとして加えるとoptional layerは $\mathsf{Layer}_\Delta Z=Z+\mathsf{Op}_\Delta Z$ で解釈できる | word-embedding grading category | categorical compositionとbind naturalityを証明 |
+| C-050 | Derived | proof-irrelevantな自由paddingでは $\Delta\to\Delta\Delta$ の挿入位置が複数あり、one-layer handlersがそれらを区別しうる | `skip;op` vs `op;skip` | proof relevanceまたはcanonical elaborationを選択 |
+| C-051 | Candidate | matching shallow、unmatched-searching forwarding、final returnを分離したhandler policyがoptional upper-bound layersと整合する | C-049; explicit forwarding semantics | Stage 2 operational rulesを定義 |
 
 ## 証明完了の基準
 

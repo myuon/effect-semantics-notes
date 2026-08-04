@@ -46,6 +46,8 @@ Stage 0へのconservative extensionとして、free interfaces $\Delta$ とsimpl
 
 Current candidate: [Free-operation extension v1](free-operation-extension-v1.md). Free tokens are exact, operations remain simple computations without continuation arguments, and Writer adequacy generalizes to finite free-interaction-tree adequacy.
 
+Upper-bound alternative: [Optional free layers v1](optional-free-layers-v1.md) allows $1\to\Delta$, replaces exact operation nodes by skip-or-operation layers, and identifies proof-relevant padding coherence as the main additional requirement. This direction currently better matches the intended user-facing language.
+
 ## Stage 2 — Add shallow handlers
 
 Stage 1のcalculusにmatching shallow handlerを追加する。

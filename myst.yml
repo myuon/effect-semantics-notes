@@ -32,6 +32,7 @@ project:
     - title: Mathematical development
       children:
         - file: free-operation-extension-v1.md
+        - file: optional-free-layers-v1.md
         - file: candidate-constructions.md
         - file: claims-ledger.md
         - file: open-questions.md
