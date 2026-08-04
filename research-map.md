@@ -12,6 +12,9 @@ $$
 
 開発は [Staged development](staged-development.md) に従う。現在の構文上の基準言語は、free operationsもhandlersもまだ持たない [Base calculus v1](base-calculus-v1.md) である。
 
+ここまでの構成、保存できた性質、本質的な限界、および現在の主張は
+[Research synthesis v1](research-synthesis-v1.md) にまとめる。
+
 [Exact-layer calculus v2](exact-layer-calculus-v2.md) のfree-product indexはStage 1以降で再検査するproposalであり、現在のbase calculusの定義には含めない。
 
 ## 中心的な研究課題
@@ -58,8 +61,8 @@ $$
 
 これらを排除したわけではない。中心構成が固まった後の拡張候補として保留する。
 
-## 期待する研究上の貢献（暫定）
+## 現在の研究上の結論
 
-**Conjecture.** Shallow free-effect extension は、operational model と denotational model を別々に作り直す操作ではなく、graded semantic structures とその間の strict/relational correspondence に作用する一つの構成として整理できる。
+当初の「任意のgraded monadを直接拡張する」という強い形は一般には成立しない。opaqueな$T$はreturn/operation head decompositionを持たないためである。
 
-この主張が既存研究の単なる言い換えか、新しい保存定理になるかは、文献調査と正確な定理化の後で判断する。
+現在の肯定的な結論は、free interaction treeによるintensional refinementとtyped foldを組み合わせる形である。この構成はbase conservativity、graded structure、recursion-free adequacy、morphism、logical relationを保存し、exhaustive first-actual-head shallow handlerを自然に持つ。正確な定理と境界は [Research synthesis v1](research-synthesis-v1.md) を参照する。

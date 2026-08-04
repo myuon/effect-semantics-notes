@@ -19,6 +19,7 @@ project:
     - title: Working foundation
       children:
         - file: research-map.md
+        - file: research-synthesis-v1.md
         - file: staged-development.md
         - file: base-calculus-v1.md
         - file: base-calculus-examples-v1.md

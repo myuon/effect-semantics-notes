@@ -165,6 +165,7 @@
 | C-159 | Counterexample | empty-response free operation nodeはcomplete traceを持たず任意のgradeに属するためunrestricted carrier reflectionは偽 | BC-010; $\mathsf{abort}:1\to0$ | maximal-partial-path gradingと比較 |
 | C-160 | Derived conditional | 全operation response setsがinhabitedなら$\mathsf{GTree}_{J(b)}$の全要素はbase-onlyである | BC-011--BC-012 | assumptionをsource type grammarから導けるか確認 |
 | C-161 | Milestone | free extensionのbase conservativityはcarrier isomorphismでなくsyntax embeddingとdenotation-preserving typed foldとして成立する | BC-013; C-156--C-160 | main theorem synthesisへ統合 |
+| C-162 | Synthesis milestone | 研究の中心結果はopaque $T$のdirect extensionでなくfree interaction refinement + typed foldによるstructure-preserving extensionである | FE-017; BI-008; AD-008; BA-004; LR-009; BC-013 | literature novelty comparisonと論文outlineへ進む |
 
 ## 証明完了の基準
 
