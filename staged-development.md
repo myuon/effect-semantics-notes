@@ -64,6 +64,8 @@ This choice is compared with Koka, Effekt, Frank, OCaml 5, and representative fo
 
 Nested handlers and machine interaction are completed in [Stage 2 operational metatheory v1](stage2-operational-metatheory-v1.md). Its suspension semantics proves that base requests retain a pending matcher, while an unmatched free request removes it before an outer handler sees the request. This closes the remaining operational design gap.
 
+The first Stage 3 denotational construction is [Shallow handler denotation v1](shallow-handler-denotation-v1.md). Assuming the optional-layer extended graded monad, it constructs the exhaustive shallow handler by coproduct case analysis, proves the skip and operation equations, and identifies construction of coherent optional weakening as the remaining global problem.
+
 ## Stage 2 — Add shallow handlers
 
 Stage 1のcalculusにmatching shallow handlerを追加する。

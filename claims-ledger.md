@@ -84,6 +84,11 @@
 | C-078 | Derived | Exhaustive clause uniquenessとraw request decompositionの下でStage 2 one-step semanticsはdeterministic base machineに対して相対的に決定的である | OS-001--OS-003 | mechanization時にmetalevel continuation equalityを表現 |
 | C-079 | Derived conditional | Stage 2 suspension propagationはresidual-context typingに関してlabelled preservationを満たす | C-065--C-070; typed machine responses | accumulated trace configurationを完全定義 |
 | C-080 | Milestone | Recursion-free Stage 2 coreのoperational designはnested handlersを含めて固定され、denotational validationへ進める | C-057--C-079 | handler denotationを構成 |
+| C-081 | Derived conditional | Optional-layer carrierが存在すればlocal handler algebraはskip上のweakeningとoperation上のclause-then-tail bindで定義できる | extended graded monad; $1\leq e'$; exhaustive clauses | optional-layer constructionから仮定を導出 |
+| C-082 | Derived conditional | $H_\Delta^{b,e,e'}=T_b(h_{\Delta,e,e'})$ は型 $\widehat T_{b\Delta e}A\to\widehat T_{be'e}A$ を持つ | C-081; carrier isomorphism | base prefix identificationをdiagram化 |
+| C-083 | Derived conditional | Handler equationはskipでidentity weakening、operationで$c_{\operatorname{op}}(p)\mathbin{\mathsf{bind}}k$となり、後者に$H_\Delta$の再帰出現がないためshallowである | C-081--C-082 | operational soundness inductionへ統合 |
+| C-084 | Derived conditional | Exhaustivenessは$\mathsf{Op}_\Delta$の全coproduct summandから共通codomainへのmapを定義するために十分であり、partial clauseには追加のforwarding summandが必要である | coproduct universal property; C-068 | categorical statementを精密化 |
+| C-085 | Milestone | Handler denotation自体はoptional-layer structureからcanonicalに構成でき、主要未解決点は$\widehat T$とcoherent paddingの一般構成へ縮約された | C-081--C-084 | extended graded monad constructionを開始 |
 
 ## 証明完了の基準
 

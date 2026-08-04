@@ -2,12 +2,13 @@
 
 ## Status
 
-**Completed compositional operational account for the recursion-free Stage 2 core.**
+**Derived compositional presentation; the direct rules remain primary.**
 
 The direct rules in [Shallow matcher calculus v1](shallow-matcher-calculus-v1.md)
-correctly describe a single handler around a sequencing context. This page adds
-the labelled suspension semantics needed for nested handlers and proves the
-resulting decomposition and determinism statements.
+are the primary operational semantics. This page repackages observable requests
+as labelled suspensions for nested-handler and machine proofs. Suspension is a
+metatheoretic convenience, not a source construct and not an additional runtime
+mechanism.
 
 ## 1. Why direct request forms are not enough
 
