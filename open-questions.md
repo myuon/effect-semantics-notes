@@ -53,6 +53,8 @@
 
 shallow handler では continuation を同じ handler で再処理しない。この一点が、finite structural extension と関係 lifting を可能にしているかを定理として抽出できるか。
 
+**New deferred branch:** [Quantitative catch handlers — future direction](quantitative-catch-handlers-direction.md) proposes handler fuel $m\in\mathbb N_\infty$. Fuel $1$ searches through nonmatching interfaces and catches one matching occurrence; fuel $\omega$ is a candidate bridge to deep handling.
+
 ## Q-007: novelty
 
 次のどの水準が既存で、どの組合せが未整理か。

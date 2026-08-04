@@ -166,6 +166,9 @@
 | C-160 | Derived conditional | 全operation response setsがinhabitedなら$\mathsf{GTree}_{J(b)}$の全要素はbase-onlyである | BC-011--BC-012 | assumptionをsource type grammarから導けるか確認 |
 | C-161 | Milestone | free extensionのbase conservativityはcarrier isomorphismでなくsyntax embeddingとdenotation-preserving typed foldとして成立する | BC-013; C-156--C-160 | main theorem synthesisへ統合 |
 | C-162 | Synthesis milestone | 研究の中心結果はopaque $T$のdirect extensionでなくfree interaction refinement + typed foldによるstructure-preserving extensionである | FE-017; BI-008; AD-008; BA-004; LR-009; BC-013 | literature novelty comparisonと論文outlineへ進む |
+| C-163 | Future candidate | pathwise occurrence grades $\nu:\mathcal D\to\mathbb N_\infty$はsequencingを加算、branchingをmaxで解釈するquantitative effect systemを与える | Quantitative catch handlers direction | single-interface graded lawsを証明 |
+| C-164 | Future conjecture | transparent searching catch-once handlerはexactly-once resumptionとclause count $k$の下で$n\mapsto(n-1)^++k$を満たす | C-163; first-matching transformer | trace abstractionから証明 |
+| C-165 | Future conjecture | handler fuel $m$は$\Delta$-free clausesについて$n\mapsto(n-m)^+$を与え、$m=\omega$がdeep handlerへのbridgeになる | C-164; clause-scope choice | fuel semanticsとdeep equationsを比較 |
 
 ## 証明完了の基準
 

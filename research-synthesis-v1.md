@@ -350,6 +350,15 @@ technology changes.
 The current result is adequacy and relation preservation. Full abstraction
 would require contextual definability and observation-reflection theorems.
 
+### Quantitative catch handlers
+
+A separate future branch keeps occurrence bounds
+$\nu:\mathcal D\to\mathbb N_\infty$ and replaces first-free-head forwarding by
+a catch-once handler that transparently searches through other interfaces. It
+aims to validate the affine elimination $\Delta^1\mapsto\Delta^0$ and a
+fuel-indexed family interpolating toward deep handlers. See
+[Quantitative catch handlers — future direction](quantitative-catch-handlers-direction.md).
+
 ## 13. Overall assessment
 
 | Goal | Current outcome |
