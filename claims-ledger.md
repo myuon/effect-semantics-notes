@@ -121,6 +121,11 @@
 | C-115 | Derived conditional | Primitive-preserving graded monad morphism $q:T\Rightarrow U$ はtyped foldsと可換する | GB-007 | strengthとhigher-order value casesを追加 |
 | C-116 | Derived conditional | Structural tree relationはbindとexhaustive shallow handlersで保存され、relation-preserving foldsを介してtarget observationsへ輸送できる | GB-008 | fundamental lemmaのenvironment casesを展開 |
 | C-117 | Main theorem candidate | Free extension theorem、base interpretation fold theorem、conditional adequacy theoremの三層が一般版の自然な主張である | C-109--C-116 | precise theorem statementsとassumption matrixを固定 |
+| C-118 | Derived | Downset convolutionのclosure lemmaから$Q=\mathsf{Down}(B*\mathcal D^*)$のassociativity/unit/join-distributivityが従う | FE-002--FE-003 | formalizationでset extensionalityを展開 |
+| C-119 | Derived | Trace-refined $\mathsf{GTree}$ はstrengthとcoherent inclusion weakeningを備えたstrong $Q$-graded monadである | FE-005--FE-010 | categorical recordへ整理 |
+| C-120 | Derived | Exact handler-path lemmaによりexhaustive structural handlerは$\Phi_{\Delta,K}$でgradeされresult typeにnaturalである | FE-011--FE-015 | clause environment naturalityを追加確認 |
+| C-121 | Derived | Gradeを忘れた$\mathsf{GTree}$はcombined polynomial signature上のfree monadである | FE-016; small W-types in Set | graded universal propertyの必要性を評価 |
+| C-122 | Main theorem proved on paper | `Set`におけるFree extension theorem FE-017はquantale、strong graded monad、primitive、proof-irrelevant weakening、shallow handler、ungraded initialityを与える | C-118--C-121 | mechanizationまたはpeer proof audit |
 
 ## 証明完了の基準
 

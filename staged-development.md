@@ -76,6 +76,8 @@ The first Stage 3 denotational construction is [Shallow handler denotation v1](s
 
 [General base tree lifting v1](general-base-tree-lifting-v1.md) extracts the Writer-independent theorem. The free interaction tree, downset quantale, handler transformer, and structural liftings generalize to arbitrary typed algebraic base signatures. Writer's base isomorphism weakens in general to a typed fold into the chosen graded monad $T$.
 
+[Free extension theorem v1](free-extension-theorem-v1.md) gives the detailed proof of the first main-theorem layer in `Set`: quantale laws, strong graded-monad laws, proof-irrelevant weakening, primitive operations, first-free-head handler grading and naturality, and the underlying free-monad universal property.
+
 ## Stage 2 — Add shallow handlers
 
 Stage 1のcalculusにmatching shallow handlerを追加する。
