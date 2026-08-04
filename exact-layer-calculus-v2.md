@@ -178,6 +178,84 @@ $$
 
 とする必要がある。この二案は同一ではないため、後でtyping rulesから決定する。
 
+### A program that separates the two candidates
+
+$\Delta$ に一つのoperation
+
+$$
+\mathsf{coin}:1\to\mathsf{Bool}
+$$
+
+があり、base calculus に writer operation
+
+$$
+\mathsf{tell}:\mathsf{String}\to 1
+$$
+
+があるとする。次のプログラムを考える。
+
+```text
+if c then
+  let x <- perform coin () in
+  tell "coin";
+  return x
+else
+  tell "default";
+  return false
+```
+
+両方の分岐を正確なlayer index $\Delta\cdot b$ で型付けしたい。then branch は
+
+$$
+\mathsf{op}_\Delta
+  ((),\lambda x.\;\mathsf{tell}\;\text{"coin"};\mathsf{return}\;x)
+$$
+
+なので、どちらの候補でも $\mathsf{Op}_\Delta(K_{b,1}(\mathsf{Bool}))$ に入る。
+
+差が出るのは else branch である。このbranchは $\Delta$-operationを起こさないが、tailのbase computation
+
+$$
+\mathsf{tell}\;\text{"default"};\mathsf{return}\;\mathsf{false}
+\in K_{b,1}(\mathsf{Bool})
+$$
+
+を持つ。したがって
+
+$$
+K_{b,1}(X)+\mathsf{Op}_\Delta(K_{b,1}(X))
+$$
+
+なら左branchにそのまま格納できる。一方、
+
+$$
+X+\mathsf{Op}_\Delta(K_{b,1}(X))
+$$
+
+の左branchに入るのは bare value $\mathsf{false}$ だけであり、`tell "default"` を表す場所がない。
+
+同じ問題は条件分岐を使わなくても、sequencingだけで現れる。
+
+```text
+return_Delta ();
+tell "after";
+return 42
+```
+
+$\mathsf{return}_\Delta(())$ を $f(*)=\mathsf{tell}\;\text{"after"};\mathsf{return}\;42$ と bind すると、結果のno-operation branchは $f(*)\in K$ である。ゆえに、通常のeffectful bindに閉じるためには左branchが $K$ を受け取るか、別途
+
+$$
+K(Y)\to Y+\mathsf{Op}_\Delta(K(Y))
+$$
+
+に相当する特殊なcollapse/padding構造が必要になる。一般のeffectful $K$ からbare value $Y$ を取り出すcanonical mapはない。
+
+この例から得られる暫定結論は次である。
+
+- exact grade $\Delta\cdot b$ が「$\Delta$ を起こさない経路でも $b$ を実行できる」なら、$K+\mathsf{Op}_\Delta(K)$ が必要である。
+- $X+\mathsf{Op}_\Delta(K)$ を選ぶなら、no-operation pathはpure returnに制限され、base effectsはoperation continuation内にしか置けないという非対称なcalculusになる。
+- 前者の左branchは標準的shallow handlerのbare-value return clauseとは異なる。そのため、得られるeliminatorをそのまま標準的shallow handlerと呼べるかは別途検討する。
+
 ## 6. Typed shallow handlers
 
 A shallow handler is indexed by the operation type it eliminates. To distinguish it from the operation-shape functor, write
