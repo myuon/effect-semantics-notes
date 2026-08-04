@@ -48,6 +48,10 @@
 | C-042 | Derived conditional | recursion-free Writer instanceは停止し、ordered logとground Boolについてdenotationがmachine evaluationにadequateである | Writer reducibility; Writer denotation; Base metatheory v1 | reducibility proofを完全展開または形式化 |
 | C-043 | Derived | Writer pure grade $1$ はempty operational logを反映し、graded bindはoperational log concatenationと一致する | C-042; Writer graded multiplication | free-operation extensionでの保存条件を抽出 |
 | C-044 | Conjecture | machine/denotation/relation/adequacy packageはfree operationsとmatching shallow handlersの追加に沿って持ち上がる | WP-1--WP-8; exact extension definition | Stage 1でoperation-only liftingを定義 |
+| C-045 | Candidate | exact free skeleton上のcarrierはskip branchなしの $\widehat T_{b\Delta E}X=T_b(\mathsf{Op}_\Delta(\widehat T_EX))$ でgraded monadを成す | base strong graded monad; polynomial functoriality | bind lawsとstrengthを完全な図式で証明 |
+| C-046 | Derived conditional | exact free-operation extensionはStage 0のsubstitution、type safety、deterministic decomposition、base conservativityを保存する | no insertion/deletion of free tokens | labelled machine preservationを完全展開 |
+| C-047 | Derived conditional | recursion-free Writer adequacyはexact free interaction treeとのadequacyへ持ち上がる | C-042; C-045; exact-effect inversion | word-length inductionを完全展開 |
+| C-048 | Derived | optional free-operation pathを同一gradeで型付けするにはpadding/weakening/explicit boundaryのいずれかが追加で必要である | exact skeleton preorder | Stage 2前にoptional layerを採用するか決定 |
 
 ## 証明完了の基準
 

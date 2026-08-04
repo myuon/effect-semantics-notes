@@ -44,6 +44,8 @@ Stage 0へのconservative extensionとして、free interfaces $\Delta$ とsimpl
 
 まだhandlerは追加しない。
 
+Current candidate: [Free-operation extension v1](free-operation-extension-v1.md). Free tokens are exact, operations remain simple computations without continuation arguments, and Writer adequacy generalizes to finite free-interaction-tree adequacy.
+
 ## Stage 2 — Add shallow handlers
 
 Stage 1のcalculusにmatching shallow handlerを追加する。
