@@ -86,6 +86,8 @@ The first Stage 3 denotational construction is [Shallow handler denotation v1](s
 
 [Base observation adequacy criterion v1](base-observation-criterion-v1.md) discharges the remaining BA assumption whenever the target model maps by a primitive-preserving graded monad morphism into the operational observation model. Writer is the identity instance; a State machine provides the first non-Writer check.
 
+[Logical relation lifting v1](logical-relation-lifting-v1.md) generalizes equality comparison to structural logical relations. It proves return/bind compatibility, shallow-handler preservation, relational typed folds, observation transfer, and recovers monad-morphism lifting as the equality-graph special case.
+
 ## Stage 2 — Add shallow handlers
 
 Stage 1のcalculusにmatching shallow handlerを追加する。

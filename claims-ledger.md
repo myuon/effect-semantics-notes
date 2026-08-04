@@ -144,6 +144,11 @@
 | C-138 | Derived | BAはfold comparisonにground observationをpostcomposeすることで導出できる | BA-002 | observation predicate版を形式化 |
 | C-139 | Derived | graded State machineはBA criterionを満たし、initial/final stateとresultについてadequateである | BA-003 | free handlerを含むState program例を追加 |
 | C-140 | Main theorem proved conditionally on algebraic interface | node-compatible $O$とprimitive-preserving $q:T\to O$があればhandled base-only programsのexact ground adequacyが従う | BA-004; OD-012; AD-004; BI-008 | logical relation criterionへ一般化 |
+| C-141 | Derived | structural $\mathsf{TreeRel}$はmapとbindにcompatibleなfree-tree relatorである | LR-001--LR-003 | formalizationでW-type relationを定義 |
+| C-142 | Derived | related exhaustive clausesの下でfirst-free-head shallow handlersはtree relationを保存する | LR-005--LR-006 | partial matcher extensionと比較 |
+| C-143 | Derived | unit/bind/weakening/primitivesを保存するgraded computation relationはtyped base foldsを関連づける | LR-007 | strength付きopen-term版を完全展開 |
+| C-144 | Derived | primitive-preserving graded monad morphismのequality graphからBI-006がLR-007の特殊例として回収される | LR-008 | general graph relatorとの対応を検討 |
+| C-145 | Derived conditional | related source environmentsとclausesはhandled base-only programsのrelated ground observationsを導く | LR-009; observation compatibility | compiler transformation例で検証 |
 
 ## 証明完了の基準
 
