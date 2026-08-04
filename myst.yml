@@ -24,6 +24,7 @@ project:
         - file: base-calculus-examples-v1.md
         - file: base-denotational-semantics-v1.md
         - file: base-metatheory-v1.md
+        - file: writer-adequacy-v1.md
         - file: fixpoint-design.md
         - file: exact-layer-calculus-v2.md
         - file: semantic-interface-v1.md

@@ -27,6 +27,8 @@ Stage 0のcurrent semantic candidateは [Base denotational semantics v1](base-de
 
 Substitution、preservation、request decomposition、determinism、internal reduction soundnessのpaper proofsは [Base metatheory v1](base-metatheory-v1.md) に置く。
 
+Concrete Writer machineについては [Writer adequacy v1](writer-adequacy-v1.md) でtermination、evaluation soundness、ground adequacy、pure-grade reflection、sequential log law、contextual soundnessを検証する。これらを後のextension-preservation theoremのtest propertiesとする。
+
 将来のrecursion追加に関するcategorical collapse constraintは [Fixpoint design constraints](fixpoint-design.md) に分離して記録する。Stage 0ではunrestricted pure fixpointを追加しない。
 
 ## Stage 1 — Add free operations

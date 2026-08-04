@@ -45,6 +45,9 @@
 | C-039 | Candidate | Stage 0 calculusはsubeffect coercionsとstrengthを備えた$B$-graded monadで解釈できる | Base denotational semantics v1 | substitution、reduction soundness、coherenceを証明 |
 | C-040 | Derived | Stage 0 calculusはsubstitution、internal preservation、deterministic decomposition modulo base requestsを満たす | Base metatheory v1 | mechanization前に規則変更時の再検査を継続 |
 | C-041 | Derived conditional | strong graded monad lawsとsubeffect coherenceの下でinternal reductionはdenotational equalityを保存する | Base metatheory v1; C-039 | concrete Writer machineとのadequacyを証明 |
+| C-042 | Derived conditional | recursion-free Writer instanceは停止し、ordered logとground Boolについてdenotationがmachine evaluationにadequateである | Writer reducibility; Writer denotation; Base metatheory v1 | reducibility proofを完全展開または形式化 |
+| C-043 | Derived | Writer pure grade $1$ はempty operational logを反映し、graded bindはoperational log concatenationと一致する | C-042; Writer graded multiplication | free-operation extensionでの保存条件を抽出 |
+| C-044 | Conjecture | machine/denotation/relation/adequacy packageはfree operationsとmatching shallow handlersの追加に沿って持ち上がる | WP-1--WP-8; exact extension definition | Stage 1でoperation-only liftingを定義 |
 
 ## 証明完了の基準
 
