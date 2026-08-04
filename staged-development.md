@@ -80,6 +80,8 @@ The first Stage 3 denotational construction is [Shallow handler denotation v1](s
 
 [Typed base interpretation theorem v1](typed-base-interpretation-theorem-v1.md) proves the second layer. It replaces the over-strong idea of folding every path-bounded base tree by the precise derivation-indexed theorem: source typing supplies the residual-grade factorization needed to fold into an arbitrary $B$-graded monad $T$.
 
+[Conditional adequacy theorem v1](conditional-adequacy-theorem-v1.md) closes the third layer under explicit assumptions: behavior-tree adequacy, operational/structural shallow-handler commutation, trace-bound soundness, and transport of ground observations through an adequate typed base fold.
+
 ## Stage 2 — Add shallow handlers
 
 Stage 1のcalculusにmatching shallow handlerを追加する。

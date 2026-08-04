@@ -131,6 +131,10 @@
 | C-125 | Derived | 任意のcoherent $B$-graded monadとgrade-correct primitivesはtyped base treeからreturn/bind/weakening/primitivesを保存するcanonical foldを受け取る | BI-004--BI-005 | source typing coherence theoremと接続 |
 | C-126 | Derived | primitive-preserving graded monad morphismはtyped base foldsと可換する | BI-006 | logical relation版を証明 |
 | C-127 | Main theorem proved on paper | Base interpretation layer BI-008はtyped fold、coherence、strength preservation、morphism liftingを与える | C-124--C-126 | conditional adequacy layerへ進む |
+| C-128 | Derived conditional | OA-1--OA-5の下でclosed source computationのoperational behavior treeはcompositional $\mathsf{GTree}$ denotationと一致する | AD-001--AD-003 | full syntaxのlogical relationを展開 |
+| C-129 | Derived conditional | direct shallow handlerのbehaviorはstructural first-free-head handlerと可換する | AD-004; four head cases | nested examplesを回帰試験化 |
+| C-130 | Derived conditional | base observation adequacy BAを満たす任意の$T$へtyped foldを介してground adequacyをtransportできる | AD-006--AD-007; BI-008 | concrete non-Writer base modelで検証 |
+| C-131 | Main theorem proved conditionally on paper | Adequacy layer AD-008はbehavior-tree equality、handler commutation、grade soundness、base observation transportを与える | C-128--C-130 | OA obligationsの完全証明とrecursion拡張 |
 
 ## 証明完了の基準
 
