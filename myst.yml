@@ -19,7 +19,8 @@ project:
     - title: Working foundation
       children:
         - file: research-map.md
-        - file: operational-calculus-v1.md
+        - file: staged-development.md
+        - file: base-calculus-v1.md
         - file: exact-layer-calculus-v2.md
         - file: semantic-interface-v1.md
         - file: objects-and-notation.md
@@ -34,6 +35,7 @@ project:
         - file: work-log.md
     - title: Archive
       children:
+        - file: operational-calculus-v1.md
         - file: baseline-calculus-v1.md
         - file: head-shape-calculus-v1.md
         - file: minimal-calculus-v0.md

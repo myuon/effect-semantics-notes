@@ -10,7 +10,9 @@ $$
 
 ここで $S$ は operational model、$T$ は denotational model の候補である。両者が同じ圏上にあるとは仮定しない。最初から関数 $S\to T$ を要求するのではなく、morphism、simulation、logical relation のいずれが適切かを調べる。
 
-構文上の基準言語は [Exact-layer calculus v2](exact-layer-calculus-v2.md) とする。extended effect indexはupper boundではなく、base-effect monoidとfree-operation monoidの自由積によるexact alternating layer structureとして読む。
+開発は [Staged development](staged-development.md) に従う。現在の構文上の基準言語は、free operationsもhandlersもまだ持たない [Base calculus v1](base-calculus-v1.md) である。
+
+[Exact-layer calculus v2](exact-layer-calculus-v2.md) のfree-product indexはStage 1以降で再検査するproposalであり、現在のbase calculusの定義には含めない。
 
 ## 中心的な研究課題
 

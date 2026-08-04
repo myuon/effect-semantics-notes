@@ -2,7 +2,7 @@
 
 ## Status
 
-**Current working operational core.**
+**Integration preview; not the current starting point.** Forward development now begins with [Base calculus v1](base-calculus-v1.md) and follows [Staged development](staged-development.md). This page introduced base operations, free operations, and handlers together and is retained as a later-stage reference.
 
 このページではdenotational semanticsとeffect annotationをまだ定義しない。まず、どのprogramがどのhead formへ遷移し、shallow handlerが何を受け取るかだけを固定する。
 

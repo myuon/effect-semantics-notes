@@ -39,6 +39,7 @@
 | C-033 | Derived (conditional) | exact layerをskipした後のeffectful sequencingを許すなら、free-layerの左branchはbare $X$ ではなくtail computation $K$ を収容する必要がある | ordinary effectful bind; no canonical $K(Y)\to Y$ | $K+\mathsf{Op}_\Delta(K)$ 上のbindを定義 |
 | C-034 | Derived | unrestricted tail clause $K(X)\to C$ はbare-value return clause $X\to C$ より強く、base/tail effectsを観測・変更できる | writer counterexample | standard handlerをcanonical lifted tail clausesとして定義できる条件を同定 |
 | C-035 | Established | Operational coreではmatching free operationをshallowにeliminateし、base operationをforwardし、return到達時だけbare-value return clauseを実行する | Operational calculus v1 reduction rules | unannotated preservationとdeterminismを証明 |
+| C-036 | Adopted definition | 研究はbase calculus、free-operation extension、shallow-handler extension、denotational reconstructionの順に進める | Staged development | Stage 0のB-001--B-003を証明 |
 
 ## 証明完了の基準
 
