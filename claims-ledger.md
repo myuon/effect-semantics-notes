@@ -154,6 +154,11 @@
 | C-148 | Counterexample | same-interface shallow handlerは一般にidempotentでなく、二重handlerは単一handlerへcollapseしない | HC-005--HC-006; two-tick tree | restricted idempotence domainを調べる |
 | C-149 | Counterexample | distinct-interface shallow handlersとそのgrade transformersは一般にcommuteしない | HC-007; $\Delta\Gamma$ and clause-introduction examples | sufficient commutation conditionsを精密化 |
 | C-150 | Derived conditional | head-separated domainではcross-interface introductionがなければ異なるhandlersはcommuteする | HC-008 | conditionをweakenできるか調べる |
+| C-151 | Derived | mixed-word preorderはfree-interface token deletionとbase-factor loweringでcharacterizeできる | PW-001 | formal normal-form proofを実装 |
+| C-152 | Derived | principal handler bound $b\Delta e\mapsto bke$は全later-matching residualについて$bak't\preceq bke$ iffでcharacterizeされる | PW-002 | decision procedureを検討 |
+| C-153 | Derived | residual tail $e$がhandled interface $\Delta$を含まなければoriginal principal-word ruleはsoundである | PW-003 | source effect inferenceで利用 |
+| C-154 | Counterexample | bound $\Delta w\Delta$のactual trace $w\Delta$はhandling後$wk$となり、一般に$kw\Delta$でboundされない | PW-005; noncommutative free model | original assumptionsとの対応を記述 |
+| C-155 | Milestone | original $b\Delta e\mapsto bke$ ruleはcore axiomでなくPW-002のanchoring side condition付きderived ruleとして回収できる | C-151--C-154 | surface typing designへ反映 |
 
 ## 証明完了の基準
 

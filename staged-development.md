@@ -90,6 +90,8 @@ The first Stage 3 denotational construction is [Shallow handler denotation v1](s
 
 [Nested shallow handler composition v1](nested-shallow-handler-composition-v1.md) calculates ordered nesting. Handler functions and their $\Phi$ bounds compose in nesting order, repeated same-interface handlers consume a bounded number of heads, and handlers for distinct interfaces neither commute nor collapse in general.
 
+[Principal-word recovery v1](principal-word-recovery-v1.md) characterizes exactly when the original-looking rule $b\Delta e\mapsto bke$ can be derived from trace-language handling. The only new obstruction is skipping the displayed optional $\Delta$ and then handling a later retained $\Delta$ from the tail.
+
 ## Stage 2 — Add shallow handlers
 
 Stage 1のcalculusにmatching shallow handlerを追加する。
