@@ -50,6 +50,8 @@ Upper-bound alternative: [Optional free layers v1](optional-free-layers-v1.md) a
 
 The supplied thesis Definition 21 is analyzed in [Reading of the original design](original-design-reading.md). Its coercion $be\leq b\Delta e$ makes optional upper-bound layers part of the original philosophy, while its unexplained value-clause lifting and padding coherence remain to be repaired.
 
+Concrete return/match/ignore/duplicate/mismatch tests are calculated in [Optional handler operational tests v1](optional-handler-tests-v1.md). They isolate the main fork between a conventional searching handler and the original positional layer eliminator.
+
 ## Stage 2 — Add shallow handlers
 
 Stage 1のcalculusにmatching shallow handlerを追加する。

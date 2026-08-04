@@ -57,6 +57,9 @@
 | C-051 | Candidate | matching shallow、unmatched-searching forwarding、final returnを分離したhandler policyがoptional upper-bound layersと整合する | C-049; explicit forwarding semantics | Stage 2 operational rulesを定義 |
 | C-052 | Established from source | Original Definition 21はcoercion $be\leq b\Delta e$ とvalue equationを要求しており、free tokenをexact occurrenceではなくoptional upper boundとして扱う | supplied thesis excerpt | operational reconstructionで $(c_{\mathsf{val}})^\sharp$ を導出 |
 | C-053 | Question | Original value lifting $T_{be}A\to T_{be'e}C$ はordinary bindではなくlayer-local effect insertionを要求する | effect order in Definition 21 | concrete operational examplesで妥当なorderを決定 |
+| C-054 | Derived conditional | left-to-right CBV searching handlerではpadded no-operation pathのeffect orderは $bee'$ だが、matching pathは $be'e$ になる | Optional handler tests P-002--P-005 | common upper boundまたはpositional semanticsを選択 |
+| C-055 | Derived | continuationの無視・複製によりtail effectの使用回数が変わるため、固定出力 $be'e$ にはaffinity/idempotence/usage-sensitive typingのいずれかが必要である | P-006--P-007 | handler continuation disciplineを選択 |
+| C-056 | Derived | repeated paddingのproof relevanceはhandler styleに依存し、positional handlerはpadding位置を観測するがsearching handlerはquotientできる可能性がある | P-010 | main handler philosophyを選択 |
 
 ## 証明完了の基準
 
