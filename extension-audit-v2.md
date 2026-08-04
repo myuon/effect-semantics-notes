@@ -22,6 +22,19 @@ This is the main experiment ledger for the revised program.  Each candidate exte
 
 “Expected” is not a proved status.  Results migrate to the claims ledger only after proof.
 
+## Concrete-instance progress
+
+| Instance | Syntax/examples | Operational decomposition | Preservation | Empty-row safety | Deep elimination | Denotational correspondence |
+|---|---:|---:|---:|---:|---:|---:|
+| Pure | fixed | inherited as Writer without `tell` | paper proof | paper proof | paper proof | open |
+| Writer | complete | paper proof | paper proof | paper proof | paper proof | open |
+| State | planned | open | open | open | open | open |
+| Exception | planned | open | open | open | open | open |
+
+“Paper proof” means a proof argument is written in these notes but is not yet
+machine checked.  The Writer arguments are in [Writer operational metatheory
+v2](writer-operational-metatheory-v2.md).
+
 ## First boundary example: effectful clauses
 
 Suppose the input has base grade $b$ and free row $\{\Delta\}$.  Let the $\Delta$-clause perform base effect $k$ before resuming.
@@ -79,4 +92,3 @@ This distinction is essential for IO, resources, cancellation, concurrency, and 
 - Prove operational/denotational handler commutation.
 - Formulate base embedding independently from handler clauses.
 - Produce the first base-effectful counterexample before attempting the maximal theorem.
-

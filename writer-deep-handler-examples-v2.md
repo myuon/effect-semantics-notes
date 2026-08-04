@@ -350,3 +350,7 @@ needed by the second.
 - define its fold into $A\times W$ after handling;
 - prove operational/denotational agreement for the six examples;
 - formulate the minimal counterexample to a principal Writer-grade transformer.
+
+The first three obligations, together with empty-row safety, deep elimination,
+and qualified base conservativity, are discharged in [Writer operational
+metatheory v2](writer-operational-metatheory-v2.md).

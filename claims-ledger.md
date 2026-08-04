@@ -169,6 +169,14 @@
 | C-163 | Future candidate | pathwise occurrence grades $\nu:\mathcal D\to\mathbb N_\infty$はsequencingを加算、branchingをmaxで解釈するquantitative effect systemを与える | Quantitative catch handlers direction | single-interface graded lawsを証明 |
 | C-164 | Future conjecture | transparent searching catch-once handlerはexactly-once resumptionとclause count $k$の下で$n\mapsto(n-1)^++k$を満たす | C-163; first-matching transformer | trace abstractionから証明 |
 | C-165 | Future conjecture | handler fuel $m$は$\Delta$-free clausesについて$n\mapsto(n-m)^+$を与え、$m=\omega$がdeep handlerへのbridgeになる | C-164; clause-scope choice | fuel semanticsとdeep equationsを比較 |
+| C-166 | Adopted v2 definition | 新しいfree effectsはunordered may-rowで追跡し、base effect annotationとは分離する | Common free-handler calculus v2 | State/Exception instanceでprojection typingを検査 |
+| C-167 | Adopted v2 definition | 標準deep handlerはnonmatching requestをpending handler付きcontinuationとしてforwardし、matching resumptionに自身を再設置する | Common free-handler calculus v2 | tree fold equationと照合 |
+| C-168 | Derived on paper | Writer instanceはreturn、unique step、unique unhandled free requestの決定的分解を持つ | unique CBV context; deterministic `tell`; exhaustive nominal handlers | mechanizationまたはindependent proof audit |
+| C-169 | Derived on paper | Writer instanceのdirect reductionはfree-row preservationとeffect-aware progressを満たす | C-168; value/resumption substitution; free-row-silent `tell` | derivation-level residual context proofを展開 |
+| C-170 | Derived on paper | outward rowが$\Delta$を含まないexhaustive deep handlerから未処理$\Delta$ requestはescapeしない | C-169; deep reinstallation | denotational eliminationと対応付け |
+| C-171 | Derived on paper | new syntaxを使わないWriter programは言語拡張に対してconservativeである | old reduction rules unchanged | denotational embeddingで再証明 |
+| C-172 | Derived conditional | identity-return handlerはbase-only Writer programのvalueとlogを保存する | no free request; base steps lift under handler | nonidentity return clauseを明示的反例として保持 |
+| C-173 | Counterexample | 同じfree row $\{\mathsf{Ask}\}$でもeffectful deep clauseのWriter出力は$\epsilon,a,aa$になりうるため、rowだけからprecise output base gradeは決まらない | zero/one/two request programs | principal-grade transformerの不可能性へ精密化 |
 
 ## 証明完了の基準
 
