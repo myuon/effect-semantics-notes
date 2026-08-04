@@ -37,6 +37,7 @@
 | C-031 | Conjecture | matching handlerはouter base segmentを通してcanonicalにliftできる | base functoriality/strength/algebra laws | exact lifting diagramを定義 |
 | C-032 | Question | free-layer return branchは $X$ かtail carrier $K$ か | original typing/evaluation intent | unitとbindの型から判定 |
 | C-033 | Derived (conditional) | exact layerをskipした後のeffectful sequencingを許すなら、free-layerの左branchはbare $X$ ではなくtail computation $K$ を収容する必要がある | ordinary effectful bind; no canonical $K(Y)\to Y$ | $K+\mathsf{Op}_\Delta(K)$ 上のbindを定義 |
+| C-034 | Derived | unrestricted tail clause $K(X)\to C$ はbare-value return clause $X\to C$ より強く、base/tail effectsを観測・変更できる | writer counterexample | standard handlerをcanonical lifted tail clausesとして定義できる条件を同定 |
 
 ## 証明完了の基準
 

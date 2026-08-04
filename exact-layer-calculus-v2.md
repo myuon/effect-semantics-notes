@@ -256,6 +256,108 @@ $$
 - $X+\mathsf{Op}_\Delta(K)$ を選ぶなら、no-operation pathはpure returnに制限され、base effectsはoperation continuation内にしか置けないという非対称なcalculusになる。
 - 前者の左branchは標準的shallow handlerのbare-value return clauseとは異なる。そのため、得られるeliminatorをそのまま標準的shallow handlerと呼べるかは別途検討する。
 
+### Tail elimination is not yet a standard return clause
+
+標準的なshallow handlerのreturn reductionは概略
+
+```text
+handle_Delta (return x) with H
+  --> h_return(x)
+```
+
+である。したがってreturn clauseの型は
+
+$$
+h_{\mathsf{return}}:X\to C.
+$$
+
+このclauseが呼ばれる時点では、handled computationはすでにvalue $x$ に到達している。
+
+一方、carrier
+
+$$
+K(X)+\mathsf{Op}_\Delta(K(X))
+$$
+
+にcoproduct eliminationを直接適用すると、左clauseの型は
+
+$$
+h_{\mathsf{tail}}:K(X)\to C
+$$
+
+になる。ここで渡されるのはvalueではなく、まだbase effectsやresidual free layersを含みうるcomputation全体である。ゆえに $h_{\mathsf{tail}}$ と $h_{\mathsf{return}}$ は同じデータではない。
+
+#### Observable example
+
+Base semanticsをwriter
+
+$$
+K(X)=\mathsf{List}(\mathsf{String})\times X
+$$
+
+とし、no-$\Delta$ branchを
+
+$$
+m_{\mathsf{no\text{-}op}}=([\text{"default"}],\mathsf{false})
+$$
+
+とする。standard handlerのreturn clauseを
+
+```text
+return x -> return (not x)
+```
+
+とすれば、base effectをforwardした標準的な結果は
+
+$$
+([\text{"default"}],\mathsf{true})
+$$
+
+である。return clause自身が受け取るのは $\mathsf{false}$ だけであり、logは周囲のbase semanticsによって保存される。
+
+しかし unrestricted なtail clause
+
+$$
+h_{\mathsf{tail}}:
+\mathsf{List}(\mathsf{String})\times\mathsf{Bool}
+\to C
+$$
+
+はlogも直接観測できる。たとえばlogを捨てれば
+
+$$
+([],\mathsf{true}),
+$$
+
+複製すれば
+
+$$
+([\text{"default"},\text{"default"}],\mathsf{true})
+$$
+
+を返せる。これはbare-value return clauseより強い操作であり、標準的shallow handlerと同一視できない。
+
+標準的な挙動を回収するには、任意の $h_{\mathsf{tail}}$ をhandler syntaxとして与えるのではなく、$h_{\mathsf{return}}$ からcanonical lifting
+
+$$
+h_{\mathsf{return}}^K:K(X)\to K(C)
+$$
+
+を導き、writerの例なら
+
+$$
+h_{\mathsf{return}}^K(\ell,x)
+=(\ell,h_{\mathsf{return}}(x))
+$$
+
+と制限すべきである。一般の $K=T_b\widehat T_E$ では、このliftingがbase/tail layersを保存するfunctorial actionとgraded multiplicationにより定義できるか、そのcoherenceを証明する必要がある。
+
+したがって現時点の構造は次のように分ける。
+
+1. $K+\mathsf{Op}_\Delta(K)$ は、skip可能なexact free layerのsemantic representationである。
+2. その任意のcoproduct eliminatorは、effect boundary全体を操作する **layer eliminator** である。
+3. 標準的shallow handlerは、layer eliminatorのうちtail clauseがbare-value return clauseのcanonical liftingになっているものとして回収する候補である。
+
 ## 6. Typed shallow handlers
 
 A shallow handler is indexed by the operation type it eliminates. To distinguish it from the operation-shape functor, write
