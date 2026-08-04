@@ -74,6 +74,8 @@ The first Stage 3 denotational construction is [Shallow handler denotation v1](s
 
 [Writer tree metatheory v1](writer-tree-metatheory-v1.md) completes the paper-level concrete proof package: effect and reduction soundness, behavior-tree/request/ground adequacy, handler adequacy, Writer conservativity up to monad isomorphism, naturality, and a structural relation-lifting template.
 
+[General base tree lifting v1](general-base-tree-lifting-v1.md) extracts the Writer-independent theorem. The free interaction tree, downset quantale, handler transformer, and structural liftings generalize to arbitrary typed algebraic base signatures. Writer's base isomorphism weakens in general to a typed fold into the chosen graded monad $T$.
+
 ## Stage 2 — Add shallow handlers
 
 Stage 1のcalculusにmatching shallow handlerを追加する。

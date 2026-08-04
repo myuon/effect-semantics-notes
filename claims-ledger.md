@@ -112,6 +112,15 @@
 | C-106 | Derived | Writer base-only treeは$\mathsf{List}(\mathsf{String})\times X$とreturn/bindを保存するcanonical isomorphismを持つ | run/quote calculation | grading compatibilityをdiagram化 |
 | C-107 | Derived conditional | Structural tree relationはreturn/bindとexhaustive shallow handlerで保存される | pointwise continuation relation; related clauses | general relational lifting theoremへ抽象化 |
 | C-108 | Milestone | Writer concrete modelで必要なsoundness/adequacy/conservativity/handler packageがpaper levelで閉じた | C-096--C-107 | Writer依存仮定と一般化可能部分を分離 |
+| C-109 | Derived | $M=B*\mathcal D^*$ のdownset completionは一般base preorderとoptional free tokensを含むunital quantaleを成す | compatible monoid preorder | size条件とempty interfaceを確認 |
+| C-110 | Derived | 任意のtyped algebraic base signatureについてbase/free nodeを持つ$\mathsf{GTree}$はdownset-language graded monadを成す | GB-001--GB-002 | categorical initialityを定式化 |
+| C-111 | Derived | General structural shallow handlerはbase nodeだけを再帰的に通過し、最初のfree nodeで停止して$\Phi_{\Delta,K}$に従う | GB-003 | nested handler composition則を計算 |
+| C-112 | Derived conditional | Typed/deterministic/head-normalizing base machineの下でbehavior-tree adequacyとhandler adequacyがWriter証明から一般化する | GB-004--GB-005 | base adequacyとの合成定理を精密化 |
+| C-113 | Derived conditional | 任意のbase graded monad interpretation $T$ はtyped base-only treeからreturn/bind/primitiveを保存するfoldを受け取る | graded monad laws; primitive interpretations; coercion coherence | derivation independenceの範囲をcharacterize |
+| C-114 | Rejected | 任意のbase graded monad $T$ についてbase-only free treeと$T$ carrierがcanonicalに同型である | nonfree/quotient/extra-element models | freeness/presentationを追加仮定として分離 |
+| C-115 | Derived conditional | Primitive-preserving graded monad morphism $q:T\Rightarrow U$ はtyped foldsと可換する | GB-007 | strengthとhigher-order value casesを追加 |
+| C-116 | Derived conditional | Structural tree relationはbindとexhaustive shallow handlersで保存され、relation-preserving foldsを介してtarget observationsへ輸送できる | GB-008 | fundamental lemmaのenvironment casesを展開 |
+| C-117 | Main theorem candidate | Free extension theorem、base interpretation fold theorem、conditional adequacy theoremの三層が一般版の自然な主張である | C-109--C-116 | precise theorem statementsとassumption matrixを固定 |
 
 ## 証明完了の基準
 
