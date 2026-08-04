@@ -36,6 +36,10 @@ project:
         - file: exception-free-tree-semantics-v2.md
         - file: concrete-base-comparison-v2.md
         - file: generic-safety-extension-v2.md
+        - file: generic-resumption-extension-v2.md
+        - file: unordered-preservation-summary-v2.md
+        - file: quantitative-row-extension-v2.md
+        - file: count-vs-row-theorems-v2.md
         - file: novelty-map-v2.md
     - title: Base-language foundation
       children:

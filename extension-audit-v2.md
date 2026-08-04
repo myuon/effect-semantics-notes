@@ -10,17 +10,24 @@ This is the main experiment ledger for the revised program.  Each candidate exte
 |---|---:|---:|---:|
 | typing embedding | expected | expected | expected |
 | operational conservativity | expected | expected | expected |
-| denotational embedding | standard free construction | conjectured under package laws | conjectured under package laws |
-| preservation | standard | conjectured structural lifting | interaction-dependent |
+| denotational embedding | standard free construction | paper proof under resumption-existence hypothesis | paper proof under resumption-existence hypothesis |
+| preservation | standard | paper proof for the free row | free-row preservation proved; precise base grade interaction-dependent |
 | no unhandled operation at empty row | standard | expected | expected |
 | deep elimination of $\Delta$ from free row | standard | expected | expected if clauses do not re-emit $\Delta$ |
-| adequacy preservation | standard recursion-free case | open | open |
-| morphism lifting | structural | open | interaction-dependent |
-| logical-relation lifting | structural | open | interaction-dependent |
+| adequacy preservation | standard recursion-free case | termination-conditional paper proof | termination-conditional paper proof |
+| morphism lifting | structural | paper proof | paper proof for compatible clauses |
+| logical-relation lifting | structural | paper proof | paper proof for compatible clauses |
 | precise output base grade | trivial | same $e$ | generally unavailable from an unordered row |
 | multi-shot safety | trivial pure base | needs audit | needs duplicability/discardability audit |
 
 “Expected” is not a proved status.  Results migrate to the claims ledger only after proof.
+
+The generic unordered results and their exact assumptions are collected in
+[Generic resumption extension v2](generic-resumption-extension-v2.md) and
+[Unordered preservation summary v2](unordered-preservation-summary-v2.md).
+Occurrence counts are an optional refinement, not an assumption of those
+results; see [Quantitative row extension v2](quantitative-row-extension-v2.md)
+and [Count versus row theorems v2](count-vs-row-theorems-v2.md).
 
 ## Concrete-instance progress
 
