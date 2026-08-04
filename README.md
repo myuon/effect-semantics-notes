@@ -4,34 +4,40 @@
 > Markdown source is typeset in the browser, while the source remains easy to
 > edit and review in Git.
 
-一般の effect system に algebraic/free effects と shallow handlers を追加したとき、意味論・操作的意味論・両者の対応がどのように拡張されるかを調べるための研究ノート。
+既存の effectful language に user-defined free operations と handlers を後付けするとき、どの構造が必要で、意味論・操作的意味論・両者の対応をどこまで保存できるかを調べるための研究ノート。
 
 このノートは論文草稿ではない。定義、計算、仮説、失敗した案、反例、文献との対応を、確度を明示しながら蓄積する。
 
 ## 現在の問い
 
-ベースの effect system に対して与えられた
+中心の問いは次である。
+
+> **What structure makes an effectful language extensible by user-defined operations and handlers?**
+
+ベース言語に対して与えられた
 
 - operational semantics
 - denotational semantics
 - 両者を結ぶ morphism / simulation / logical relation
 
-を、free effect interface と shallow handler の追加に沿って一様に拡張できるか。その拡張は、型付け、逐次合成、subeffecting、意味保存、観察可能性、adequacy のどこまでを保存するか。
+を、unordered free-effect rows と標準的な deep handlers の追加に沿って拡張できるか。その拡張は、型付け、逐次合成、subeffecting、base conservativity、意味保存、観察可能性、adequacy、logical relations のどこまでを保存するか。
+
+「任意の effect system」を無条件に一つの代数へ押し込めない。静的 grade、計算モデル、base primitives、観測、法則をまとめた **base semantic package** を入力とし、追加したい handler の強さごとに必要な仮定を特定する。
+
+以前の ordered trace と first-head shallow handler の開発は破棄しない。これは、順序を追う refinement がなぜ難しいか、unordered abstraction が何を忘れるかを示す比較対象として保存する。
 
 ## 読み方
 
-1. [Research map](research-map.md) — 問題全体と現在地
-2. [Objects and notation](objects-and-notation.md) — 登場する対象と記法
-3. [Exact-layer calculus v2](exact-layer-calculus-v2.md) — 現在のworking calculus
-4. [Semantic interface v1](semantic-interface-v1.md) — graded monadだけで何ができ、何が不足するか
-5. [Baseline calculus v1](baseline-calculus-v1.md) — upper-bound解釈を試した旧案
-6. [Head-shape calculus v1](head-shape-calculus-v1.md) — 旧案の問題を診断した探索記録
-7. [Candidate constructions](candidate-constructions.md) — 構成案と計算
+1. [Research map](research-map.md) — 新旧の研究線と現在地
+2. [Extensibility question v2](extensibility-question-v2.md) — 新しい中心問いと主張候補
+3. [Base semantic package v2](base-semantic-package-v2.md) — 拡張の入力として何を固定するか
+4. [Extension audit v2](extension-audit-v2.md) — 保存性と必要仮定の検査表
+5. [Unordered/deep baseline v2](unordered-deep-baseline-v2.md) — 既知の基準言語
+6. [Novelty map v2](novelty-map-v2.md) — 先行研究との重なりと新規性候補
+7. [Research synthesis v1](research-synthesis-v1.md) — 以前のordered/shallow探索の到達点
 8. [Claims ledger](claims-ledger.md) — 既知・予想・未検証の台帳
 9. [Open questions](open-questions.md) — 設計判断と未解決点
-10. [Literature map](literature-map.md) — 関連研究を主張ごとに整理する場所
-11. [Work log](work-log.md) — 議論と変更の履歴
-12. [Minimal calculus v0](minimal-calculus-v0.md) — 初期の探索記録
+10. [Literature map](literature-map.md) — 関連研究
 
 ## ステータス記法
 

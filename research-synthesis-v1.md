@@ -1,5 +1,14 @@
 # Research synthesis v1
 
+:::{note}
+This page records the completed first exploration based on ordered trace grades
+and a first-actual-free-head shallow handler.  It is no longer the entry point
+of the current research program.  See [Extensibility question
+v2](extensibility-question-v2.md) for the revised question.  The results below
+remain active as comparison results, counterexamples, and possible refinement
+theorems.
+:::
+
 ## Status
 
 **Current answer to the original research question.**

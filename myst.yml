@@ -3,12 +3,14 @@ version: 1
 project:
   title: Effect Semantics Research Notes
   description: >-
-    Living research notes on structure-preserving extensions of effect
-    semantics, shallow handlers, graded monads, and logical relations.
+    Living research notes on when an existing effectful language can be
+    extended with user-defined operations and handlers while preserving its
+    semantics and metatheory.
   keywords:
     - algebraic effects
     - effect handlers
-    - shallow handlers
+    - deep handlers
+    - conservative extension
     - graded monads
     - operational semantics
     - denotational semantics
@@ -16,10 +18,16 @@ project:
   license: CC-BY-4.0
   toc:
     - file: README.md
-    - title: Working foundation
+    - title: Current research program
       children:
         - file: research-map.md
-        - file: research-synthesis-v1.md
+        - file: extensibility-question-v2.md
+        - file: base-semantic-package-v2.md
+        - file: extension-audit-v2.md
+        - file: unordered-deep-baseline-v2.md
+        - file: novelty-map-v2.md
+    - title: Base-language foundation
+      children:
         - file: staged-development.md
         - file: base-calculus-v1.md
         - file: base-calculus-examples-v1.md
@@ -30,8 +38,9 @@ project:
         - file: exact-layer-calculus-v2.md
         - file: semantic-interface-v1.md
         - file: objects-and-notation.md
-    - title: Mathematical development
+    - title: Previous ordered/shallow exploration
       children:
+        - file: research-synthesis-v1.md
         - file: free-operation-extension-v1.md
         - file: optional-free-layers-v1.md
         - file: original-design-reading.md

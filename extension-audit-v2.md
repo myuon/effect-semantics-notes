@@ -1,0 +1,82 @@
+# Extension audit v2
+
+## Purpose
+
+This is the main experiment ledger for the revised program.  Each candidate extension must state its input assumptions and fill this table with a proof, a cited theorem, a counterexample, or `open`.
+
+## Property matrix
+
+| Property | Trivial base | General base, base-pure clauses | General base, base-effectful clauses |
+|---|---:|---:|---:|
+| typing embedding | expected | expected | expected |
+| operational conservativity | expected | expected | expected |
+| denotational embedding | standard free construction | conjectured under package laws | conjectured under package laws |
+| preservation | standard | conjectured structural lifting | interaction-dependent |
+| no unhandled operation at empty row | standard | expected | expected |
+| deep elimination of $\Delta$ from free row | standard | expected | expected if clauses do not re-emit $\Delta$ |
+| adequacy preservation | standard recursion-free case | open | open |
+| morphism lifting | structural | open | interaction-dependent |
+| logical-relation lifting | structural | open | interaction-dependent |
+| precise output base grade | trivial | same $e$ | generally unavailable from an unordered row |
+| multi-shot safety | trivial pure base | needs audit | needs duplicability/discardability audit |
+
+“Expected” is not a proved status.  Results migrate to the claims ledger only after proof.
+
+## First boundary example: effectful clauses
+
+Suppose the input has base grade $b$ and free row $\{\Delta\}$.  Let the $\Delta$-clause perform base effect $k$ before resuming.
+
+The same static input annotation permits executions with zero, one, or several $\Delta$ requests.  Deep handling may therefore produce base behavior resembling
+
+$$
+b,
+\qquad
+k\otimes b,
+\qquad
+k\otimes b_1\otimes k\otimes b_2,
+\qquad\ldots
+$$
+
+where the original base behavior itself may be split around operation sites.  If $E$ is noncommutative, neither the number nor the insertion positions of $k$ are determined by $(b,\{\Delta\})$.
+
+:::{prf:conjecture} Unordered-row precision boundary
+:label: conj-unordered-boundary
+
+There is no uniform principal-grade transformer for arbitrary noncommutative base effect monoids that computes the precise base grade of an effectful deep handler from only an input base grade $b$, an unordered may-row $\rho$, and a clause grade $k$.
+:::
+
+A formal counterexample should use two computations with the same input grade but different placements or counts of $\Delta$, whose handled base traces have no common principal grade below the proposed result.
+
+## Candidate remedies to compare
+
+1. **Base-pure clause restriction:** $k=I$.
+2. **Coarse top:** weaken the result to $\top$; safe but usually uninformative.
+3. **Commutative idempotent base:** repeated insertion collapses to $b\sqcup k$.
+4. **Iteration:** use $k^*$, still requiring a law for insertion relative to $b$.
+5. **Occurrence counts:** retain an upper bound for each handled interface.
+6. **Ordered trace refinement:** calculate insertion pathwise, then abstract back to the public row system.
+
+The remedies should be ordered by required structure and precision, rather than selecting one prematurely.
+
+## Handler fragments to test
+
+For each fragment, repeat the audit.
+
+1. operation generation and forwarding only;
+2. affine one-shot catch: continuation used zero or one time;
+3. linear deep handler: every matching request resumes exactly once;
+4. unrestricted deep handler: continuation used zero or many times;
+5. scoped/higher-order handler.
+
+This distinction is essential for IO, resources, cancellation, concurrency, and other base mechanisms where duplicating a continuation is observably different or invalid.
+
+## Immediate proof obligations
+
+- Fix a precise baseline calculus and row algebra.
+- State handler operational rules, including forwarding and reinstallation.
+- Prove row weakening, substitution, preservation, and effect-aware progress.
+- Define the free tree semantics and deep fold.
+- Prove operational/denotational handler commutation.
+- Formulate base embedding independently from handler clauses.
+- Produce the first base-effectful counterexample before attempting the maximal theorem.
+
