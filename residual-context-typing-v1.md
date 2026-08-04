@@ -2,12 +2,12 @@
 
 ## Status
 
-**Derived Stage 2 lemmas and a newly exposed typing constraint.**
+**Derived Stage 2 lemmas; exhaustive-interface restriction adopted.**
 
 This page factors the preservation proof for the one-shot shallow matcher into
 a typed evaluation-context lemma and separate matching/forwarding cases. The
-factorization reveals that a single token-elimination rule is sound only for an
-exhaustive handler.
+factorization justifies the adopted restriction that a handler indexed by
+$\Delta$ supplies a branch for every operation in $\Delta$.
 
 ## 1. Residual context judgment
 
@@ -251,9 +251,9 @@ output grade from which $\Delta$ has been removed.
 The wildcard makes evaluation exhaustive as a case distinction; it does not
 make operation elimination exhaustive.
 
-## 7. Two sound typing levels
+## 7. Adopted core and deferred extension
 
-### 7.1 Exhaustive interface eliminator
+### 7.1 Adopted exhaustive interface eliminator
 
 If $H$ has a typed clause for every operation in $\Delta$, use
 
@@ -275,9 +275,10 @@ $$
 Here every actual $\Delta$ request takes a matching branch, while a skipped
 optional layer takes the identity path $be\leq be'e$.
 
-### 7.2 Partial one-shot matcher
+### 7.2 Deferred partial one-shot matcher
 
-A partial matcher transforms alternative traces differently:
+A partial matcher is not included in the core language. If added later, it
+would transform alternative traces differently:
 
 $$
 \begin{array}{rcl}
@@ -295,7 +296,14 @@ three outputs. A sound general type system therefore needs at least one of:
 3. joins in the grade algebra large enough to contain all three outputs;
 4. an explicit effect transformer indexed by the handled clause set.
 
-The operational calculus does not force a choice among these presentations.
+The operational idea remains coherent, but none of these presentations is
+needed for the current main theorem.
+
+A comparatively small future design is to refine interfaces: split $\Delta$
+into a handled subinterface and a residual subinterface, then require the
+handler to be exhaustive for the handled part. This avoids partiality only by
+making operation-level distinctions visible in the effect index, so it is still
+a genuine extension rather than notation for the current system.
 
 ## 8. Revised preservation statement
 
@@ -335,10 +343,11 @@ with forwarding cannot have this codomain unless the denotation of
 $\widehat T_{be'e}$ also contains the forwarded alternatives through an
 upper-bound inclusion.
 
-Hence the next denotational comparison should test two constructions:
+Hence the main denotational construction should first test:
 
-1. the original $H_\Delta$ for exhaustive interfaces;
-2. a trace-language transformer for partial one-shot matchers.
+1. the original $H_\Delta$ for exhaustive interfaces.
+
+A trace-language transformer for partial one-shot matchers is deferred.
 
 This separates a genuine mathematical issue from the already settled
 operational notion of shallowness.

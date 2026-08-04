@@ -39,6 +39,18 @@ $$
 
 There is no source variable $k$ for the continuation in this core syntax.
 
+### Exhaustiveness convention
+
+If a handler is indexed by an interface $\Delta$, it must contain exactly one
+branch for every operation declared in $\Delta$. Thus the core construct gives
+an interpretation of the whole interface, not a partial test for selected
+operation names. The identity fallback remains relevant to returned values and
+requests from other interfaces.
+
+Partial operation matchers are left as a possible later extension. Supporting
+them without losing unmatched effect tokens requires operation-granular effects,
+trace languages, joins, or an equivalent effect transformer.
+
 ## 2. Evaluation before matching
 
 The scrutinee $e$ is evaluated until it reaches one of the observable head outcomes:

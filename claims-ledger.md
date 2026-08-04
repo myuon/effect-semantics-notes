@@ -74,6 +74,8 @@
 | C-068 | Derived | partial matcherがunmatched operationをforwardする場合、そのoperation tokenはoutput effectから消去できない | R-Handle-Forward; C-066 | trace-language/row-transformerの候補を比較 |
 | C-069 | Rejected | partial matcher一般に対して単純なword rule $b\Delta e\mapsto be'e$ を使える | unmatched operation counterexample | exhaustive interface eliminatorに制限、またはgradeを拡張 |
 | C-070 | Derived conditional | $\Delta$ の全operationに共通effect $e'$ のbranchがあり $1\leq e'$ ならexhaustive handlerは $b\Delta e\mapsto be'e$ で型付けできる | C-065--C-067; optional branch effects | full preservation theoremを記述 |
+| C-071 | Adopted definition | Coreの$\Delta$-indexed handlerは$\Delta$に属する全operationを重複なくbranchとして持つ | C-068--C-070; T-Handler-WF | preservation proofでinversionを使用 |
+| C-072 | Deferred extension | Partial operation matcherはcoreに含めず、operation-granular indexまたはtrace transformerを導入する将来拡張として扱う | C-068--C-069 | main denotation完成後に再評価 |
 
 ## 証明完了の基準
 

@@ -2,12 +2,13 @@
 
 ## Status
 
-**Adopted Stage 2 operational calculus; provisional upper-bound typing.**
+**Adopted Stage 2 operational calculus and exhaustive-interface typing.**
 
 This page extends the fixed Stage 0 calculus with simple free operations and the
 one-shot shallow matcher. It fixes the source syntax, call-by-value control flow,
-and principal reduction rules. The remaining open design choice concerns only
-the representation and coherence of subeffect evidence.
+and principal reduction rules. A handler indexed by $\Delta$ must contain a
+branch for every operation declared in $\Delta$. The remaining open design
+choice concerns only the representation and coherence of subeffect evidence.
 
 ## 1. Parameters
 
@@ -40,16 +41,21 @@ M,N ::= {}& \cdots
 \end{aligned}
 $$
 
-where a handler for $\Delta$ has one or more typed operation clauses
+where a handler for $\Delta$ has exactly one typed clause for every operation
+declared in $\Delta$
 
 $$
-H::=\{\operatorname{op}_i(x_i)\Rightarrow M_i\}_{i\in I}
+H_\Delta::=\{\operatorname{op}_i(x_i)\Rightarrow M_i\}_{\operatorname{op}_i\in\Delta}
 \quad[;\ \_\Rightarrow y].
 $$
 
-The final clause is optional notation for the fixed identity fallback. It is
-not an arbitrary computation and binds no continuation. In particular, the
-following core language has no continuation variable $k$.
+Clause names must be distinct. Omitting any operation in $\Delta$ or adding a
+clause from another interface is ill formed.
+
+The final clause is optional notation for the fixed identity fallback. It covers
+returned values and requests from interfaces other than $\Delta$; it is not an
+arbitrary computation and binds no continuation. In particular, the following
+core language has no continuation variable $k$.
 
 For readability, a singleton handler is written
 
@@ -238,15 +244,33 @@ model.
 
 ## 8. Core handler typing
 
-> **Revision after preservation analysis.** The word-elimination rule below is
-> sound as stated only when the handler covers every operation represented by
-> the selected $\Delta$ token. For partial matchers, an unmatched forwarded
-> operation must remain in the output effect. The complete derivation is in
-> [Residual context typing v1](residual-context-typing-v1.md).
+The word-elimination rule below relies on the well-formedness requirement that
+the handler covers every operation represented by the selected $\Delta$ token.
+The complete preservation derivation is in
+[Residual context typing v1](residual-context-typing-v1.md).
 
-First state the rule for one selected operation
-$\operatorname{op}:P\to R\in\Delta$. Suppose the scrutinee has the upper-bound
-shape
+Define the handler-clause judgment
+
+$$
+\Gamma\vdash H:\Delta\Rightarrow e'
+$$
+
+by
+
+$$
+\frac{
+\operatorname{dom}(H)=\operatorname{ops}(\Delta)
+\qquad
+\forall(\operatorname{op}_i:P_i\to R_i\in\Delta).\;
+\Gamma,x_i:P_i\vdash H(\operatorname{op}_i):R_i!e'
+}{
+\Gamma\vdash H:\Delta\Rightarrow e'
+}.
+\tag{T-Handler-WF}
+$$
+
+Equality of domains enforces both coverage and absence of duplicate/foreign
+clauses. Suppose the scrutinee has the upper-bound shape
 
 $$
 b\cdot\Delta\cdot e
@@ -258,22 +282,19 @@ $$
 \frac{
 \Gamma\vdash M:A!(b\Delta e)
 \qquad
-\operatorname{op}:P\to R\in\Delta
+\Gamma\vdash H:\Delta\Rightarrow e'
 \qquad
-\Gamma,x:P\vdash N:R!e'
+1\leq e'
 }{
 \Gamma\vdash
-\mathsf{handle}_\Delta\;M\;\mathsf{with}\;
- \{\operatorname{op}(x)\Rightarrow N;\ \_\Rightarrow y\}
+\mathsf{handle}_\Delta\;M\;\mathsf{with}\;H
 :A!(b e' e)
 }.
-\tag{T-Handle-1}
+\tag{T-Handle}
 $$
 
-For the eliminating form, every operation in $\Delta$ must have a clause, and
-every clause body must have the corresponding operation result type and a common
-effect upper bound $e'$. A partial handler still has the same operational rules,
-but requires the trace-transforming type described in the revision above.
+Every clause body must have the corresponding operation result type and a common
+effect upper bound $e'$. Partial handlers are not terms of the core calculus.
 
 This rule records the order of the matching execution:
 
@@ -292,7 +313,7 @@ $$
 b e=b1e\leq be'e
 $$
 
-provided $1\leq e'$. We therefore make the following premise explicit:
+provided $1\leq e'$. This is the final premise of `T-Handle`:
 
 $$
 1\leq e'.

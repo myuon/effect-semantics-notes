@@ -58,6 +58,8 @@ The adopted Stage 2 source calculus and its provisional upper-bound typing are f
 
 The first preservation proof is factored through typed residual contexts in [Residual context typing v1](residual-context-typing-v1.md). It establishes the matching order $e'e$ and shows that plain token elimination is restricted to exhaustive interface handlers; partial forwarding requires a trace-transforming effect type.
 
+The core language therefore adopts exhaustive interface handlers: a handler indexed by $\Delta$ must provide one clause for every operation in $\Delta$. Partial operation matchers are deferred as a separate extension.
+
 ## Stage 2 — Add shallow handlers
 
 Stage 1のcalculusにmatching shallow handlerを追加する。
