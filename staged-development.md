@@ -25,6 +25,8 @@ Exit condition: syntax、typing、reductionを固定し、substitution、preserv
 
 Stage 0のcurrent semantic candidateは [Base denotational semantics v1](base-denotational-semantics-v1.md) に置く。これはstrong graded monadでbase calculusだけを解釈し、free operationsやhandlersを含まない。
 
+Substitution、preservation、request decomposition、determinism、internal reduction soundnessのpaper proofsは [Base metatheory v1](base-metatheory-v1.md) に置く。
+
 将来のrecursion追加に関するcategorical collapse constraintは [Fixpoint design constraints](fixpoint-design.md) に分離して記録する。Stage 0ではunrestricted pure fixpointを追加しない。
 
 ## Stage 1 — Add free operations

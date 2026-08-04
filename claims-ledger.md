@@ -43,6 +43,8 @@
 | C-037 | Adopted definition | Stage 0のbase operation syntaxはcontinuationを含むnodeではなく、単純なcomputation $\beta(V):R_\beta!|\beta|$ である | Base calculus v1 | contextual request decompositionを証明 |
 | C-038 | Literature theorem | CCC、全射に対するparameterized fixed points、binary coproductsは非退化な一つの圏では共存しない | Huwig–Poigné 1990 | value/computation分離を使ったrecursion semanticsを設計 |
 | C-039 | Candidate | Stage 0 calculusはsubeffect coercionsとstrengthを備えた$B$-graded monadで解釈できる | Base denotational semantics v1 | substitution、reduction soundness、coherenceを証明 |
+| C-040 | Derived | Stage 0 calculusはsubstitution、internal preservation、deterministic decomposition modulo base requestsを満たす | Base metatheory v1 | mechanization前に規則変更時の再検査を継続 |
+| C-041 | Derived conditional | strong graded monad lawsとsubeffect coherenceの下でinternal reductionはdenotational equalityを保存する | Base metatheory v1; C-039 | concrete Writer machineとのadequacyを証明 |
 
 ## 証明完了の基準
 
