@@ -149,6 +149,11 @@
 | C-143 | Derived | unit/bind/weakening/primitivesを保存するgraded computation relationはtyped base foldsを関連づける | LR-007 | strength付きopen-term版を完全展開 |
 | C-144 | Derived | primitive-preserving graded monad morphismのequality graphからBI-006がLR-007の特殊例として回収される | LR-008 | general graph relatorとの対応を検討 |
 | C-145 | Derived conditional | related source environmentsとclausesはhandled base-only programsのrelated ground observationsを導く | LR-009; observation compatibility | compiler transformation例で検証 |
+| C-146 | Derived | nested shallow handlersのdenotationとoperational behaviorはstructural handler functionsのordered compositionである | HC-001--HC-002; AD-004 | nested syntax examplesを形式化 |
+| C-147 | Derived | nested handler sequenceのsound gradeは対応する$\Phi$ transformersの同順序compositionである | HC-003--HC-004 | least-bound条件をcharacterize |
+| C-148 | Counterexample | same-interface shallow handlerは一般にidempotentでなく、二重handlerは単一handlerへcollapseしない | HC-005--HC-006; two-tick tree | restricted idempotence domainを調べる |
+| C-149 | Counterexample | distinct-interface shallow handlersとそのgrade transformersは一般にcommuteしない | HC-007; $\Delta\Gamma$ and clause-introduction examples | sufficient commutation conditionsを精密化 |
+| C-150 | Derived conditional | head-separated domainではcross-interface introductionがなければ異なるhandlersはcommuteする | HC-008 | conditionをweakenできるか調べる |
 
 ## 証明完了の基準
 
