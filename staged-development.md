@@ -92,6 +92,8 @@ The first Stage 3 denotational construction is [Shallow handler denotation v1](s
 
 [Principal-word recovery v1](principal-word-recovery-v1.md) characterizes exactly when the original-looking rule $b\Delta e\mapsto bke$ can be derived from trace-language handling. The only new obstruction is skipping the displayed optional $\Delta$ and then handling a later retained $\Delta$ from the tail.
 
+[Base conservativity v1](base-conservativity-v1.md) proves syntactic, operational, and denotational conservativity and handler inertness for old base programs. It also isolates the empty-response counterexample: complete-path grades reflect base-only carriers only when operation response sets are inhabited.
+
 ## Stage 2 — Add shallow handlers
 
 Stage 1のcalculusにmatching shallow handlerを追加する。

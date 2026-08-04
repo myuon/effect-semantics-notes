@@ -159,6 +159,12 @@
 | C-153 | Derived | residual tail $e$がhandled interface $\Delta$を含まなければoriginal principal-word ruleはsoundである | PW-003 | source effect inferenceで利用 |
 | C-154 | Counterexample | bound $\Delta w\Delta$のactual trace $w\Delta$はhandling後$wk$となり、一般に$kw\Delta$でboundされない | PW-005; noncommutative free model | original assumptionsとの対応を記述 |
 | C-155 | Milestone | original $b\Delta e\mapsto bke$ ruleはcore axiomでなくPW-002のanchoring side condition付きderived ruleとして回収できる | C-151--C-154 | surface typing designへ反映 |
+| C-156 | Derived | principal base downset $J(b)$に含まれるwordはbase-onlyである | BC-001--BC-002; PW-001 | formal normal-form proofへ統合 |
+| C-157 | Derived | Stage 0 typing/execution/tree denotationはfree extensionへconservatively埋め込まれ、typed foldはfirst-order resultで元の$T$ denotationを回収しhigher-orderではlogical relationを満たす | BC-003--BC-006; BI-004; LR-007 | open-term categorical proofを完全図式化 |
+| C-158 | Derived | shallow handlerと$\Phi$はbase-only trees/principal base languages上でidentityである | BC-007--BC-009 | source contextual equivalenceへ持ち上げる |
+| C-159 | Counterexample | empty-response free operation nodeはcomplete traceを持たず任意のgradeに属するためunrestricted carrier reflectionは偽 | BC-010; $\mathsf{abort}:1\to0$ | maximal-partial-path gradingと比較 |
+| C-160 | Derived conditional | 全operation response setsがinhabitedなら$\mathsf{GTree}_{J(b)}$の全要素はbase-onlyである | BC-011--BC-012 | assumptionをsource type grammarから導けるか確認 |
+| C-161 | Milestone | free extensionのbase conservativityはcarrier isomorphismでなくsyntax embeddingとdenotation-preserving typed foldとして成立する | BC-013; C-156--C-160 | main theorem synthesisへ統合 |
 
 ## 証明完了の基準
 
