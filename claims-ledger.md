@@ -41,6 +41,7 @@
 | C-035 | Established | Operational coreではmatching free operationをshallowにeliminateし、base operationをforwardし、return到達時だけbare-value return clauseを実行する | Operational calculus v1 reduction rules | unannotated preservationとdeterminismを証明 |
 | C-036 | Adopted definition | 研究はbase calculus、free-operation extension、shallow-handler extension、denotational reconstructionの順に進める | Staged development | Stage 0のB-001--B-003を証明 |
 | C-037 | Adopted definition | Stage 0のbase operation syntaxはcontinuationを含むnodeではなく、単純なcomputation $\beta(V):R_\beta!|\beta|$ である | Base calculus v1 | contextual request decompositionを証明 |
+| C-038 | Literature theorem | CCC、全射に対するparameterized fixed points、binary coproductsは非退化な一つの圏では共存しない | Huwig–Poigné 1990 | value/computation分離を使ったrecursion semanticsを設計 |
 
 ## 証明完了の基準
 

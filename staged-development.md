@@ -23,6 +23,8 @@ Current page: [Base calculus v1](base-calculus-v1.md)
 
 Exit condition: syntax、typing、reductionを固定し、substitution、preservation、decompositionを紙上で確認する。
 
+将来のrecursion追加に関するcategorical collapse constraintは [Fixpoint design constraints](fixpoint-design.md) に分離して記録する。Stage 0ではunrestricted pure fixpointを追加しない。
+
 ## Stage 1 — Add free operations
 
 Stage 0へのconservative extensionとして、free interfaces $\Delta$ とsimple free-operation computationsだけを追加する。base calculusと同様、operation term自身はcontinuationを引数に取らない。
