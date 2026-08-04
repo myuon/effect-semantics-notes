@@ -275,7 +275,11 @@ general theorem interface.
 
 ## Immediate next task
 
-Freeze the shared syntax and operational semantics independently of all four
-base denotations.  Then instantiate the syntax with the Writer machine first,
-because it gives the most transparent calculations for deep resumption,
-forwarding, and base-effectful clauses.
+The shared syntax and operational semantics are now proposed in [Common
+free-handler calculus v2](common-free-handler-calculus-v2.md).  The first
+operational instantiation and six common calculations are in [Writer deep
+handler examples v2](writer-deep-handler-examples-v2.md).
+
+The next task is to audit these definitions for ambiguities and then prove the
+Writer instance's decomposition and preservation lemmas before introducing a
+denotational model.

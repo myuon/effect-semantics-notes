@@ -26,6 +26,8 @@ project:
         - file: extension-audit-v2.md
         - file: unordered-deep-baseline-v2.md
         - file: concrete-base-program-v2.md
+        - file: common-free-handler-calculus-v2.md
+        - file: writer-deep-handler-examples-v2.md
         - file: novelty-map-v2.md
     - title: Base-language foundation
       children:
