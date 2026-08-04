@@ -66,6 +66,8 @@ Nested handlers and machine interaction are completed in [Stage 2 operational me
 
 The first Stage 3 denotational construction is [Shallow handler denotation v1](shallow-handler-denotation-v1.md). Assuming the optional-layer extended graded monad, it constructs the exhaustive shallow handler by coproduct case analysis, proves the skip and operation equations, and identifies construction of coherent optional weakening as the remaining global problem.
 
+[Middle-padding obstruction v1](middle-padding-obstruction-v1.md) shows that proof-relevant word embeddings alone do not construct padding: inserting $\Delta$ between $b$ and $e$ requires a split $T_{be}\to T_bT_e$, opposite to graded multiplication. The representation theorem must therefore assume split structure, preserve syntactic segmentation, elaborate before flattening, or use a free interaction refinement.
+
 ## Stage 2 — Add shallow handlers
 
 Stage 1のcalculusにmatching shallow handlerを追加する。

@@ -89,6 +89,11 @@
 | C-083 | Derived conditional | Handler equationはskipでidentity weakening、operationで$c_{\operatorname{op}}(p)\mathbin{\mathsf{bind}}k$となり、後者に$H_\Delta$の再帰出現がないためshallowである | C-081--C-082 | operational soundness inductionへ統合 |
 | C-084 | Derived conditional | Exhaustivenessは$\mathsf{Op}_\Delta$の全coproduct summandから共通codomainへのmapを定義するために十分であり、partial clauseには追加のforwarding summandが必要である | coproduct universal property; C-068 | categorical statementを精密化 |
 | C-085 | Milestone | Handler denotation自体はoptional-layer structureからcanonicalに構成でき、主要未解決点は$\widehat T$とcoherent paddingの一般構成へ縮約された | C-081--C-084 | extended graded monad constructionを開始 |
+| C-086 | Derived obstruction | Middle padding $\widehat T_{be}\to\widehat T_{b\Delta e}$ のnaive layer実装には一般にsplit $T_{be}\to T_bT_e$ が必要で、graded monadが与える$\mu:T_bT_e\to T_{be}$とは逆向きである | optional carrier equation; type calculation | concrete countermodelsとsplit assumptionsを比較 |
+| C-087 | Derived | Proof-relevant word embeddingはpadding位置を区別するが、対応するsemantic mapの存在は保証しない | C-050; C-086 | grading categoryとsemantic actionを分離して定義 |
+| C-088 | Candidate | Natural sections $\delta_{b,e}:T_{be}\to T_bT_e$ とunit/coassociativity coherenceを仮定すればmiddle paddingを構成できる | C-086; section laws | monad lawsとpadding naturalityを完全計算 |
+| C-089 | Candidate | Raw segmented gradesを$T_bT_e$で解釈すればsplitなしにboundary insertionできるが、base $T_{be}$へのconservativityは$\mu$によるlax flatteningになる | segmented-word construction | Writer modelでflattening adequacyを検証 |
+| C-090 | Candidate | Free interaction semanticsを先に構成し$T$へ解釈すればarbitrary base modelをtargetとして保てるが、carrier equalityではなくfree refinement theoremになる | interaction-tree construction | segmented Writerとの比較計算 |
 
 ## 証明完了の基準
 

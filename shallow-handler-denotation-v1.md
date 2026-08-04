@@ -378,3 +378,8 @@ The major remaining obligation is now sharply isolated:
 
 That construction must resolve the repeated-padding issue. The handler itself
 does not introduce a further ambiguity once the optional layer is available.
+
+There is also a more basic existence issue: inserting a layer in the middle of
+$T_{be}$ generally requires a map $T_{be}\to T_bT_e$, opposite to graded
+multiplication. This obstruction and the resulting construction choices are
+analyzed in [Middle-padding obstruction v1](middle-padding-obstruction-v1.md).
