@@ -104,6 +104,14 @@
 | C-098 | Derived | First-free-head transformer $\Phi_{\Delta,K}$ はmatching traceの最初の$\Delta$をclause language $K$で置換し、return/other-interface traceを保存するmonotone grade mapである | trace case analysis | composition/naturality lawsを計算 |
 | C-099 | Derived | Tree shallow handlerは$\mathsf{Tree}_L X\to\mathsf{Tree}_{\Phi_{\Delta,K}(L)}X$を与え、direct operational semanticsの四ケースと一致する | WT-002 | Writer operational adequacyを証明 |
 | C-100 | Counterexample | Optional bound $\Delta\mathbf w\Delta$ のtrace $\mathbf w\Delta$ はhandling後$\mathbf wK$となり、simple output $K\mathbf w\Delta$では一般にboundできない | noncommutativity; first optional token skipped | principal-word ruleの成立条件をcharacterize |
+| C-101 | Derived | Writer grade embeddingは$J(1)=\{\epsilon\}$、$J(w)=\{\mathbf w^n\mid n\geq0\}$とすれば$w\cdot w=w$をlanguage multiplicationで保存する | Writer idempotence | general $B\to Q$ embedding条件を抽出 |
+| C-102 | Derived conditional | Trace-language typing derivationはtree trace inclusionにsoundであり、handler caseは$\Phi_{\Delta,K}$で閉じる | WT-001--WT-002; T-Handle-Lang | mechanizationで全syntax casesを検査 |
+| C-103 | Derived conditional | Internal reductionはunderlying Writer interaction tree denotationを保存する | substitution; tree monad laws; handler equations | formal proof termへ展開 |
+| C-104 | Derived conditional | Recursion-free operational behavior treeはdenotational treeと一致し、ground Writer resultとfirst free requestを双方向に反映する | normalization; C-103; primitive node separation | reducibility measureを完全形式化 |
+| C-105 | Derived conditional | Operational shallow handlerとstructural tree handlerはbehavior tree上で一致する | C-104; four handler head cases | nested handler casesを明示展開 |
+| C-106 | Derived | Writer base-only treeは$\mathsf{List}(\mathsf{String})\times X$とreturn/bindを保存するcanonical isomorphismを持つ | run/quote calculation | grading compatibilityをdiagram化 |
+| C-107 | Derived conditional | Structural tree relationはreturn/bindとexhaustive shallow handlerで保存される | pointwise continuation relation; related clauses | general relational lifting theoremへ抽象化 |
+| C-108 | Milestone | Writer concrete modelで必要なsoundness/adequacy/conservativity/handler packageがpaper levelで閉じた | C-096--C-107 | Writer依存仮定と一般化可能部分を分離 |
 
 ## 証明完了の基準
 

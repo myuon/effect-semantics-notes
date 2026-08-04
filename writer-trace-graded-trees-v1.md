@@ -136,18 +136,41 @@ Associativity and the unit law follow from word concatenation; downward closure
 is idempotent and compatible with concatenation. Distribution follows because
 setwise concatenation distributes over union. $\square$
 
-Every concrete word $E$ embeds as the principal grade
+Free-interface tokens embed as principal grades, but the coarse idempotent
+Writer grade requires a language embedding. Define
 
 $$
-\langle E\rangle=\downarrow\{E\}.
+J(1)=I,
 $$
 
-Then ordinary subeffecting is inclusion:
+$$
+J(w)=\{\mathbf w^n\mid n\geq0\},
+$$
+
+$$
+J(\Delta)=\downarrow\{\Delta\},
+$$
+
+and extend multiplicatively over mixed words:
+
+$$
+J(EF)=J(E)\otimes J(F).
+$$
+
+This respects Writer idempotence:
+
+$$
+J(w)\otimes J(w)=J(w)=J(w\cdot w).
+$$
+
+For a free-token word with no coarse base factor, $J(E)$ coincides with the
+principal downward closure $\downarrow\{E\}$. Ordinary subeffecting is mapped to
+inclusion:
 
 $$
 E\preceq F
 \Longrightarrow
-\langle E\rangle\subseteq\langle F\rangle.
+J(E)\subseteq J(F).
 $$
 
 ## 5. Tree traces
@@ -264,7 +287,7 @@ $$
 =
 \mathsf{tell}(s,\mathsf{ret}(*))
 \in
-\mathsf{Tree}_{\langle\mathbf w\rangle}(1).
+\mathsf{Tree}_{J(w)}(1).
 $$
 
 For $\operatorname{op}:P\to R\in\Delta$,
@@ -275,7 +298,7 @@ $$
 \mathsf{op}_\Delta
 (p,\lambda r.\mathsf{ret}(r))
 \in
-\mathsf{Tree}_{\langle\Delta\rangle}(R).
+\mathsf{Tree}_{J(\Delta)}(R).
 $$
 
 The continuation still arises through bind, not as a source argument.

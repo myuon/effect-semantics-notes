@@ -72,6 +72,8 @@ The first Stage 3 denotational construction is [Shallow handler denotation v1](s
 
 [Writer trace-graded trees v1](writer-trace-graded-trees-v1.md) carries out that construction. Downward-closed ordered trace languages form the grade quantale, finite Writer/free-operation trees form a graded monad, and the shallow handler has a monotone first-free-head grade transformer $\Phi_{\Delta,K}$.
 
+[Writer tree metatheory v1](writer-tree-metatheory-v1.md) completes the paper-level concrete proof package: effect and reduction soundness, behavior-tree/request/ground adequacy, handler adequacy, Writer conservativity up to monad isomorphism, naturality, and a structural relation-lifting template.
+
 ## Stage 2 — Add shallow handlers
 
 Stage 1のcalculusにmatching shallow handlerを追加する。
