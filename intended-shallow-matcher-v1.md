@@ -2,7 +2,7 @@
 
 ## Status
 
-**Current best reconstruction of the intended handler syntax.**
+**Adopted reconstruction of the intended core handler behavior.**
 
 This page supersedes the assumption that the source handler has an arbitrary effectful return clause and an explicitly user-controlled continuation. The intended construct is instead a one-shot operation matcher with an implicit identity fallback.
 
@@ -222,9 +222,34 @@ not
 handle_Delta E[return r] with H.
 ```
 
-Therefore this reconstruction uses **forward and stop searching**. A later matching $\Delta$ in the unmatched continuation is not handled automatically.
+Therefore the adopted rule is **forward and stop searching**. A later matching $\Delta$ in the unmatched continuation is not handled automatically.
 
-If “otherwise” is intended to keep searching instead, that is a separate recursive forwarding rule and should be added explicitly. It is not the plain identity fallback.
+There is no “forward and reinstall” behavior in the core calculus. Such a construct would be a separate recursive/searching handler and would not have the intended shallowness.
+
+## 7.1 One-shot head observation
+
+The complete control-flow principle is:
+
+> Evaluate the scrutinee $e$ by call-by-value until its first observable head outcome, inspect that outcome exactly once, and then remove the handler permanently.
+
+The three outcomes are:
+
+$$
+\begin{array}{rcl}
+\mathsf{return}\;V
+&\mapsto&
+\mathsf{return}\;V,\\[1mm]
+\mathcal E[\operatorname{op}_\Delta(t)]
+&\mapsto&
+\mathsf{let}\;r\leftarrow M[t/x]\;\mathsf{in}\;
+\mathcal E[\mathsf{return}\;r],\\[1mm]
+\mathcal E[\operatorname{op}_\Gamma(t)]\quad(\Gamma\neq\Delta)
+&\mapsto&
+\text{forward }\mathcal E[\operatorname{op}_\Gamma(t)].
+\end{array}
+$$
+
+In every row, the reduct/forwarded continuation contains no occurrence of the eliminated handler.
 
 ## 8. Continuation usage is fixed
 
@@ -356,8 +381,7 @@ The intended core appears to be:
 - a matching branch replaces the operation result;
 - the captured continuation resumes automatically exactly once;
 - matching continuation is not rehandled, hence shallow;
-- value and unmatched cases use an implicit identity fallback;
+- value and unmatched cases use an implicit identity fallback and terminate the handler;
 - the branch effect is inserted as a static upper bound on paths where the branch does not execute.
 
 This is neither a fully general algebraic handler nor a positional skip-layer eliminator. It is a selective, one-shot shallow operation matcher.
-

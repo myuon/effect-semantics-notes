@@ -63,6 +63,7 @@
 | C-057 | Adopted reconstruction | Core shallow matcherのmatching branchはoperation resultを生成し、captured continuationを暗黙にexactly once再開し、同じhandlerを再設置しない | clarified source-language intent | formal typing/reduction ruleをStage 2 calculusへ統合 |
 | C-058 | Adopted reconstruction | Core matcherのvalue/unmatched behaviorはeffectful return clauseではなくimplicit identity fallbackである | clarified `_ -> y` syntax | unmatched forwardingのhead-form ruleを型付け |
 | C-059 | Derived conditional | $1\leq e'$ の下でno-match path $be$ とmatching path $be'e$ は共通upper bound $be'e$ を持つ | optional effect insertion; C-057--C-058 | padding coherenceまたはtrace-bound semanticsを構成 |
+| C-060 | Adopted definition | Core shallow matcherはscrutineeの最初のvalue/free-request headを一度だけ検査し、matching・value・unmatchedの全ケースでhandlerを再設置しない | clarified shallowness intent | formal Stage 2 evaluation-context rulesを固定 |
 
 ## 証明完了の基準
 

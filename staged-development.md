@@ -52,7 +52,7 @@ The supplied thesis Definition 21 is analyzed in [Reading of the original design
 
 Concrete return/match/ignore/duplicate/mismatch tests are calculated in [Optional handler operational tests v1](optional-handler-tests-v1.md). They isolate the main fork between a conventional searching handler and the original positional layer eliminator.
 
-The clarified source-level intention is reconstructed in [Intended shallow matcher v1](intended-shallow-matcher-v1.md): branches replace an operation result, the captured continuation resumes implicitly exactly once, and value/unmatched cases use an identity fallback. This removes the arbitrary-return-clause and continuation-usage assumptions from the core language.
+The clarified source-level intention is reconstructed in [Intended shallow matcher v1](intended-shallow-matcher-v1.md): branches replace an operation result, the captured continuation resumes implicitly exactly once, and value/unmatched cases use an identity fallback that permanently ends the handler. This removes the arbitrary-return-clause, searching-forwarding, and continuation-usage assumptions from the core language.
 
 ## Stage 2 — Add shallow handlers
 
