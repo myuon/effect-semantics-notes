@@ -43,6 +43,9 @@ project:
         - file: recursive-calculus-v2.md
         - file: recursive-resumption-semantics-v2.md
         - file: recursion-preservation-v2.md
+        - file: recursive-writer-model-v2.md
+        - file: recursive-writer-handler-v2.md
+        - file: recursive-writer-adequacy-v2.md
         - file: novelty-map-v2.md
     - title: Base-language foundation
       children:

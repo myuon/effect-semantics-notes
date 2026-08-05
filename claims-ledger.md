@@ -209,6 +209,12 @@
 | C-203 | Conjecture | $\Delta$-free targetを持つiteration-compatible clausesのexhaustive deep handlerはElgot iterationまたはTau-guarded corecursionでrecursive resumptionsを解釈し、全finite observationでhandled interfaceをdischargeする | C-200; target coalgebra; weak bisimulation/iteration laws | unguarded handler equationのexistenceと適切なuniqueness条件を証明 |
 | C-204 | Main recursive theorem candidate | recursive unordered extensionはoperational safetyを無条件に保ち、complete-Elgot resumptionとdivergence-reflecting observationの下でsoundness、iteration-preserving morphisms、admissible relations、termination/divergence adequacyを保つ | C-198--C-203 | Level 1/2 adequacyをWriterから実証 |
 | C-205 | Boundary | unrestricted recursion下のfinite occurrence countは一般に保存されず、recursive cycleが$\Delta$へ到達可能ならsound boundは通常$\infty$となる | repeated unfolding | sized/bounded recursionをoptional refinementとして検討 |
+| C-206 | Concrete semantic construction | recursive Writer domain $\mathsf{CWTree}_\rho A\cong(W\times(A+\Sigma_\rho\mathsf{CWTree}_\rho A))_\bot$ はpointed locally continuous row monadを成す | standard recursive-domain solution; continuous Writer prefix | domain equationの存在を選択したCPO categoryで引用/証明 |
+| C-207 | Derived conditional on paper | continuous clausesから作るhandler functional $\Phi_h$ はcontinuousで、そのleast fixed pointがreturn/matching/forwarding/bottom equationsを満たす | C-206; Kleene fixed-point theorem; $\Delta$-free target | complete syntaxからclause continuityを導出 |
+| C-208 | Derived conditional on paper | recursive Writer handlerは全finite observationで$\Delta$をdischargeし、well-founded inputs上では旧structural foldと一致する | C-207; row-indexed target; compact approximation | finite-fold embedding diagramを完全化 |
+| C-209 | Derived conditional on paper | recursive Writer one-step soundnessとfinite return/request adequacyはcontinuous semanticsとunderlying recursive CBV computational adequacyから従う | C-206--C-208; semantic substitution; compactness | base adequacy theoremをfixed source calculus向けに展開 |
+| C-210 | Derived conditional on paper | empty outward rowのclosed ground Writer computationではsemantic bottom iff boundaryへ到達しないinfinite reductionである | C-209; determinism; empty-row safety | constructive/classical divergence statementを区別 |
+| C-211 | Boundary | productive infinite handled request loopはpartial Writer modelでbottomとなるため、finite-boundary/divergence adequacyは成立してもinfinite-output trace adequacyは得られない | infinite `opDelta`/`tell` loop | visible Writer interaction treeをoptional modelとして構成 |
 
 ## 証明完了の基準
 
