@@ -50,6 +50,12 @@ project:
         - file: recursive-writer-fundamental-v2.md
         - file: recursive-writer-adequacy-closure-v2.md
         - file: recursive-writer-domain-instance-v2.md
+        - file: recursive-writer-proof-audit-v2.md
+        - file: recursive-base-adequacy-package-v2.md
+        - file: recursive-state-model-v2.md
+        - file: recursive-state-adequacy-v2.md
+        - file: recursive-exception-model-v2.md
+        - file: recursive-exception-adequacy-v2.md
         - file: novelty-map-v2.md
     - title: Base-language foundation
       children:
