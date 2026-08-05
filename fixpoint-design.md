@@ -2,7 +2,11 @@
 
 ## Status
 
-**Stage 0 design constraint; recursion is not yet part of the calculus.**
+**Historical Stage 0 constraint.**  The proposed recursive source calculus and
+semantic replacement are now developed in [Recursive calculus
+v2](recursive-calculus-v2.md), [Recursive resumption semantics
+v2](recursive-resumption-semantics-v2.md), and [Recursion preservation
+v2](recursion-preservation-v2.md).
 
 将来fixpointを追加する前に、products、functions、coproductsとunrestricted fixed pointsを同じcategorical structureに載せたときのcollapse resultを記録する。
 
@@ -154,4 +158,3 @@ For now:
 - do not assume that coproducts in a pointed computation category are ordinary disjoint coproducts.
 
 These are design constraints, not yet a final recursion rule. The next recursion-specific task is to compare computation-level `fix`, recursive functions, guarded recursion, and a lifting/partiality effect against the intended operational semantics.
-

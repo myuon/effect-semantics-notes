@@ -40,6 +40,9 @@ project:
         - file: unordered-preservation-summary-v2.md
         - file: quantitative-row-extension-v2.md
         - file: count-vs-row-theorems-v2.md
+        - file: recursive-calculus-v2.md
+        - file: recursive-resumption-semantics-v2.md
+        - file: recursion-preservation-v2.md
         - file: novelty-map-v2.md
     - title: Base-language foundation
       children:

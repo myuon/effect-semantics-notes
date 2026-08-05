@@ -200,6 +200,15 @@
 | C-194 | Derived conditional on paper | resumptionを各pathで高々1回使うaffine deep handlerは $(\nu\setminus\Delta)+\nu(\Delta)\kappa+\tau$ でsoundにgradeされる | C-193; exhaustive affine clauses; uniform clause/return upper bounds | usage judgmentをsyntaxに追加してpreservationを証明 |
 | C-195 | Conjecture | resumption usageが高々$m$のmulti-shot handlerはgeometric clause-invocation boundと$m^n$ suffix-duplication boundを持つ | explicit usage judgment not yet fixed | response branchingを含む帰納証明または式の反例を探索 |
 | C-196 | Boundary | occurrence countはmultiplicityを精密化するが、noncommutative base effectへの挿入順、Stateの再開方式、Exception scope、linear resource validityを単独では決めない | C-178; C-181; C-183; C-193--C-195 | BaseEffectAbstractionごとのinteraction operatorを定義 |
+| C-197 | Adopted recursion design | pure value-level fixpointではなくlatent row付きeffectful recursive functionを追加し、unfoldingをcomputation stepとする | Huwig--Poigné constraint; value/computation separation | full typing grammarへ統合 |
+| C-198 | Derived on paper | unordered may-rowはunionのidempotenceにより任意回のrecursive unfoldingに閉じ、recursive decomposition/preservation/progress/empty-row safety/deep dischargeが成立する | C-197; recursive BaseSafety; substitution | complete syntax inductionを展開 |
+| C-199 | Counterexample | silent loopはempty rowを持ちながら発散するため、empty-row safetyはterminationを含まず、$\nu X.(A+\Sigma X)$だけではPure divergenceを表せない | `rec f(x). f(x)` | explicit delayまたはpartialityを意味論へ追加 |
+| C-200 | Semantic candidate | complete Elgot base monad $T_\bot$ 上のcoalgebraic resumption $\nu X.T_\bot(A+\Sigma_\rho X)$ がunguarded recursion付きfree extensionの主候補である | complete Elgot iteration; final coalgebra existence | handler interpretationとadequacyを内部証明 |
+| C-201 | Derived concrete | Pure $A_\bot$、Writer $(W\times A)_\bot$、State $S\to(A\times S)_\bot$、Exception $(A+E)_\bot$ は通常のcontinuity仮定下でleast-fixpoint recursionを解釈する | pointed domain models | concrete operational adequacyを各instanceで証明 |
+| C-202 | Boundary | partial Writer/State modelはtermination/divergenceを区別するが、divergent computationの無限output/transient-state traceを保存しない | productive handled loop | visible coinductive base observationをoptional layer化 |
+| C-203 | Conjecture | $\Delta$-free targetを持つiteration-compatible clausesのexhaustive deep handlerはElgot iterationまたはTau-guarded corecursionでrecursive resumptionsを解釈し、全finite observationでhandled interfaceをdischargeする | C-200; target coalgebra; weak bisimulation/iteration laws | unguarded handler equationのexistenceと適切なuniqueness条件を証明 |
+| C-204 | Main recursive theorem candidate | recursive unordered extensionはoperational safetyを無条件に保ち、complete-Elgot resumptionとdivergence-reflecting observationの下でsoundness、iteration-preserving morphisms、admissible relations、termination/divergence adequacyを保つ | C-198--C-203 | Level 1/2 adequacyをWriterから実証 |
+| C-205 | Boundary | unrestricted recursion下のfinite occurrence countは一般に保存されず、recursive cycleが$\Delta$へ到達可能ならsound boundは通常$\infty$となる | repeated unfolding | sized/bounded recursionをoptional refinementとして検討 |
 
 ## 証明完了の基準
 
