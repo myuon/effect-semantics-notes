@@ -2,9 +2,11 @@
 
 ## Status
 
-**Paper-level finite-boundary and divergence adequacy argument for the recursive
-Writer instance.**  The proof is parameterized by the standard computational
-adequacy theorem for the chosen PCF/domain core.
+**First finite-boundary and divergence adequacy decomposition for the recursive
+Writer instance.**  Its former PCF-adequacy premise is discharged at paper level
+by [Recursive Writer logical relation](recursive-writer-logical-relation-v2.md),
+[fundamental lemma](recursive-writer-fundamental-v2.md), and [adequacy
+closure](recursive-writer-adequacy-closure-v2.md).
 
 ## 1. Operational observations
 
@@ -113,17 +115,15 @@ related continuation.
 
 :::{prf:proof}
 The forward directions iterate one-step soundness for the finite reduction.
-For reflection, the finite projection that distinguishes the nonbottom root
-constructor appears at some approximation level.  Computational adequacy of
-the underlying recursive CBV/domain interpretation turns that finite semantic
-observation into a finite operational reduction.  Constructor disjointness
-fixes the boundary and Writer prefix.  Request continuations are related
-pointwise through all finite projections by the same approximation relation;
-we do not assume that an infinite-arity continuation is itself compact.
+For reflection, apply the recursive Writer fundamental lemma.  Its computation
+relation turns the denotational root directly into a finite operational
+boundary with the same constructor and Writer prefix.  Request continuations
+are related pointwise through all finite projections; we do not assume that an
+infinite-arity continuation is itself compact.
 :::
 
-The explicit dependency on base computational adequacy is essential.  Domain
-continuity alone proves soundness, not operational reflection.
+Operational reflection is supplied by the fundamental logical-relations
+theorem.  Domain continuity alone would prove soundness but not this direction.
 
 ## 5. Empty-row divergence adequacy
 
@@ -153,9 +153,9 @@ and finite-boundary reflection would give termination.  Deterministic
 decomposition leaves infinite reduction as the only remaining case.
 :::
 
-This theorem uses classical reasoning about the deterministic execution and
-the base adequacy premise.  It does not distinguish silent divergence from an
-infinite sequence of `tell` steps.
+This theorem uses classical reasoning about deterministic execution and the
+fundamental logical-relations theorem.  It does not distinguish silent
+divergence from an infinite sequence of `tell` steps.
 
 ## 6. Handler adequacy
 
@@ -215,16 +215,16 @@ adequacy.
 At paper level the Writer calculation supports:
 
 - recursive one-step soundness;
-- finite return/request adequacy, conditional on base PCF adequacy;
+- finite return/request adequacy from the fundamental logical relation;
 - empty-row boundary-divergence adequacy;
 - recursive deep discharge;
 - agreement with the finite semantics on recursion-free programs.
 
 Still open before promoting the fully generic recursive theorem:
 
-1. package the domain assumptions independently of Writer;
-2. prove handler-functional continuity for the complete source language rather
-   than assuming language-definable clauses are continuous;
+1. choose and construct the recursive-domain solution in a standard domain
+   category;
+2. formalize admissibility and continuity for the complete source language;
 3. state the exact iteration-preserving morphism and admissible relation laws;
 4. decide whether productive infinite traces belong in the main observation or
    remain optional.

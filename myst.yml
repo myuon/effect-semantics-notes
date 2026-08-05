@@ -46,6 +46,10 @@ project:
         - file: recursive-writer-model-v2.md
         - file: recursive-writer-handler-v2.md
         - file: recursive-writer-adequacy-v2.md
+        - file: recursive-writer-logical-relation-v2.md
+        - file: recursive-writer-fundamental-v2.md
+        - file: recursive-writer-adequacy-closure-v2.md
+        - file: recursive-writer-domain-instance-v2.md
         - file: novelty-map-v2.md
     - title: Base-language foundation
       children:
