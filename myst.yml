@@ -59,6 +59,8 @@ project:
         - file: main-extension-theorem-v3.md
         - file: main-extension-proof-v3.md
         - file: main-theorem-boundaries-v3.md
+        - file: novelty-audit-main-theorem-v3.md
+        - file: research-position-after-audit-v3.md
         - file: novelty-map-v2.md
     - title: Base-language foundation
       children:

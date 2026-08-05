@@ -1,5 +1,11 @@
 # Research map
 
+> **Current positioning:** the free/resumption construction, deep-handler fold and
+> generic safety/adequacy ingredients are substantially prior art.  The live target is
+> now a certificate-transport theorem plus a sharp handler/base interaction boundary.
+> See [the v3 novelty audit](novelty-audit-main-theorem-v3.md) and
+> [the revised research position](research-position-after-audit-v3.md).
+
 ## 2026-08-05 方針更新
 
 現在の本線は、特定の ordered effect calculus を完成させることではない。

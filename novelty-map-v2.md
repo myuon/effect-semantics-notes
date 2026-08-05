@@ -2,7 +2,9 @@
 
 ## Status
 
-**Preliminary literature audit.** Exact theorem-by-theorem comparison remains open.
+**Superseded as the current audit.** See [Main theorem v3: novelty audit](novelty-audit-main-theorem-v3.md)
+and [Research position after the v3 audit](research-position-after-audit-v3.md).
+This page is retained as the pre-audit hypothesis map.
 
 ## What is already standard
 
@@ -57,4 +59,3 @@ Before promoting a candidate theorem to the main contribution:
 The project is not currently positioned as a new effect-handler language.  Its provisional position is:
 
 > a semantic audit of when an existing effectful language admits a conservative user-defined-operation and handler extension, organized by handler strength and the information retained by its effect abstraction.
-
