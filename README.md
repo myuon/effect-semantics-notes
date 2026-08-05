@@ -28,17 +28,17 @@
 
 ## 読み方
 
-1. [Research map](research-map.md) — 新旧の研究線と現在地
-2. [Extensibility question v2](extensibility-question-v2.md) — 新しい中心問いと主張候補
-3. [Base semantic package v2](base-semantic-package-v2.md) — 拡張の入力として何を固定するか
-4. [Extension audit v2](extension-audit-v2.md) — 保存性と必要仮定の検査表
-5. [Unordered/deep baseline v2](unordered-deep-baseline-v2.md) — 既知の基準言語
-6. [Concrete base program v2](concrete-base-program-v2.md) — 具体例から一般化する開発順序
-7. [Novelty map v2](novelty-map-v2.md) — 先行研究との重なりと新規性候補
-8. [Research synthesis v1](research-synthesis-v1.md) — 以前のordered/shallow探索の到達点
-9. [Claims ledger](claims-ledger.md) — 既知・予想・未検証の台帳
-10. [Open questions](open-questions.md) — 設計判断と未解決点
-11. [Literature map](literature-map.md) — 関連研究
+1. [Main extension theorem v3](main-extension-theorem-v3.md) — 現在の主定理
+2. [Main extension proof v3](main-extension-proof-v3.md) — 証明と仮定の依存関係
+3. [Main theorem boundaries v3](main-theorem-boundaries-v3.md) — 主定理が言わないこと
+4. [Research map](research-map.md) — 新旧の研究線と現在地
+5. [Base semantic package v2](base-semantic-package-v2.md) — 拡張の入力として何を固定するか
+6. [Recursive base adequacy package v2](recursive-base-adequacy-package-v2.md) — recursion 下の adequacy 条件
+7. [Extension audit v2](extension-audit-v2.md) — 保存性と必要仮定の検査表
+8. [Concrete base program v2](concrete-base-program-v2.md) — 具体例から一般化する開発順序
+9. [Novelty map v2](novelty-map-v2.md) — 先行研究との重なりと新規性候補
+10. [Claims ledger](claims-ledger.md) — 既知・予想・未検証の台帳
+11. [Research synthesis v1](research-synthesis-v1.md) — 以前のordered/shallow探索
 
 ## ステータス記法
 

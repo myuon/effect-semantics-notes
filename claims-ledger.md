@@ -237,6 +237,12 @@
 | C-231 | Derived on paper | recursive old `try`はraiseを処理しfree request continuationへ再帰しbottomにstrictであり、new deep handlerとのscope非可換性を保存する | C-230; clause-generated raise counterexample | operational regression tests |
 | C-232 | Main concrete adequacy theorem on paper | four-way admissible relationとfundamental lemmaによりrecursive Exceptionのreturn/raise/request/divergenceおよびold/new handler scope adequacyが成立する | C-223; C-230--C-231 | proof audit/formalization |
 | C-233 | Validation milestone | Writer、State、Exceptionがpackage変更なしに`RecursiveBaseAdequacy`をinstance化し、base boundary/interaction lawだけを差し替える | C-220--C-232 | Level-3 productive trace instanceを検討 |
+| C-234 | Main theorem proved conditionally on paper | `BaseSafety`の下でunordered free operationsとexhaustive deep handlersの追加はrecursionの有無によらずdeterminism、row preservation/progress、empty-row safety、deep discharge、old-language operational conservativityを保存する | C-185; C-198; operational proof synthesis v3 | mechanization/independent audit |
+| C-235 | Main theorem proved conditionally on paper | `RecursiveBaseAdequacy`のresumption/iteration layer下でextensionはrow monad、base embedding、recursive functions、selected deep-handler fixed point、finite semantic dischargeを与える | C-200--C-233 | generic categorical recordを形式化 |
+| C-236 | Main theorem proved conditionally on paper | admissible/guarded relationとdeclared observation reflectionの下でextensionはone-step soundness、finite-boundary adequacy、handler correspondenceを保存し、Level 2/3はbase packageが供給する範囲だけ保存する | C-216--C-233; fundamental proof synthesis v3 | formal fundamental lemma |
+| C-237 | Main theorem proved conditionally on paper | iteration、primitives、finite observationsを保存するbase morphism/relationはrecursive resumption、free requests、compatible deep handlersへ持ち上がる | C-189--C-190; C-225; proof synthesis v3 | selected fixed-point coherenceをdiagram化 |
+| C-238 | Main conservativity theorem on paper | old termのextended denotationはiteration-preserving base embedding後のold denotationに一致し、old operational behaviorは不変である | C-191; C-224; syntax induction | open higher-order derivation coherenceを監査 |
+| C-239 | Main boundary | 主定理はexact old grade、resource-valid multi-shot、handler commutation、Level-3 traces、full abstractionをunordered row/monad lawsだけからは導かない | C-186; C-192; C-196; C-211; C-231 | optional refinementsとして維持 |
 
 ## 証明完了の基準
 

@@ -10,7 +10,13 @@
 
 最初の比較基準は [Unordered/deep baseline v2](unordered-deep-baseline-v2.md) の STLC、unordered free-effect rows、exhaustive deep handlers である。ここから base language を段階的に一般化し、[Extension audit v2](extension-audit-v2.md) に従って保存性を検査する。
 
-一般定理を先に仮定しない。共通のeffect構文を固定した後、[Concrete base program v2](concrete-base-program-v2.md) に従い Pure、Writer、State、Exception の具体的モデルでプログラム計算と基準定理を個別に確認する。その証明の共通部分から、最後に base semantic package の必要構造を抽出する。
+一般定理を先に仮定せず、共通構文を固定して Writer、State、Exception
+を個別に検証した。その共通部分から抽出した現在の結果が [Main
+extension theorem v3](main-extension-theorem-v3.md) であり、詳細な証明依存は
+[Main extension proof v3](main-extension-proof-v3.md)、反例と限界は [Main
+theorem boundaries v3](main-theorem-boundaries-v3.md) にある。recursion 下の
+adequacy 条件は [Recursive base adequacy package
+v2](recursive-base-adequacy-package-v2.md) に分離した。
 
 ```{mermaid}
 flowchart LR
@@ -87,15 +93,17 @@ $$
 - base relation の observation/return reflection は保存されるか
 - そこから拡張言語の fundamental lemma と adequacy が得られるか
 
-## 今のところ主題にしないもの
+## 現在の主定理から分離するもの
 
 - effect index を一般の圏にすること自体
 - proof-relevant な subeffecting
-- deep handler の再帰的不動点
-- general recursion や動的 effect instance
+- productive infinite trace を保持する Level-3 adequacy
+- occurrence count と precise old base grade
+- 動的 effect instance
 - 最初から最大一般の基礎圏で定理を書くこと
 
-これらを排除したわけではない。中心構成が固まった後の拡張候補として保留する。
+general recursion と deep handler の再帰的不動点は現在の v3 主定理に含まれる。
+上記は主定理の optional refinement または将来拡張として残す。
 
 ## 以前の研究線での結論
 

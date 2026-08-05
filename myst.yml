@@ -56,6 +56,9 @@ project:
         - file: recursive-state-adequacy-v2.md
         - file: recursive-exception-model-v2.md
         - file: recursive-exception-adequacy-v2.md
+        - file: main-extension-theorem-v3.md
+        - file: main-extension-proof-v3.md
+        - file: main-theorem-boundaries-v3.md
         - file: novelty-map-v2.md
     - title: Base-language foundation
       children:
