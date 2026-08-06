@@ -24,6 +24,13 @@ project:
         - file: finite-shallow-calculus-v4.md
         - file: finite-shallow-concrete-examples-v4.md
         - file: finite-shallow-preservation-theorem-v4.md
+    - title: Chapter II — Recursive deep extension
+      children:
+        - file: recursive-deep-literature-audit-v4.md
+        - file: recursive-deep-calculus-semantics-v4.md
+        - file: recursive-deep-concrete-examples-v4.md
+        - file: recursive-deep-adequacy-v4.md
+        - file: recursive-deep-preservation-theorem-v4.md
     - title: Current research program
       children:
         - file: research-map.md

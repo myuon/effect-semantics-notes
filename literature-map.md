@@ -25,6 +25,12 @@
 
 These anchors establish overlap; they do not establish that no closer result exists.
 
+For recursion and deep handlers, the detailed theorem-level comparison is in
+[Chapter II literature audit](recursive-deep-literature-audit-v4.md).  Its main
+anchors are Plotkin--Power's recursive algebraic-effect adequacy, the recursive
+section of Plotkin--Pretnar's handler semantics, Bauer--Pretnar's core Eff
+domain/adequacy theorem, and the complete-Elgot resumption transformer.
+
 ## Free algebraic effects and handlers
 
 調べること:

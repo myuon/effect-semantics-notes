@@ -9,6 +9,15 @@ and extracts the [finite shallow structure-preservation theorem](finite-shallow-
 Chapter II will then add recursion and deep reinstallation.  The two axes remain
 logically distinct even though the exposition follows this diagonal.
 
+Chapter II now begins with a [primary-source literature audit](recursive-deep-literature-audit-v4.md),
+then fixes the [recursive/deep calculus and resumption semantics](recursive-deep-calculus-semantics-v4.md).
+The theorem is intentionally delayed until after the
+[recursive Writer, State and Exception calculations](recursive-deep-concrete-examples-v4.md)
+and the [adequacy reconstruction](recursive-deep-adequacy-v4.md).  The resulting
+[certificate-transport theorem v4](recursive-deep-preservation-theorem-v4.md)
+separates safety, semantic iteration, observation adequacy and optional
+handler/base interaction assumptions.
+
 > **Current positioning:** the free/resumption construction, deep-handler fold and
 > generic safety/adequacy ingredients are substantially prior art.  The live target is
 > now a certificate-transport theorem plus a sharp handler/base interaction boundary.
