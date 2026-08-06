@@ -4,6 +4,13 @@
 
 | ID | Status | Claim | Dependencies | Next check |
 |---|---|---|---|---|
+| C-240 | Adopted v4 definition | Chapter I uses a terminating base and a first-free-boundary shallow matcher with implicit exactly-once resumption and no reinstallation | Finite shallow calculus v4 | compare off-diagonal finite/deep control |
+| C-241 | Derived on paper | Finite free-operation extension preserves the row-refined free-tree monad, base embedding, morphisms and compatible relations | F1--F7 | independent proof audit |
+| C-242 | Derived on paper | Intended shallow operational semantics agrees with the first-boundary tree transformation | F1--F7; response substitution | mechanize four boundary cases |
+| C-243 | Derived conditional | A finite base observation certificate and compatible response clauses lift to adequacy of the shallow extension | F6; F8--F9 | instantiate exact State observation relation |
+| C-244 | Counterexample | An unordered may-row cannot soundly remove $\Delta$ after one shallow match because a bare continuation may contain another $\Delta$ | two-operation program | compare occurrence refinement |
+| C-245 | Counterexample | First-boundary shallow transformation is not generally a monad morphism | two sequential matching requests | mechanize smallest typed witness |
+| C-246 | Counterexample | Aggregate old grade, unordered row and clause grade do not determine an exact post-handler old grade | Writer/State/Exception examples | state an abstract nondefinability theorem |
 | C-001 | Candidate | Base effect index は preordered monoid で十分である | 通常の subeffecting が proof-irrelevant | handler/translation を index morphism に含める必要がないか確認 |
 | C-002 | Conjecture | finite shallow-layer construction は extended effect words 上の graded monad を与える | exact definition of words; categorical structure | unit/bind を完全に定義して三法則を計算 |
 | C-003 | Conjecture | shallow extension は graded monad morphisms を持ち上げる | C-002; preservation of polynomial structure | $\widehat q$ を定義し unit/bind naturality を確認 |

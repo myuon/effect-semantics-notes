@@ -18,6 +18,12 @@ project:
   license: CC-BY-4.0
   toc:
     - file: README.md
+    - title: Chapter I — Finite shallow extension
+      children:
+        - file: two-chapter-program-v4.md
+        - file: finite-shallow-calculus-v4.md
+        - file: finite-shallow-concrete-examples-v4.md
+        - file: finite-shallow-preservation-theorem-v4.md
     - title: Current research program
       children:
         - file: research-map.md

@@ -1,5 +1,14 @@
 # Research map
 
+## 2026-08-06 two-chapter organization
+
+The active development now begins with [Two-chapter research program v4](two-chapter-program-v4.md).
+Chapter I fixes a recursion-free first-boundary shallow matcher, computes its
+behavior for [Writer, State and Exception](finite-shallow-concrete-examples-v4.md),
+and extracts the [finite shallow structure-preservation theorem](finite-shallow-preservation-theorem-v4.md).
+Chapter II will then add recursion and deep reinstallation.  The two axes remain
+logically distinct even though the exposition follows this diagonal.
+
 > **Current positioning:** the free/resumption construction, deep-handler fold and
 > generic safety/adequacy ingredients are substantially prior art.  The live target is
 > now a certificate-transport theorem plus a sharp handler/base interaction boundary.
