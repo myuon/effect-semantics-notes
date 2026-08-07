@@ -94,8 +94,9 @@ the selected base semantics while leaving free nodes visible.
 For every recursion-free base package satisfying Chapter I, adding $\Sigma$
 should preserve:
 
-- deterministic decomposition into return, base outcome, or exposed free
-  request;
+- unique evaluation-position decomposition into return, an internal redex,
+  a base request, or an exposed free request; primitive responses may still
+  branch through $\mathcal K$;
 - substitution, preservation and effect-aware progress;
 - old-syntax operational and observational conservativity;
 - ordered upper-bound effect safety;

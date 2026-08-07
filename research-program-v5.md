@@ -120,7 +120,7 @@ therefore a derived program, not a new semantic primitive.
 
 At each extension boundary we separately test:
 
-- type safety and deterministic decomposition;
+- type safety and unique evaluation-position decomposition;
 - conservativity for old syntax;
 - ordered effect safety under runtime reduction;
 - preservation of graded substitution and sequencing;
@@ -143,7 +143,7 @@ bundles of “good properties.”  The overall theorem has the shape
 
 $$
 \begin{aligned}
-&\mathsf{BaseCert}(L_B,E_B,T,\mathsf{obs}_B)
+&\mathsf{BaseCert}(L_B,E_B,\mathcal K,T,\mathsf{obs}_B)
 \land\mathsf{Polynomial}_1(\Sigma)
 \land\mathsf{InitialAlg}(T,\Sigma)\\
 &\land\mathsf{HandlerCert}(\Delta,h,\Phi_h)
@@ -153,7 +153,7 @@ $$
 \land\mathsf{Continuous}(\mathcal D_h)
 \land\mathsf{ClosureCompat}(K,\Phi_h)\\
 &\qquad\Longrightarrow
-\mathsf{FreeCert}(L_B+\Sigma,\widehat E,\mathsf F_\Sigma(T))\\
+\mathsf{FreeCert}(L_B+\Sigma,\widehat E,\mathcal K,\mathsf F_\Sigma(T))\\
 &\qquad\phantom{\Longrightarrow}\land
 \mathsf{ShallowCert}(\Delta,h,\Phi_h)
 \land\mathsf{DeepCert}(\Delta,h,\Phi_h,K).

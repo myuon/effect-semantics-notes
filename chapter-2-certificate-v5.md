@@ -46,9 +46,11 @@ Context preservation follows from ordered multiplication.
 
 ### Theorem II.3 — extended decomposition
 
-A closed well-typed computation uniquely returns, reduces internally, exposes
-a base request, or exposes a free request of the response type declared by its
-interface.
+A closed well-typed computation has exactly one selected evaluation form: it
+returns, has a uniquely located internal redex, exposes a uniquely located base
+request, or exposes a free request of the response type declared by its
+interface.  A base request may have several responses in $\mathcal K$; this
+does not create two evaluation positions.
 
 ### Proof
 
@@ -73,9 +75,10 @@ coincide with the Chapter-I ones.
 
 ### Proof
 
-Old syntax contains no `op` form.  Every internal and base-machine rule is
-literally reused, while the new free-request case is unreachable.  Induction on
-the unique machine run gives equality of observations. $\square$
+Old syntax contains no `op` form.  Every internal rule and every base response
+kernel is literally reused, while the new free-request case is unreachable.
+Induction on the finite response tree gives equality of the structured
+observations in $\mathcal K$. $\square$
 
 ## 4. Free-extension algebra
 
@@ -143,7 +146,7 @@ observations.
 Assume
 
 $$
-\mathsf{BaseCert}(L_B,E_B,T,\mathsf{obs}_B)
+\mathsf{BaseCert}(L_B,E_B,\mathcal K,T,\mathsf{obs}_B)
 \land\mathsf{WellFounded}(\mathsf F_\Sigma(T))
 \land\mathsf{ConstructorSeparated}(\mathsf{observe}_{\mathsf F}).
 $$
@@ -193,7 +196,7 @@ and carrier $\mathsf F=\mathsf F_\Sigma(T)$, define
 
 $$
 \begin{aligned}
-\mathsf{FreeCert}(\widehat L,\widehat E,\mathsf F)
+\mathsf{FreeCert}(\widehat L,\widehat E,\mathcal K,\mathsf F)
 :=\{\;&
 \mathsf{subst}_{\mathsf F},\mathsf{pres}_{\mathsf F},
 \mathsf{dec}_{\mathsf F},\mathsf{effsafe}_{\mathsf F},
@@ -218,7 +221,8 @@ $$
  \mathbin{\dot\vee}\mathsf{FreeReq}_\Sigma(M),\\
 \mathsf{opcons}:\quad
 &M\in L_B\Rightarrow
- \bigl(M\to_{\widehat L}M'\Longleftrightarrow M\to_{L_B}M'\bigr),\\
+ \mathsf{step}_{\widehat L}(M)=\mathsf{step}_{L_B}(M)
+ \in\mathcal K(\mathsf{Conf}+\mathsf{Out}_B),\\
 \mathsf{effsafe}_{\mathsf F}:\quad
 &\vdash M:A!e\land
  M\to^*\mathcal E[\mathsf{op}_{\Delta,i}(V)]\\
@@ -275,21 +279,20 @@ Finally, for every closed ground $M$,
 
 $$
 \mathsf{adequate}_{\mathsf F}:\quad
-M\Downarrow_{\widehat L}o
-\Longleftrightarrow
-\mathsf{observe}_{\mathsf F}(\llbracket M\rrbracket)=o,
+\mathsf{run}_{\mathcal K,\mathsf F}(M)
+=\mathsf{observe}_{\mathsf F}(\llbracket M\rrbracket),
 $$
 
 where $o$ ranges over separated returns, base outcomes and free requests.
 
 ### Theorem II.9 — Free extension certificate
 
-Let $P=(L_B,E_B,T,\mathsf{obs}_B)$ and let $\Sigma$ be disjoint from the base
+Let $P=(L_B,E_B,\mathcal K,T,\mathsf{obs}_B)$ and let $\Sigma$ be disjoint from the base
 signature.  The theorem has the explicit form
 
 $$
 \begin{aligned}
-&\mathsf{BaseCert}(L_B,E_B,T,\mathsf{obs}_B)\\
+&\mathsf{BaseCert}(L_B,E_B,\mathcal K,T,\mathsf{obs}_B)\\
 &\land\ \mathsf{Polynomial}_1(\Sigma)
 \land\ \mathsf{Disjoint}(\Sigma,\Sigma_B)\\
 &\land\ \forall e,A.\quad
@@ -299,7 +302,7 @@ $$
 \quad\Longrightarrow\\[1mm]
 &\hspace{18mm}
 \mathsf{FreeCert}
-(L_B+\Sigma,\widehat E,\mathsf F_\Sigma(T)).
+(L_B+\Sigma,\widehat E,\mathcal K,\mathsf F_\Sigma(T)).
 \end{aligned}
 \tag{Free-Transport}
 $$

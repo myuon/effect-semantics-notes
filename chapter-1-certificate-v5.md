@@ -66,27 +66,37 @@ sequencing.
 
 ### Theorem I.4 — unique decomposition
 
-Every closed well-typed base computation is uniquely a return, an internal
-redex in its evaluation context, or an exposed base request
+Every closed well-typed base computation has a unique evaluation-position
+decomposition as a return, an internal redex in its evaluation context, or an exposed base request
 $\mathcal E[\beta(V)]$.
 
 This is the effect-aware progress theorem used by later chapters.  It does not
-call an exposed request “stuck.”
+call an exposed request “stuck,” and it does not assert that the request has a
+unique response.
 
 ## 3. Termination
 
 ### Theorem I.5 — recursion-free machine normalization
 
-Assume every base request either produces one typed response or a classified
-terminal base outcome.  Then every closed well-typed Chapter-I program reaches
-a unique final base observation.
+Assume every element in the support of every base response is typed and each
+recursion-free response branch is terminating.  Then every closed well-typed
+Chapter-I program induces a well-defined outcome
+
+$$
+\mathsf{run}_{\mathcal K}(M)
+\in\mathcal K(\mathsf{Obs}_B).
+$$
+
+Every branch in its support is a classified final observation.  No uniqueness
+of the returned observation is asserted.
 
 ### Proof sketch
 
-Use the standard reducibility argument for fine-grain CBV STLC.  The primitive
-case is reducible by the base-package termination assumption.  Function,
-product and sum cases are standard.  Unique decomposition plus deterministic
-base response gives uniqueness.
+Use the standard reducibility argument for fine-grain CBV STLC, quantified over
+every response in the support of $\mathsf{resp}_\beta$.  The primitive case is
+reducible by the base-package branch-termination assumption.  Function,
+product and sum cases are standard.  Unique decomposition identifies the
+request; Kleisli composition in $\mathcal K$ combines its possible responses.
 
 The theorem is deliberately absent from the Chapter-IV certificate.
 
@@ -145,17 +155,20 @@ runtime trace object.
 
 ## 6. Adequacy schema
 
-Choose a ground observation map $\mathsf{obs}_B$ and denotational observation
-$\mathsf{observe}$.  The base package is adequate at ground type $G$ when
+Choose a ground operational outcome
+$\mathsf{run}_{\mathcal K}:M\mapsto\mathcal K(\mathsf{Obs}_B)$ and a
+denotational observation $\mathsf{observe}$.  The base package is adequate at
+ground type $G$ when
 
 $$
-M\Downarrow_B o
-\quad\Longleftrightarrow\quad
-\mathsf{observe}(\llbracket M\rrbracket)=o
+\mathsf{run}_{\mathcal K}(M)
+=\mathsf{observe}(\llbracket M\rrbracket)
 $$
 
-for every closed $M:G!b$.  One direction may be selected instead if the later
-application needs only soundness or reflection; the certificate records which.
+for every closed $M:G!b$.  In the deterministic case this reduces to the old
+single-outcome equivalence.  One direction may be selected instead if the
+later application needs only soundness or reflection; the certificate records
+which.
 
 ### Writer instance
 
@@ -194,24 +207,39 @@ The denotation returns $\mathsf{inl}\,V$ exactly for a machine return and
 $\mathsf{inr}\,e$ exactly for the terminal error $e$.  The proof follows
 the short-circuiting bind equations.
 
+### Random instance
+
+For $\mathcal K=T=\mathsf{SubDist}$ and a fair primitive
+$\mathsf{randomBool}:1\to\mathsf{Bool}$,
+
+$$
+\mathsf{run}_{\mathsf{SubDist}}(M)(o)
+=\mathsf{observe}(\llbracket M\rrbracket)(o)
+$$
+
+for every ground outcome $o$.  Thus preservation and adequacy survive, while
+the conclusion is equality of probability weights rather than uniqueness of
+the returned value.
+
 ## 7. The Chapter-I structure theorem
 
 ### Formal definition of `BaseCert`
 
 For a base calculus $L_B$, an ordered effect algebra
-$E_B=(B,1,\cdot,\leq)$, a graded interpretation $T$, and observations
+$E_B=(B,1,\cdot,\leq)$, a response monad $\mathcal K$, a graded interpretation $T$, and observations
 $\mathsf{obs}_B,\mathsf{observe}_T$, define
 
 $$
 \begin{aligned}
-\mathsf{BaseCert}(L_B,E_B,T,\mathsf{obs}_B)
+\mathsf{BaseCert}(L_B,E_B,\mathcal K,T,\mathsf{obs}_B)
 :=\{\;&
-\mathsf{det},\mathsf{subst},\mathsf{pres},\mathsf{dec},
-\mathsf{norm},\mathsf{effsafe},\\
+\mathsf{subst},\mathsf{pres},\mathsf{uniquePos},
+\mathsf{resp},\mathsf{respTy},\mathsf{branchNorm},\mathsf{effsafe},\\
 &\eta,\mu,\mathsf{st},\tau,
 (\beta^T)_{\beta\in\Sigma_B},
 \mathsf{monadlaw},\mathsf{weaklaw},\\
-&\mathsf{semsubst},\mathsf{redsnd},\mathsf{adequate}\;\}.
+&\mathsf{semsubst},\mathsf{redsnd},\mathsf{respSound},
+\mathsf{adequate}\;\}.
 \end{aligned}
 \tag{BaseCert}
 $$
@@ -220,20 +248,25 @@ Its operational fields have the following types:
 
 $$
 \begin{aligned}
-\mathsf{det}:&\quad
- M\to_BM_1\land M\to_BM_2\Rightarrow M_1=M_2,\\
 \mathsf{subst}:&\quad
  \Gamma,x:A\vdash J\land\Gamma\vdash V:A
  \Rightarrow\Gamma\vdash J[V/x],\\
 \mathsf{pres}:&\quad
- \Gamma\vdash M:A!b\land M\to_BM'
+ \Gamma\vdash M:A!b\land M'\in\operatorname{supp}(\mathsf{step}_B(M))
  \Rightarrow\Gamma\vdash M':A!b,\\
-\mathsf{dec}:&\quad
+\mathsf{uniquePos}:&\quad
  \vdash M:A!b\Rightarrow
  \mathsf{Ret}(M)\mathbin{\dot\vee}\mathsf{Redex}(M)
  \mathbin{\dot\vee}\mathsf{BaseReq}(M),\\
-\mathsf{norm}:&\quad
- \vdash M:A!b\Rightarrow\exists!o.\ M\Downarrow_Bo,\\
+\mathsf{resp}:&\quad
+ \mathsf{resp}_\beta:P_\beta
+ \to\mathcal K(R_\beta+\mathsf{Out}_\beta),\\
+\mathsf{respTy}:&\quad
+ z\in\operatorname{supp}(\mathsf{resp}_\beta(V))
+ \Rightarrow\mathsf{TypedResponse}_\beta(z),\\
+\mathsf{branchNorm}:&\quad
+ \vdash M:A!b\Rightarrow
+ \forall\pi\in\operatorname{suppRun}(M).\ \pi\text{ reaches an outcome},\\
 \mathsf{effsafe}:&\quad
  \vdash M:A!b\land M\to_B^*\mathcal E[\beta(V)]\\
 &\hspace{39mm}\Rightarrow
@@ -276,32 +309,39 @@ $$
  =\llbracket J\rrbracket\circ
    \langle\mathsf{id},\llbracket V\rrbracket\rangle,\\
 \mathsf{redsnd}:&\quad
- M\to_BM'\Rightarrow\llbracket M\rrbracket=\llbracket M'\rrbracket,\\
+ M\to_{\mathsf{int}}M'\Rightarrow
+ \llbracket M\rrbracket=\llbracket M'\rrbracket,\\
+\mathsf{respSound}:&\quad
+ \mathsf{observe}(\beta^T(V))
+ =\mathsf{map}_{\mathcal K}(\mathsf{plug},\mathsf{resp}_\beta(V)),\\
 \mathsf{adequate}:&\quad
- M\Downarrow_Bo\Longleftrightarrow
- \mathsf{observe}_T(\llbracket M\rrbracket)=o
+ \mathsf{run}_{\mathcal K}(M)
+ =\mathsf{observe}_T(\llbracket M\rrbracket)
  \quad(M\text{ closed and ground}).
 \end{aligned}
 $$
 
 ### Theorem I.9 — Base certificate extraction
 
-For each $X\in\{\mathsf{Writer},\mathsf{State},\mathsf{Exception}\}$, let
+For each $X\in\{\mathsf{Writer},\mathsf{State},\mathsf{Exception},
+\mathsf{Random}\}$, let
 $L_X,E_X,T^X,\mathsf{obs}_X$ be the syntax/machine, ordered algebra, model and
-observation defined in this chapter.  Then
+observation defined in this chapter, and let $\mathcal K_X$ be `Id` for the
+first three instances and `SubDist` for `Random`.  Then
 
 $$
-\forall X\in\{W,S,E\}.\quad
-\mathsf{BaseCert}(L_X,E_X,T^X,\mathsf{obs}_X).
+\forall X\in\{W,S,E,R\}.\quad
+\mathsf{BaseCert}(L_X,E_X,\mathcal K_X,T^X,\mathsf{obs}_X).
 $$
 
 ### Proof
 
-The fields `det`, `subst`, `pres`, `dec`, `norm`, and `effsafe` follow from
+The fields `subst`, `pres`, `uniquePos`, `respTy`, `branchNorm`, and `effsafe` follow from
 Theorems I.1–I.5 and I.8 after checking each primitive machine rule.  The
-displayed Writer, State and Exception constructions supply
+displayed Writer, State, Exception and Random constructions supply
 $\eta,\mu,\mathsf{st},\tau,\beta^T$ and their laws.  Theorems I.6–I.7 supply
-`semsubst` and `redsnd`; the three instance proofs above supply `adequate`.
+`semsubst` and `redsnd`; the four instance proofs above supply `respSound` and
+`adequate`.
 No free-operation or handler property is used. $\square$
 
 ## 8. Boundary exported to Chapter II

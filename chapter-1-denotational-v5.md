@@ -114,10 +114,11 @@ $$
 \mathsf{observe}_{b,A}:T_bA\to\mathsf{Obs}_B(A).
 $$
 
-The observation is instance-specific: Writer observes a value and log, State a
-value and final store, and Exception a value or error.  There is no generic
-trace projection.  Effect safety and observational adequacy are separate
-certificate fields.
+The observation is instance-specific and may itself carry branching structure.
+Writer observes a value and log, State a value and final store, Exception a
+value or error, and probabilistic choice a subdistribution of outcomes.  There
+is no generic trace projection.  Effect safety and observational adequacy are
+separate certificate fields.
 
 ## 4. Upper-bound Writer model
 
@@ -218,9 +219,50 @@ $\mathsf{raise}\cdot b$ to `raise; M`; the denotation does not claim that $M$
 runs.  A more precise abortive grade algebra may collapse this product, but the
 generic semantics does not require it.
 
-## 7. Model boundary
+## 7. Probabilistic model
+
+For finite probabilistic choice, take
+
+$$
+T_bA=\mathsf{SubDist}(A)
+$$
+
+at every grade.  Return is Dirac mass and bind is Kleisli integration:
+
+$$
+\eta(a)=\delta_a,
+\qquad
+(\mu\mathbin{\gg=}f)(b)=
+\sum_{a}\mu(a)f(a)(b).
+$$
+
+Weakening is the identity on the underlying subdistribution.  Interpret fair
+random choice by
+
+$$
+\mathsf{randomBool}^T(*)
+=\tfrac12\delta_{\mathsf{true}}
+ +\tfrac12\delta_{\mathsf{false}}.
+$$
+
+For a closed ground computation, observation is its resulting
+subdistribution.  Probabilistic adequacy is the equality
+
+$$
+\Pr[M\Downarrow v]
+=\llbracket M\rrbracket(v).
+$$
+
+When all recursion-free primitive kernels have total mass one, the result is a
+probability distribution.  With abortive divergence it remains a
+subdistribution.
+
+## 8. Model boundary
 
 Writer can reflect its upper bound directly in the carrier, while State and
 Exception can use phantom grade indices.  Therefore the generic theorem must
 not require a denotation to reveal which effects occurred.  It requires only a
 coherent strong graded interpretation and a separately stated adequacy theorem.
+The generic interface does not require the operational response monad
+$\mathcal K$ to be `Id`; it requires the selected denotational observation to
+agree with the $\mathcal K$-structured operational outcome.

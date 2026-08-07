@@ -77,22 +77,23 @@ $$
 \mathcal E[\beta(V)].
 $$
 
-The selected base machine observes the request, updates its machine state, and
-returns a value at the same hole.  No continuation is a syntactic argument of
-$\beta$.
+The selected base machine observes the request and returns a response object in
+$\mathcal K(R_\beta+\mathsf{Out}_\beta)$.  Every response value is plugged
+into the same hole.  No continuation is a syntactic argument of $\beta$.
 
 ## 2. Generic decomposition
 
 For a closed well-typed computation, exactly one of the following holds:
 
 1. it is $\mathsf{return}\,V$;
-2. it has a unique internal reduct;
+2. it has a uniquely located internal redex and hence one internal reduct;
 3. it decomposes uniquely as $\mathcal E[\beta(V)]$.
 
 The proof is by induction on the computation syntax, using canonical forms for
 functions, booleans, products and sums.  In a `let`, either the left computation
 reduces, returns, or exposes its unique request; each case determines the
-enclosing behavior uniquely.
+enclosing evaluation position uniquely.  Case 3 does not require the primitive
+response to be unique.
 
 ## 3. Writer instance
 
@@ -288,10 +289,57 @@ choice, not part of the generic operational semantics.
 This combined example will later check that free-operation handlers preserve
 possible base effects before a handled request.
 
-## 6. Operational conclusions
+## 6. Probabilistic `random` instance
 
-All three machines are deterministic.  In the recursion-free calculus every
-primitive either returns a response or produces a classified terminal outcome,
-so the standard reducibility argument gives normalization to a unique machine
-observation.  These facts become fields of the Chapter-I certificate rather
-than implicit global assumptions.
+Let
+
+$$
+\mathsf{randomBool}:1\to\mathsf{Bool},
+\qquad |\mathsf{randomBool}|=\mathsf{rnd},
+$$
+
+and take $\mathcal K=\mathsf{SubDist}$.  Its response kernel is
+
+$$
+\mathsf{resp}_{\mathsf{randomBool}}(*)
+=\tfrac12\delta_{\mathsf{true}}+
+ \tfrac12\delta_{\mathsf{false}}.
+$$
+
+Equivalently, the labelled boundary steps are
+
+$$
+\mathcal E[\mathsf{randomBool}(*)]
+\xrightarrow{1/2}
+\mathcal E[\mathsf{return}\,\mathsf{true}],
+$$
+
+$$
+\mathcal E[\mathsf{randomBool}(*)]
+\xrightarrow{1/2}
+\mathcal E[\mathsf{return}\,\mathsf{false}].
+$$
+
+The evaluation context and request are unique; the response is not.  For
+
+```text
+x <- randomBool(*) in return (not x)
+```
+
+the operational observation is the distribution
+
+$$
+\tfrac12\delta_{\mathsf{true}}+
+\tfrac12\delta_{\mathsf{false}},
+$$
+
+not a unique returned Boolean.
+
+## 7. Operational conclusions
+
+Writer, State and Exception have singleton/Dirac responses.  `randomBool` has a
+genuine probabilistic response.  In every instance the next evaluation
+position is unique.  In the recursion-free calculus every branch in the
+response support reaches a classified terminal observation, yielding a
+well-defined object of $\mathcal K(\mathsf{Obs}_B)$ rather than necessarily one
+observation.  These facts become fields of the Chapter-I certificate.

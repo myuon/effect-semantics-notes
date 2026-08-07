@@ -114,8 +114,8 @@ disjoint. $\square$
 ## 4. Recursion-free normalization
 
 Define reducible values $\mathcal V_A$ and computations $\mathcal C_A$ by
-type recursion.  A computation is in $\mathcal C_A$ when every deterministic
-base-machine execution reaches a classified observation, and a function value
+type recursion.  A computation is in $\mathcal C_A$ when every branch in the
+support of the base response kernel reaches a classified observation, and a function value
 is in $\mathcal V_{A\xrightarrow{b}B}$ when it maps every $\mathcal V_A$ argument to
 $\mathcal C_B$.
 
@@ -136,13 +136,16 @@ standard.  Subeffecting does not change the term. $\square$
 :::{prf:theorem} Recursion-free normalization
 :label: thm-i-normalization-detail-v5
 
-Every closed typed Chapter-I computation reaches one unique classified base
-observation.
+Every branch of a closed typed Chapter-I computation reaches a classified base
+observation, so $\mathsf{run}_{\mathcal K}(M)\in\mathcal K(\mathsf{Obs}_B)$ is
+well defined.
 :::
 
-**Proof.** Apply the fundamental lemma to the empty substitution.  Existence
-comes from computation reducibility.  Uniqueness follows from unique
-decomposition and deterministic base responses. $\square$
+**Proof.** Apply the fundamental lemma to the empty substitution.  Each branch
+is covered by computation reducibility.  Unique decomposition fixes the next
+evaluation position; the typed response map supplies the possibly many
+successors at a primitive request.  Branchwise well-foundedness therefore
+defines the $\mathcal K$-structured result. $\square$
 
 ## 5. Semantic soundness and effect safety
 
@@ -173,6 +176,18 @@ $$
 One machine step preserves it by associativity; termination and semantic
 soundness give both directions.  State uses the analogous invariant
 $\llbracket M\rrbracket(s_{\mathrm{current}})=(v,s_{\mathrm{final}})$.
-Exception uses induction on the unique run and the two defining bind equations
+Exception uses induction on the finite run and the two defining bind equations
 for return and error.  Constructor disjointness supplies reflection in all
-three cases.  These proofs establish every field claimed by `BaseCert`.
+three deterministic cases, viewed as Dirac $\mathcal K$-observations.
+
+For `randomBool`, induction on the finite response tree uses the Kleisli laws
+of $\mathsf{SubDist}$: each operational response weight is multiplied along a
+branch and summed at joins, exactly as in denotational bind.  Hence
+
+$$
+\Pr[M\Downarrow o]
+=\mathsf{observe}(\llbracket M\rrbracket)(o).
+$$
+
+These four proofs establish every field claimed by `BaseCert`; determinism is
+an instance property, not a certificate premise.

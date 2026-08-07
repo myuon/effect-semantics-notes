@@ -32,7 +32,7 @@ up to the declared weakening.
 If
 
 $$
-\mathsf{FreeCert}(L_B+\Sigma,\widehat E,\mathsf F_\Sigma(T))
+\mathsf{FreeCert}(L_B+\Sigma,\widehat E,\mathcal K,\mathsf F_\Sigma(T))
 \land\mathsf{HandlerCert}(\Delta,h,\Phi_h)
 \land\Gamma\vdash M:A!e,
 $$
@@ -61,7 +61,7 @@ inside the scrutinee use Chapter-II preservation. $\square$
 If $b$ is $\Delta$-free and
 
 $$
-\mathsf{FreeCert}(L_B+\Sigma,\widehat E,\mathsf F_\Sigma(T))
+\mathsf{FreeCert}(L_B+\Sigma,\widehat E,\mathcal K,\mathsf F_\Sigma(T))
 \land\mathsf{AffineCert}(\Delta,h,e')
 \land\Gamma\vdash M:A!(b\cdot\Delta\cdot e),
 $$
@@ -97,7 +97,7 @@ $\Delta$.
 If
 
 $$
-\mathsf{FreeCert}(L_B+\Sigma,\widehat E,\mathsf F_\Sigma(T))
+\mathsf{FreeCert}(L_B+\Sigma,\widehat E,\mathcal K,\mathsf F_\Sigma(T))
 \land\mathsf{HandlerCert}(\Delta,h,\Phi_h),
 $$
 
@@ -132,7 +132,7 @@ Assume
 
 $$
 \begin{aligned}
-&\mathsf{FreeCert}(L_B+\Sigma,\widehat E,\mathsf F_\Sigma(T))\\
+&\mathsf{FreeCert}(L_B+\Sigma,\widehat E,\mathcal K,\mathsf F_\Sigma(T))\\
 &\land\mathsf{HandlerCert}(\Delta,h,\Phi_h)
 \land\mathsf{ConstructorSeparated}(\mathsf{observe}_{\mathsf F})
 \land\mathsf{clauseRel}_h.
@@ -262,11 +262,11 @@ $$
 
 ### Theorem III.6 — Shallow certificate
 
-Let $P=(L_B+\Sigma,\widehat E,\mathsf F_\Sigma(T))$.  The explicit theorem is
+Let $P=(L_B+\Sigma,\widehat E,\mathcal K,\mathsf F_\Sigma(T))$.  The explicit theorem is
 
 $$
 \begin{aligned}
-&\mathsf{FreeCert}(L_B+\Sigma,\widehat E,\mathsf F_\Sigma(T))\\
+&\mathsf{FreeCert}(L_B+\Sigma,\widehat E,\mathcal K,\mathsf F_\Sigma(T))\\
 &\land\Bigl(
  \mathsf{AffineCert}(\Delta,h,e')
  \land\Phi_h=\Phi_{\Delta,e'}

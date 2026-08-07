@@ -16,7 +16,8 @@ sequencing.
 
 ### 2. Write the operational semantics
 
-Give direct CBV rules, terminal/request forms and unique decomposition.  Any
+Give direct CBV rules, terminal/request forms and unique decomposition of the
+next evaluation position.  Any
 metatheoretic continuation must be distinguished from source syntax.
 
 ### 3. Calculate concrete systems

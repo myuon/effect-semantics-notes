@@ -5,8 +5,10 @@
 :::{prf:theorem} Recursive one-step progress and preservation
 :label: thm-iv-one-step-safety-v5
 
-A closed typed computation is a classified boundary or has one unique next
-step; every next step preserves its type and ordered may-effect bound.
+A closed typed computation is a classified boundary or has one uniquely
+selected next evaluation position.  Its response kernel may contain several
+next configurations; every configuration in its support preserves the type
+and ordered may-effect bound.
 :::
 
 **Proof.** Extend the Chapter-III decomposition induction with the recursive
@@ -15,9 +17,9 @@ Typing inversion gives the body under $f:A\xrightarrow{e}B$ and $x:A$; simultane
 substitution of the recursive closure and argument proves preservation.  All
 other cases are Chapter III. $\square$
 
-A maximal-run corollary, proved by repeatedly applying this theorem, says that
-a run reaches a boundary or is infinite.  This is not itself an extra progress
-case.
+A maximal-branch corollary, proved by repeatedly applying this theorem, says
+that every supported branch reaches a boundary or is infinite.  This is not
+itself an extra progress case.
 
 ## 2. Approximation lemma
 

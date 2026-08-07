@@ -85,11 +85,14 @@ $$
 &\Gamma\vdash M:A!e\land M\to M'
  \Rightarrow\Gamma\vdash M':A!e,\\
 &\vdash M:A!e\Rightarrow
- \mathsf{Boundary}(M)\mathbin{\dot\vee}\exists!M'.\ M\to M'.
+ \mathsf{Boundary}(M)\mathbin{\dot\vee}\mathsf{UniquePos}(M),\\
+&M'\in\operatorname{supp}(\mathsf{step}(M))
+ \Rightarrow\vdash M':A!e.
 \end{aligned}
 $$
 
-Consequently, every maximal run reaches a classified boundary or is infinite.
+Consequently, every maximal supported branch reaches a classified boundary or
+is infinite.
 :::
 
 The final alternative is new: normalization from the recursion-free chapters
