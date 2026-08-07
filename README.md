@@ -20,25 +20,22 @@
 - denotational semantics
 - 両者を結ぶ morphism / simulation / logical relation
 
-を、unordered free-effect rows と標準的な deep handlers の追加に沿って拡張できるか。その拡張は、型付け、逐次合成、subeffecting、base conservativity、意味保存、観察可能性、adequacy、logical relations のどこまでを保存するか。
+を、ordered trace effects、free operations、shallow handlers、fixpoints の順に拡張できるか。その拡張は、型付け、逐次合成、subeffecting、base conservativity、意味保存、観察可能性、adequacy、logical relations のどこまでを保存するか。
 
 「任意の effect system」を無条件に一つの代数へ押し込めない。静的 grade、計算モデル、base primitives、観測、法則をまとめた **base semantic package** を入力とし、追加したい handler の強さごとに必要な仮定を特定する。
 
-以前の ordered trace と first-head shallow handler の開発は破棄しない。これは、順序を追う refinement がなぜ難しいか、unordered abstraction が何を忘れるかを示す比較対象として保存する。
+effect annotation は、一回の実行を決め打ちするtraceではなく、実行前に可能なordered runtime tracesを近似するtrace languageとして読む。deep handlerはprimitiveとして追加せず、standard shallow handlerとcomputation-level fixpointから導出する。
 
 ## 読み方
 
-1. [Main extension theorem v3](main-extension-theorem-v3.md) — 現在の主定理
-2. [Main extension proof v3](main-extension-proof-v3.md) — 証明と仮定の依存関係
-3. [Main theorem boundaries v3](main-theorem-boundaries-v3.md) — 主定理が言わないこと
-4. [Research map](research-map.md) — 新旧の研究線と現在地
-5. [Base semantic package v2](base-semantic-package-v2.md) — 拡張の入力として何を固定するか
-6. [Recursive base adequacy package v2](recursive-base-adequacy-package-v2.md) — recursion 下の adequacy 条件
-7. [Extension audit v2](extension-audit-v2.md) — 保存性と必要仮定の検査表
-8. [Concrete base program v2](concrete-base-program-v2.md) — 具体例から一般化する開発順序
-9. [Novelty map v2](novelty-map-v2.md) — 先行研究との重なりと新規性候補
-10. [Claims ledger](claims-ledger.md) — 既知・予想・未検証の台帳
-11. [Research synthesis v1](research-synthesis-v1.md) — 以前のordered/shallow探索
+1. [Ordered-trace research program v5](research-program-v5.md) — 現在の前提と全体構成
+2. [Chapter I](chapter-1-foundations-v5.md) — 用語、基礎文法、base effect
+3. [Chapter II](chapter-2-free-operations-v5.md) — ordered free-operation extension
+4. [Chapter III](chapter-3-shallow-handlers-v5.md) — shallow handlerとtrace変換
+5. [Chapter IV](chapter-4-fixpoint-derived-deep-v5.md) — fixpointとdeep handlerの導出
+6. [Research map](research-map.md) — 新旧の研究線と現在地
+7. [Claims ledger](claims-ledger.md) — 既知・予想・未検証の台帳
+8. [Main extension theorem v3](main-extension-theorem-v3.md) — 以前のunordered主定理
 
 ## ステータス記法
 

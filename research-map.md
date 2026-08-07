@@ -1,5 +1,26 @@
 # Research map
 
+## 2026-08-07 ordered-trace restructuring
+
+The active spine is now [Ordered-trace research program
+v5](research-program-v5.md).  Effects describe ordered runtime behavior through
+languages of possible traces; they are not unordered rows.  The development
+adds one construct at a time:
+
+1. [Chapter I](chapter-1-foundations-v5.md) fixes terminology, CBV syntax, the
+   base effect algebra and the operational/denotational obligations;
+2. [Chapter II](chapter-2-free-operations-v5.md) adds free operation interfaces
+   and the free-product trace alphabet;
+3. [Chapter III](chapter-3-shallow-handlers-v5.md) adds standard shallow
+   handlers and isolates the affine law
+   $b\cdot\Delta\cdot e\mapsto b\cdot e'\cdot e$;
+4. [Chapter IV](chapter-4-fixpoint-derived-deep-v5.md) adds computation-level
+   fixed points and derives deep handlers by recursive reinstallation.
+
+The v4 finite-shallow/recursive-deep diagonal is archived.  Its examples and
+proof certificates remain inputs, but primitive deep handling and unordered
+rows are no longer premises of the main line.
+
 ## 2026-08-06 two-chapter organization
 
 The active development now begins with [Two-chapter research program v4](two-chapter-program-v4.md).

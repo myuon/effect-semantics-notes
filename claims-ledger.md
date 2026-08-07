@@ -4,6 +4,12 @@
 
 | ID | Status | Claim | Dependencies | Next check |
 |---|---|---|---|---|
+| C-256 | Adopted v5 definition | The main effect annotation denotes a language of ordered runtime traces; sequencing is concatenation and conditional join is language union | Chapter I v5; Chapter II v5 | fix the admissible trace-language class for each base instance |
+| C-257 | Adopted v5 definition | The extension order is base calculus, free operations, shallow handlers, then computation-level fixpoints | Ordered-trace program v5 | rewrite theorem dependency graph |
+| C-258 | Adopted v5 definition | Standard shallow clauses receive a bare continuation; the previous response-only matcher is their exactly-once affine fragment | Chapter III v5 | prove elaboration preserves operational traces |
+| C-259 | Conjecture | An affine shallow match transforms each applicable trace by $b\cdot\Delta\cdot e\mapsto b\cdot e'\cdot e$ and lifts the finite base adequacy certificate | C-256; finite free-tree model | prove Writer, State and Exception instances |
+| C-260 | Derived definition | A conventional deep handler is definable from shallow handling and computation-level fixpoint by recursively wrapping matching and forwarding resumptions | Chapter IV v5; explicit `other` continuation | prove contextual equivalence to recursive handler fold |
+| C-261 | Conjecture | Under admissibility and recursion adequacy, the derived deep handler eliminates unhandled $\Delta$ from every finite outward trace prefix when its clauses are exhaustive and $\Delta$-free | C-260; fixed-point induction | calculate four recursive examples before general proof |
 | C-240 | Adopted v4 definition | Chapter I uses a terminating base and a first-free-boundary shallow matcher with implicit exactly-once resumption and no reinstallation | Finite shallow calculus v4 | compare off-diagonal finite/deep control |
 | C-241 | Derived on paper | Finite free-operation extension preserves the row-refined free-tree monad, base embedding, morphisms and compatible relations | F1--F7 | independent proof audit |
 | C-242 | Derived on paper | Intended shallow operational semantics agrees with the first-boundary tree transformation | F1--F7; response substitution | mechanize four boundary cases |

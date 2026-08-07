@@ -18,20 +18,14 @@ project:
   license: CC-BY-4.0
   toc:
     - file: README.md
-    - title: Chapter I — Finite shallow extension
+    - title: Active ordered-trace program
       children:
-        - file: two-chapter-program-v4.md
-        - file: finite-shallow-calculus-v4.md
-        - file: finite-shallow-concrete-examples-v4.md
-        - file: finite-shallow-preservation-theorem-v4.md
-    - title: Chapter II — Recursive deep extension
-      children:
-        - file: recursive-deep-literature-audit-v4.md
-        - file: recursive-deep-calculus-semantics-v4.md
-        - file: recursive-deep-concrete-examples-v4.md
-        - file: recursive-deep-adequacy-v4.md
-        - file: recursive-deep-preservation-theorem-v4.md
-    - title: Current research program
+        - file: research-program-v5.md
+        - file: chapter-1-foundations-v5.md
+        - file: chapter-2-free-operations-v5.md
+        - file: chapter-3-shallow-handlers-v5.md
+        - file: chapter-4-fixpoint-derived-deep-v5.md
+    - title: Earlier unordered program (reference)
       children:
         - file: research-map.md
         - file: extensibility-question-v2.md
@@ -87,7 +81,7 @@ project:
         - file: exact-layer-calculus-v2.md
         - file: semantic-interface-v1.md
         - file: objects-and-notation.md
-    - title: Previous ordered/shallow exploration
+    - title: Supporting ordered/shallow exploration
       children:
         - file: research-synthesis-v1.md
         - file: free-operation-extension-v1.md
@@ -126,6 +120,15 @@ project:
         - file: work-log.md
     - title: Archive
       children:
+        - file: two-chapter-program-v4.md
+        - file: finite-shallow-calculus-v4.md
+        - file: finite-shallow-concrete-examples-v4.md
+        - file: finite-shallow-preservation-theorem-v4.md
+        - file: recursive-deep-literature-audit-v4.md
+        - file: recursive-deep-calculus-semantics-v4.md
+        - file: recursive-deep-concrete-examples-v4.md
+        - file: recursive-deep-adequacy-v4.md
+        - file: recursive-deep-preservation-theorem-v4.md
         - file: operational-calculus-v1.md
         - file: baseline-calculus-v1.md
         - file: head-shape-calculus-v1.md
