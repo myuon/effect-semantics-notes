@@ -163,6 +163,9 @@ containing:
 
 ## 7. What is passed to Chapter IV
 
+The residual-context, rule-analysis and finite-tree inductions are expanded in
+[Chapter III — detailed shallow-handler proofs](chapter-3-proof-details-v5.md).
+
 Chapter IV receives the standard shallow continuation interface, not just the
 response-only sugar.  It may recursively wrap matching and `other`
 continuations to derive deep handling.  It must add a recursion principle and

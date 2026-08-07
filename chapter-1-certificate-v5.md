@@ -225,6 +225,9 @@ operation or handler property is used. $\square$
 
 ## 8. Boundary exported to Chapter II
 
+Complete derivations for the lemmas used above are given in
+[Chapter I — detailed proofs](chapter-1-proof-details-v5.md).
+
 `BaseCert` does not assert that every base has exact grades, that every
 denotation exposes a syntactic head event, or that base effects commute with
 future free operations.  Chapter II must add visible free-operation nodes

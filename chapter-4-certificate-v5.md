@@ -27,9 +27,9 @@ from the finite `ShallowCert` or from monad laws.
 :label: thm-recursive-preservation-v5
 
 Under `RecBaseCert`, recursive unfolding preserves value types and ordered
-may-effect bounds.  A closed well-typed computation either returns, takes an
-old or unfolding step, exposes an allowed free request, reaches an allowed old
-outcome, or reduces forever.
+may-effect bounds.  A closed well-typed computation either is a classified
+boundary or has a unique next step.  Consequently, a maximal run reaches a
+classified boundary or is infinite.
 :::
 
 The final alternative is new: normalization from the recursion-free chapters
@@ -118,6 +118,10 @@ effect transformer yield `DeepCert`, containing:
 :::
 
 ## 8. Sharp limits
+
+The fixed-point induction, elimination invariant and recursive logical-relation
+argument are expanded in
+[Chapter IV — detailed recursive and derived-deep proofs](chapter-4-proof-details-v5.md).
 
 The theorem does not provide termination, exact effect counts, unrestricted
 multi-shot resource safety, commutation with old handlers, full abstraction,

@@ -188,6 +188,9 @@ containing:
 
 ### Boundary
 
+The constructor inductions and initiality arguments are expanded in
+[Chapter II — detailed free-extension proofs](chapter-2-proof-details-v5.md).
+
 `FreeCert` does not yet define a handler, eliminate $\Delta$, support general
 recursion, or prove that an effect bound is exact.  Those are genuinely later
 chapters.  In particular, $1\leq\Delta$ intentionally permits a term annotated
