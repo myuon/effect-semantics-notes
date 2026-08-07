@@ -84,19 +84,42 @@ well founded.
 We distinguish three levels.
 
 1. A **runtime event** is one observable base action performed in one step.
-2. A **runtime trace** is the ordered sequence of events from one execution.
-3. A **static effect** is a compositional description of the possible traces
+2. A **runtime behavior** is an ordered sequence of events together with its
+   current exit: ordinary return or a classified base abort.
+3. A **static effect** is a compositional description of the possible behaviors
    of a term before execution.
 
-For each $b\in B$, let $\mathcal L_B(b)$ be its trace interpretation.  The
+Write a behavior as $(t,q)$, where $t$ is an event word and
+
+$$
+q::=\checkmark\mid\mathsf{abort}(a).
+$$
+
+Sequential composition is completion-sensitive:
+
+$$
+(t,\checkmark)\mathbin{;} (u,q)=(t\cdot u,q),
+$$
+
+$$
+(t,\mathsf{abort}(a))\mathbin{;} (u,q)
+=(t,\mathsf{abort}(a)).
+$$
+
+It extends pointwise to behavior languages.  The unit is
+$\{(\epsilon,\checkmark)\}$.  For Writer and total State every behavior exits
+with $\checkmark$, so this reduces to ordinary trace concatenation.  The exit
+component is essential for Exception: effects after a raise are not executed.
+
+For each $b\in B$, let $\mathcal L_B(b)$ be its behavior-language interpretation.  The
 minimum soundness requirements are
 
 $$
-\epsilon\in\mathcal L_B(1),
+(\epsilon,\checkmark)\in\mathcal L_B(1),
 $$
 
 $$
-\mathcal L_B(b)\,\mathcal L_B(c)
+\mathcal L_B(b)\mathbin{;}\mathcal L_B(c)
 \subseteq
 \mathcal L_B(b\cdot c),
 $$
@@ -151,3 +174,8 @@ Before adding operations we must prove or assume, per base instance:
    $\mathsf{trace}(M)\in\mathcal L_B(b)$ for $M:A!b$;
 6. the selected denotational adequacy statement.
 
+These obligations are developed in order in:
+
+- [Operational semantics and concrete machines](chapter-1-operational-examples-v5.md);
+- [Denotational semantics](chapter-1-denotational-v5.md);
+- [Metatheory and base certificate](chapter-1-certificate-v5.md).

@@ -21,7 +21,11 @@ project:
     - title: Active ordered-trace program
       children:
         - file: research-program-v5.md
+        - file: chapter-method-v5.md
         - file: chapter-1-foundations-v5.md
+        - file: chapter-1-operational-examples-v5.md
+        - file: chapter-1-denotational-v5.md
+        - file: chapter-1-certificate-v5.md
         - file: chapter-2-free-operations-v5.md
         - file: chapter-3-shallow-handlers-v5.md
         - file: chapter-4-fixpoint-derived-deep-v5.md

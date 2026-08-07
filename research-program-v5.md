@@ -125,10 +125,15 @@ well-founded trace trees.  Chapter IV replaces these with partiality/domain
 structure, admissibility and fixed-point induction.  Claims about recursion
 must not be silently imported from the finite chapters.
 
+The detailed development follows the [common chapter
+method](chapter-method-v5.md).  Each chapter runs syntax, operational
+semantics, concrete Writer/State/Exception calculations, denotation, local
+proofs and certificate extraction in that order.  Chapter $n+1$ receives only
+the explicit certificate exported by Chapter $n$.
+
 ## Material no longer on the main line
 
 Unordered rows, primitive deep handlers, and the previous two-chapter
 finite-shallow/recursive-deep diagonal remain useful comparisons.  They are not
 assumptions of the current theorem.  Quantitative occurrence bounds also remain
 an optional later refinement of ordered trace languages.
-
