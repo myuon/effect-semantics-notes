@@ -196,32 +196,113 @@ the short-circuiting bind equations.
 
 ## 7. The Chapter-I structure theorem
 
+### Formal definition of `BaseCert`
+
+For a base calculus $L_B$, an ordered effect algebra
+$E_B=(B,1,\cdot,\leq)$, a graded interpretation $T$, and observations
+$\mathsf{obs}_B,\mathsf{observe}_T$, define
+
+$$
+\begin{aligned}
+\mathsf{BaseCert}(L_B,E_B,T,\mathsf{obs}_B)
+:=\{\;&
+\mathsf{det},\mathsf{subst},\mathsf{pres},\mathsf{dec},
+\mathsf{norm},\mathsf{effsafe},\\
+&\eta,\mu,\mathsf{st},\tau,
+(\beta^T)_{\beta\in\Sigma_B},
+\mathsf{monadlaw},\mathsf{weaklaw},\\
+&\mathsf{semsubst},\mathsf{redsnd},\mathsf{adequate}\;\}.
+\end{aligned}
+\tag{BaseCert}
+$$
+
+Its operational fields have the following types:
+
+$$
+\begin{aligned}
+\mathsf{det}:&\quad
+ M\to_BM_1\land M\to_BM_2\Rightarrow M_1=M_2,\\
+\mathsf{subst}:&\quad
+ \Gamma,x:A\vdash J\land\Gamma\vdash V:A
+ \Rightarrow\Gamma\vdash J[V/x],\\
+\mathsf{pres}:&\quad
+ \Gamma\vdash M:A!b\land M\to_BM'
+ \Rightarrow\Gamma\vdash M':A!b,\\
+\mathsf{dec}:&\quad
+ \vdash M:A!b\Rightarrow
+ \mathsf{Ret}(M)\mathbin{\dot\vee}\mathsf{Redex}(M)
+ \mathbin{\dot\vee}\mathsf{BaseReq}(M),\\
+\mathsf{norm}:&\quad
+ \vdash M:A!b\Rightarrow\exists!o.\ M\Downarrow_Bo,\\
+\mathsf{effsafe}:&\quad
+ \vdash M:A!b\land M\to_B^*\mathcal E[\beta(V)]\\
+&\hspace{39mm}\Rightarrow
+ \exists p,q.\ p\cdot|\beta|\cdot q\leq b.
+\end{aligned}
+$$
+
+$\dot\vee$ denotes mutually exclusive alternatives.  The semantic data are
+
+$$
+\eta_A:A\to T_1A,
+\quad
+\mu_{b,c,A}:T_bT_cA\to T_{b\cdot c}A,
+\quad
+\mathsf{st}_{b,X,A}:X\times T_bA\to T_b(X\times A),
+$$
+
+$$
+\tau_{b,c,A}:T_bA\to T_cA\ (b\leq c),
+\qquad
+\beta^T:P_\beta\to T_{|\beta|}R_\beta.
+$$
+
+`monadlaw` contains the graded left/right unit and associativity equations;
+`weaklaw` contains
+
+$$
+\tau_{b,b}=\mathsf{id},
+\qquad
+\tau_{c,d}\circ\tau_{b,c}=\tau_{b,d},
+$$
+
+and compatibility of $\tau$ with $\eta,\mu,\mathsf{st}$ and every
+$\beta^T$.  Finally,
+
+$$
+\begin{aligned}
+\mathsf{semsubst}:&\quad
+ \llbracket J[V/x]\rrbracket
+ =\llbracket J\rrbracket\circ
+   \langle\mathsf{id},\llbracket V\rrbracket\rangle,\\
+\mathsf{redsnd}:&\quad
+ M\to_BM'\Rightarrow\llbracket M\rrbracket=\llbracket M'\rrbracket,\\
+\mathsf{adequate}:&\quad
+ M\Downarrow_Bo\Longleftrightarrow
+ \mathsf{observe}_T(\llbracket M\rrbracket)=o
+ \quad(M\text{ closed and ground}).
+\end{aligned}
+$$
+
 ### Theorem I.9 — Base certificate extraction
 
-Each of the Writer, State, and Exception instances
-supplies a structure
+For each $X\in\{\mathsf{Writer},\mathsf{State},\mathsf{Exception}\}$, let
+$L_X,E_X,T^X,\mathsf{obs}_X$ be the syntax/machine, ordered algebra, model and
+observation defined in this chapter.  Then
 
 $$
-\mathsf{BaseCert}(B,\Sigma_B,T,\mathsf{obs}_B)
+\forall X\in\{W,S,E\}.\quad
+\mathsf{BaseCert}(L_X,E_X,T^X,\mathsf{obs}_X).
 $$
-
-containing:
-
-1. deterministic typed CBV dynamics;
-2. substitution and internal preservation;
-3. unique return/redex/request decomposition;
-4. recursion-free normalization to a classified observation;
-5. ordered upper-bound effect safety;
-6. a strong graded denotational interpretation;
-7. semantic substitution and reduction soundness;
-8. the instance's declared ground adequacy theorem.
 
 ### Proof
 
-Items 1–5 follow from Theorems I.3–I.5 and I.8 after checking each primitive
-machine rule.  Items 6–7 follow from the concrete graded constructions and
-Theorems I.6–I.7.  The three adequacy instances above provide item 8.  No free
-operation or handler property is used. $\square$
+The fields `det`, `subst`, `pres`, `dec`, `norm`, and `effsafe` follow from
+Theorems I.1–I.5 and I.8 after checking each primitive machine rule.  The
+displayed Writer, State and Exception constructions supply
+$\eta,\mu,\mathsf{st},\tau,\beta^T$ and their laws.  Theorems I.6–I.7 supply
+`semsubst` and `redsnd`; the three instance proofs above supply `adequate`.
+No free-operation or handler property is used. $\square$
 
 ## 8. Boundary exported to Chapter II
 

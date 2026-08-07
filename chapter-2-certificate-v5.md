@@ -81,9 +81,22 @@ the unique machine run gives equality of observations. $\square$
 
 ### Theorem II.6
 
-Under the initial-algebra hypotheses of the denotational chapter,
-$\mathsf F_\Sigma(T)$ is a strong $\widehat E$-graded monad with coherent
-weakening, canonical base embedding $j$, and free operation interpretations.
+If
+
+$$
+\mathsf{StrongGradedMonad}(T,E_B)
+\land\mathsf{Polynomial}_1(\Sigma)
+\land\forall e,A.\ \mu X.\,T_e(A+\Sigma X)\text{ exists},
+$$
+
+then
+
+$$
+\mathsf{StrongGradedMonad}(\mathsf F_\Sigma(T),\widehat E)
+\land\mathsf{CoherentWeakening}(\tau^{\mathsf F})
+\land\mathsf{MonadMorphism}(j)
+\land\mathsf{FreeGenerators}(\mathsf{op}^{\mathsf F}).
+$$
 
 ### Proof sketch
 
@@ -127,9 +140,15 @@ observations.
 
 ### Theorem II.8 — finite adequacy lifting
 
-Assume the Chapter-I ground adequacy certificate and separation of return,
-base-terminal and free-request constructors.  Then for every closed
-recursion-free Chapter-II computation:
+Assume
+
+$$
+\mathsf{BaseCert}(L_B,E_B,T,\mathsf{obs}_B)
+\land\mathsf{WellFounded}(\mathsf F_\Sigma(T))
+\land\mathsf{ConstructorSeparated}(\mathsf{observe}_{\mathsf F}).
+$$
+
+Then for every closed recursion-free Chapter-II computation:
 
 1. a return is reflected by the return branch of its denotation;
 2. a terminal base outcome is reflected by the outer base semantics;
@@ -167,24 +186,123 @@ operation tags, related parameters and pointwise-related continuations.
 
 ## 8. Chapter-II structure-preservation theorem
 
+### Formal definition of `FreeCert`
+
+For an extension $\widehat L=L_B+\Sigma$ with effect algebra $\widehat E$
+and carrier $\mathsf F=\mathsf F_\Sigma(T)$, define
+
+$$
+\begin{aligned}
+\mathsf{FreeCert}(\widehat L,\widehat E,\mathsf F)
+:=\{\;&
+\mathsf{subst}_{\mathsf F},\mathsf{pres}_{\mathsf F},
+\mathsf{dec}_{\mathsf F},\mathsf{effsafe}_{\mathsf F},
+\mathsf{opcons},\\
+&\eta^{\mathsf F},\mu^{\mathsf F},\mathsf{st}^{\mathsf F},
+\tau^{\mathsf F},\mathsf{op}^{\mathsf F},j,\\
+&\mathsf{monadlaw}_{\mathsf F},\mathsf{embedlaw},
+\mathsf{liftMor},\mathsf{liftRel},
+\mathsf{adequate}_{\mathsf F}\;\}.
+\end{aligned}
+\tag{FreeCert}
+$$
+
+The new operational fields are
+
+$$
+\begin{aligned}
+\mathsf{dec}_{\mathsf F}:\quad
+&\vdash M:A!e\Rightarrow
+ \mathsf{Ret}(M)\mathbin{\dot\vee}\mathsf{Redex}(M)
+ \mathbin{\dot\vee}\mathsf{BaseReq}(M)
+ \mathbin{\dot\vee}\mathsf{FreeReq}_\Sigma(M),\\
+\mathsf{opcons}:\quad
+&M\in L_B\Rightarrow
+ \bigl(M\to_{\widehat L}M'\Longleftrightarrow M\to_{L_B}M'\bigr),\\
+\mathsf{effsafe}_{\mathsf F}:\quad
+&\vdash M:A!e\land
+ M\to^*\mathcal E[\mathsf{op}_{\Delta,i}(V)]\\
+&\hspace{28mm}\Rightarrow
+ \exists p,q.\ p\cdot\Delta\cdot q\leq e.
+\end{aligned}
+$$
+
+The semantic operations have types
+
+$$
+\eta_A^{\mathsf F}:A\to\mathsf F_1A,
+\quad
+\mu_{e,f,A}^{\mathsf F}:\mathsf F_e\mathsf F_fA
+\to\mathsf F_{e\cdot f}A,
+\quad
+j_{e,A}:T_eA\to\mathsf F_eA,
+$$
+
+$$
+\mathsf{op}^{\mathsf F}_{\Delta,i,e}:
+P_i\times(R_i\to\mathsf F_eA)
+\to\mathsf F_{\Delta\cdot e}A,
+\qquad
+\tau^{\mathsf F}_{e,f,A}:\mathsf F_eA\to\mathsf F_fA\ (e\leq f),
+$$
+
+with the graded monad/strength/weakening equations and
+
+$$
+j\circ\eta^T=\eta^{\mathsf F},
+\qquad
+j(m\mathbin{\gg=_T}f)
+=j(m)\mathbin{\gg=_{\mathsf F}}(j\circ f),
+\qquad
+j\circ\tau^T=\tau^{\mathsf F}\circ j.
+\tag{Embed}
+$$
+
+`liftMor` and `liftRel` have the quantified forms
+
+$$
+\begin{aligned}
+&q:T\Rightarrow U\text{ compatible}
+ \Rightarrow\exists!\widehat q:\mathsf F_\Sigma(T)
+ \Rightarrow\mathsf F_\Sigma(U),\\
+&R\text{ bind/primitive-compatible}
+ \Rightarrow\exists\widehat R\text{ closed under return, base layers,
+ and free nodes}.
+\end{aligned}
+$$
+
+Finally, for every closed ground $M$,
+
+$$
+\mathsf{adequate}_{\mathsf F}:\quad
+M\Downarrow_{\widehat L}o
+\Longleftrightarrow
+\mathsf{observe}_{\mathsf F}(\llbracket M\rrbracket)=o,
+$$
+
+where $o$ ranges over separated returns, base outcomes and free requests.
+
 ### Theorem II.9 — Free extension certificate
 
-Let $P$ provide `BaseCert`, a first-order polynomial free signature, and the
-required finite initial algebras.  Then the free-operation extension provides
+Let $P=(L_B,E_B,T,\mathsf{obs}_B)$ and let $\Sigma$ be disjoint from the base
+signature.  The theorem has the explicit form
 
 $$
-\mathsf{FreeCert}(\mathsf F_\Sigma(P))
+\begin{aligned}
+&\mathsf{BaseCert}(L_B,E_B,T,\mathsf{obs}_B)\\
+&\land\ \mathsf{Polynomial}_1(\Sigma)
+\land\ \mathsf{Disjoint}(\Sigma,\Sigma_B)\\
+&\land\ \forall e,A.\quad
+ \mu X.\,T_e(A+\Sigma X)\text{ exists and is finite/well-founded}\\
+&\land\ \mathsf{NoErase}_\Sigma(\leq_{\widehat E})
+\land\ \mathsf{Separate}_{\mathsf{obs}}
+\quad\Longrightarrow\\[1mm]
+&\hspace{18mm}
+\mathsf{FreeCert}
+(L_B+\Sigma,\widehat E,\mathsf F_\Sigma(T)).
+\end{aligned}
+\tag{Free-Transport}
 $$
-
-containing:
-
-1. extended substitution, preservation and four-way decomposition;
-2. ordered upper-bound effect safety;
-3. old-language operational conservativity;
-4. a strong graded free-extension monad;
-5. the canonical base embedding and denotational conservativity;
-6. lifting of compatible base morphisms and logical relations;
-7. finite ground adequacy for returns, base outcomes and exposed requests.
 
 ### Boundary
 

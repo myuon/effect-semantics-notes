@@ -29,11 +29,12 @@ up to the declared weakening.
 
 ### Theorem III.2 — handler preservation
 
-Assume every clause type-checks at the output selected by $\Phi_h$ and its
-local certificate covers return, match and forwarding.  If
+If
 
 $$
-\Gamma\vdash M:A!e,
+\mathsf{FreeCert}(L_B+\Sigma,\widehat E,\mathsf F_\Sigma(T))
+\land\mathsf{HandlerCert}(\Delta,h,\Phi_h)
+\land\Gamma\vdash M:A!e,
 $$
 
 then
@@ -57,10 +58,15 @@ inside the scrutinee use Chapter-II preservation. $\square$
 
 ### Theorem III.3
 
-Let the scrutinee have bound $b\cdot\Delta\cdot e$, where $b$ is
-$\Delta$-free.  Let every response clause
-have bound $e'$, invoke the continuation exactly once, and assume $1\leq e'$.
-Then
+If $b$ is $\Delta$-free and
+
+$$
+\mathsf{FreeCert}(L_B+\Sigma,\widehat E,\mathsf F_\Sigma(T))
+\land\mathsf{AffineCert}(\Delta,h,e')
+\land\Gamma\vdash M:A!(b\cdot\Delta\cdot e),
+$$
+
+then
 
 $$
 \Gamma\vdash
@@ -88,7 +94,14 @@ $\Delta$.
 
 ### Theorem III.4
 
-For every closed recursion-free handled computation,
+If
+
+$$
+\mathsf{FreeCert}(L_B+\Sigma,\widehat E,\mathsf F_\Sigma(T))
+\land\mathsf{HandlerCert}(\Delta,h,\Phi_h),
+$$
+
+then, for every closed recursion-free handled computation,
 
 $$
 \llbracket
@@ -115,8 +128,18 @@ bare continuation.  This distinguishes shallow from deep handling.
 
 ### Theorem III.5
 
-Assume `FreeCert`, constructor-separated observations, and clauses related to
-their denotations.  Then ground adequacy is preserved by the shallow handler:
+Assume
+
+$$
+\begin{aligned}
+&\mathsf{FreeCert}(L_B+\Sigma,\widehat E,\mathsf F_\Sigma(T))\\
+&\land\mathsf{HandlerCert}(\Delta,h,\Phi_h)
+\land\mathsf{ConstructorSeparated}(\mathsf{observe}_{\mathsf F})
+\land\mathsf{clauseRel}_h.
+\end{aligned}
+$$
+
+Then ground adequacy is preserved by the shallow handler:
 operational returns, base outcomes, matching replacements and forwarded
 requests agree with the structural shallow denotation.
 
@@ -138,29 +161,124 @@ return clause is identity on old programs.
 
 ## 6. Chapter-III structure-preservation theorem
 
+### Formal handler and shallow certificates
+
+For an exhaustive $\Delta$-handler $h$ and monotone
+$\Phi_h:\widehat E\to\widehat E$, define
+
+$$
+\begin{aligned}
+\mathsf{HandlerCert}(\Delta,h,\Phi_h):=\{\;&
+\mathsf{mono}_h,\mathsf{return}_h,\mathsf{match}_h,
+\mathsf{forward}_h,\mathsf{clauseRel}_h\;\}.
+\end{aligned}
+\tag{HandlerCert}
+$$
+
+Writing $\mathsf{grade}(K)\leq d$ for “$K$ type-checks at an effect below
+$d$”, its fields are
+
+$$
+\begin{aligned}
+\mathsf{mono}_h:&\quad
+e\leq f\Rightarrow\Phi_h(e)\leq\Phi_h(f),\\
+\mathsf{return}_h:&\quad
+\Gamma,x:A\vdash H_{\mathsf{ret}}:C!r
+\land r\leq\Phi_h(1),\\
+\mathsf{match}_h:&\quad
+\forall i,b,e,d.\ b\cdot\Delta\cdot e\leq d\\
+&\Rightarrow
+\Bigl(
+\Gamma,p:P_i,k:R_i\xrightarrow{e}A
+\vdash H_i:C!c_i
+\land b\cdot c_i\leq\Phi_h(d)
+\Bigr),\\
+\mathsf{forward}_h:&\quad
+\Gamma'\neq\Delta\Rightarrow
+\mathsf{sh}_h(\mathsf{op}_{\Gamma',j}(p,k))\\
+&\hspace{25mm}=
+\mathsf{op}_{\Gamma',j}
+(p,\lambda r.\mathsf{sh}_h(k(r))),\\
+\mathsf{clauseRel}_h:&\quad
+(p,k)\mathrel{\widehat R}(p',k')
+\Rightarrow H_i[p,k]\mathrel{\widehat R}h_i(p',k').
+\end{aligned}
+$$
+
+The affine response fragment supplies this record when
+
+$$
+\begin{aligned}
+\mathsf{AffineCert}(\Delta,h,e'):=\;&
+\mathsf{Exhaustive}_\Delta(h)
+\land H_{\mathsf{ret}}=\mathsf{return}\,x\\
+&\land\ \forall i.\quad
+ \Gamma,p:P_i\vdash R_i(p):R_i!e'\\
+&\land\ H_i\equiv
+ \mathbf{let}\ r\leftarrow R_i(p)\ \mathbf{in}\ k\,r
+\land 1\leq e'.
+\end{aligned}
+\tag{AffineCert}
+$$
+
+For this fragment, on the domain of grades whose displayed prefix $b$ is
+$\Delta$-free,
+
+$$
+\Phi_{\Delta,e'}(b\cdot\Delta\cdot e)=b\cdot e'\cdot e.
+$$
+
+Now define
+
+$$
+\begin{aligned}
+\mathsf{ShallowCert}(\Delta,h,\Phi_h):=\{\;&
+\mathsf{hpres},\mathsf{hprogress},
+\mathsf{retEq},\mathsf{matchEq},\mathsf{forwardEq},\\
+&\mathsf{commute}_h,\mathsf{adequate}_h,
+\mathsf{conservative}_h,\mathsf{boundary}_h\;\}.
+\end{aligned}
+\tag{ShallowCert}
+$$
+
+The principal fields have types
+
+$$
+\begin{aligned}
+\mathsf{hpres}:&\quad
+\Gamma\vdash M:A!e\Rightarrow
+\Gamma\vdash\mathsf{shallow}_\Delta(M,h):C!\Phi_h(e),\\
+\mathsf{commute}_h:&\quad
+\llbracket\mathsf{shallow}_\Delta(M,h)\rrbracket
+=\mathsf{sh}_{\Delta,h}(\llbracket M\rrbracket),\\
+\mathsf{adequate}_h:&\quad
+\mathsf{obs}_{\mathrm{op}}(\mathsf{shallow}_\Delta(M,h))
+=\mathsf{obs}_{\mathrm{den}}(\mathsf{sh}_{\Delta,h}(\llbracket M\rrbracket)),\\
+\mathsf{conservative}_h:&\quad
+M\in L_B+\Sigma\Rightarrow
+\llbracket M\rrbracket_{+h}=\llbracket M\rrbracket_{\mathsf F}.
+\end{aligned}
+$$
+
 ### Theorem III.6 — Shallow certificate
 
-From `FreeCert` and either
-
-1. exhaustive affine response clauses with $1\leq e'$, or
-2. a general handler equipped with a valid monotone $\Phi_h$ certificate,
-
-we obtain
+Let $P=(L_B+\Sigma,\widehat E,\mathsf F_\Sigma(T))$.  The explicit theorem is
 
 $$
-\mathsf{ShallowCert}(\Delta,h,\Phi_h)
+\begin{aligned}
+&\mathsf{FreeCert}(L_B+\Sigma,\widehat E,\mathsf F_\Sigma(T))\\
+&\land\Bigl(
+ \mathsf{AffineCert}(\Delta,h,e')
+ \land\Phi_h=\Phi_{\Delta,e'}
+ \quad\lor\quad
+ \mathsf{HandlerCert}(\Delta,h,\Phi_h)
+\Bigr)\\
+&\land\ \mathsf{ConstructorSeparated}(\mathsf{obs}_{\mathsf F})
+\quad\Longrightarrow\\[1mm]
+&\hspace{20mm}\mathsf{ShallowCert}(\Delta,h,\Phi_h).
+\end{aligned}
+\tag{Shallow-Transport}
 $$
-
-containing:
-
-- handler typing preservation and effect-aware progress;
-- the direct return/match/forward equations;
-- the affine transformation
-  $b\cdot\Delta\cdot e\mapsto b\cdot e'\cdot e$;
-- operational/denotational commutation;
-- ground adequacy preservation;
-- old-language conservativity;
-- explicit non-morphism and transparent-forwarding boundaries.
 
 ## 7. What is passed to Chapter IV
 

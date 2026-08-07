@@ -138,6 +138,32 @@ semantics, concrete Writer/State/Exception calculations, denotation, local
 proofs and certificate extraction in that order.  Chapter $n+1$ receives only
 the explicit certificate exported by Chapter $n$.
 
+The certificate names abbreviate formally declared records, not unspecified
+bundles of “good properties.”  The overall theorem has the shape
+
+$$
+\begin{aligned}
+&\mathsf{BaseCert}(L_B,E_B,T,\mathsf{obs}_B)
+\land\mathsf{Polynomial}_1(\Sigma)
+\land\mathsf{InitialAlg}(T,\Sigma)\\
+&\land\mathsf{HandlerCert}(\Delta,h,\Phi_h)
+\land\mathsf{RecBaseCert}(L^{\mathsf{rec}},\mathsf R,K)\\
+&\land\mathsf{Exhaustive}_\Delta(h)
+\land\mathsf{ClauseFree}_\Delta(h)
+\land\mathsf{Continuous}(\mathcal D_h)
+\land\mathsf{ClosureCompat}(K,\Phi_h)\\
+&\qquad\Longrightarrow
+\mathsf{FreeCert}(L_B+\Sigma,\widehat E,\mathsf F_\Sigma(T))\\
+&\qquad\phantom{\Longrightarrow}\land
+\mathsf{ShallowCert}(\Delta,h,\Phi_h)
+\land\mathsf{DeepCert}(\Delta,h,\Phi_h,K).
+\end{aligned}
+\tag{Master-Transport}
+$$
+
+Each conjunct, its quantified type, and its equations are written out in the
+certificate section of the corresponding chapter.
+
 ## Material no longer on the main line
 
 Unordered rows, trace-language refinements, primitive deep handlers, and the previous two-chapter
