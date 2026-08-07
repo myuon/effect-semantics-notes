@@ -40,25 +40,25 @@ adequacy proof.
 
 ## 3. Semantic shallow handler
 
-Chapter III provides the first-boundary map
+Chapter III provides the first-matching map
 
 $$
 \mathsf{sh}_{\Delta,h}:\mathsf R A\to\mathsf R C,
 $$
 
-whose matching and forwarding equations do not recursively handle their
-continuations.
+whose nonmatching equation structurally recurses through its continuation but
+whose matching equation supplies a bare continuation to the clause.
 
 ## 4. Semantic functional for deep handling
 
 For a candidate map $g:\mathsf R A\to\mathsf R C$, form a shallow handler
-$h[g]$ whose continuations are wrapped by $g$:
+$h[g]$ whose matching continuations are wrapped by $g$:
 
 $$
-h[g]_i(p,k)=h_i(p,\lambda r.g(k(r))),
+h[g]_i(p,k)=h_i(p,\lambda r.g(k(r))).
 $$
 
-and whose forwarding continuation is likewise $\lambda r.g(k(r))$.  Define
+Nonmatching continuations are already processed by the shallow map.  Define
 
 $$
 \mathcal D_h(g)=\mathsf{sh}_{\Delta,h[g]}.
@@ -87,7 +87,8 @@ number of recursive unfoldings.  Noncommutativity is retained: in general
 $e^*d\ne de^*$.
 
 For a deep affine handler, finite approximants replace matching $\Delta$
-symbols in order.  Passing to the supremum requires the handler transformer
+symbols in order.  In the displayed one-step shape, $b$ is $\Delta$-free.
+Passing to the supremum requires the handler transformer
 $\Phi_h$ to be compatible with the selected closure/limits.  A typical safe
 statement is
 
@@ -101,7 +102,7 @@ Equality is not claimed without a free or principal effect algebra.
 ## 6. Interface elimination
 
 Assume the handler is exhaustive for $\Delta$, its clauses and return branch
-are outwardly $\Delta$-free, and forwarding recursively preserves the pending
+are outwardly $\Delta$-free, and transparent forwarding preserves the pending
 handler.  Every finite approximant of $\mathsf{deep}_{\Delta,h}(M)$ is then
 $\Delta$-free at its outer boundary.  Admissibility/continuity lifts this
 safety property to the least fixed point.

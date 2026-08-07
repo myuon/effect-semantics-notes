@@ -58,9 +58,9 @@ Define $P(C)$ to mean: no finite reduction prefix of $C$ ends at an exposed
 $\Delta$ request outside a pending derived handler.  Prove $P(\mathsf{loop}_n
 M)$ by induction on $n$ and the length of the finite prefix.  Return terminates
 inside the return clause.  A matching request enters an exhaustive clause;
-every resumption is `loop_{n-1}(k r)`, covered by induction.  A nonmatching
-request is outwardly visible, but its stored continuation is again wrapped by
-`loop_{n-1}`.  Old steps preserve the pending handler.  A clause-emitted
+every matching resumption is `loop_{n-1}(k r)`, covered by induction.  A
+nonmatching request is outwardly visible, but its stored continuation retains
+the structurally recursive shallow handler.  Old steps preserve the pending handler.  A clause-emitted
 $\Delta$ is excluded by hypothesis.  Thus every finite approximant has $P$.
 
 For the actual fixpoint, any finite operational prefix uses only finitely many
@@ -89,7 +89,7 @@ case is the unit inequality; the successor case is
 $e^{n+1}=e\cdot e^n\le e\cdot e^*\le e^*$.
 
 For a closure-compatible handler transformer, Chapter III gives at each
-unfolding
+unfolding, for $\Delta$-free $b$,
 
 $$
 \Phi_h(b\cdot\Delta\cdot e)\le b\cdot e'\cdot e.

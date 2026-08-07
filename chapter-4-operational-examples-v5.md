@@ -39,15 +39,14 @@ deep_Delta M with h :=
   let rec loop(m) =
     shallow_Delta m with {
       return x  -> h.return(x);
-      op_i(p,k) -> h.op_i(p, fun r -> loop(k(r)));
-      other op(p,k) -> forward op(p, fun r -> loop(k(r)))
+      op_i(p,k) -> h.op_i(p, fun r -> loop(k(r)))
     }
   in loop(M)
 ```
 
 There is no primitive deep reduction rule.  One shallow step captures `k`;
-the recursive call reinstalls the handler around `k(r)`.  The `other` clause
-does the same across a nonmatching operation.
+the recursive call reinstalls the handler around `k(r)`.  Nonmatching
+operations already retain the Chapter-III shallow handler automatically.
 
 ## 3. Writer: finitely many requests
 
@@ -126,15 +125,15 @@ In
 x <- ask(); tick(); return x
 ```
 
-a deep `Tick` handler forwards `ask` with
+a shallow or deep `Tick` handler forwards `ask` with the pending handler in its
+continuation.  After an outer handler answers `ask`, the later `tick` is caught.
+Deep handling additionally wraps the matching resumption as
 
 ```text
 fun r -> loop(k(r))
 ```
 
-as its continuation.  If an outer handler answers `ask`, the later `tick` is
-still caught.  Omitting recursive wrapping in `other` would instead recover
-Chapter III's terminating-forward behavior, not conventional deep handling.
+so subsequent `Tick` requests are caught as well.
 
 ## 8. Multi-shot boundary
 

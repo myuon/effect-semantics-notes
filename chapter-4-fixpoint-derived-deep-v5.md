@@ -68,24 +68,16 @@ The shallow continuation `k` does not contain the handler.  The recursive
 wrapper `loop` reinstalls it after every resumption.  This is exactly the usual
 deep-handler behavior.
 
-For another interface $\Gamma$, derivation of fully conventional forwarding
-requires the shallow interface to expose its fallback continuation as well:
-
-```text
-other op_Gamma(p,k) ->
-  forward op_Gamma(p, fun r -> loop (k r))
-```
-
-If Chapter III instead uses the stricter rule that forwarding terminates the
-handler, the derived construct searches only across matching resumptions and
-is not a conventional deep handler across intervening interfaces.  The main
-calculus therefore includes the explicit `other` continuation form, while the
-terminating-forward variant remains a definable restricted handler.
+Chapter III already forwards every $\Gamma\neq\Delta$ request with the shallow
+handler retained in its continuation.  Therefore the only additional wrapping
+needed to obtain deep behavior is in matching resumptions.  Shallow and deep
+differ exactly on the continuation of a caught $\Delta$ operation.
 
 ## 4. Ordered effect action
 
 For affine deep clauses, recursive reinstallation repeatedly applies the
-Chapter-III law.  For a finite ordered effect bound,
+Chapter-III law.  For a finite ordered effect bound, with each $b_i$
+$\Delta$-free,
 
 $$
 b_0\cdot\Delta\cdot b_1\cdot\Delta\cdots
@@ -111,7 +103,7 @@ Assume:
 1. the input effect bound covers all possible $\Delta$ requests;
 2. the handler is exhaustive for $\Delta$;
 3. handler clauses do not themselves emit $\Delta$;
-4. forwarding reinstalls the recursive loop;
+4. transparent forwarding preserves the pending shallow handler;
 5. the fixed point is interpreted by the selected operationally adequate
    recursion principle.
 
@@ -146,8 +138,8 @@ Before a general theorem, calculate:
 1. recursive Writer with repeated handled operations;
 2. recursive State where resumptions revisit updated stores;
 3. Exception where a base exception cuts off further reinstallation;
-4. one program with an intervening nonmatching free operation, testing the
-   explicit forwarding continuation.
+4. one program with an intervening nonmatching free operation, testing
+   transparent forwarding.
 
 The full Chapter-IV cycle is developed in:
 

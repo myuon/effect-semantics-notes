@@ -12,8 +12,7 @@ For an interface $\Delta$, write
 ```text
 shallow_Delta M with {
   return x  -> Hret;
-  op_i(p,k) -> Hi;
-  other op(p,k) -> Hother
+  op_i(p,k) -> Hi
 }
 ```
 
@@ -27,8 +26,9 @@ $$
 is the captured continuation of the handled computation.  It is supplied by
 the handler reduction rule, not by the source operation.
 
-The `other` clause is optional.  If omitted, a request from another interface
-is forwarded with its bare continuation and this shallow handler terminates.
+A request from another interface is forwarded with a continuation that retains
+this handler.  The handler therefore searches through unrelated interfaces
+until it meets the first matching $\Delta$ request or a return.
 
 ## 2. Handler evaluation contexts
 
@@ -71,7 +71,7 @@ $$
 The continuation contains no copy of $h$.  If the clause calls it, later free
 requests are outside this handler.
 
-For $\Gamma\neq\Delta$, omitted `other` means
+For $\Gamma\neq\Delta$,
 
 $$
 \begin{aligned}
@@ -79,13 +79,15 @@ $$
  (\mathcal E[\mathsf{op}_{\Gamma,j}(V)],h)\\
 &\quad\leadsto
 \mathsf{request}_{\Gamma,j}
-\left(V,\lambda r.\mathcal E[\mathsf{return}\,r]\right).
+\left(V,\lambda r.\mathsf{shallow}_\Delta
+(\mathcal E[\mathsf{return}\,r],h)\right).
 \end{aligned}
 \tag{SH-Forward}
 $$
 
-The handler disappears.  With an explicit `other` clause, its body receives
-the same parameter and bare continuation instead.
+The request remains visible to an outer handler, but resuming it continues the
+search for $\Delta$.  Only a matching clause receives a bare continuation and
+ends this handler.
 
 ## 4. Affine response fragment
 
@@ -101,10 +103,10 @@ elaborates to
 op_i(p,k) -> let r <- R_i in k r
 ```
 
-with identity return and default forwarding.  It invokes $k$ exactly once and
+with identity return and transparent forwarding.  It invokes $k$ exactly once and
 does not expose it to user code.
 
-Suppose the scrutinee has upper bound
+Suppose the scrutinee has upper bound, with $b$ containing no $\Delta$,
 
 $$
 b\cdot\Delta\cdot e
@@ -246,7 +248,7 @@ shallow_Ask (ask("reachable")) with {
 `error(boom)`.  The possible effect changes from $\Delta$ to
 $\mathsf{raise}$.
 
-## 8. Unmatched-interface boundary
+## 8. Transparent unrelated-interface forwarding
 
 Let `choose` belong to $\Gamma\neq\Delta=\mathsf{Ask}$.  In
 
@@ -257,6 +259,8 @@ shallow_Ask (
 ) with { ask(q) -> return true }
 ```
 
-the first exposed request is `choose`.  Default `SH-Forward` forwards it and
-ends the handler.  If an environment later resumes the request, the subsequent
-`ask` is unhandled.  A searching or deep handler would behave differently.
+the first exposed request is `choose`.  `SH-Forward` forwards it with the
+pending `Ask` handler in its continuation.  If an outer handler supplies a
+response, the subsequent `ask` is caught.  After that match, the clause's bare
+continuation is no longer protected.  This is searching shallow behavior, not
+deep handling.

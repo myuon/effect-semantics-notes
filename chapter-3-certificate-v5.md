@@ -49,15 +49,16 @@ and every handler reduction preserves this type and bound.
 ### Proof
 
 `SH-Ret` uses value substitution.  `SH-Match` uses parameter substitution and
-Lemma III.1 for $k$.  `SH-Forward` uses the free-request typing rule with the
-same bare continuation.  Reductions inside the scrutinee use Chapter-II
-preservation. $\square$
+Lemma III.1 for $k$.  `SH-Forward` uses the free-request typing rule and the
+structural handler-typing induction for its rewrapped continuation.  Reductions
+inside the scrutinee use Chapter-II preservation. $\square$
 
 ## 2. Affine effect theorem
 
 ### Theorem III.3
 
-Let the scrutinee have bound $b\cdot\Delta\cdot e$.  Let every response clause
+Let the scrutinee have bound $b\cdot\Delta\cdot e$, where $b$ is
+$\Delta$-free.  Let every response clause
 have bound $e'$, invoke the continuation exactly once, and assume $1\leq e'$.
 Then
 
@@ -104,11 +105,11 @@ Induct on the finite outer base/free structure supplied by `FreeCert`.
 - return uses the return equation;
 - an internal/base step uses functoriality and Chapter-II soundness;
 - a matching request uses semantic substitution for $p$ and $k$;
-- a nonmatching request uses constructor equality and stops without an
-  induction hypothesis on its continuation.
+- a nonmatching request rebuilds the same constructor and uses the induction
+  hypothesis pointwise on its rewrapped continuation.
 
-The last point is essential: recursively applying the induction hypothesis to
-the forwarded continuation would prove deep, not shallow, behavior.
+The matching case deliberately does not apply the induction hypothesis to its
+bare continuation.  This distinguishes shallow from deep handling.
 
 ## 4. Adequacy preservation
 
@@ -130,7 +131,7 @@ the pointwise continuation clause from `FreeCert`. $\square$
 Adding the handler syntax does not alter reduction or denotation of terms that
 do not use it.  Moreover, the affine identity handler is observationally the
 identity on computations whose bound contains no matching $\Delta$, subject to
-the default-forwarding boundary.
+transparent forwarding.
 
 The latter statement does not say that a general handler with a nontrivial
 return clause is identity on old programs.
@@ -159,7 +160,7 @@ containing:
 - operational/denotational commutation;
 - ground adequacy preservation;
 - old-language conservativity;
-- explicit non-morphism and unmatched-forwarding boundaries.
+- explicit non-morphism and transparent-forwarding boundaries.
 
 ## 7. What is passed to Chapter IV
 
@@ -167,7 +168,8 @@ The residual-context, rule-analysis and finite-tree inductions are expanded in
 [Chapter III — detailed shallow-handler proofs](chapter-3-proof-details-v5.md).
 
 Chapter IV receives the standard shallow continuation interface, not just the
-response-only sugar.  It may recursively wrap matching and `other`
-continuations to derive deep handling.  It must add a recursion principle and
+response-only sugar.  Nonmatching continuations already retain the shallow
+handler; it recursively wraps matching continuations to derive deep handling.
+It must add a recursion principle and
 prove the resulting recursive effect bound; neither follows from
 `ShallowCert` alone.

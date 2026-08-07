@@ -45,8 +45,9 @@ $\operatorname{lfp}(\mathcal D_h)$.
 :::
 
 **Proof.**  Unfolding the source `loop` once gives exactly the Chapter-III
-shallow map whose matching and forwarding continuations are wrapped by the
-previous approximation.  Hence the $n$th source approximant denotes
+shallow map whose matching continuations are wrapped by the previous
+approximation; nonmatching continuations remain under that shallow map.  Hence
+the $n$th source approximant denotes
 $\mathcal D_h^n(\bot)$.  Continuity and the source-fixpoint agreement field
 identify their suprema. $\square$
 
@@ -56,8 +57,8 @@ identify their suprema. $\square$
 :label: thm-deep-elimination-v5
 
 If $h$ is exhaustive for $\Delta$, all clause results are outwardly
-$\Delta$-free, and matching and forwarding continuations are recursively
-wrapped, no finite execution prefix of the derived program exposes an
+$\Delta$-free, matching continuations are recursively wrapped, and transparent
+forwarding retains the pending handler, no finite execution prefix exposes an
 unhandled $\Delta$ request.
 :::
 
@@ -86,7 +87,8 @@ operator.
 ## 6. Ordered-effect theorem
 
 For each finite unfolding, Chapter III transforms occurrences in their
-original order.  For unbounded recursion, suppose $e^*$ safely closes finite
+original order, taking the prefix before each first match to be $\Delta$-free.
+For unbounded recursion, suppose $e^*$ safely closes finite
 iteration and $\Phi_h$ is continuous/closure-compatible.  Then the transformed
 recursive bound is safely covered by the corresponding closed output, for
 example

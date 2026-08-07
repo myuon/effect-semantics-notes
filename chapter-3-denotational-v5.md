@@ -31,7 +31,7 @@ $$
 h_i:P_i\times(R_i\to\mathsf F A)\to\mathsf F C;
 $$
 
-- optionally, interpretations for nonmatching operation nodes.
+- transparent reconstruction of nonmatching operation nodes.
 
 The continuation argument is bare: it has not been composed with the handler.
 
@@ -44,7 +44,7 @@ $$
 \mathsf F A\to\mathsf F C
 $$
 
-by traversing only the initial base layer:
+by traversing base layers and nonmatching nodes until the first match:
 
 $$
 \mathsf{sh}_{\Delta,h}(\mathsf{return}\,a)
@@ -65,16 +65,18 @@ $$
 =h_i(p,k).
 $$
 
-At a nonmatching node with omitted `other`,
+At a nonmatching node,
 
 $$
 \mathsf{sh}_{\Delta,h}
 (\mathsf{op}_{\Gamma,j}(p,k))
-=\mathsf{op}_{\Gamma,j}(p,k).
+=\mathsf{op}_{\Gamma,j}
+\left(p,\lambda r.\mathsf{sh}_{\Delta,h}(k(r))\right).
 $$
 
-There is no recursive call on $k$ in either operation equation.  This is the
-semantic content of shallowness.
+There is a structural recursive call on a nonmatching continuation.  There is
+no recursive call on $k$ in the matching equation.  This is the semantic
+content of shallowness.
 
 `mapBase` uses functoriality/strength of the outer base layer.  No operation
 that inspects an arbitrary element of $T_bA$ is assumed.
@@ -94,8 +96,8 @@ h_i(p,k)=r_i(p)\mathbin{\gg=}k.
 $$
 
 This is exactly the elaboration “compute a response, then invoke the bare
-continuation once.”  With identity return, the grade action on the principal
-shape is
+continuation once.”  With identity return and a $\Delta$-free prefix $b$, the
+grade action on the principal shape is
 
 $$
 \Phi_{\Delta,e'}
@@ -159,4 +161,4 @@ The free extension is a monad construction, but a shallow handler is generally
 not a monad morphism.  Handling $M\mathbin{\gg=}f$ once is not the same as
 handling $M$ and then installing a fresh handler around $f$: the latter may
 handle an additional request.  The correct structure is a typed, natural
-first-boundary transformation satisfying the displayed equations.
+first-matching transformation satisfying the displayed equations.

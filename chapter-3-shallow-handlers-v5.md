@@ -3,8 +3,8 @@
 ## Status
 
 **Working handler specification.**  The calculus remains recursion-free.  A
-shallow handler handles one exposed request and does not reinstall itself on a
-resumption.
+shallow handler transparently crosses unrelated requests, handles the first
+matching request, and does not reinstall itself on that matching resumption.
 
 ## 1. General shallow syntax
 
@@ -13,8 +13,7 @@ An exhaustive handler for $\Delta$ has the standard shape
 ```text
 shallow_Delta M with {
   return x  -> Hret;
-  op_i(p,k) -> Hi;
-  other op(p,k) -> Hother
+  op_i(p,k) -> Hi
 }
 ```
 
@@ -25,10 +24,10 @@ k:R_i\to(C!e_k)
 $$
 
 is the captured continuation without the surrounding handler.  Exhaustiveness
-means that every operation in $\Sigma(\Delta)$ has a clause.  The optional
-`other` clause exposes the continuation of a different interface.  If omitted,
-its default is terminating forwarding: rebuild the request with the bare
-continuation and finish this shallow handler.
+means that every operation in $\Sigma(\Delta)$ has a clause.  Operations from
+another interface are transparently forwarded with this handler retained in
+their continuations.  Evaluation can therefore cross unrelated operations
+while searching for the first matching $\Delta$ request.
 
 ## 2. Direct operational rules
 
@@ -55,21 +54,22 @@ $$
 There is no `shallow` around $E[\mathsf{return}\,r]$.  That absence is the
 definition of shallowness.
 
-For $\Gamma\neq\Delta$, the omitted-`other` default forwards the first
-$\Gamma$ request with the original continuation and finishes this handler:
+For $\Gamma\neq\Delta$, forwarding preserves the pending handler:
 
 $$
 \mathsf{shallow}_\Delta
  (E[\mathsf{op}_{\Gamma,j}(V)],h)
 \leadsto
-\mathsf{op}_{\Gamma,j}(V;\lambda r.E[\mathsf{return}\,r]).
+\mathsf{op}_{\Gamma,j}
+(V;\lambda r.\mathsf{shallow}_\Delta
+(E[\mathsf{return}\,r],h)).
 \tag{S-Other}
 $$
 
-With an explicit `other` clause, reduction instead substitutes the request
-parameter and bare continuation into that clause.  This extra observation is
-not deep handling: `k` is still unwrapped.  Chapter IV uses it to write a
-recursive forwarding clause that reinstalls the derived handler.
+This recursive occurrence is structural: in the recursion-free calculus it
+descends into a proper continuation subtree.  At a matching node the clause
+still receives the bare continuation.  That asymmetry is the definition of
+shallow handling used here.
 
 ## 3. Affine response fragment
 
@@ -86,9 +86,9 @@ continuation exactly once:
 op_i(p,k) -> let r <- R_i in k r
 ```
 
-If the already executed prefix has effect $b$, the operation label is
-$\Delta$, the response clause has effect $e'$, and the tail has effect $e$,
-then
+If the already executed prefix has $\Delta$-free effect $b$, the first
+matching operation label is $\Delta$, the response clause has effect $e'$, and
+the tail has effect $e$, then
 
 $$
 b\cdot\Delta\cdot e
@@ -136,7 +136,7 @@ affine fragment gives the cleanest first preservation theorem.
 ## 5. Tree semantics
 
 For the affine fragment, define a tree transformation that traverses base
-nodes until the first free boundary:
+nodes and nonmatching free nodes until the first matching boundary:
 
 $$
 \mathsf{sh}_{\Delta,h}(\mathsf{ret}(a))
@@ -155,11 +155,12 @@ $$
 
 $$
 \mathsf{sh}_{\Delta,h}(\mathsf{free}_{\Gamma,j}(p,k))
-=\mathsf{free}_{\Gamma,j}(p,k)
+=\mathsf{free}_{\Gamma,j}
+(p,r\mapsto\mathsf{sh}_{\Delta,h}(k(r)))
 \quad(\Gamma\neq\Delta).
 $$
 
-The final equation does not recurse into $k$.
+The final equation recurses into $k$; the matching equation does not.
 
 ## 6. What is and is not eliminated
 
@@ -179,7 +180,7 @@ repeats the shallow operation to obtain deep behavior.
 
 ## 7. Chapter-III theorem target
 
-For exhaustive affine clauses, prove:
+For exhaustive affine clauses, with $b$ containing no $\Delta$, prove:
 
 1. operational/tree correspondence;
 2. soundness of the ordered effect-bound transformer;

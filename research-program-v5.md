@@ -61,9 +61,9 @@ bounded by $e$.  It does not say that every execution performs every factor.
 
 ## Guiding shallow equation
 
-For the affine response fragment, suppose a $\Delta$ clause has effect bound $e'$ and
-supplies exactly one response to the captured tail.  The intended effect
-transformation is
+For the affine response fragment, suppose $b$ is $\Delta$-free and a $\Delta$
+clause has effect bound $e'$ and supplies exactly one response to the captured
+tail.  The intended effect transformation is
 
 $$
 b\cdot\Delta\cdot e
@@ -97,6 +97,11 @@ op(p) -> R
 ```
 
 whose elaboration computes `R` and invokes `k` exactly once.
+
+A request from $\Gamma\neq\Delta$ is transparently forwarded with the shallow
+handler retained in its continuation.  Thus shallow handling searches across
+unrelated interfaces but stops reinstalling itself after the first matching
+$\Delta$.  Deep handling differs only by wrapping that matching continuation.
 
 This choice is necessary for the promised derivation in Chapter IV:
 
