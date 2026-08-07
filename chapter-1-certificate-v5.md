@@ -118,42 +118,30 @@ $$
 The principal equations are semantic substitution, the graded unit laws, and
 coproduct elimination.  Context closure uses congruence of graded bind.
 
-## 5. Trace soundness
+## 5. Effect upper-bound safety
 
 ### Theorem I.8
 
 If
 
 $$
-\vdash M:A!L
+\vdash M:A!b
 $$
 
-and the base machine produces runtime behavior $(t,q)$, then
+then every base primitive that the machine can execute is permitted by the
+ordered upper bound $b$ at its typed position.  Effects in $b$ need not execute.
 
-$$
-(t,q)\in\gamma(L),
-$$
+### Proof idea
 
-where $\gamma$ is the grade concretization fixed by the base package.
+Unique decomposition and residual-context typing show that an exposed
+$\beta(V)$ occurs with primitive grade $|\beta|$ in the ordered position
+assigned by the surrounding `let` contexts.  Internal reduction preserves the
+declared bound.  Branch selection may remove potential effects but cannot add
+an effect outside the common upper bound.  The selected base package separately
+checks that its external response rule implements only the declared primitive.
 
-### Proof
-
-Preserve the invariant
-
-$$
-\mathsf{done}\mathbin{;}
-\gamma(L_{\mathsf{residual}})
-\subseteq
-\gamma(L_{\mathsf{declared}})
-$$
-
-across every machine step.  Internal steps leave the completed behavior
-unchanged.  A primitive step moves its leading event from the residual
-computation into $\mathsf{done}$.  Sequencing uses completion-sensitive
-composition; branch
-selection uses membership in the chosen union.  A base abort absorbs the
-residual effect; at a final return the residual behavior is
-$(\epsilon,\checkmark)$.
+This is a may-effect theorem.  It is intentionally one-way and introduces no
+runtime trace object.
 
 ## 6. Adequacy schema
 
@@ -166,12 +154,12 @@ M\Downarrow_B o
 \mathsf{observe}(\llbracket M\rrbracket)=o
 $$
 
-for every closed $M:G!L$.  One direction may be selected instead if the later
+for every closed $M:G!b$.  One direction may be selected instead if the later
 application needs only soundness or reflection; the certificate records which.
 
 ### Writer instance
 
-For the exact Writer model,
+For the upper-bound Writer model,
 
 $$
 \langle M,\epsilon\rangle
@@ -189,28 +177,28 @@ by residual denotational log is constant.
 For every initial store $s$,
 
 $$
-\langle M,s,\epsilon\rangle
+\langle M,s\rangle
 \Downarrow_S
-\langle\mathsf{return}\,V,s',t\rangle
+\langle\mathsf{return}\,V,s'\rangle
 $$
 
 iff
 
 $$
-\llbracket M\rrbracket(s)=(V,s',t).
+\llbracket M\rrbracket(s)=(V,s').
 $$
 
 ### Exception instance
 
-The denotation returns $(t,\mathsf{inl}\,V)$ exactly for a machine return and
-$(t,\mathsf{inr}\,e)$ exactly for the terminal error $e$.  The proof follows
+The denotation returns $\mathsf{inl}\,V$ exactly for a machine return and
+$\mathsf{inr}\,e$ exactly for the terminal error $e$.  The proof follows
 the short-circuiting bind equations.
 
 ## 7. The Chapter-I structure theorem
 
 ### Theorem I.9 — Base certificate extraction
 
-Each of the exact Writer, state-and-trace, and exception-and-trace instances
+Each of the Writer, State, and Exception instances
 supplies a structure
 
 $$
@@ -223,7 +211,7 @@ containing:
 2. substitution and internal preservation;
 3. unique return/redex/request decomposition;
 4. recursion-free normalization to a classified observation;
-5. ordered trace soundness;
+5. ordered upper-bound effect safety;
 6. a strong graded denotational interpretation;
 7. semantic substitution and reduction soundness;
 8. the instance's declared ground adequacy theorem.

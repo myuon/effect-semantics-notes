@@ -98,140 +98,124 @@ T_{b\cdot c}C.
 $$
 
 Conditionals and cases use coproduct elimination after both branches have been
-placed at their declared common trace-language bound.  Subeffecting is
+weakened to their declared common upper bound.  Subeffecting is
 interpreted by $\tau$.
 
-## 3. Trace observation interface
+## 3. Observation interface
 
-The categorical denotation need not literally be a trace.  To state ordered
-effect soundness and adequacy, the package additionally chooses observations
-
-$$
-\mathsf{observe}_{b,A}:T_bA\to\mathsf{Obs}_B(A)
-$$
-
-and a behavior projection
+To state adequacy, the package chooses observations
 
 $$
-\mathsf{beh}:\mathsf{Obs}_B(A)\to\mathsf{Trace}_B\times\mathsf{Exit}_B.
+\mathsf{observe}_{b,A}:T_bA\to\mathsf{Obs}_B(A).
 $$
 
-They must respect unit, completion-sensitive sequencing and weakening.  In
-particular, observed sequencing concatenates the second ordered contribution
-only when the first computation returns normally.
+The observation is instance-specific: Writer observes a value and log, State a
+value and final store, and Exception a value or error.  There is no generic
+trace projection.  Effect safety and observational adequacy are separate
+certificate fields.
 
-## 4. Exact Writer model
+## 4. Upper-bound Writer model
 
-Work in $\mathbf{Set}$ with grades $w\in\mathsf{Msg}^*$.  Define
-
-$$
-T_wA=A.
-$$
-
-The grade already records the exact log, so the carrier need not store it
-again.  Unit and multiplication are identities at the appropriately indexed
-types, and
+Work in $\mathbf{Set}$.  Let grades be message words with a compatible preorder
+$\preceq$ that permits weakening.  Define
 
 $$
-\mathsf{tell}_a^T(*)=*\in T_{[a]}1.
+T_bA=\{(w,a)\mid w\preceq b\}.
 $$
 
-The observation restores the index:
+Thus the denotation contains the actual Writer log, while $b$ merely bounds it.
+The unit produces $(\epsilon,a)$ and graded bind concatenates the two contained
+logs.  Monotonicity of $\preceq$ makes the result belong to $T_{b\cdot c}$.  The
+primitive is
 
 $$
-\mathsf{observe}_{w,A}(a)=((w,\checkmark),a).
+\mathsf{tell}_a^T(*)=([a],*)\in T_{[a]}1.
 $$
 
-For a more conventional upper-bound presentation one may instead use the
-coarser two-grade Writer model $T_1A=A$ and
-$T_\mathsf{write}A=\mathsf{Msg}^*\times A$.  The exact-word model is preferable
-on the ordered main line; the coarse model remains its abstraction.
-
-## 5. State-and-trace model
-
-Let $S$ be the store and $\mathsf{Tr}_S$ the concrete state-event words.  For a
-trace language $L$, define
+Weakening $b\preceq c$ retains the same pair and changes only its static
+membership proof.  Observation forgets that proof:
 
 $$
-T_LA=
-\{f:S\to A\times S\times\mathsf{Tr}_S
-\mid
-\forall s.\ \pi_3(f(s))\in L\}.
+\mathsf{observe}_{b,A}(w,a)=(w,a).
 $$
 
-If static grades abstract concrete values, replace membership by membership in
-the concretization $\gamma(L)$.  Return is
+If a coarser Writer effect system remembers only whether writing may occur,
+use the corresponding coarser preorder and carrier.  Exactness is not required
+by the generic calculus.
+
+## 5. State model
+
+Let $S$ be the store.  The ordinary State carrier can be used at every grade:
 
 $$
-\eta(a)(s)=(a,s,\epsilon),
+T_bA=S\to A\times S.
+$$
+
+The grade is a static index; it need not be reconstructed from an element of
+the carrier.  Return is
+
+$$
+\eta(a)(s)=(a,s),
 $$
 
 and bind is
 
 $$
 (m\mathbin{\gg=} f)(s)=
-\text{let }(a,s_1,t_1)=m(s),
-(c,s_2,t_2)=f(a)(s_1)
-\text{ in }(c,s_2,t_1\cdot t_2).
+\text{let }(a,s_1)=m(s)
+\text{ in }f(a)(s_1).
 $$
 
 The primitives are
 
 $$
 \mathsf{get}^T(*)(s)
-=(s,s,[\mathsf{get}(s)]),
+=(s,s),
 $$
 
 $$
 \mathsf{put}^T(s') (s)
-=(*,s',[\mathsf{put}(s')]).
+=(*,s').
 $$
 
-This model records both state threading and event order.  Projecting away the
-third component recovers the ordinary State monad.
+Choose primitive grades $\mathsf{read}$ and $\mathsf{write}$ and type sequencing
+with their noncommutative product.  The denotation validates state behavior;
+the typing derivation validates the upper-bound effect order.
 
-## 6. Exception-and-trace model
+## 6. Exception model
 
-Let $\mathsf{Beh}_X=\mathsf{Tr}_X\times
-(\{\checkmark\}+\mathsf{Err})$.  Let
-
-$$
-T_LA=
-\{(t,o)\mid
-o=\mathsf{inl}\,a\Rightarrow(t,\checkmark)\in L,
-\quad
-o=\mathsf{inr}\,e\Rightarrow(t,\mathsf{abort}(e))\in L\},
-$$
-
-where $L\subseteq\mathsf{Beh}_X$.  Bind appends the second trace only in the
-return case:
+At every grade use the ordinary exception carrier
 
 $$
-(t,\mathsf{inr}\,e)\mathbin{\gg=} f
-=(t,\mathsf{inr}\,e),
+T_bA=A+\mathsf{Err}.
+$$
+
+Bind short-circuits in the error case:
+
+$$
+(\mathsf{inr}\,e)\mathbin{\gg=} f
+=\mathsf{inr}\,e,
 $$
 
 $$
-(t,\mathsf{inl}\,a)\mathbin{\gg=} f
-=
-\text{let }(u,o)=f(a)\text{ in }(t\cdot u,o).
+(\mathsf{inl}\,a)\mathbin{\gg=} f=f(a).
 $$
 
 The primitive raise is
 
 $$
 \mathsf{raise}_e^T(*)
-=([\mathsf{raise}(e)],\mathsf{inr}\,e).
+=\mathsf{inr}\,e.
 $$
 
-The short-circuiting bind explains denotationally why effects after an
-exception do not occur.  Its result is indexed by the completion-sensitive
-language product $L\mathbin{;}K$, which contains the unchanged abort behavior
-from $L$.
+The static effect system may still conservatively assign
+$\mathsf{raise}\cdot b$ to `raise; M`; the denotation does not claim that $M$
+runs.  A more precise abortive grade algebra may collapse this product, but the
+generic semantics does not require it.
 
 ## 7. Model boundary
 
-The exact Writer construction uses grades as data, while State and Exception
-use carriers that retain runtime-dependent observations.  The generic theorem
-must therefore quantify over an observation-compatible graded model rather
-than require every base effect to have the same representation.
+Writer can reflect its upper bound directly in the carrier, while State and
+Exception can use phantom grade indices.  Therefore the generic theorem must
+not require a denotation to reveal which effects occurred.  It requires only a
+coherent strong graded interpretation and a separately stated adequacy theorem.

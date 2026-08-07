@@ -23,12 +23,11 @@ let rec f(x : A) = M in N
 with effectful function type
 
 $$
-f:A\to(B!L).
+f:A\to(B!e).
 $$
 
-Operational unfolding is standard CBV.  A trace annotation remains a safety
-upper bound on every finite execution prefix; it need not imply termination or
-bound the number of repetitions.
+Operational unfolding is standard CBV.  An effect annotation remains a may
+upper bound; it does not imply termination or bound the number of repetitions.
 
 ## 2. Semantic requirements for recursion
 
@@ -36,9 +35,9 @@ The finite tree of Chapters II–III is replaced by a recursive resumption
 object, schematically
 
 $$
-\mathsf R_{T,L}A
+\mathsf R_{T,e}A
 \cong
-T\bigl(A+\Sigma_L(\mathsf R_{T,L}A)\bigr).
+T\bigl(A+\Sigma_e(\mathsf R_{T,e}A)\bigr).
 $$
 
 The chosen base model must supply an explicit recursion principle, such as:
@@ -83,10 +82,10 @@ is not a conventional deep handler across intervening interfaces.  The main
 calculus therefore includes the explicit `other` continuation form, while the
 terminating-forward variant remains a definable restricted handler.
 
-## 4. Ordered trace action
+## 4. Ordered effect action
 
 For affine deep clauses, recursive reinstallation repeatedly applies the
-Chapter-III law.  On a finite trace,
+Chapter-III law.  For a finite ordered effect bound,
 
 $$
 b_0\cdot\Delta\cdot b_1\cdot\Delta\cdots
@@ -100,26 +99,26 @@ b_0\cdot e'_1\cdot b_1\cdot e'_2\cdots
 e'_n\cdot b_n.
 $$
 
-Nonmatching free events are forwarded in place, with the recursive handler
-retained in their continuations.  For infinite behavior, the sound statement
-is prefix based: every finite observable prefix agrees with some finite
-unfolding of the recursive definition.
+Nonmatching free operations are forwarded in place, with the recursive handler
+retained in their continuations.  With recursion, a finite word may no longer
+bound arbitrarily many repetitions; Chapter IV must therefore choose an
+iteration-closed effect algebra or an explicit closure $e^*$.
 
 ## 5. Elimination theorem shape
 
 Assume:
 
-1. the input trace language contains only well-typed $\Delta$ requests;
+1. the input effect bound covers all possible $\Delta$ requests;
 2. the handler is exhaustive for $\Delta$;
 3. handler clauses do not themselves emit $\Delta$;
 4. forwarding reinstalls the recursive loop;
 5. the fixed point is interpreted by the selected operationally adequate
    recursion principle.
 
-Then no finite outward trace of the derived deep-handled program contains an
-unhandled $\Delta$ event.  The program may still diverge, raise a base
-exception, or produce an infinite trace of other effects.  Elimination is a
-safety property, not a termination theorem.
+Then the outward effect bound of the derived deep-handled program may omit
+$\Delta$, and operational progress never exposes an unhandled $\Delta$ request
+outside the derived handler.  The program may still diverge or raise a base
+exception.  Elimination is a safety property, not a termination theorem.
 
 ## 6. Preservation theorem program
 
@@ -128,11 +127,11 @@ point:
 
 - type preservation and effect-aware progress;
 - old-program conservativity;
-- prefix-closed ordered trace soundness;
+- ordered upper-bound effect safety under unfolding;
 - continuity/iteration compatibility of the free-operation extension;
 - admissible logical-relation lifting;
 - finite observation adequacy;
-- divergence and productive-trace adequacy, stated separately;
+- divergence adequacy, stated separately;
 - equivalence between the derived program and the recursive semantic handler
   fold.
 
@@ -149,4 +148,3 @@ Before a general theorem, calculate:
 3. Exception where a base exception cuts off further reinstallation;
 4. one program with an intervening nonmatching free operation, testing the
    explicit forwarding continuation.
-

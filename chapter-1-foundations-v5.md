@@ -13,12 +13,14 @@ computations.
 
 $$
 \begin{aligned}
-A,B ::= {}& 1 \mid A\times B \mid A+B \mid A\to(B!b),\\
-V,W ::= {}& x \mid () \mid (V,W) \mid \mathsf{inl}\,V
+A,B ::= {}& 1 \mid \mathsf{Bool} \mid A\times B \mid A+B \mid A\to(B!b),\\
+V,W ::= {}& x \mid () \mid \mathsf{true}\mid\mathsf{false}
+          \mid (V,W) \mid \mathsf{inl}\,V
           \mid \mathsf{inr}\,V \mid \lambda x.M,\\
 M,N ::= {}& \mathsf{return}\,V
  \mid \mathbf{let}\ x\leftarrow M\ \mathbf{in}\ N\\
-&\mid V\,W \mid \mathsf{case}\ V\ \mathsf{of}\ \cdots
+&\mid V\,W \mid \mathbf{if}\ V\ \mathbf{then}\ M\ \mathbf{else}\ N
+ \mid \mathsf{case}\ V\ \mathsf{of}\ \cdots
  \mid \beta(V).
 \end{aligned}
 $$
@@ -62,9 +64,28 @@ $$
      {\Gamma\vdash M:A!c}.
 $$
 
-The precise conditional join is supplied by the base package.  It may be a
-join in $B$ or, more generally, union after interpreting grades as trace
-languages.
+Each primitive has a declared bound:
+
+$$
+\frac{\beta:P_\beta\to R_\beta\qquad\Gamma\vdash V:P_\beta}
+     {\Gamma\vdash\beta(V):R_\beta!|\beta|}.
+$$
+
+Branching requires a common upper bound.  If $M:A!b$, $N:A!c$, and
+$b\leq d$, $c\leq d$, then both branches are weakened to $d$ before applying
+the conditional rule.  A least join is convenient but not required.
+
+Equivalently, the combined rule is
+
+$$
+\frac{
+\Gamma\vdash V:\mathsf{Bool}\quad
+\Gamma\vdash M:A!b\quad
+\Gamma\vdash N:A!c\quad
+b\leq d\quad c\leq d}
+{\Gamma\vdash
+\mathbf{if}\ V\ \mathbf{then}\ M\ \mathbf{else}\ N:A!d}.
+$$
 
 ## 3. Operational conventions
 
@@ -79,78 +100,49 @@ well-typed computation either takes a step or is a classified base outcome.
 For the recursion-free chapters we additionally require that evaluation is
 well founded.
 
-## 4. Runtime traces and static effects
+## 4. Meaning of an effect annotation
 
-We distinguish three levels.
-
-1. A **runtime event** is one observable base action performed in one step.
-2. A **runtime behavior** is an ordered sequence of events together with its
-   current exit: ordinary return or a classified base abort.
-3. A **static effect** is a compositional description of the possible behaviors
-   of a term before execution.
-
-Write a behavior as $(t,q)$, where $t$ is an event word and
+The judgment
 
 $$
-q::=\checkmark\mid\mathsf{abort}(a).
+\Gamma\vdash M:A!b
 $$
 
-Sequential composition is completion-sensitive:
+means that every effect $M$ may perform is safely covered by the ordered upper
+bound $b$.  It does **not** say that every execution performs all of $b$, that
+$b$ is the smallest possible annotation, or that $b$ is a runtime log.
 
-$$
-(t,\checkmark)\mathbin{;} (u,q)=(t\cdot u,q),
-$$
+The product $b\cdot c$ records evaluation order: effects of the first
+computation are placed before possible effects of its continuation.  It is a
+static sequencing operation and is not assumed commutative.  The preorder
+permits loss of precision.  A law such as $1\leq b$ lets a pure branch be viewed
+as possibly effectful, but the exact preorder belongs to the selected base
+effect system.
 
-$$
-(t,\mathsf{abort}(a))\mathbin{;} (u,q)
-=(t,\mathsf{abort}(a)).
-$$
-
-It extends pointwise to behavior languages.  The unit is
-$\{(\epsilon,\checkmark)\}$.  For Writer and total State every behavior exits
-with $\checkmark$, so this reduces to ordinary trace concatenation.  The exit
-component is essential for Exception: effects after a raise are not executed.
-
-For each $b\in B$, let $\mathcal L_B(b)$ be its behavior-language interpretation.  The
-minimum soundness requirements are
-
-$$
-(\epsilon,\checkmark)\in\mathcal L_B(1),
-$$
-
-$$
-\mathcal L_B(b)\mathbin{;}\mathcal L_B(c)
-\subseteq
-\mathcal L_B(b\cdot c),
-$$
-
-$$
-b\leq c\Longrightarrow\mathcal L_B(b)\subseteq\mathcal L_B(c).
-$$
-
-Exact models may replace the inclusion in sequencing by equality.  This
-separation lets a type effect remain an upper approximation while still
-retaining event order.
+Runtime semantics remains an ordinary CBV transition system and does not
+construct an effect word.  Soundness is supplied by the base package: each
+primitive machine rule and terminal base outcome must be permitted by the
+declared upper bound.
 
 ## 5. Base semantic package
 
 A base instance supplies:
 
 - the syntax and deterministic machine above;
-- the ordered algebra $B$ and trace interpretation $\mathcal L_B$;
+- the ordered upper-bound algebra $B$;
+- effect soundness of its primitive machine rules;
 - substitution, preservation and effect-aware progress;
 - recursion-free normalization for Chapters I–III;
 - an observation function $\mathsf{obs}_B$;
 - optionally a graded monad $T_b$ and an adequacy certificate relating
   denotation to $\mathsf{obs}_B$.
 
-Writer, State and Exception will serve as concrete instances.  Their event
-alphabets and observations differ, so no theorem may identify their traces
-without an explicit abstraction map.
+Writer, State and Exception will serve as concrete instances.  Their grades
+and observations may differ; the generic theorem uses only the package laws.
 
 ## 6. Terminology fixed for later chapters
 
-- **base effect:** an effect already represented by $B$ before extension;
+- **base effect:** an upper bound already represented by $B$ before extension;
 - **free operation:** a nominal user-defined request added in Chapter II;
 - **interface** $\Delta$: a typed family of free operations;
 - **exposed request:** the next free request reached by CBV evaluation;
@@ -170,8 +162,8 @@ Before adding operations we must prove or assume, per base instance:
 2. preservation;
 3. deterministic decomposition;
 4. recursion-free normalization;
-5. trace soundness
-   $\mathsf{trace}(M)\in\mathcal L_B(b)$ for $M:A!b$;
+5. effect soundness: runtime steps never perform an effect excluded by the
+   declared bound;
 6. the selected denotational adequacy statement.
 
 These obligations are developed in order in:

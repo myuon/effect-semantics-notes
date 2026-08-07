@@ -68,13 +68,16 @@ enclosing behavior uniquely.
 
 ## 3. Writer instance
 
-Let messages range over an alphabet $\mathsf{Msg}$.  Use exact grades
+Let messages range over an alphabet $\mathsf{Msg}$.  Use ordered word bounds
 
 $$
 B_W=\mathsf{Msg}^*,
 $$
 
-with concatenation and empty word $\epsilon$.  The primitive family is
+with concatenation and empty word $\epsilon$.  Let $\preceq$ be the compatible
+insertion preorder on words; in particular $\epsilon\preceq w$.  This lets an
+annotation contain possible writes that a particular branch may omit.  The
+primitive family is
 
 $$
 \mathsf{tell}_a:1\to1,
@@ -113,11 +116,11 @@ $$
 \end{aligned}
 $$
 
-Its exact behavior is $([a,b],\checkmark)$.  Reversing the two source statements
-produces $[b,a]$, so a commutative effect abstraction would lose an observable
-fact.
+The program is typed at $[a]\cdot[b]$.  Reversing the two source statements is
+typed at $[b]\cdot[a]$.  The annotations distinguish their possible order, but
+neither annotation is required to equal a runtime data structure.
 
-### Conditional Writer language
+### Conditional Writer upper bound
 
 For
 
@@ -125,14 +128,15 @@ For
 if c then tell_a(*) else return *
 ```
 
-the static behavior language is
+assume $1\leq[a]$.  The pure branch can be weakened from $1$ to $[a]$, so the
+whole conditional has effect
 
 $$
-\{([a],\checkmark),(\epsilon,\checkmark)\}.
+[a].
 $$
 
-At runtime exactly one word is produced.  This is the basic distinction between
-an actual trace and a static trace language.
+When `c` is false, no message is written.  This is sound: $[a]$ says that the
+write may happen, not that it must happen.
 
 ## 4. State instance
 
@@ -144,29 +148,18 @@ $$
 \mathsf{put}:\mathsf{Bool}\to1.
 $$
 
-Runtime events retain values:
+Configurations are pairs $\langle M,s\rangle$:
 
 $$
-\mathsf{get}(s),
-\qquad
-\mathsf{put}(s').
-$$
-
-Configurations are triples $\langle M,s,t\rangle$, where $t$ is the accumulated
-event trace:
-
-$$
-\langle\mathcal E[\mathsf{get}(*)],s,t\rangle
+\langle\mathcal E[\mathsf{get}(*)],s\rangle
 \longrightarrow_S
-\langle\mathcal E[\mathsf{return}\,s],s,
-t\cdot[\mathsf{get}(s)]\rangle,
+\langle\mathcal E[\mathsf{return}\,s],s\rangle,
 $$
 
 $$
-\langle\mathcal E[\mathsf{put}(s')],s,t\rangle
+\langle\mathcal E[\mathsf{put}(s')],s\rangle
 \longrightarrow_S
-\langle\mathcal E[\mathsf{return}\,*],s',
-t\cdot[\mathsf{put}(s')]\rangle.
+\langle\mathcal E[\mathsf{return}\,*],s'\rangle.
 $$
 
 Run
@@ -181,19 +174,18 @@ from `true`.  It yields
 
 $$
 \langle\mathsf{return}\,\mathsf{true},
-\mathsf{false},
-[\mathsf{get}(\mathsf{true}),\mathsf{put}(\mathsf{false})]\rangle.
+\mathsf{false}\rangle.
 $$
 
-From `false`, it yields the corresponding trace
+From `false`, it yields
 
 $$
-[\mathsf{get}(\mathsf{false}),\mathsf{put}(\mathsf{true})].
+\langle\mathsf{return}\,\mathsf{false},\mathsf{true}\rangle.
 $$
 
-The static annotation may abstract both to the language described by the
-pattern $\mathsf{get}\cdot\mathsf{put}$, while the denotation retains the
-value-dependent trace.
+Both runs have the ordered upper bound
+$\mathsf{read}\cdot\mathsf{write}$.  It records possible effect order, not the
+concrete values read or written.
 
 ## 5. Exception instance
 
@@ -204,12 +196,12 @@ $$
 $$
 
 for every result type $A$.  A terminal machine outcome is
-$\mathsf{error}(e,t)$, where $t$ records events preceding the exception:
+$\mathsf{error}(e)$:
 
 $$
-\langle\mathcal E[\mathsf{raise}_e(*)],t\rangle
+\mathcal E[\mathsf{raise}_e(*)]
 \longrightarrow_X
-\mathsf{error}(e,t\cdot[\mathsf{raise}(e)]).
+\mathsf{error}(e).
 \tag{X-Raise}
 $$
 
@@ -220,7 +212,7 @@ let _ <- raise_boom(*) in
 tell_a(*)
 ```
 
-terminates at `error(boom,[raise(boom)])`; the later Writer event is never
+terminates at `error(boom)`; the later Writer effect is never
 reached.  Conversely,
 
 ```text
@@ -228,26 +220,16 @@ let _ <- tell_a(*) in
 raise_boom(*)
 ```
 
-has observable behavior
+performs the Writer action before terminating at `error(boom)`.
 
-$$
-([\mathsf{tell}(a),\mathsf{raise}(\mathsf{boom})],
-\mathsf{abort}(\mathsf{boom})).
-$$
-
-The completion-sensitive product validates
-
-$$
-([\mathsf{raise}(\mathsf{boom})],\mathsf{abort}(\mathsf{boom}))
-\mathbin{;}L
-=
-([\mathsf{raise}(\mathsf{boom})],\mathsf{abort}(\mathsf{boom}))
-$$
-
-for every possible tail language $L$.
+The source typing may conservatively assign
+$\mathsf{raise}\cdot\mathsf{write}$ to the first program even though the write
+is unreachable.  Alternatively, a concrete abortive effect algebra may impose
+$\mathsf{raise}\cdot b=\mathsf{raise}$.  This is an instance-level precision
+choice, not part of the generic operational semantics.
 
 This combined example will later check that free-operation handlers preserve
-the base prefix before a handled request.
+possible base effects before a handled request.
 
 ## 6. Operational conclusions
 

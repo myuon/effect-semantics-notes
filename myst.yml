@@ -18,7 +18,7 @@ project:
   license: CC-BY-4.0
   toc:
     - file: README.md
-    - title: Active ordered-trace program
+    - title: Active ordered-effect program
       children:
         - file: research-program-v5.md
         - file: chapter-method-v5.md

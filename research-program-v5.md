@@ -1,11 +1,11 @@
-# Ordered-trace research program v5
+# Ordered-effect research program v5
 
 ## Status
 
 **Current research spine.**  This page supersedes the two-chapter diagonal of
 v4.  The development now adds one construct at a time:
 
-1. a fixed base language and ordered-effect vocabulary;
+1. a fixed base language and ordered upper-bound effects;
 2. user-defined free operations;
 3. shallow handlers;
 4. computation-level fixed points;
@@ -20,14 +20,14 @@ structure.  The changed premise is that effects retain execution order.
 | chapter | new material | principal question |
 |---|---|---|
 | I | terminology, CBV syntax, base effects | what is fixed before extension? |
-| II | free operation interfaces and ordered trace extension | is the extension conservative and compositional? |
-| III | shallow handlers | how does one exposed operation transform a trace? |
+| II | free operation interfaces and ordered effect extension | is the extension conservative and compositional? |
+| III | shallow handlers | how does one exposed operation transform an effect bound? |
 | IV | fixed points and derived deep handlers | which finite results survive recursion, and when does recursive reinstallation discharge an interface? |
 
 The chapters are cumulative.  In particular, Chapter IV does not introduce a
 second primitive handler calculus.
 
-## Ordered effects
+## Ordered upper-bound effects
 
 Let the base effect algebra be a preordered monoid
 
@@ -35,13 +35,14 @@ $$
 (B,\cdot,1,\leq).
 $$
 
-An individual run has an ordered trace.  A static annotation denotes a
-language of possible traces, because a type system must also describe
-conditionals and other unresolved choices.  Concatenation models sequencing
-and language union models control-flow join.  Thus order is retained without
-claiming that type checking predicts one unique runtime path.
+An annotation $b$ is a static upper approximation of effects that a computation
+may perform.  It need not equal what one particular execution performs.
+Sequencing uses the noncommutative product, while branching chooses any common
+upper bound using $\leq$.  In particular, $1\leq b$ permits a pure branch to be
+typed at $b$.  The type system retains order without predicting the unique
+runtime path.
 
-After adding interfaces $\Delta\in\mathcal D$, traces are reduced words in the
+After adding interfaces $\Delta\in\mathcal D$, effect bounds are reduced words in the
 free product
 
 $$
@@ -54,13 +55,13 @@ $$
 b\cdot\Delta\cdot e
 $$
 
-as a singleton-trace shorthand, or as a schematic member of a trace language.
-It says that a base segment $b$ precedes a $\Delta$ request and residual trace
-$e$.  It is not the unordered assertion that all three labels may occur.
+as an ordered upper bound.  It says that a possible execution reaches the
+$\Delta$ request only after effects bounded by $b$, and its continuation is
+bounded by $e$.  It does not say that every execution performs every factor.
 
 ## Guiding shallow equation
 
-For the affine response fragment, suppose a $\Delta$ clause has trace $e'$ and
+For the affine response fragment, suppose a $\Delta$ clause has effect bound $e'$ and
 supplies exactly one response to the captured tail.  The intended effect
 transformation is
 
@@ -68,12 +69,13 @@ $$
 b\cdot\Delta\cdot e
 \longmapsto
 b\cdot e'\cdot e.
-\tag{Trace-Shallow}
+\tag{Effect-Shallow}
 $$
 
-The prefix $b$ has already happened, the exposed request is replaced by the
-clause computation, and the continuation retains $e$.  On a trace language,
-the transformer acts pathwise; joins remain joins.
+On a matching execution the prefix $b$ has already happened, the exposed
+request is replaced by the clause computation, and the continuation retains
+$e$.  The equation computes a sound output bound; it is not an equality with a
+runtime record.
 
 This equation is exact only for the affine response fragment.  A general
 shallow clause receives the continuation and may discard or duplicate it.  Its
@@ -115,13 +117,13 @@ At each extension boundary we separately test:
 
 - type safety and deterministic decomposition;
 - conservativity for old syntax;
-- ordered effect soundness against runtime traces;
-- preservation of graded/trace-indexed substitution and sequencing;
+- ordered effect safety under runtime reduction;
+- preservation of graded substitution and sequencing;
 - lifting of base simulations, morphisms or logical relations;
 - adequacy for the chosen base observations.
 
 Chapter II and III are recursion-free, so proofs use finite evaluation and
-well-founded trace trees.  Chapter IV replaces these with partiality/domain
+well-founded operation trees.  Chapter IV replaces these with partiality/domain
 structure, admissibility and fixed-point induction.  Claims about recursion
 must not be silently imported from the finite chapters.
 
@@ -133,7 +135,7 @@ the explicit certificate exported by Chapter $n$.
 
 ## Material no longer on the main line
 
-Unordered rows, primitive deep handlers, and the previous two-chapter
+Unordered rows, trace-language refinements, primitive deep handlers, and the previous two-chapter
 finite-shallow/recursive-deep diagonal remain useful comparisons.  They are not
 assumptions of the current theorem.  Quantitative occurrence bounds also remain
-an optional later refinement of ordered trace languages.
+an optional later refinement of the ordered effect algebra.

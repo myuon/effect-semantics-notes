@@ -20,18 +20,18 @@
 - denotational semantics
 - 両者を結ぶ morphism / simulation / logical relation
 
-を、ordered trace effects、free operations、shallow handlers、fixpoints の順に拡張できるか。その拡張は、型付け、逐次合成、subeffecting、base conservativity、意味保存、観察可能性、adequacy、logical relations のどこまでを保存するか。
+を、ordered upper-bound effects、free operations、shallow handlers、fixpoints の順に拡張できるか。その拡張は、型付け、逐次合成、subeffecting、base conservativity、意味保存、観察可能性、adequacy、logical relations のどこまでを保存するか。
 
 「任意の effect system」を無条件に一つの代数へ押し込めない。静的 grade、計算モデル、base primitives、観測、法則をまとめた **base semantic package** を入力とし、追加したい handler の強さごとに必要な仮定を特定する。
 
-effect annotation は、一回の実行を決め打ちするtraceではなく、実行前に可能なordered runtime tracesを近似するtrace languageとして読む。deep handlerはprimitiveとして追加せず、standard shallow handlerとcomputation-level fixpointから導出する。
+effect annotation は、runtimeで起きうるeffectsを順序を保って上から近似する静的情報として読む。一回の実行と完全一致する必要はない。deep handlerはprimitiveとして追加せず、standard shallow handlerとcomputation-level fixpointから導出する。
 
 ## 読み方
 
-1. [Ordered-trace research program v5](research-program-v5.md) — 現在の前提と全体構成
+1. [Ordered-effect research program v5](research-program-v5.md) — 現在の前提と全体構成
 2. [Chapter I](chapter-1-foundations-v5.md) — 用語、基礎文法、base effect
 3. [Chapter II](chapter-2-free-operations-v5.md) — ordered free-operation extension
-4. [Chapter III](chapter-3-shallow-handlers-v5.md) — shallow handlerとtrace変換
+4. [Chapter III](chapter-3-shallow-handlers-v5.md) — shallow handlerとeffect変換
 5. [Chapter IV](chapter-4-fixpoint-derived-deep-v5.md) — fixpointとdeep handlerの導出
 6. [Research map](research-map.md) — 新旧の研究線と現在地
 7. [Claims ledger](claims-ledger.md) — 既知・予想・未検証の台帳

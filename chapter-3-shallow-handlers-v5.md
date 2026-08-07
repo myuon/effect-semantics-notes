@@ -1,4 +1,4 @@
-# Chapter III — shallow handlers over ordered traces
+# Chapter III — shallow handlers over ordered effects
 
 ## Status
 
@@ -21,7 +21,7 @@ shallow_Delta M with {
 where
 
 $$
-k:R_i\to(C!L_k)
+k:R_i\to(C!e_k)
 $$
 
 is the captured continuation without the surrounding handler.  Exhaustiveness
@@ -94,24 +94,44 @@ $$
 b\cdot\Delta\cdot e
 \longmapsto
 b\cdot e'\cdot e.
-\tag{Affine-Trace}
+\tag{Affine-Effect}
 $$
 
 This is the primary ordered law requested by the research program.
+
+Because the input annotation is only an upper bound, a program typed at
+$b\cdot\Delta\cdot e$ may reach a value without performing $\Delta$.  That
+path has bound $b\cdot e$.  If
+
+$$
+1\leq e',
+$$
+
+then monotonicity gives
+
+$$
+b\cdot e
+\leq
+b\cdot e'\cdot e,
+$$
+
+so matching and no-operation paths share the advertised output bound.  Without
+this optionality condition the typing rule must choose some larger common upper
+bound.  The handler equation itself does not assert that a match occurred.
 
 ## 4. General continuation usage
 
 The full shallow calculus distinguishes three cases.
 
-- If the clause never calls $k$, the residual trace $e$ is discarded.
-- If it calls $k$ once after trace $e'$, the result is $e'\cdot e$.
+- If the clause never calls $k$, the residual bound $e$ need not appear in the
+  output bound.
+- If it calls $k$ once after effect $e'$, a sound result is $e'\cdot e$.
 - If it calls $k$ several times, the corresponding copies of $e$ occur in the
-  order induced by the clause.
+  static order induced by the clause.
 
-Therefore the exact transformer for a general clause cannot be inferred from
-an unordered clause row.  It requires either the clause's trace-language
-semantics or an auxiliary usage discipline.  The affine fragment gives the
-cleanest first preservation theorem.
+Therefore a precise transformer for a general clause requires a continuation
+usage discipline.  A coarser common upper bound remains possible, but the
+affine fragment gives the cleanest first preservation theorem.
 
 ## 5. Tree semantics
 
@@ -143,9 +163,9 @@ The final equation does not recurse into $k$.
 
 ## 6. What is and is not eliminated
 
-On a specific trace whose first exposed free request is the matching
-$\Delta$, that occurrence is eliminated exactly.  This does **not** imply that
-all later $\Delta$ occurrences disappear.  For example,
+When evaluation exposes a matching $\Delta$, the corresponding occurrence in
+the static bound can be replaced as follows.  This does **not** imply that all
+later possible $\Delta$ occurrences disappear.  For example,
 
 $$
 b\cdot\Delta\cdot c\cdot\Delta\cdot e
@@ -153,21 +173,20 @@ b\cdot\Delta\cdot c\cdot\Delta\cdot e
 b\cdot e'\cdot c\cdot\Delta\cdot e.
 $$
 
-This is not a failure of the ordered effect system.  The type records a set of
-possible ordered executions, while the shallow construct transforms the first
-matching boundary on each applicable execution.  Chapter IV recursively
-repeats this transformation to obtain deep behavior.
+This is not a claim that runtime produced the entire input word.  It is a sound
+type-level transformation of a may-effect upper bound.  Chapter IV recursively
+repeats the shallow operation to obtain deep behavior.
 
 ## 7. Chapter-III theorem target
 
 For exhaustive affine clauses, prove:
 
 1. operational/tree correspondence;
-2. soundness of the pathwise trace transformer;
+2. soundness of the ordered effect-bound transformer;
 3. preservation and effect-aware progress;
 4. compatibility with the base embedding;
 5. lifting of base logical relations through the handler equations;
 6. ground adequacy inherited from the finite free-tree model.
 
-The general discard/multi-shot calculus is recorded, but its strongest exact
-trace theorem is conditional on a continuation-usage analysis.
+The general discard/multi-shot calculus is recorded, but its strongest precise
+effect theorem is conditional on a continuation-usage analysis.

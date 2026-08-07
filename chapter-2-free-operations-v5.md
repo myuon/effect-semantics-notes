@@ -27,37 +27,32 @@ its continuation is the surrounding CBV evaluation context.
 
 ## 2. Extended ordered effects
 
-The exact-word carrier is the monoid free product
+The extended effect monoid is the free product
 
 $$
 \widehat E=B*\mathcal D^*.
 $$
 
-Its reduced words alternate between non-unit base segments and nonempty free
-interface words.  No exchange law is assumed:
+Its reduced expressions alternate between non-unit base segments and free
+interface symbols.  They are static bounds, not runtime traces.  No exchange
+law is assumed:
 
 $$
 b\cdot\Delta\neq\Delta\cdot b.
 $$
 
-For realistic static control flow, annotations range over a chosen class
-$\mathsf{Lang}(\widehat E)$ of trace languages.  At minimum it is closed under
-
-- singleton embedding $e\mapsto\{e\}$;
-- union $L\cup K$ for branch join;
-- concatenation $L\cdot K$ for sequencing;
-- upward closure induced by base subeffecting.
-
-We continue writing $b\cdot\Delta\cdot e$ when discussing one schematic trace.
-A conditional is typed by union, not by erasing order:
+Equip $\widehat E$ with the least compatible preorder extending the base
+preorder and the adopted optionality laws
 
 $$
-\mathsf{eff}(\mathbf{if}\ V\ \mathbf{then}\ M\ \mathbf{else}\ N)
-=L_M\cup L_N.
+1\leq\Delta
+\qquad(\Delta\in\mathcal D).
 $$
 
-Thus `op + ret` is not a new source-language sum type.  It is a semantic union
-of possible traces.
+Consequently $b\cdot e\leq b\cdot\Delta\cdot e$: a computation that does not
+perform $\Delta$ may be given a bound that says $\Delta$ might occur there.
+Conditionals are typed by weakening both branches to a chosen common upper
+bound.  No effect-level sum or trace-language union is added to the core.
 
 ## 3. Operational exposure
 
@@ -77,7 +72,7 @@ $$
 The syntax did not pass $k$ to the operation; the machine reconstructs it from
 the evaluation context.
 
-## 4. Finite trace trees
+## 4. Finite operation trees
 
 For recursion-free proofs, use well-founded trees
 
@@ -89,9 +84,10 @@ t::={}&\mathsf{ret}(a)\\
 \end{aligned}
 $$
 
-The ordered trace of a branch is read from root to leaf.  Return and
-substitution give the tree family its free-monad structure.  A fold maps base
-nodes into the selected base semantics while leaving free nodes visible.
+Return and substitution give the tree family its free-monad structure.  The
+tree records algebraic operation/continuation structure for denotational
+purposes; it is not the static effect annotation.  A fold maps base nodes into
+the selected base semantics while leaving free nodes visible.
 
 ## 5. First extension theorem target
 
@@ -102,7 +98,7 @@ should preserve:
   request;
 - substitution, preservation and effect-aware progress;
 - old-syntax operational and observational conservativity;
-- ordered trace soundness;
+- ordered upper-bound effect safety;
 - the monad/graded sequencing laws of the finite tree extension;
 - base morphisms and compatible logical relations by structural lifting;
 - adequacy after choosing an observation for unhandled requests.
@@ -114,12 +110,12 @@ request must be extended rather than silently reused.
 
 The theorem will first be calculated for:
 
-- **Writer:** base log events alternate with free requests;
+- **Writer:** possible writes occur before or after free requests as reflected
+  by the noncommutative bound;
 - **State:** ordered reads/writes determine which parameters reach later
   requests;
 - **Exception:** an earlier base exception can prevent a later free request
   from being exposed.
 
-These examples test that order is semantic information, not decorative grade
-syntax.
-
+These examples test that the static order constrains possible execution while
+remaining an upper approximation.

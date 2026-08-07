@@ -1,16 +1,16 @@
 # Research map
 
-## 2026-08-07 ordered-trace restructuring
+## 2026-08-07 ordered-effect restructuring
 
-The active spine is now [Ordered-trace research program
-v5](research-program-v5.md).  Effects describe ordered runtime behavior through
-languages of possible traces; they are not unordered rows.  The development
+The active spine is now [Ordered-effect research program
+v5](research-program-v5.md).  Effects are noncommutative static upper bounds on
+what runtime may perform; they need not equal a runtime record.  The development
 adds one construct at a time:
 
 1. [Chapter I](chapter-1-foundations-v5.md) fixes terminology, CBV syntax, the
    base effect algebra and the operational/denotational obligations;
 2. [Chapter II](chapter-2-free-operations-v5.md) adds free operation interfaces
-   and the free-product trace alphabet;
+   and the free-product effect algebra;
 3. [Chapter III](chapter-3-shallow-handlers-v5.md) adds standard shallow
    handlers and isolates the affine law
    $b\cdot\Delta\cdot e\mapsto b\cdot e'\cdot e$;

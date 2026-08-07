@@ -10,9 +10,9 @@ semantic carrier has been proposed.
 
 ### 1. Fix syntax and typing
 
-State the new terms, values, evaluation contexts and typing rules.  Specify
-whether an effect annotation is exact or an upper approximation and how branch
-join and sequencing act on it.
+State the new terms, values, evaluation contexts and typing rules.  Effects are
+ordered upper approximations; specify their preorder, branch weakening and
+sequencing.
 
 ### 2. Write the operational semantics
 
@@ -66,9 +66,8 @@ Each chapter uses the same bases for comparability.
 | base | observation | order-sensitive checkpoint |
 |---|---|---|
 | Writer | returned value and emitted word | `tell "a"; tell "b"` differs from the reverse order |
-| State | returned value, final store and event trace | `get; put` differs from `put; get` |
-| Exception | return or first raised exception, with preceding trace | an early throw prevents later effects |
+| State | returned value and final store | the bounds `read·write` and `write·read` remain distinct |
+| Exception | return or first raised exception | an early throw prevents later possible effects from running |
 
 The examples are not proofs of the generic theorem.  They are model checks
 that reveal missing hypotheses before abstraction.
-
