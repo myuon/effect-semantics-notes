@@ -27,6 +27,9 @@ project:
         - file: chapter-1-denotational-v5.md
         - file: chapter-1-certificate-v5.md
         - file: chapter-2-free-operations-v5.md
+        - file: chapter-2-operational-examples-v5.md
+        - file: chapter-2-denotational-v5.md
+        - file: chapter-2-certificate-v5.md
         - file: chapter-3-shallow-handlers-v5.md
         - file: chapter-4-fixpoint-derived-deep-v5.md
     - title: Earlier unordered program (reference)

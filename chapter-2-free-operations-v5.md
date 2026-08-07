@@ -119,3 +119,9 @@ The theorem will first be calculated for:
 
 These examples test that the static order constrains possible execution while
 remaining an upper approximation.
+
+The full Chapter-II cycle is developed in:
+
+- [Direct semantics and concrete programs](chapter-2-operational-examples-v5.md);
+- [Denotational free extension](chapter-2-denotational-v5.md);
+- [Preservation proofs and `FreeCert`](chapter-2-certificate-v5.md).
