@@ -190,3 +190,9 @@ For exhaustive affine clauses, prove:
 
 The general discard/multi-shot calculus is recorded, but its strongest precise
 effect theorem is conditional on a continuation-usage analysis.
+
+The full Chapter-III cycle is developed in:
+
+- [Direct shallow semantics and programs](chapter-3-operational-examples-v5.md);
+- [Denotational shallow handling](chapter-3-denotational-v5.md);
+- [Proofs and `ShallowCert`](chapter-3-certificate-v5.md).
