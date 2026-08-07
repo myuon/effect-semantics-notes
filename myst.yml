@@ -35,6 +35,9 @@ project:
         - file: chapter-3-denotational-v5.md
         - file: chapter-3-certificate-v5.md
         - file: chapter-4-fixpoint-derived-deep-v5.md
+        - file: chapter-4-operational-examples-v5.md
+        - file: chapter-4-denotational-v5.md
+        - file: chapter-4-certificate-v5.md
     - title: Earlier unordered program (reference)
       children:
         - file: research-map.md

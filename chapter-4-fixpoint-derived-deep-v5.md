@@ -148,3 +148,9 @@ Before a general theorem, calculate:
 3. Exception where a base exception cuts off further reinstallation;
 4. one program with an intervening nonmatching free operation, testing the
    explicit forwarding continuation.
+
+The full Chapter-IV cycle is developed in:
+
+- [Operational rules and concrete programs](chapter-4-operational-examples-v5.md);
+- [Recursive denotational semantics](chapter-4-denotational-v5.md);
+- [Proofs and `DeepCert`](chapter-4-certificate-v5.md).
