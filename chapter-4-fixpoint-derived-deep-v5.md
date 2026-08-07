@@ -23,7 +23,7 @@ let rec f(x : A) = M in N
 with effectful function type
 
 $$
-f:A\to(B!e).
+f:A\xrightarrow{e}B.
 $$
 
 Operational unfolding is standard CBV.  An effect annotation remains a may

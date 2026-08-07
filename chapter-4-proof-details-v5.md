@@ -11,7 +11,7 @@ step; every next step preserves its type and ordered may-effect bound.
 
 **Proof.** Extend the Chapter-III decomposition induction with the recursive
 call form.  Once its argument is a value, the unique rule unfolds the body.
-Typing inversion gives the body under $f:A\to(B!e)$ and $x:A$; simultaneous
+Typing inversion gives the body under $f:A\xrightarrow{e}B$ and $x:A$; simultaneous
 substitution of the recursive closure and argument proves preservation.  All
 other cases are Chapter III. $\square$
 

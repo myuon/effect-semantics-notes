@@ -8,8 +8,7 @@ handlers or fixed points.
 
 ## 1. Evaluation contexts and internal reduction
 
-Because values are syntactically separated from computations, the only
-computation position evaluated under sequencing is
+The fine-grain core evaluates computation positions under sequencing:
 
 $$
 \mathcal E::=[-]
@@ -17,11 +16,40 @@ $$
 \mathbf{let}\ x\leftarrow\mathcal E\ \mathbf{in}\ N.
 $$
 
+General application is evaluated left-to-right by elaboration:
+
+```text
+M N  :=  let f <- M in let x <- N in f x
+```
+
+Thus $M$ runs first, $N$ second, and only then does the latent effect of the
+function body occur.  Operational proofs reason about the elaborated core.
+
 The principal internal reductions are
 
 $$
 (\lambda x.M)V\longrightarrow M[V/x],
 \tag{B-$\beta$}
+$$
+
+Here
+
+$$
+\lambda x.M:A\xrightarrow{e}B
+$$
+
+means that executing the body after application has latent effect $e$.  If
+
+$$
+\Gamma\vdash M:(A\xrightarrow{e}B)!e_M,
+\qquad
+\Gamma\vdash N:A!e_N,
+$$
+
+then the elaborated application has type
+
+$$
+\Gamma\vdash M\,N:B!(e_M\cdot e_N\cdot e).
 $$
 
 $$
@@ -119,6 +147,35 @@ $$
 The program is typed at $[a]\cdot[b]$.  Reversing the two source statements is
 typed at $[b]\cdot[a]$.  The annotations distinguish their possible order, but
 neither annotation is required to equal a runtime data structure.
+
+### Application order
+
+Let
+
+```text
+M = let _ <- tell_m(*) in
+    return (fun x -> let _ <- tell_e(*) in return x)
+
+N = let _ <- tell_n(*) in return true
+```
+
+Then
+
+$$
+\vdash M:(\mathsf{Bool}\xrightarrow{[e]}\mathsf{Bool})![m],
+\qquad
+\vdash N:\mathsf{Bool}![n].
+$$
+
+Rule `T-App` gives
+
+$$
+\vdash M\,N:\mathsf{Bool}!([m]\cdot[n]\cdot[e]).
+$$
+
+The elaborated machine first constructs the function while logging $m$, then
+evaluates the argument while logging $n$, and finally executes the body while
+logging $e$.  Its final Writer log is therefore $[m,n,e]$.
 
 ### Conditional Writer upper bound
 

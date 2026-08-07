@@ -58,10 +58,15 @@ bind.
 Types are interpreted by the bicartesian closed structure, with
 
 $$
-\llbracket A\to(B!b)\rrbracket
+\llbracket A\xrightarrow{b}B\rrbracket
 =
 (T_b\llbracket B\rrbracket)^{\llbracket A\rrbracket}.
 $$
+
+Accordingly, application of
+$M:(A\xrightarrow{e}B)!e_M$ to $N:A!e_N$ is interpreted by sequencing the
+denotation of $M$, then that of $N$, then evaluation into $T_eB$.  Graded bind
+therefore places the result in $T_{e_M\cdot e_N\cdot e}B$.
 
 Judgments denote
 

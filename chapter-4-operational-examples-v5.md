@@ -17,9 +17,9 @@ with the rule
 
 $$
 \frac{
- \Gamma,f:A\to(B!e),x:A\vdash M:B!e
+ \Gamma,f:A\xrightarrow{e}B,x:A\vdash M:B!e
  \qquad
- \Gamma,f:A\to(B!e)\vdash N:C!d
+ \Gamma,f:A\xrightarrow{e}B\vdash N:C!d
 }{
  \Gamma\vdash\mathsf{let\ rec}\ f(x)=M\ \mathsf{in}\ N:C!d
 }.

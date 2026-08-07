@@ -20,7 +20,7 @@ shallow_Delta M with {
 where
 
 $$
-k:R_i\to(C!e_k)
+k:R_i\xrightarrow{e_k}C
 $$
 
 is the captured continuation without the surrounding handler.  Exhaustiveness

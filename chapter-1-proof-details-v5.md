@@ -24,7 +24,9 @@ preserves $J$ and its effect annotation.
 
 **Proof.** Simultaneous induction on the last typing rule.  Variables split
 into $x$ and $y\ne x$.  Lambda binders are alpha-renamed and use weakening.
-Pairs, injections, case and application follow componentwise.  In
+Pairs, injections and case follow componentwise.  General application follows
+by applying the computation induction hypotheses first to the function and
+then to the argument; its annotation remains $e_M\cdot e_N\cdot e$.  In
 `let y <- M in N`, apply the computation induction hypothesis to $M$ and,
 after alpha-renaming $y$, to $N$; the resulting grade remains $b\cdot c$.
 For a primitive $\beta(V)$ apply the value hypothesis to $V$ and reapply its
@@ -32,6 +34,28 @@ fixed typing rule.  Subeffecting reuses the same inequality.  These exhaust
 the grammar. $\square$
 
 ## 2. Preservation
+
+:::{prf:lemma} Application elaboration
+:label: lem-i-application-elaboration-v5
+
+If
+
+$$
+\Gamma\vdash M:(A\xrightarrow{e}B)!e_M
+\quad\text{and}\quad
+\Gamma\vdash N:A!e_N,
+$$
+
+then the fine-grain elaboration of $M\,N$ has type
+$B!(e_M\cdot e_N\cdot e)$ and evaluates $M$, $N$, and the function body in
+that order.
+:::
+
+**Proof.** Under $f:A\xrightarrow{e}B$, core application of $f$ to the value
+$x:A$ has effect $e$.  The inner `let` therefore has effect $e_N\cdot e$.
+The outer `let` has effect $e_M\cdot(e_N\cdot e)$, equal to the claimed grade
+by associativity.  The two nested `let` evaluation contexts enforce the same
+left-to-right order. $\square$
 
 :::{prf:theorem} Internal preservation
 :label: thm-i-preservation-detail-v5
@@ -53,9 +77,10 @@ $$
 \Rightarrow\Gamma\vdash\mathcal E[M']:C!d.
 $$
 
-The `let` context is the only effectful case: both sides receive the same
+The `let` context is the only primitive effectful core case: both sides receive the same
 $b\cdot c$, and reassociation uses monoid associativity.  Subeffecting closes
-the derivation at the originally declared $d$. $\square$
+the derivation at the originally declared $d$.  General application follows
+through the elaboration lemma. $\square$
 
 ## 3. Unique decomposition
 
@@ -91,7 +116,7 @@ disjoint. $\square$
 Define reducible values $\mathcal V_A$ and computations $\mathcal C_A$ by
 type recursion.  A computation is in $\mathcal C_A$ when every deterministic
 base-machine execution reaches a classified observation, and a function value
-is in $\mathcal V_{A\to B!b}$ when it maps every $\mathcal V_A$ argument to
+is in $\mathcal V_{A\xrightarrow{b}B}$ when it maps every $\mathcal V_A$ argument to
 $\mathcal C_B$.
 
 :::{prf:lemma} Fundamental reducibility lemma

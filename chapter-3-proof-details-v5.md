@@ -36,7 +36,7 @@ handler reduction rules, proving Theorem III.2.
 
 Assume $b$ is $\Delta$-free.  In the affine elaboration the matching clause is
 $R_i(p)\mathbin{\gg=}k$.  If $R_i(p):R_i!e'$, the residual lemma gives
-$k:R_i\to(A!e)$, so sequencing has grade $e'\cdot e$; the already performed
+$k:R_i\xrightarrow{e}A$, so sequencing has grade $e'\cdot e$; the already performed
 prefix gives $b\cdot e'\cdot e$.  On a run where the optional operation is not
 reached, the remaining bound is $b\cdot e$, and
 

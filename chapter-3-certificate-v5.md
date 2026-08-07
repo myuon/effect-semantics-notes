@@ -21,7 +21,7 @@ then residual-context typing gives an effect $e_k$ such that
 $$
 k=\lambda r.\mathcal E[\mathsf{return}\,r]
 :
-R_i\to(A!e_k).
+R_i\xrightarrow{e_k}A.
 $$
 
 The ordered input bound contains the primitive grade $\Delta$ before $e_k$,

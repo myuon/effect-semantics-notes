@@ -13,13 +13,15 @@ computations.
 
 $$
 \begin{aligned}
-A,B ::= {}& 1 \mid \mathsf{Bool} \mid A\times B \mid A+B \mid A\to(B!b),\\
+A,B ::= {}& 1 \mid \mathsf{Bool} \mid A\times B \mid A+B
+          \mid A\xrightarrow{b}B,\\
 V,W ::= {}& x \mid () \mid \mathsf{true}\mid\mathsf{false}
           \mid (V,W) \mid \mathsf{inl}\,V
           \mid \mathsf{inr}\,V \mid \lambda x.M,\\
 M,N ::= {}& \mathsf{return}\,V
  \mid \mathbf{let}\ x\leftarrow M\ \mathbf{in}\ N\\
-&\mid V\,W \mid \mathbf{if}\ V\ \mathbf{then}\ M\ \mathbf{else}\ N
+&\mid V\,W \mid M\,N\;\text{(derived)}
+ \mid \mathbf{if}\ V\ \mathbf{then}\ M\ \mathbf{else}\ N
  \mid \mathsf{case}\ V\ \mathsf{of}\ \cdots
  \mid \beta(V).
 \end{aligned}
@@ -64,6 +66,37 @@ $$
      {\Gamma\vdash M:A!c}.
 $$
 
+The latent effect of a function is written over its arrow:
+
+$$
+\frac{\Gamma,x:A\vdash M:B!e}
+     {\Gamma\vdash\lambda x.M:A\xrightarrow{e}B}.
+$$
+
+General CBV application evaluates the function, then the argument, then the
+function body:
+
+$$
+\frac{
+\Gamma\vdash M:(A\xrightarrow{e}B)!e_M
+\qquad
+\Gamma\vdash N:A!e_N
+}{
+\Gamma\vdash M\,N:B!(e_M\cdot e_N\cdot e)
+}.
+\tag{T-App}
+$$
+
+In the fine-grain core this is the elaboration
+
+```text
+let f <- M in
+let x <- N in
+f x
+```
+
+so the displayed order is not a convention imposed after the fact.
+
 Each primitive has a declared bound:
 
 $$
@@ -94,6 +127,9 @@ Evaluation is deterministic left-to-right CBV.  Evaluation contexts include
 $$
 E::=[]\mid \mathbf{let}\ x\leftarrow E\ \mathbf{in}\ N\mid\cdots.
 $$
+
+General application is elaborated before evaluation, so the core transition
+system needs no additional administrative application contexts.
 
 The base package supplies transition rules for $E[\beta(V)]$.  A closed,
 well-typed computation either takes a step or is a classified base outcome.

@@ -20,7 +20,7 @@ Every operation in $\Sigma(\Delta)$ has a matching clause.  In an operation
 clause,
 
 $$
-k:R_i\to(A!e)
+k:R_i\xrightarrow{e}A
 $$
 
 is the captured continuation of the handled computation.  It is supplied by
