@@ -128,7 +128,9 @@ subeffecting derivation tree needed by the terminating mutual transformation.
 The associated inhabitation proposition can later be proof-irrelevant even
 though the checked certificate is retained as data.
 
+The outward-boundary observer is stable under increasing fuel and therefore
+already forms the finite-projection input needed by its later completion.
 Remaining work is now concentrated in a full type-indexed fundamental
-relation, plus stability/completion of the richer outward-boundary observer.
+relation and ω-completion of that richer observer.
 No `sorry`
 or project axiom is admitted in the checked library.

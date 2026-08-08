@@ -39,6 +39,53 @@ def Comp.observeDeepWriterBoundary : Nat → Nat → AffineHandler → Comp →
           else some (.free [] request)
       | .stuck => none
 
+theorem Comp.observeDeepWriterBoundary_succ_of_some
+    {term : Comp} {fuel interface : Nat} {handler : AffineHandler}
+    {boundary : DeepWriterBoundary}
+    (observed : term.observeDeepWriterBoundary fuel interface handler =
+      some boundary) :
+    term.observeDeepWriterBoundary (fuel + 1) interface handler =
+      some boundary := by
+  induction fuel generalizing term boundary with
+  | zero => simp [Comp.observeDeepWriterBoundary] at observed
+  | succ fuel ih =>
+      cases found : term.head with
+      | returned value =>
+          simpa [Comp.observeDeepWriterBoundary, found] using observed
+      | internal next =>
+          simp only [Comp.observeDeepWriterBoundary, found] at observed ⊢
+          exact ih observed
+      | base request =>
+          by_cases selected : request.operation = 0
+          · simp only [Comp.observeDeepWriterBoundary, found, selected, if_pos,
+              Option.map_eq_some_iff] at observed ⊢
+            obtain ⟨tail, tailObserved, transformed⟩ := observed
+            exact ⟨tail, ih tailObserved, transformed⟩
+          · simpa [Comp.observeDeepWriterBoundary, found, selected] using observed
+      | free request =>
+          by_cases same : request.interface = interface
+          · cases clauseFound : handler.lookup request.operation with
+            | none =>
+                simpa [Comp.observeDeepWriterBoundary, found, same, clauseFound]
+                  using observed
+            | some clause =>
+                simp only [Comp.observeDeepWriterBoundary, found, same, if_pos,
+                  clauseFound] at observed ⊢
+                exact ih observed
+          · simpa [Comp.observeDeepWriterBoundary, found, same] using observed
+      | stuck => simp [Comp.observeDeepWriterBoundary, found] at observed
+
+structure DeepWriterBoundaryObservation (interface : Nat)
+    (handler : AffineHandler) where
+  observeAt : Nat → Option DeepWriterBoundary
+  stable : ∀ {fuel boundary}, observeAt fuel = some boundary →
+    observeAt (fuel + 1) = some boundary
+
+def Comp.deepWriterBoundaryApprox (term : Comp) (interface : Nat)
+    (handler : AffineHandler) : DeepWriterBoundaryObservation interface handler where
+  observeAt fuel := term.observeDeepWriterBoundary fuel interface handler
+  stable := Comp.observeDeepWriterBoundary_succ_of_some
+
 /-- Exhaustive typed deep handling discharges the selected interface from
 every finite outward free boundary. -/
 theorem observeDeepWriterBoundary_discharges

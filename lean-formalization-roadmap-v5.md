@@ -324,7 +324,9 @@ typed computation and a typed exhaustive handler, every observed outward free
 request is proved to have an interface different from the selected one.  This
 is the first mechanized semantic discharge theorem for the recursive model;
 the next refinement is stability/ω-completion of this richer carrier and its
-use as the computation pole of the fundamental relation.
+use as the computation pole of the fundamental relation.  Its finite observer
+is now also proved stable under increasing fuel and packaged as a stable
+partial observation; only the generic ω-completion remains.
 
 If the remaining M3 proof requires changing the syntax or effect transformer, update the research
 notes before proceeding to denotation.  If M5 fails while M1–M4 hold, treat it
