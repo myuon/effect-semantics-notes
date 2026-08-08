@@ -17,3 +17,5 @@ import EffectSemantics.Operational.ShallowHandler
 import EffectSemantics.Syntax.HandlerTyping
 import EffectSemantics.Examples.AffineShallow
 import EffectSemantics.Metatheory.HandlerPreservation
+import EffectSemantics.Denotational.WriterTree
+import EffectSemantics.Examples.WriterShallow

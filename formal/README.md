@@ -50,12 +50,16 @@ Implemented and kernel-checked:
   `pre * [free interface] * post ↦ pre * clauseEffect * post`;
 - preservation of the two-phase handler-state invariant for internal, return,
   matching and all three typed forwarding/resumption cases.
+- a concrete finite `WriterTree` with Writer and free nodes, checked monad
+  laws, structural shallow-handler equations and executable nested examples;
+- structural relation lifting through bind and shallow handling, naturality in
+  the result carrier, and reflection of closed Writer observations.
 
 Typing derivations live in `Type` rather than `Prop`: this exposes the explicit
 subeffecting derivation tree needed by the terminating mutual transformation.
 The associated inhabitation proposition can later be proof-irrelevant even
 though the checked certificate is retained as data.
 
-The next layer is the finite Writer/free-tree denotation and its correspondence
-with this operational handler machine. No `sorry`
+The next layer connects source operational evaluation to `WriterTree`, then
+uses that correspondence to close the concrete adequacy statement. No `sorry`
 or project axiom is admitted in the checked library.
