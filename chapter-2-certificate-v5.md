@@ -84,15 +84,10 @@ observations in $\mathcal K$. $\square$
 
 ### Theorem II.6
 
-If
-
-$$
-\mathsf{StrongGradedMonad}(T,E_B)
-\land\mathsf{Polynomial}_1(\Sigma)
-\land\forall e,A.\ \mu X.\,T_e(A+\Sigma X)\text{ exists},
-$$
-
-then
+Assume that $T$ is a strong graded monad, $\Sigma$ is a first-order
+polynomial signature, and the indexed layer construction has both its initial
+algebras and the coherent base action described in
+[Grade-indexed free carrier](grade-indexed-free-carrier-v5.md).  Then
 
 $$
 \mathsf{StrongGradedMonad}(\mathsf F_\Sigma(T),\widehat E)
@@ -311,10 +306,15 @@ Let $P=(L_B,E_B,\mathcal K,T,\mathsf{obs}_B)$.  Assume:
    $\mathsf{BaseCert}(L_B,E_B,\mathcal K,T,\mathsf{obs}_B)$;
 2. $\Sigma$ is a first-order polynomial signature disjoint from the base
    signature;
-3. for every $e,A$, the initial algebra
-   $\mu X.\,T_e(A+\Sigma X)$ exists and is finite/well-founded;
+3. for every $A$, the indexed layer functor $\mathcal H_A$ from
+   [the grade-indexed construction](grade-indexed-free-carrier-v5.md) has a
+   finite/well-founded initial algebra in $\mathcal C^{\widehat E}$, stable
+   under the products required by strength, and its carrier has the coherent
+   base action $T_b(\mathsf F_dA)\to\mathsf F_{b\cdot d}A$;
 4. the extended effect preorder cannot erase a visible $\Sigma$ factor;
-5. the extended observation separates returns, base outcomes and free
+5. $\mathcal K$ has finite response support and supports the finite Kleisli
+   compositions used by recursion-free evaluation;
+6. the extended observation separates returns, base outcomes and free
    requests.
 
 Then

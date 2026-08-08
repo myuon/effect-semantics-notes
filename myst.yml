@@ -23,6 +23,7 @@ project:
         - file: research-program-v5.md
         - file: functorial-extension-theorem-v5.md
         - file: graded-tt-lifting-v5.md
+        - file: adequacy-pole-construction-v5.md
         - file: chapter-method-v5.md
         - file: chapter-1-foundations-v5.md
         - file: chapter-1-operational-examples-v5.md
@@ -32,6 +33,9 @@ project:
         - file: chapter-2-free-operations-v5.md
         - file: chapter-2-operational-examples-v5.md
         - file: chapter-2-denotational-v5.md
+        - file: grade-indexed-free-carrier-v5.md
+        - file: writer-end-to-end-v5.md
+        - file: random-end-to-end-v5.md
         - file: chapter-2-certificate-v5.md
         - file: chapter-2-proof-details-v5.md
         - file: chapter-3-shallow-handlers-v5.md
@@ -42,6 +46,7 @@ project:
         - file: chapter-4-fixpoint-derived-deep-v5.md
         - file: chapter-4-operational-examples-v5.md
         - file: chapter-4-denotational-v5.md
+        - file: recursive-tt-audit-v5.md
         - file: chapter-4-certificate-v5.md
         - file: chapter-4-proof-details-v5.md
     - title: Earlier unordered program (reference)

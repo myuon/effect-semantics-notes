@@ -167,28 +167,27 @@ semantics, concrete Writer/State/Exception calculations, denotation, local
 proofs and certificate extraction in that order.  Chapter $n+1$ receives only
 the explicit certificate exported by Chapter $n$.
 
-The certificate names abbreviate formally declared records, not unspecified
-bundles of “good properties.”  The cumulative theorem has the shape
+The certificate names abbreviate formally declared conditions, not unspecified
+bundles of “good properties.”  The cumulative theorem is read in three stages.
+
+1. A `BaseCert`, an indexed initial algebra with coherent `baseAct`, a
+   finite-response $\mathcal K$, no-erasure and separated observations yield
+   `FreeCert`.
+2. `FreeCert`, a closed graded TT pole and either `AffineCert` or
+   `HandlerCert` yield `ShallowCert`.
+3. `ShallowCert`, an admissible recursive TT pole, `RecBaseCert`, continuity,
+   exhaustive $\Delta$-free clauses and effect-closure compatibility yield
+   `DeepCert`.
+
+In symbols, the conclusions are
 
 $$
-\begin{aligned}
-&\mathsf{BaseCert}(L_B,E_B,\mathcal K,T,\mathsf{obs}_B)
-\land\mathsf{Polynomial}_1(\Sigma)
-\land\mathsf{InitialAlg}(T,\Sigma)\\
-&\land\mathsf{HandlerCert}(\Delta,h,\Phi_h)
-\land\mathsf{RecBaseCert}(L^{\mathsf{rec}},\mathsf R,K)\\
-&\land\mathsf{Exhaustive}_\Delta(h)
-\land\mathsf{ClauseFree}_\Delta(h)
-\land\mathsf{Continuous}(\mathcal D_h)
-\land\mathsf{ClosureCompat}(K,\Phi_h)\\
-&\qquad\Longrightarrow
-\mathsf{FreeCert}(L_B+\Sigma,\widehat E,\mathcal K,\mathsf F_\Sigma(T))\\
-&\qquad\phantom{\Longrightarrow}\land
-\mathsf{ShallowCert}(\Delta,h,\Phi_h)
-\land\mathsf{DeepCert}(\Delta,h,\Phi_h,K).
-\end{aligned}
-\tag{Master-Transport}
+\mathsf{FreeCert},qquad
+\mathsf{ShallowCert},qquad
+\mathsf{DeepCert},
 $$
+
+but each is justified only by the numbered premises on its certificate page.
 
 Each conjunct, its quantified type, and its equations are written out in the
 certificate section of the corresponding chapter.  This cumulative display is

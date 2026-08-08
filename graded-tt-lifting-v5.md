@@ -81,8 +81,9 @@ We say that $\mathsf{TTCert}(S,T,\mathcal O)$ holds when:
    graded bind and strength.
 3. **Primitive compatibility.** Every pair of related primitive parameters is
    sent to TT-related computations.
-4. **Observation reflection.** Membership in the ground pole reflects the
-   selected operational observation.
+4. **Observation reflection.** For a noncanonical pole, membership in the
+   ground pole reflects the selected operational observation.  For the
+   canonical equality pole this is derived from constructor separation.
 
 Conditions (2) and (3) have the characteristic forms
 
@@ -101,9 +102,10 @@ p\,V_{P_\beta}\,q\Rightarrow
 \end{aligned}
 $$
 
-Condition (4), `observeReflect`, connects membership in the pole back to the selected
-operational observation.  Without it TT-lifting supplies semantic
-compatibility, but not adequacy reflection.
+Condition (4), `observeReflect`, connects membership in the pole back to the
+selected operational observation.  The
+[canonical pole construction](adequacy-pole-construction-v5.md) derives this
+field and pole closure rather than assuming extended adequacy.
 
 :::{prf:theorem} Graded TT fundamental lemma
 :label: thm-graded-tt-fundamental-v5

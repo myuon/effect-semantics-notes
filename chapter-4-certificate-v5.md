@@ -16,8 +16,9 @@ we say that $\mathsf{RecBaseCert}(L^{\mathsf{rec}},\mathsf R,K)$ holds when:
    semantic constructors are continuous.
 3. **Iteration agreement.** Source fixpoints denote least fixed points and
    Kleene approximation computes them.
-4. **Admissible relations and resumptions.** The logical relation is closed
-   under approximation suprema and the recursive carrier satisfies the stated
+4. **Admissible TT pole and resumptions.** The recursive observation pole
+   contains bottom and is closed under approximation suprema; bind and the
+   TT operations are continuous; the recursive carrier satisfies the stated
    resumption equation.
 5. **Observation level and effect closure.** The certificate selects what is
    observed and supplies a monotone iteration closure $K$ for ordered effects.
@@ -44,6 +45,10 @@ $$
 \bigsqcup_nx_n\mathrel R\bigsqcup_ny_n.
 \end{aligned}
 $$
+
+Here $R$ is the recursive graded TT relation induced by an admissible pole;
+the sufficient conditions are proved in the
+[recursive TT audit](recursive-tt-audit-v5.md).
 
 The resumption equation and condition (5) are
 

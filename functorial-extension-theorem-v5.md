@@ -63,8 +63,9 @@ with object action
 $$
 T\longmapsto
 \mathsf F_\Delta(T),qquad
-\mathsf F_\Delta(T)_eA
-\cong \mu X.\,T_e(A+\Delta X),
+  \mathsf F_\Delta(T)A
+  \cong \mu\mathcal H_A
+  \quad\text{in }\mathcal C^{\widehat E},
 $$
 
 and arrow action
@@ -97,6 +98,8 @@ same actions on returns, base layers and $\Delta$ generators, so initiality
 makes them equal.  The remaining fields are exactly `Free-Transport` from
 Chapter II. $\square$
 
+Here $\mathcal H_A$ is the indexed base-prefix/free-request layer from the
+[grade-indexed carrier construction](grade-indexed-free-carrier-v5.md).
 This is the direct answer to the original equations (2) and (3).  It is not a
 theorem about every graded monad: existence of the displayed initial algebras
 and compatibility of $q$ are real premises.
