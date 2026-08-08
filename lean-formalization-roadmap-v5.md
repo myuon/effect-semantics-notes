@@ -240,6 +240,12 @@ and effect weakening, and the captured-continuation equation
 `openResume.subst0 response = resume response` is proved.  The remaining M5
 step is the full source-handler/tree-handler commutation theorem.
 
+The proof-irrelevant operational core of that final M5 step is now checked:
+source `let` production is tree `bind`, syntactic and semantic clause tables
+are related by an explicit `ModelsWriterHandler` record, and direct shallow
+evaluation produces exactly `WriterTree.shallow` in all matching and
+forwarding cases.  What remains is its response-type-indexed refinement.
+
 If the remaining M3 proof requires changing the syntax or effect transformer, update the research
 notes before proceeding to denotation.  If M5 fails while M1–M4 hold, treat it
 as an adequacy/observation problem rather than weakening operational safety.

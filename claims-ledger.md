@@ -343,6 +343,7 @@
 | C-237 | Main theorem proved conditionally on paper | iteration、primitives、finite observationsを保存するbase morphism/relationはrecursive resumption、free requests、compatible deep handlersへ持ち上がる | C-189--C-190; C-225; proof synthesis v3 | selected fixed-point coherenceをdiagram化 |
 | C-238 | Main conservativity theorem on paper | old termのextended denotationはiteration-preserving base embedding後のold denotationに一致し、old operational behaviorは不変である | C-191; C-224; syntax induction | open higher-order derivation coherenceを監査 |
 | C-239 | Main boundary | 主定理はexact old grade、resource-valid multi-shot、handler commutation、Level-3 traces、full abstractionをunordered row/monad lawsだけからは導かない | C-186; C-192; C-196; C-211; C-231 | optional refinementsとして維持 |
+| C-240 | Established in Lean | finite Writer source semanticsについてCBV `let` はbehavior-tree `bind` と一致し、source shallow evaluationはmatching・base forwarding・cross-interface forwarding・missing forwardingの全ケースでstructural `WriterTree.shallow` と可換する | syntactic/semantic clause-table agreement (`ModelsWriterHandler`) | response-type-indexed refinementへ持ち上げる |
 
 ## 証明完了の基準
 

@@ -85,6 +85,9 @@ Implemented and kernel-checked:
   proof-relevant derivation tree;
 - generic renaming/substitution cancellation and the checked continuation
   identity `request.openResume.subst0 response = request.resume response`.
+- operational `let`/tree-`bind` correspondence and the full untyped
+  source-shallow/tree-shallow commutation theorem, including matching, Writer
+  forwarding, cross-interface forwarding and missing-clause forwarding.
 
 Typing derivations live in `Type` rather than `Prop`: this exposes the explicit
 subeffecting derivation tree needed by the terminating mutual transformation.
