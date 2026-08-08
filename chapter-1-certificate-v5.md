@@ -223,28 +223,33 @@ the returned value.
 
 ## 7. The Chapter-I structure theorem
 
-### Formal definition of `BaseCert`
+### Definition I.1 — `BaseCert`
 
 For a base calculus $L_B$, an ordered effect algebra
-$E_B=(B,1,\cdot,\leq)$, a response monad $\mathcal K$, a graded interpretation $T$, and observations
-$\mathsf{obs}_B,\mathsf{observe}_T$, define
+$E_B=(B,1,\cdot,\leq)$, a response monad $\mathcal K$, a graded interpretation
+$T$, and observations $\mathsf{obs}_B,\mathsf{observe}_T$ are given.  We say
+that
 
 $$
-\begin{aligned}
 \mathsf{BaseCert}(L_B,E_B,\mathcal K,T,\mathsf{obs}_B)
-:=\{\;&
-\mathsf{subst},\mathsf{pres},\mathsf{uniquePos},
-\mathsf{resp},\mathsf{respTy},\mathsf{branchNorm},\mathsf{effsafe},\\
-&\eta,\mu,\mathsf{st},\tau,
-(\beta^T)_{\beta\in\Sigma_B},
-\mathsf{monadlaw},\mathsf{weaklaw},\\
-&\mathsf{semsubst},\mathsf{redsnd},\mathsf{respSound},
-\mathsf{adequate}\;\}.
-\end{aligned}
-\tag{BaseCert}
 $$
 
-Its operational fields have the following types:
+holds when the following conditions are satisfied.
+
+1. **Operational metatheory.** Substitution and support-wise preservation hold,
+   and each closed term has one selected return/redex/request position.
+2. **Typed response structure.** Every primitive has a typed
+   $\mathcal K$-response; every supported recursion-free branch terminates; and
+   executed primitives are covered by the declared effect bound.
+3. **Graded semantic structure.** $T$ has return, multiplication, strength,
+   coherent weakening and interpretations of all base primitives, satisfying
+   the graded monad and weakening laws.
+4. **Semantic soundness.** Semantic substitution, internal-reduction
+   soundness and primitive-response soundness hold.
+5. **Observation adequacy.** Closed ground operational and denotational
+   observations agree in $\mathcal K$.
+
+Conditions (1) and (2) are written formally as follows:
 
 $$
 \begin{aligned}
@@ -274,7 +279,8 @@ $$
 \end{aligned}
 $$
 
-$\dot\vee$ denotes mutually exclusive alternatives.  The semantic data are
+$\dot\vee$ denotes mutually exclusive alternatives.  Condition (3) requires
+the following semantic data:
 
 $$
 \eta_A:A\to T_1A,
@@ -300,7 +306,7 @@ $$
 $$
 
 and compatibility of $\tau$ with $\eta,\mu,\mathsf{st}$ and every
-$\beta^T$.  Finally,
+$\beta^T$.  Conditions (4) and (5) are:
 
 $$
 \begin{aligned}

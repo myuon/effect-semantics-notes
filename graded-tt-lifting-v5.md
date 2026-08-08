@@ -71,21 +71,20 @@ The product $e\cdot f$ is essential: it records the computation effect before
 the observation continuation effect.  Weakening coherence makes the
 definition invariant under a common larger upper bound.
 
-## 3. TT certificate
+## 3. Definition — `TTCert`
 
-Define
+We say that $\mathsf{TTCert}(S,T,\mathcal O)$ holds when:
 
-$$
-\begin{aligned}
-\mathsf{TTCert}(S,T,\mathcal O):=\{;&
-\mathsf{poleWeak},\mathsf{pole}_{\mathcal K},
-\mathsf{unitTT},\mathsf{bindTT},\mathsf{strengthTT},\\
-&\mathsf{primitiveTT},\mathsf{observeReflect}\;\}.
-\end{aligned}
-\tag{TTCert}
-$$
+1. **Pole coherence.** $\mathcal O$ is stable under effect weakening and the
+   response structure $\mathcal K$.
+2. **Computational closure.** TT-related values are preserved by return,
+   graded bind and strength.
+3. **Primitive compatibility.** Every pair of related primitive parameters is
+   sent to TT-related computations.
+4. **Observation reflection.** Membership in the ground pole reflects the
+   selected operational observation.
 
-The characteristic fields are
+Conditions (2) and (3) have the characteristic forms
 
 $$
 \begin{aligned}
@@ -102,7 +101,7 @@ p\,V_{P_\beta}\,q\Rightarrow
 \end{aligned}
 $$
 
-`observeReflect` connects membership in the pole back to the selected
+Condition (4), `observeReflect`, connects membership in the pole back to the selected
 operational observation.  Without it TT-lifting supplies semantic
 compatibility, but not adequacy reflection.
 

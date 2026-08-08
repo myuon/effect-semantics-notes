@@ -191,29 +191,32 @@ graded TT-lifting used for adequacy.
 
 ## 8. Chapter-II structure-preservation theorem
 
-### Formal definition of `FreeCert`
+### Definition II.1 — `FreeCert`
 
 For an extension $\widehat L=L_B+\Sigma$ with effect algebra $\widehat E$
-and carrier $\mathsf F=\mathsf F_\Sigma(T)$, define
+and carrier $\mathsf F=\mathsf F_\Sigma(T)$, we say that
 
 $$
-\begin{aligned}
 \mathsf{FreeCert}(\widehat L,\widehat E,\mathcal K,\mathsf F)
-:=\{\;&
-\mathsf{subst}_{\mathsf F},\mathsf{pres}_{\mathsf F},
-\mathsf{dec}_{\mathsf F},\mathsf{effsafe}_{\mathsf F},
-\mathsf{opcons},\\
-&\eta^{\mathsf F},\mu^{\mathsf F},\mathsf{st}^{\mathsf F},
-\tau^{\mathsf F},\mathsf{op}^{\mathsf F},j,\\
-&\mathsf{monadlaw}_{\mathsf F},\mathsf{embedlaw},
-\mathsf{liftMor},\mathsf{structuralLift},\mathsf{graphLaw},
-\mathsf{ttTransport},
-\mathsf{adequate}_{\mathsf F}\;\}.
-\end{aligned}
-\tag{FreeCert}
 $$
 
-The new operational fields are
+holds when the following conditions are satisfied.
+
+1. **Extended operational safety.** Substitution and preservation continue to
+   hold; decomposition gains the free-request case; exposed requests respect
+   their bounds.
+2. **Old-language conservativity.** The extended machine has exactly the old
+   response kernel on old terms.
+3. **Free graded semantics.** $\mathsf F$ has graded return, multiplication,
+   strength, weakening and free generators, with the expected laws.
+4. **Base embedding.** The canonical $j:T\to\mathsf F$ preserves return,
+   bind, strength and weakening.
+5. **Functorial and relational transport.** Compatible morphisms lift;
+   compatible relations have a structural lifting satisfying the graph law;
+   graded TT relations transport through a closed pole.
+6. **Finite adequacy.** Closed ground observations agree in $\mathcal K$.
+
+Conditions (1) and (2) are formally:
 
 $$
 \begin{aligned}
@@ -234,7 +237,7 @@ $$
 \end{aligned}
 $$
 
-The semantic operations have types
+Conditions (3) and (4) require the following operations and equations:
 
 $$
 \eta_A^{\mathsf F}:A\to\mathsf F_1A,
@@ -265,7 +268,7 @@ j\circ\tau^T=\tau^{\mathsf F}\circ j.
 \tag{Embed}
 $$
 
-The morphism and relation fields have the quantified forms
+Condition (5) has the quantified forms
 
 $$
 \begin{aligned}
@@ -290,7 +293,7 @@ Thus `graphLaw` is an equality only for the least structural lifting.
 grade-indexed pole and `TTCert` are defined in
 [Graded TT-lifting](graded-tt-lifting-v5.md).
 
-Finally, for every closed ground $M$,
+Condition (6), for every closed ground $M$, is
 
 $$
 \mathsf{adequate}_{\mathsf F}:\quad
@@ -302,25 +305,26 @@ where $o$ ranges over separated returns, base outcomes and free requests.
 
 ### Theorem II.9 — Free extension certificate
 
-Let $P=(L_B,E_B,\mathcal K,T,\mathsf{obs}_B)$ and let $\Sigma$ be disjoint from the base
-signature.  The theorem has the explicit form
+Let $P=(L_B,E_B,\mathcal K,T,\mathsf{obs}_B)$.  Assume:
+
+1. $P$ satisfies
+   $\mathsf{BaseCert}(L_B,E_B,\mathcal K,T,\mathsf{obs}_B)$;
+2. $\Sigma$ is a first-order polynomial signature disjoint from the base
+   signature;
+3. for every $e,A$, the initial algebra
+   $\mu X.\,T_e(A+\Sigma X)$ exists and is finite/well-founded;
+4. the extended effect preorder cannot erase a visible $\Sigma$ factor;
+5. the extended observation separates returns, base outcomes and free
+   requests.
+
+Then
 
 $$
-\begin{aligned}
-&\mathsf{BaseCert}(L_B,E_B,\mathcal K,T,\mathsf{obs}_B)\\
-&\land\ \mathsf{Polynomial}_1(\Sigma)
-\land\ \mathsf{Disjoint}(\Sigma,\Sigma_B)\\
-&\land\ \forall e,A.\quad
- \mu X.\,T_e(A+\Sigma X)\text{ exists and is finite/well-founded}\\
-&\land\ \mathsf{NoErase}_\Sigma(\leq_{\widehat E})
-\land\ \mathsf{Separate}_{\mathsf{obs}}
-\quad\Longrightarrow\\[1mm]
-&\hspace{18mm}
 \mathsf{FreeCert}
-(L_B+\Sigma,\widehat E,\mathcal K,\mathsf F_\Sigma(T)).
-\end{aligned}
-\tag{Free-Transport}
+(L_B+\Sigma,\widehat E,\mathcal K,\mathsf F_\Sigma(T))
 $$
+
+holds.
 
 ### Boundary
 

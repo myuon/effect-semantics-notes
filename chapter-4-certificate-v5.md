@@ -5,23 +5,24 @@
 **Conditional paper theorem.**  This page records exactly what must be added
 to `ShallowCert` and what is then preserved.
 
-## 1. Recursive input certificate
+## 1. Definition IV.1 — `RecBaseCert`
 
 For a recursive extension $L^{\mathsf{rec}}$ and recursive carrier $\mathsf R$,
-define
+we say that $\mathsf{RecBaseCert}(L^{\mathsf{rec}},\mathsf R,K)$ holds when:
 
-$$
-\begin{aligned}
-\mathsf{RecBaseCert}(L^{\mathsf{rec}},\mathsf R,K):=\{\;&
-\mathsf{unfoldTy},\mathsf{unfoldPres},
-\bot,(\bigsqcup),\mathsf{cont},\mathsf{iter},\\
-&\mathsf{fixAgree},\mathsf{admRel},\mathsf{resIso},
-\mathsf{obsLevel},K,\mathsf{closureLaw}\;\}.
-\end{aligned}
-\tag{RecBaseCert}
-$$
+1. **Recursive typing.** Unfolding is well typed and preserves the declared
+   computation type and effect bound.
+2. **Domain structure.** Every carrier is a pointed $\omega$-cpo and the
+   semantic constructors are continuous.
+3. **Iteration agreement.** Source fixpoints denote least fixed points and
+   Kleene approximation computes them.
+4. **Admissible relations and resumptions.** The logical relation is closed
+   under approximation suprema and the recursive carrier satisfies the stated
+   resumption equation.
+5. **Observation level and effect closure.** The certificate selects what is
+   observed and supplies a monotone iteration closure $K$ for ordered effects.
 
-The syntactic and order-theoretic fields are
+Conditions (1)--(4) are represented by
 
 $$
 \begin{aligned}
@@ -44,7 +45,7 @@ $$
 \end{aligned}
 $$
 
-The resumption and ordered-closure fields are
+The resumption equation and condition (5) are
 
 $$
 \mathsf{resIso}_{A}:\quad
@@ -201,24 +202,23 @@ or a least principal word is outside the basic theorem.
 
 ## 7. Chapter-IV structure-preservation theorem
 
-### Formal definition of `DeepCert`
+### Definition IV.2 — `DeepCert`
 
-Define
+We say that $\mathsf{DeepCert}(\Delta,h,\Phi_h,K)$ holds when:
 
-$$
-\begin{aligned}
-\mathsf{DeepCert}(\Delta,h,\Phi_h,K):=\{\;&
-\mathsf{recPres},\mathsf{recProgress},\mathsf{oldCons},
-\mathsf{defDeep},\\
-&\mathsf{deepEq}_{\mathsf{ret}},\mathsf{deepEq}_{\mathsf{match}},
-\mathsf{deepEq}_{\mathsf{forward}},\\
-&\mathsf{eliminate}_\Delta,\mathsf{adequate}_{\ell},
-\mathsf{iterEffect}\;\}.
-\end{aligned}
-\tag{DeepCert}
-$$
+1. **Recursive safety and conservativity.** Preservation/progress hold at each
+   step and old programs retain their behavior.
+2. **Derived-deep definability.** The source construction denotes the least
+   fixed point of the semantic handler functional.
+3. **Deep equations.** Return, matching and forwarding satisfy the standard
+   deep-handler equations.
+4. **Interface elimination.** No finite outward observation exposes an
+   unhandled $\Delta$ request.
+5. **Declared adequacy and iteration bound.** Adequacy holds at the selected
+   observation level and transformed recursive effects remain below the
+   closure bound.
 
-Besides the equations above, its characteristic fields are
+The characteristic conditions are
 
 $$
 \begin{aligned}
@@ -238,23 +238,22 @@ $$
 :::{prf:theorem} Recursive derived-deep certificate
 :label: thm-recursive-derived-deep-certificate-v5
 
-The complete implication is
+Assume:
+
+1. the finite language and handler satisfy `ShallowCert` and `HandlerCert`;
+2. the recursive carrier and effect closure satisfy `RecBaseCert`;
+3. the handler is exhaustive and its clauses emit no outward $\Delta$;
+4. the semantic handler functional is continuous;
+5. $K$ and $\Phi_h$ satisfy the closure-compatibility law;
+6. the admissible relation reflects the selected observation level $\ell$.
+
+Then
 
 $$
-\begin{aligned}
-&\mathsf{ShallowCert}(\Delta,h,\Phi_h)
-\land\mathsf{RecBaseCert}(L^{\mathsf{rec}},\mathsf R,K)\\
-&\land\mathsf{HandlerCert}(\Delta,h,\Phi_h)
-\land\mathsf{Exhaustive}_\Delta(h)
-\land\mathsf{ClauseFree}_\Delta(h)\\
-&\land\mathsf{Continuous}(\mathcal D_h)
-\land\mathsf{ClosureCompat}(K,\Phi_h)
-\land\mathsf{Reflect}_{\ell}(R,\mathsf{obs})\\
-&\quad\Longrightarrow
-\mathsf{DeepCert}(\Delta,h,\Phi_h,K).
-\end{aligned}
-\tag{Deep-Transport}
+\mathsf{DeepCert}(\Delta,h,\Phi_h,K)
 $$
+
+holds.
 :::
 
 ## 8. Sharp limits

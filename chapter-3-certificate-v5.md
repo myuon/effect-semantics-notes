@@ -174,23 +174,23 @@ return clause is identity on old programs.
 
 ## 6. Chapter-III structure-preservation theorem
 
-### Formal handler and shallow certificates
+### Definition III.1 — `HandlerCert`
 
-For an exhaustive $\Delta$-handler $h$ and monotone
-$\Phi_h:\widehat E\to\widehat E$, define
+For an exhaustive $\Delta$-handler $h$ and
+$\Phi_h:\widehat E\to\widehat E$, we say that
+$\mathsf{HandlerCert}(\Delta,h,\Phi_h)$ holds when:
 
-$$
-\begin{aligned}
-\mathsf{HandlerCert}(\Delta,h,\Phi_h):=\{\;&
-\mathsf{mono}_h,\mathsf{return}_h,\mathsf{match}_h,
-\mathsf{forward}_h,\mathsf{structuralClause}_h,
-\mathsf{TTClause}_h\;\}.
-\end{aligned}
-\tag{HandlerCert}
-$$
+1. **Monotonicity.** $\Phi_h$ respects subeffecting.
+2. **Return typing.** The return clause has an effect below $\Phi_h(1)$.
+3. **Matching typing.** Every operation clause transforms each admissible
+   residual bound below the declared output bound.
+4. **Transparent forwarding.** A nonmatching operation is rebuilt and the
+   handler remains on its continuation.
+5. **Relational compatibility.** Clauses preserve both the structural relation
+   and the graded TT relation.
 
 Writing $\mathsf{grade}(K)\leq d$ for “$K$ type-checks at an effect below
-$d$”, its fields are
+$d$”, these conditions are
 
 $$
 \begin{aligned}
@@ -223,21 +223,18 @@ h_S(p_S,k_S)\mathrel{V_C^{\top\top}}h_T(p_T,k_T).
 \end{aligned}
 $$
 
-The affine response fragment supplies this record when
+### Definition III.2 — `AffineCert`
 
-$$
-\begin{aligned}
-\mathsf{AffineCert}(\Delta,h,e'):=\;&
-\mathsf{Exhaustive}_\Delta(h)
-\land H_{\mathsf{ret}}=\mathsf{return}\,x\\
-&\land\ \forall i.\quad
- \Gamma,p:P_i\vdash R_i(p):R_i!e'\\
-&\land\ H_i\equiv
- \mathbf{let}\ r\leftarrow R_i(p)\ \mathbf{in}\ k\,r
-\land 1\leq e'.
-\end{aligned}
-\tag{AffineCert}
-$$
+The affine response fragment satisfies
+$\mathsf{AffineCert}(\Delta,h,e')$ when:
+
+1. $h$ has a clause for every operation in $\Delta$;
+2. its return clause is $H_{\mathsf{ret}}=\mathsf{return}\,x$;
+3. each response computation has
+   $\Gamma,p:P_i\vdash R_i(p):R_i!e'$;
+4. each operation clause is
+   $H_i\equiv\mathbf{let}\ r\leftarrow R_i(p)\ \mathbf{in}\ k\,r$;
+5. $1\leq e'$.
 
 For this fragment, on the domain of grades whose displayed prefix $b$ is
 $\Delta$-free,
@@ -246,20 +243,20 @@ $$
 \Phi_{\Delta,e'}(b\cdot\Delta\cdot e)=b\cdot e'\cdot e.
 $$
 
-Now define
+### Definition III.3 — `ShallowCert`
 
-$$
-\begin{aligned}
-\mathsf{ShallowCert}(\Delta,h,\Phi_h):=\{\;&
-\mathsf{hpres},\mathsf{hprogress},
-\mathsf{retEq},\mathsf{matchEq},\mathsf{forwardEq},\\
-&\mathsf{commute}_h,\mathsf{adequate}_h,
-\mathsf{conservative}_h,\mathsf{boundary}_h\;\}.
-\end{aligned}
-\tag{ShallowCert}
-$$
+We say that $\mathsf{ShallowCert}(\Delta,h,\Phi_h)$ holds when:
 
-The principal fields have types
+1. **Safety.** Handler reduction has preservation and effect-aware progress.
+2. **Boundary equations.** Return, matching and forwarding satisfy their
+   declared operational/semantic equations.
+3. **Semantic commutation.** Direct handling agrees with the structural
+   shallow map.
+4. **Adequacy.** Operational and denotational handled observations agree.
+5. **Conservativity and boundary discipline.** Handler-free terms are
+   unchanged and one shallow pass stops after its first match.
+
+The principal conditions are
 
 $$
 \begin{aligned}
@@ -280,25 +277,22 @@ $$
 
 ### Theorem III.6 — Shallow certificate
 
-Let $P=(L_B+\Sigma,\widehat E,\mathcal K,\mathsf F_\Sigma(T))$.  The explicit theorem is
+Let $P=(L_B+\Sigma,\widehat E,\mathcal K,\mathsf F_\Sigma(T))$.  Assume:
+
+1. $P$ satisfies `FreeCert`;
+2. the two compared models and pole satisfy `TTCert`, and the extended pole is
+   closed under the $\Sigma$ constructors;
+3. either the handler satisfies `AffineCert` with
+   $\Phi_h=\Phi_{\Delta,e'}$, or it satisfies the general `HandlerCert`;
+4. the free observation separates its constructors.
+
+Then
 
 $$
-\begin{aligned}
-&\mathsf{FreeCert}(L_B+\Sigma,\widehat E,\mathcal K,\mathsf F_\Sigma(T))\\
-&\land\mathsf{TTCert}(S,T,\mathcal O)
-\land\mathsf{PoleClosed}_\Sigma(\mathcal O^\Sigma)\\
-&\land\Bigl(
- \mathsf{AffineCert}(\Delta,h,e')
- \land\Phi_h=\Phi_{\Delta,e'}
- \quad\lor\quad
- \mathsf{HandlerCert}(\Delta,h,\Phi_h)
-\Bigr)\\
-&\land\ \mathsf{ConstructorSeparated}(\mathsf{obs}_{\mathsf F})
-\quad\Longrightarrow\\[1mm]
-&\hspace{20mm}\mathsf{ShallowCert}(\Delta,h,\Phi_h).
-\end{aligned}
-\tag{Shallow-Transport}
+\mathsf{ShallowCert}(\Delta,h,\Phi_h)
 $$
+
+holds.
 
 ## 7. What is passed to Chapter IV
 
