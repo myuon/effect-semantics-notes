@@ -307,6 +307,16 @@ soundness by fixed-point induction.  The remaining relation work is no longer
 domain infrastructure: it is the type-indexed value/computation fundamental
 lemma and its effect-discharge premises.
 
+The first type-indexed endpoint is also checked.  Under a typed affine handler
+and the minimal Writer signature law that operation zero returns unit, every
+finite result of the recursive deep limit is inhabited by a closed value of
+the original computation's result type.  The proof deliberately generalizes
+over intermediate effect bounds: clause installation changes those bounds,
+but not the result type.  Exact recursive grade transformation is therefore
+not smuggled into type preservation.  A richer boundary carrier is still
+needed to express that nonselected requests escape while selected requests do
+not.
+
 If the remaining M3 proof requires changing the syntax or effect transformer, update the research
 notes before proceeding to denotation.  If M5 fails while M1–M4 hold, treat it
 as an adequacy/observation problem rather than weakening operational safety.

@@ -113,12 +113,18 @@ Implemented and kernel-checked:
   fixed-point induction theorem reducing recursive-handler logical-relation
   proofs to bottom and one-layer closure; the operational run pole supplies a
   checked instance.
+- a typed recursive Writer adequacy endpoint: assuming operation `tell`
+  returns unit and every installed affine clause is typed, every finite deep
+  observation returns a closed value at the original computation result type,
+  while intermediate effect bounds remain existential rather than falsely
+  exact.
 
 Typing derivations live in `Type` rather than `Prop`: this exposes the explicit
 subeffecting derivation tree needed by the terminating mutual transformation.
 The associated inhabitation proposition can later be proof-irrelevant even
 though the checked certificate is retained as data.
 
-Remaining work is now concentrated in typing the recursive handler limit and
-building the type-indexed fundamental relation above the admissible pole. No `sorry`
+Remaining work is now concentrated in a full type-indexed fundamental
+relation and an outward-boundary model that states semantic effect discharge.
+No `sorry`
 or project axiom is admitted in the checked library.
