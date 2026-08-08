@@ -174,9 +174,11 @@ The graded unit and associativity laws follow by indexed initiality and the
 base-layer and free-node actions.  The same argument gives strength and
 weakening coherence.
 
-This condition is genuine.  An arbitrary graded monad plus the existence of
-$\mu\mathcal H_A$ need not supply `baseAct`; one may instead construct the
-carrier from a graded theory sum whose free-model theorem provides the action.
+This is a genuine obligation of the current proof: indexed initiality by
+itself has not yet supplied `baseAct`.  It can instead be assumed directly,
+constructed from a graded theory sum, or derived from the
+[root-exposure sufficient condition](base-action-construction-v5.md).  A
+strict independence countermodel has not yet been established.
 
 ## 5. Corrected existence premise
 

@@ -132,3 +132,14 @@ K+\mathsf{Op}_\Delta(K).
 $$
 
 前者はstandard shallow return clause、後者はlayer skip/tail preservationに対応する。元のtyping ruleとbindを再構成して決める。
+
+## Q-013: `baseAct` は独立な追加構造か
+
+indexed initial algebraとgraded monad lawsだけから`baseAct`を得る一般証明は
+まだない。grade-root coproductを各$T_b$がcoherentにexposeできる場合には
+[root-exposure theorem](base-action-construction-v5.md)から構成でき、Writer、
+State、Exception、finite SubDistでは直接構成できる。
+
+未解決なのは、必要なindexed initial algebrasは全て存在するがcoherentな
+`baseAct`が存在しない厳密な反例である。root-exposureの不成立だけでは直接構成の
+不存在を意味しないため、これを独立性証明として扱ってはならない。

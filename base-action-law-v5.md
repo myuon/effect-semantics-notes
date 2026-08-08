@@ -144,7 +144,10 @@ trees by probabilistic bind.  Finite-sum associativity proves `Act-Mult`.
 
 ## 7. Boundary
 
-`baseAct` is not derivable from the graded monad laws and indexed initial
-algebras alone.  A model may lack the distributive law needed to move an
-opaque $T_b$ layer into the free carrier.  Such a model remains a valid base
-graded monad but is not an object of the present extension theorem.
+The present proof does not derive `baseAct` from graded monad laws and indexed
+initial algebras alone.  A general construction additionally needs a way to
+expose or distribute the opaque $T_b$ layer across the indexed carrier root.
+The [root-exposure theorem](base-action-construction-v5.md) gives one
+sufficient condition.  Whether there is a model with all the stated indexed
+initial algebras but no coherent base action is retained as an open
+independence question.

@@ -36,6 +36,7 @@ project:
         - file: chapter-2-denotational-v5.md
         - file: grade-indexed-free-carrier-v5.md
         - file: base-action-law-v5.md
+        - file: base-action-construction-v5.md
         - file: writer-end-to-end-v5.md
         - file: state-end-to-end-v5.md
         - file: exception-end-to-end-v5.md

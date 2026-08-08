@@ -112,9 +112,12 @@ It is defined by the initial-algebra recursion:
 - use base graded bind through the outer $T$;
 - preserve each free operation and compose into every response continuation.
 
-The graded unit and associativity laws follow from initiality together with the
-base graded monad laws.  The construction is strong when $T$ is strong and the
-polynomial initial algebras are stable under the required products.
+The graded unit and associativity laws follow from initiality together with a
+coherent `baseAct` and the base graded monad laws.  The action may be supplied
+directly or obtained from the
+[root-exposure construction](base-action-construction-v5.md).  The
+construction is strong when $T$ is strong, the action respects strength and
+the polynomial initial algebras are stable under the required products.
 
 ## 5. Base embedding and conservativity diagram
 
