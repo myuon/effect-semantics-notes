@@ -328,6 +328,15 @@ use as the computation pole of the fundamental relation.  Its finite observer
 is now also proved stable under increasing fuel and packaged as a stable
 partial observation; only the generic ω-completion remains.
 
+That completion is now generic rather than Writer-specific.  For every
+outcome type, stable fuel observations form a pointed antisymmetric
+approximation order with constructed ω-suprema; ω-continuous endofunctions
+have a Kleene least fixed point with unfold and leastness laws.  The outward
+Writer boundary is an instance.  Its limit returns an outcome exactly when
+some finite projection does, and selected-interface discharge therefore holds
+at the limit as well as at each finite fuel.  This removes the last domain
+infrastructure obstacle before the type-indexed computation relation.
+
 If the remaining M3 proof requires changing the syntax or effect transformer, update the research
 notes before proceeding to denotation.  If M5 fails while M1–M4 hold, treat it
 as an adequacy/observation problem rather than weakening operational safety.

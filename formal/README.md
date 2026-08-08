@@ -130,7 +130,12 @@ though the checked certificate is retained as data.
 
 The outward-boundary observer is stable under increasing fuel and therefore
 already forms the finite-projection input needed by its later completion.
+- the finite-observation CPO infrastructure is polymorphic in its outcome:
+  arbitrary stable observations have bottom, antisymmetric approximation,
+  ω-chain suprema, continuous endofunctions and Kleene least fixed points;
+  the outward Writer boundary has a witness-reflecting limit whose selected
+  interface discharge follows from the finite theorem.
 Remaining work is now concentrated in a full type-indexed fundamental
-relation and ω-completion of that richer observer.
+relation over that richer observer.
 No `sorry`
 or project axiom is admitted in the checked library.

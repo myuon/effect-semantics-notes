@@ -1,4 +1,5 @@
 import EffectSemantics.Recursive.TypedDeepWriter
+import EffectSemantics.Recursive.StableObservation
 
 namespace EffectSemantics
 
@@ -75,16 +76,92 @@ theorem Comp.observeDeepWriterBoundary_succ_of_some
           · simpa [Comp.observeDeepWriterBoundary, found, same] using observed
       | stuck => simp [Comp.observeDeepWriterBoundary, found] at observed
 
-structure DeepWriterBoundaryObservation (interface : Nat)
-    (handler : AffineHandler) where
-  observeAt : Nat → Option DeepWriterBoundary
-  stable : ∀ {fuel boundary}, observeAt fuel = some boundary →
-    observeAt (fuel + 1) = some boundary
+theorem Comp.observeDeepWriterBoundary_mono
+    {term : Comp} {fuel interface : Nat} {handler : AffineHandler}
+    {boundary : DeepWriterBoundary}
+    (observed : term.observeDeepWriterBoundary fuel interface handler =
+      some boundary) (extra : Nat) :
+    term.observeDeepWriterBoundary (fuel + extra) interface handler =
+      some boundary := by
+  induction extra with
+  | zero => simpa using observed
+  | succ extra ih =>
+      rw [Nat.add_succ]
+      exact Comp.observeDeepWriterBoundary_succ_of_some ih
+
+abbrev DeepWriterBoundaryObservation (_interface : Nat)
+    (_handler : AffineHandler) := StableObservation DeepWriterBoundary
 
 def Comp.deepWriterBoundaryApprox (term : Comp) (interface : Nat)
     (handler : AffineHandler) : DeepWriterBoundaryObservation interface handler where
   observeAt fuel := term.observeDeepWriterBoundary fuel interface handler
   stable := Comp.observeDeepWriterBoundary_succ_of_some
+
+noncomputable def Comp.deepWriterBoundaryLimit (term : Comp)
+    (interface : Nat) (handler : AffineHandler) : Option DeepWriterBoundary := by
+  classical
+  by_cases existsObserved : ∃ fuel boundary,
+      term.observeDeepWriterBoundary fuel interface handler = some boundary
+  · exact some (Classical.choose (Classical.choose_spec existsObserved))
+  · exact none
+
+theorem Comp.deepWriterBoundaryLimit_of_observed
+    {term : Comp} {fuel interface : Nat} {handler : AffineHandler}
+    {boundary : DeepWriterBoundary}
+    (observed : term.observeDeepWriterBoundary fuel interface handler =
+      some boundary) :
+    term.deepWriterBoundaryLimit interface handler = some boundary := by
+  classical
+  unfold Comp.deepWriterBoundaryLimit
+  split
+  next existsObserved =>
+    let chosenFuel := Classical.choose existsObserved
+    let chosenBoundary := Classical.choose (Classical.choose_spec existsObserved)
+    have chosenObserved :
+        term.observeDeepWriterBoundary chosenFuel interface handler =
+          some chosenBoundary :=
+      Classical.choose_spec (Classical.choose_spec existsObserved)
+    let common := Nat.max fuel chosenFuel
+    have originalStable :
+        term.observeDeepWriterBoundary common interface handler = some boundary := by
+      obtain ⟨extra, equal⟩ := Nat.le.dest (Nat.le_max_left fuel chosenFuel)
+      change term.observeDeepWriterBoundary (Nat.max fuel chosenFuel)
+        interface handler = some boundary
+      simpa [equal] using Comp.observeDeepWriterBoundary_mono observed extra
+    have chosenStable :
+        term.observeDeepWriterBoundary common interface handler =
+          some chosenBoundary := by
+      obtain ⟨extra, equal⟩ := Nat.le.dest (Nat.le_max_right fuel chosenFuel)
+      change term.observeDeepWriterBoundary (Nat.max fuel chosenFuel)
+        interface handler = some chosenBoundary
+      simpa [equal] using
+        Comp.observeDeepWriterBoundary_mono chosenObserved extra
+    have equal : chosenBoundary = boundary := by
+      rw [originalStable] at chosenStable
+      exact (Option.some.inj chosenStable).symm
+    change some chosenBoundary = some boundary
+    rw [equal]
+  next absent => exact False.elim (absent ⟨fuel, boundary, observed⟩)
+
+theorem Comp.deepWriterBoundaryLimit_some_witness
+    {term : Comp} {interface : Nat} {handler : AffineHandler}
+    {boundary : DeepWriterBoundary}
+    (observed : term.deepWriterBoundaryLimit interface handler = some boundary) :
+    ∃ fuel, term.observeDeepWriterBoundary fuel interface handler =
+      some boundary := by
+  classical
+  unfold Comp.deepWriterBoundaryLimit at observed
+  split at observed
+  next existsObserved =>
+    let chosenFuel := Classical.choose existsObserved
+    let chosenBoundary := Classical.choose (Classical.choose_spec existsObserved)
+    have chosenObserved :
+        term.observeDeepWriterBoundary chosenFuel interface handler =
+          some chosenBoundary :=
+      Classical.choose_spec (Classical.choose_spec existsObserved)
+    have equal : chosenBoundary = boundary := Option.some.inj observed
+    exact ⟨chosenFuel, by simpa [equal] using chosenObserved⟩
+  next absent => cases observed
 
 /-- Exhaustive typed deep handling discharges the selected interface from
 every finite outward free boundary. -/
@@ -151,5 +228,17 @@ theorem observeDeepWriterBoundary_discharges
             subst request
             exact same
       | stuck => simp [Comp.observeDeepWriterBoundary, found] at observed
+
+theorem deepWriterBoundaryLimit_discharges
+    (typing : HasComp sig [] term resultTy effect)
+    (handlerTyping : HasAffineHandler sig [] interface handler clauseEffect)
+    (exhaustive : handler.Exhaustive sig interface)
+    (writerUnit : WriterResponseUnit sig)
+    (observed : term.deepWriterBoundaryLimit interface handler =
+      some (.free log request)) :
+    request.interface ≠ interface := by
+  obtain ⟨fuel, finite⟩ := Comp.deepWriterBoundaryLimit_some_witness observed
+  exact observeDeepWriterBoundary_discharges typing handlerTyping exhaustive
+    writerUnit finite
 
 end EffectSemantics
