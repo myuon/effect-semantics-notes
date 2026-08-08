@@ -109,6 +109,10 @@ Implemented and kernel-checked:
 - pointwise ω-chain suprema for whole-program Writer approximations, with a
   proof that the deep-handler functional preserves them; consequently the
   operational limit is its least pre-fixed point and least fixed point.
+- admissible pole liftings for finite Writer observations and a reusable
+  fixed-point induction theorem reducing recursive-handler logical-relation
+  proofs to bottom and one-layer closure; the operational run pole supplies a
+  checked instance.
 
 Typing derivations live in `Type` rather than `Prop`: this exposes the explicit
 subeffecting derivation tree needed by the terminating mutual transformation.
@@ -116,5 +120,5 @@ The associated inhabitation proposition can later be proof-irrelevant even
 though the checked certificate is retained as data.
 
 Remaining work is now concentrated in typing the recursive handler limit and
-lifting admissible relations through it. No `sorry`
+building the type-indexed fundamental relation above the admissible pole. No `sorry`
 or project axiom is admitted in the checked library.

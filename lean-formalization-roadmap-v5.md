@@ -297,6 +297,16 @@ generic continuity obligation is discharged for the concrete Writer/deep
 handler instance; only its typed effect-indexed and logical-relation
 interfaces remain.
 
+The admissibility interface above that CPO is now formal too.  Any predicate
+on whole-program approximations that contains bottom, is closed under one
+handler layer, and is admissible for pointwise chain suprema holds of the deep
+handler limit.  In particular, the lifting that requires every finite result
+to satisfy a chosen observation pole is automatically admissible.  Taking the
+pole to be the direct operational `DeepWriterRuns` relation rederives limit
+soundness by fixed-point induction.  The remaining relation work is no longer
+domain infrastructure: it is the type-indexed value/computation fundamental
+lemma and its effect-discharge premises.
+
 If the remaining M3 proof requires changing the syntax or effect transformer, update the research
 notes before proceeding to denotation.  If M5 fails while M1–M4 hold, treat it
 as an adequacy/observation problem rather than weakening operational safety.

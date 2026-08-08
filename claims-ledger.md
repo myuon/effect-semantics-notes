@@ -350,6 +350,7 @@
 | C-244 | Established in Lean | stable finite-observation carrierはω-chainのleast upper boundを持ち、ω-continuous endofunctionのKleene least fixed pointはunfold equationとleast-prefixed-point inductionを満たす。またWriter finite return/log observationはdirect runと双方向に一致する | classical choice for chain union; explicit continuity law | recursive Writer/free-handler functionalのcontinuityを示す |
 | C-340 | Established in Lean | recursive deep Writer handlerのfuel semanticsは一段handler functionalの有限反復と一致し、inductive run relationと双方向adequateである。全finite observationのunionとして得たlimitは同functionalのfixed-point unfold equationを満たす | direct affine shallow matchの再設置; Writer operation 0 is `tell`; unhandled outward requestsはclosed observationを持たない | typed effect dischargeとadmissible relationへ持ち上げる |
 | C-341 | Established in Lean | whole-program Writer approximationのpointwise ω-chainはsupremumを持ち、recursive deep-handler functionalはそのsupremumを保存する。そのKleene supremumはoperational deep limitと一致し、同limitはleast pre-fixed pointかつleast fixed pointである | flat finite Writer outcomes; classical chain union; affine direct handler functional | typed logical relationのadmissibilityとfundamental lemmaを示す |
+| C-342 | Established in Lean | finite Writer observation poleのliftingはwhole-program ω-chainに対してadmissibleであり、bottom包含とone-layer closureからdeep-handler limitについてのfixed-point inductionが得られる。operational `DeepWriterRuns` poleはone-layer closedなのでlimit soundnessをこの原理から導出できる | pointwise chain suprema; C-341; direct head decomposition | type-indexed value/computation fundamental relationを構成する |
 
 ## 証明完了の基準
 
