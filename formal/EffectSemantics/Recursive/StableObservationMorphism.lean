@@ -47,6 +47,20 @@ theorem mapOutcome_preservesSup (chain : Chain Source)
 theorem mapOutcome_bottom (transform : Source → Target) :
     mapOutcome transform (bottom : StableObservation Source) = bottom := rfl
 
+theorem mapOutcome_id (observation : StableObservation Outcome) :
+    mapOutcome id observation = observation := by
+  apply StableObservation.ext
+  funext fuel
+  simp [mapOutcome]
+
+theorem mapOutcome_comp (first : Source → Middle) (second : Middle → Target)
+    (observation : StableObservation Source) :
+    mapOutcome second (mapOutcome first observation) =
+      mapOutcome (second ∘ first) observation := by
+  apply StableObservation.ext
+  funext fuel
+  simp [mapOutcome]
+
 theorem mapOutcome_iterate
     {Source : Type u} {Target : Type v}
     {sourceFunction : StableObservation Source → StableObservation Source}
@@ -109,6 +123,33 @@ def BinaryAdmissible
     (∀ index, relation (leftChain.sequence index)
       (rightChain.sequence index)) →
     relation leftChain.sup rightChain.sup
+
+def Graph (transform : Left → Right)
+    (left : StableObservation Left) (right : StableObservation Right) : Prop :=
+  mapOutcome transform left = right
+
+theorem graph_admissible (transform : Left → Right) :
+    BinaryAdmissible (Graph transform) := by
+  intro leftChain rightChain related
+  unfold Graph
+  rw [mapOutcome_preservesSup]
+  apply le_antisymm
+  · intro fuel outcome observed
+    obtain ⟨index, finite⟩ :=
+      (leftChain.mapOutcome transform).supAt_some_witness observed
+    have equal := related index
+    change (mapOutcome transform (leftChain.sequence index)).observeAt fuel =
+      some outcome at finite
+    rw [equal] at finite
+    exact rightChain.supAt_of_observed finite
+  · intro fuel outcome observed
+    obtain ⟨index, finite⟩ := rightChain.supAt_some_witness observed
+    have equal := related index
+    apply (leftChain.mapOutcome transform).supAt_of_observed (index := index)
+    change (mapOutcome transform (leftChain.sequence index)).observeAt fuel =
+      some outcome
+    rw [equal]
+    exact finite
 
 /-- Relation lifting through recursion.  An admissible relation containing
 the two bottoms and preserved by one unfolding relates the two least fixed

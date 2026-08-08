@@ -365,6 +365,7 @@
 | C-354 | Established in Lean | State/Exceptionにもtype-indexed outward-boundary relation、admissible pole、closed/open fundamental theoremが成立する。Exceptionはraised errorの型を保存し、Stateはresponse lawsでget/put resumptionを正当化するため、Writerを含む三base全てがrecursive substitutionからfinite-boundary typingまで同じ証明鎖を持つ | C-346; C-349--C-353; typed closing substitutions | generic finite recursive extension theoremの最終auditを行う |
 | C-355 | Established in Lean | free syntaxを含まない`BaseOnly` values/computationsはrenaming、arbitrary substitution、`subst0`、recursive `subst2`、one-stepおよびfinite multistep reductionで保存される。従ってold-language termは有限評価後にもnew free requestを露出しない | structural syntax predicate; recursive substitution metatheory | denotational old-language conservativityとの対応を監査する |
 | C-356 | Established in Lean | `BaseOnly` sourceから生成される全finite Writer behavior treeはfree nodeを持たず、任意のstructural shallow handlerはそのtree上でidentityである。従ってold-language denotationもextension前後で不変である | C-355; source/tree production | generic base foldに対するcategorical conservativityはpaper boundaryとして分離する |
+| C-357 | Established in Lean | stable-observation outcome mappingはidentity/compositionを満たし、そのgraph relationはbinary admissibleである。各`RecursiveMorphismCert`はgraph用`RecursiveRelationCert`を誘導し、least-fixed-pointでmorphism liftingとgraph-relation liftingが一致する | C-347; C-353; supremum preservation | concrete nonidentity source/tree morphism instanceはmodel-specific layerとして分離する |
 
 ## 証明完了の基準
 

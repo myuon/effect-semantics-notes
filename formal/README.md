@@ -168,6 +168,10 @@ the two least fixed points.
 - `RecursiveMorphismCert` and `RecursiveRelationCert` expose continuity,
   one-layer commutation/preservation, binary admissibility and bottom as
   separate fields; their fixed-point transport theorems are derived.
+- outcome mapping satisfies identity and composition, its graph relation is
+  binary admissible, and every recursive morphism certificate induces the
+  corresponding relation certificate; graph and morphism lifting agree at
+  the least fixed point.
 - State and Exception now have their own type-indexed return/base/free
   boundary relations (plus typed `raise` for Exception), admissible poles and
   closed/open fundamental theorems under typed closing substitutions, matching

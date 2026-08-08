@@ -401,6 +401,13 @@ counterpart lists both continuities, binary admissibility, bottom relatedness
 and one-layer preservation.  Fixed-point morphism/relation lifting is derived
 from these fields, so no conclusion is stored back as a certificate premise.
 
+The graph/morphism coherence question is now checked.  Outcome mapping obeys
+identity and composition and preserves chain suprema.  Its graph is a binary
+admissible relation.  Every `RecursiveMorphismCert` therefore constructs a
+`RecursiveRelationCert` for that graph, whose fixed-point lifting is exactly
+the morphism fixed-point equation.  Morphism and graph-relation transport are
+not two unrelated assumptions in the recursive layer.
+
 The type-indexed fundamental layer is now replicated for State and Exception,
 not just operationally packaged.  Exception boundaries type return, residual
 requests and the raised error value; State boundaries type returns and

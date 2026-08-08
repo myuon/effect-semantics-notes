@@ -41,5 +41,25 @@ theorem RecursiveRelationCert.lift
   lfp_related cert.leftContinuous cert.rightContinuous cert.admissible
     cert.bottomRelated cert.oneLayer
 
+/-- Graph relations are not a separate assumption: every recursive morphism
+certificate induces the corresponding recursive relation certificate. -/
+theorem RecursiveMorphismCert.graphRelation
+    (cert : RecursiveMorphismCert sourceFunction targetFunction transform) :
+    RecursiveRelationCert sourceFunction targetFunction (Graph transform) where
+  leftContinuous := cert.sourceContinuous
+  rightContinuous := cert.targetContinuous
+  admissible := graph_admissible transform
+  bottomRelated := mapOutcome_bottom transform
+  oneLayer := by
+    intro left right related
+    unfold Graph at related ⊢
+    rw [cert.commutes, related]
+
+theorem RecursiveMorphismCert.graph_lift_agrees
+    (cert : RecursiveMorphismCert sourceFunction targetFunction transform) :
+    Graph transform (lfp sourceFunction cert.sourceContinuous)
+      (lfp targetFunction cert.targetContinuous) :=
+  cert.graphRelation.lift
+
 end StableObservation
 end EffectSemantics
