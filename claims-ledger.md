@@ -368,6 +368,9 @@
 | C-357 | Established in Lean | stable-observation outcome mappingはidentity/compositionを満たし、そのgraph relationはbinary admissibleである。各`RecursiveMorphismCert`はgraph用`RecursiveRelationCert`を誘導し、least-fixed-pointでmorphism liftingとgraph-relation liftingが一致する | C-347; C-353; supremum preservation | concrete nonidentity source/tree morphism instanceはmodel-specific layerとして分離する |
 | C-358 | Established in Lean | no-erasure ordered-word preorderでは任意のfinite `e`について`[atom]·e ≤ e`は不可能である。一方、全finite反復のdownward-closed language `atom*`はpure traceを含み`[atom]·atom* ≤ atom*`を満たすため、effectful recursionにはiteration closureが必要かつ最小例には十分である | sublist length; language sequential product | full calculusをlanguage gradeへ再indexする作業は別extensionとして分離する |
 | C-359 | Established in Lean | Writer outcomeからlogを消してvalueだけを残すnonidentity mapはrecursive deep-handler functionalのone-layer unfoldingと可換し、全finite approximantおよびcompleted fixed pointへ持ち上がる | concrete Writer/result-only functionals; C-347 | arbitrary base-monad morphismはcategorical package境界として維持する |
+| C-360 | Established in Lean | 任意のdownward-closed ordered effect language $L$ について有限冪の和としてKleene closure $L^*$を構成でき、$1\le L^*$、$L\cdot L^*\le L^*$、monotonicity、およびこの二条件を満たす最小性が成り立つ | language sequential product; finite natural iteration | arbitrary recursive effect equationsにはsimultaneous/least-fixed-point closureを追加する |
+| C-361 | Established in Lean | finite wordのprincipal-language埋め込みはpureとsequential productを保存し、subeffect orderを保存かつ反映する。従ってlanguage gradingは旧finite gradingの識別を潰さない保守的拡張である | ordered-subsequence preorder; downward closure | source type syntax全体のlanguage reindexingは別moduleで行う |
+| C-362 | Established in Lean | 非再帰prefix $p$ の後にself-callするeffect skeletonは $(\llbracket p\rrbracket)^*$ で型付けでき、単一operation loopはどのprincipal finite-word gradeでも型付け不能だが対応するregular gradeでは型付け可能である | explicit self-free predicate; C-358; C-360--C-361 | selfが複数・分岐して現れる一般bodyにはgeneral recursive language equationが必要 |
 
 ## 証明完了の基準
 

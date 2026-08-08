@@ -440,7 +440,7 @@ such trees for every selected interface and handler table.  Hence the old
 source behavior and its denotation are unchanged, rather than merely unable
 to get stuck at a new operational boundary.
 
-The remaining grade issue is now a proved boundary rather than an informal
+The finite-word grade issue is now a proved boundary rather than an informal
 warning.  No finite ordered word `e` can satisfy `[atom]·e ≤ e`, by the strict
 length increase of the no-erasure subword preorder.  Thus an unrestricted
 recursive body `op; self()` cannot close at a finite latent word.  Conversely,
@@ -448,6 +448,16 @@ the downward-closed language of all finite repetitions `atom*` contains the
 pure trace and satisfies `[atom]·atom* ≤ atom*`.  Iteration closure is therefore
 a sufficient repair for this minimal recursive pattern, while exact finite
 words are formally ruled out.
+
+The conservative regular-grade repair is now checked as a separate layer.
+For every language `L`, finite powers construct `L*`; Lean proves pure
+inclusion, one-unfolding closure, monotonicity, and leastness among all grades
+with those properties.  Principal-language embedding preserves pure and
+sequential composition and both preserves and reflects finite-word
+subeffecting.  An explicit recursive effect-skeleton judgment then derives a
+regular grade for every self-free prefix followed by a self call, while also
+reusing the finite impossibility theorem to reject every principal finite
+annotation for the one-operation loop (`C-360`--`C-362`).
 
 ## 8. Current formalization boundary
 
@@ -465,9 +475,12 @@ effect annotations can state:
 Further work separates into genuine extensions that are not definitionally
 determined by the current calculus:
 
-1. **Effectful recursion grading.**  Choose language-valued annotations,
-   explicit regular/star effects, or a restriction on recursive bodies.  The
-   current finite-word carrier cannot type the general case (`C-358`).
+1. **Full effectful recursion syntax.**  The conservative language-valued
+   regular closure and its old-grade embedding are now fixed.  Reindexing all
+   source arrows, contexts, substitutions, handlers and preservation proofs
+   by those languages remains a new calculus, rather than a missing theorem
+   about the existing finite-word syntax.  Bodies with several recursive
+   occurrences additionally require a general language-equation fixed point.
 2. **Productive infinite observations.**  Replace the partial finite-boundary
    model by coinductive traces if infinite Writer output or transient State
    behavior must be observable.

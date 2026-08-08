@@ -55,6 +55,8 @@ import EffectSemantics.Recursive.DeepExceptionBoundary
 import EffectSemantics.Recursive.DeepStateBoundary
 import EffectSemantics.Certificate.RecursiveModels
 import EffectSemantics.Certificate.RecursiveTransport
+import EffectSemantics.Certificate.RegularRecursion
+import EffectSemantics.Syntax.RegularRecursion
 import EffectSemantics.Recursive.OtherBoundaryLogicalRelations
 import EffectSemantics.Metatheory.BaseConservativity
 import EffectSemantics.Denotational.BaseConservativity
