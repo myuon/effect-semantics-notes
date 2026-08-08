@@ -123,6 +123,31 @@ theorem principal_seq (left right : Effect) :
   · intro traceBound
     exact ⟨left, right, Effect.le_refl left, Effect.le_refl right, traceBound⟩
 
+/-- Downward closure of all finite repetitions of one ordered atom.  This is
+the smallest simple iteration grade needed by `op; self()`. -/
+def repeatAtom (atom : EffectAtom) : EffectLanguage where
+  contains trace := ∃ count, trace ≤ List.replicate count atom
+  downward := by
+    intro smaller larger below
+    rintro ⟨count, bound⟩
+    exact ⟨count, Effect.le_trans below bound⟩
+
+theorem pure_mem_repeatAtom (atom : EffectAtom) :
+    (repeatAtom atom).contains 1 := by
+  exact ⟨0, Effect.le_refl 1⟩
+
+/-- Unlike a finite word, the iteration language absorbs one mandatory
+occurrence on the left. -/
+theorem principal_atom_seq_repeatAtom_le (atom : EffectAtom) :
+    seq (principal [atom]) (repeatAtom atom) ≤ repeatAtom atom := by
+  rintro trace ⟨leftTrace, rightTrace, leftBound,
+    ⟨count, rightBound⟩, traceBound⟩
+  refine ⟨count + 1, ?_⟩
+  apply Effect.le_trans traceBound
+  apply Effect.le_trans (Effect.le_seq leftBound rightBound)
+  simpa [List.replicate_succ, List.append_assoc] using
+    Effect.le_refl ([atom] * List.replicate count atom)
+
 theorem seq_assoc (first second third : EffectLanguage) :
     seq (seq first second) third = seq first (seq second third) := by
   apply EffectLanguage.ext

@@ -433,6 +433,15 @@ such trees for every selected interface and handler table.  Hence the old
 source behavior and its denotation are unchanged, rather than merely unable
 to get stuck at a new operational boundary.
 
+The remaining grade issue is now a proved boundary rather than an informal
+warning.  No finite ordered word `e` can satisfy `[atom]·e ≤ e`, by the strict
+length increase of the no-erasure subword preorder.  Thus an unrestricted
+recursive body `op; self()` cannot close at a finite latent word.  Conversely,
+the downward-closed language of all finite repetitions `atom*` contains the
+pure trace and satisfies `[atom]·atom* ≤ atom*`.  Iteration closure is therefore
+a sufficient repair for this minimal recursive pattern, while exact finite
+words are formally ruled out.
+
 If the remaining M3 proof requires changing the syntax or effect transformer, update the research
 notes before proceeding to denotation.  If M5 fails while M1–M4 hold, treat it
 as an adequacy/observation problem rather than weakening operational safety.

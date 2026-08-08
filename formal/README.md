@@ -183,6 +183,10 @@ the two least fixed points.
 - every finite Writer behavior produced by a `BaseOnly` source has no free
   node, and structural shallow handling is exactly the identity on such a
   tree, giving denotational as well as operational conservativity.
+- finite ordered words cannot satisfy `[atom]·e ≤ e`, formally exposing the
+  obstruction to unrestricted effectful recursion; the downward-closed
+  repetition language `atom*` contains pure behavior and does satisfy
+  `[atom]·atom* ≤ atom*`.
 
 Remaining work is now the audit and concrete instantiation of generic
 source/tree transport premises. The recursive model, discharge, morphism and

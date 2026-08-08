@@ -75,6 +75,20 @@ theorem factor_not_free {interface : Nat} {suffix effect : Effect}
   apply freeOf
   exact factor.subset (by simp)
 
+/-- No finite ordered word can absorb a mandatory effect occurrence on its
+left.  This is the precise obstruction to typing unrestricted effectful
+recursion with finite words alone. -/
+theorem not_cons_le_self (atom : EffectAtom) (effect : Effect) :
+    ¬ ([atom] * effect ≤ effect) := by
+  intro absorbed
+  have lengthBound := absorbed.length_le
+  simp only [mul_def, List.singleton_append, List.length_cons] at lengthBound
+  exact Nat.not_succ_le_self effect.length lengthBound
+
+theorem not_free_loop_grade (interface : Nat) (effect : Effect) :
+    ¬ ([EffectAtom.free interface] * effect ≤ effect) :=
+  not_cons_le_self _ _
+
 /-- If the left prefix contains no selected interface, an embedding of a word
 starting with that interface into `prefix ++ interface :: suffix` forces the
 remaining source word into `suffix`.  This is the ordered cancellation used by
