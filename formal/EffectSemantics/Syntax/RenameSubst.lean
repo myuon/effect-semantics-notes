@@ -6,6 +6,7 @@ def liftRen (rename : Nat → Nat) : Nat → Nat
   | 0 => 0
   | n + 1 => rename n + 1
 
+set_option linter.defProp false in
 mutual
   def Val.rename (rename : Nat → Nat) : Val → Val
     | .var index => .var (rename index)
@@ -61,6 +62,67 @@ end
 /-- Substitute a closed value for the newest variable. -/
 def Comp.subst0 (value : Val) (body : Comp) : Comp :=
   body.subst (fun | 0 => value | n + 1 => .var n)
+
+mutual
+  theorem Val.subst_rename_cancel (rename : Nat → Nat) (subst : Nat → Val)
+      (cancel : ∀ index, subst (rename index) = .var index) (term : Val) :
+      (term.rename rename).subst subst = term := by
+    cases term with
+    | var index => exact cancel index
+    | unit => rfl
+    | bool flag => rfl
+    | pair left right =>
+        simp [Val.rename, Val.subst, Val.subst_rename_cancel rename subst cancel left,
+          Val.subst_rename_cancel rename subst cancel right]
+    | inl inner rightTy =>
+        simp [Val.rename, Val.subst, Val.subst_rename_cancel rename subst cancel inner]
+    | inr leftTy inner =>
+        simp [Val.rename, Val.subst, Val.subst_rename_cancel rename subst cancel inner]
+    | lam domain latent body =>
+        simp only [Val.rename, Val.subst]
+        congr
+        exact Comp.subst_rename_cancel (liftRen rename) (liftSubst subst)
+          (fun index => by cases index <;> simp [liftRen, liftSubst, Val.rename, cancel]) body
+
+  theorem Comp.subst_rename_cancel (rename : Nat → Nat) (subst : Nat → Val)
+      (cancel : ∀ index, subst (rename index) = .var index) (term : Comp) :
+      (term.rename rename).subst subst = term := by
+    cases term with
+    | ret result => simp [Comp.rename, Comp.subst,
+        Val.subst_rename_cancel rename subst cancel]
+    | letE bound body =>
+        simp only [Comp.rename, Comp.subst]
+        congr
+        · exact Comp.subst_rename_cancel rename subst cancel bound
+        · exact Comp.subst_rename_cancel (liftRen rename) (liftSubst subst)
+            (fun index => by cases index <;> simp [liftRen, liftSubst, Val.rename, cancel]) body
+    | app function argument =>
+        simp [Comp.rename, Comp.subst, Val.subst_rename_cancel rename subst cancel]
+    | ite condition thenBranch elseBranch =>
+        simp [Comp.rename, Comp.subst, Val.subst_rename_cancel rename subst cancel,
+          Comp.subst_rename_cancel rename subst cancel thenBranch,
+          Comp.subst_rename_cancel rename subst cancel elseBranch]
+    | case scrutinee leftBranch rightBranch =>
+        simp only [Comp.rename, Comp.subst]
+        congr
+        · exact Val.subst_rename_cancel rename subst cancel scrutinee
+        · exact Comp.subst_rename_cancel (liftRen rename) (liftSubst subst)
+            (fun index => by cases index <;> simp [liftRen, liftSubst, Val.rename, cancel]) leftBranch
+        · exact Comp.subst_rename_cancel (liftRen rename) (liftSubst subst)
+            (fun index => by cases index <;> simp [liftRen, liftSubst, Val.rename, cancel]) rightBranch
+    | baseOp operation parameter =>
+        simp [Comp.rename, Comp.subst, Val.subst_rename_cancel rename subst cancel]
+    | freeOp interface operation parameter =>
+        simp [Comp.rename, Comp.subst, Val.subst_rename_cancel rename subst cancel]
+end
+
+/-- Weakening a computation beneath one fresh variable and immediately
+substituting for that variable leaves the original computation unchanged. -/
+theorem Comp.subst0_rename_shift (value : Val) (term : Comp) :
+    (term.rename (· + 1)).subst0 value = term := by
+  exact Comp.subst_rename_cancel (· + 1)
+    (fun | 0 => value | n + 1 => .var n)
+    (fun index => rfl) term
 
 def RenPreserves (source target : Context) (rename : Nat → Nat) : Prop :=
   ∀ ⦃index ty⦄, Context.lookup source index = some ty →

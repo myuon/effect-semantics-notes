@@ -80,6 +80,11 @@ Implemented and kernel-checked:
   Writer, State and Exception;
 - finite derived-deep approximants, composition, map/relation preservation,
   two-match convergence and the partial-handler non-elimination regression.
+- production/run transport across alternative typing derivations and explicit
+  effect weakening, so the operational correspondence is not tied to one
+  proof-relevant derivation tree;
+- generic renaming/substitution cancellation and the checked continuation
+  identity `request.openResume.subst0 response = request.resume response`.
 
 Typing derivations live in `Type` rather than `Prop`: this exposes the explicit
 subeffecting derivation tree needed by the terminating mutual transformation.

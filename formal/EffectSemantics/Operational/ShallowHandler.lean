@@ -18,6 +18,36 @@ def FreeRequest.openResume (request : FreeRequest) : Comp :=
 def FreeRequest.answerWith (request : FreeRequest) (clause : Comp) : Comp :=
   .letE (clause.subst0 request.parameter) request.openResume
 
+theorem EvalContext.plug_subst_rename_cancel
+    (context : EvalContext) (rename : Nat → Nat) (subst : Nat → Val)
+    (cancel : ∀ index, subst (rename index) = .var index)
+    {transformed original : Comp}
+    (hole : transformed.subst subst = original) :
+    ((context.rename rename).plug transformed).subst subst =
+      context.plug original := by
+  induction context generalizing transformed original with
+  | nil => exact hole
+  | cons frame rest ih =>
+      cases frame with
+      | letE body =>
+          apply ih
+          simp only [Frame.rename, Frame.plug, Comp.subst]
+          congr
+          exact Comp.subst_rename_cancel (liftRen rename) (liftSubst subst)
+            (fun index => by
+              cases index <;> simp [liftRen, liftSubst, Val.rename, cancel]) body
+
+/-- Opening a captured continuation beneath a response binder and then
+supplying that response reconstructs the original CBV continuation. -/
+@[simp] theorem FreeRequest.openResume_subst0
+    (request : FreeRequest) (response : Val) :
+    request.openResume.subst0 response = request.resume response := by
+  apply EvalContext.plug_subst_rename_cancel request.context (· + 1)
+    (fun | 0 => response | n + 1 => .var n)
+  · intro index
+    rfl
+  · rfl
+
 /-- Internal and matching transitions of an affine shallow handler. -/
 inductive ShallowStep : HandlerState → HandlerState → Type where
   | internal : Step term next →

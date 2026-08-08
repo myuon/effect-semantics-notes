@@ -233,6 +233,13 @@ forwarding. Partial lookup, exhaustiveness, clause instantiation and the
 ordered first-interface cancellation yield the sharp transformer
 `b·Δ·e ↦ b·e'·e`, including typed forwarding/resumption.
 
+M4, M6, M7 and the finite part of M8–M9 are also checked.  For M5, typed
+source/tree production, Writer observations and their adequacy equivalence are
+checked.  The relation now transports across alternative typing derivations
+and effect weakening, and the captured-continuation equation
+`openResume.subst0 response = resume response` is proved.  The remaining M5
+step is the full source-handler/tree-handler commutation theorem.
+
 If the remaining M3 proof requires changing the syntax or effect transformer, update the research
 notes before proceeding to denotation.  If M5 fails while M1–M4 hold, treat it
 as an adequacy/observation problem rather than weakening operational safety.

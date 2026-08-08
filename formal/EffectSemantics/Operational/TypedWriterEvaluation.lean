@@ -58,6 +58,13 @@ inductive ProducesTypedWriterTree (sig : Signature) :
   | internal (step : Step term next)
       (produces : ProducesTypedWriterTree sig (step.preserve typing) tree) :
       ProducesTypedWriterTree sig typing tree
+  | rederive {typing₁ typing₂ : HasComp sig [] term resultTy effect}
+      (produces : ProducesTypedWriterTree sig typing₁ tree) :
+      ProducesTypedWriterTree sig typing₂ tree
+  | weaken {typing : HasComp sig [] term resultTy lower}
+      (produces : ProducesTypedWriterTree sig typing tree)
+      (bound : lower ≤ upper) :
+      ProducesTypedWriterTree sig (typing.subeffect bound) tree
   | tell {request : BaseRequest}
       (typing : HasComp sig [] request.source resultTy resultEffect)
       (selected : request.operation = 0)
@@ -91,6 +98,8 @@ noncomputable def ProducesTypedWriterTree.effectSound
   | returned typing =>
       exact TypedWriterTree.HasEffect.ret.weaken typing.returnView.pureBelow
   | internal step produces ih => exact ih
+  | rederive produces ih => exact ih
+  | weaken produces bound ih => exact ih.weaken bound
   | tell typing selected unitResponse produces ih =>
       let principal := typing.exposedBaseView.principal
       have bound := principal.bound
@@ -109,6 +118,12 @@ inductive TypedWriterRuns (sig : Signature) :
   | internal (step : Step term next)
       (runs : TypedWriterRuns sig (step.preserve typing) log value) :
       TypedWriterRuns sig typing log value
+  | rederive {typing₁ typing₂ : HasComp sig [] term resultTy effect}
+      (runs : TypedWriterRuns sig typing₁ log value) :
+      TypedWriterRuns sig typing₂ log value
+  | weaken {typing : HasComp sig [] term resultTy lower}
+      (runs : TypedWriterRuns sig typing log value) (bound : lower ≤ upper) :
+      TypedWriterRuns sig (typing.subeffect bound) log value
   | tell {request : BaseRequest}
       (typing : HasComp sig [] request.source resultTy resultEffect)
       (selected : request.operation = 0)
@@ -128,6 +143,8 @@ noncomputable def ProducesTypedWriterTree.sound
       exact .returned typing
   | internal step produces ih =>
       exact .internal step (ih observes)
+  | rederive produces ih => exact .rederive (ih observes)
+  | weaken produces bound ih => exact .weaken (ih observes) bound
   | tell typing selected unitResponse produces ih =>
       cases observes with
       | tell tailObserved =>
@@ -143,6 +160,10 @@ noncomputable def TypedWriterRuns.complete
       exact ⟨.ret ⟨_, typing.returnView.valueTyping⟩, .returned typing, .ret⟩
   | internal step runs ih =>
       exact ⟨ih.1, .internal step ih.2.1, ih.2.2⟩
+  | rederive runs ih =>
+      exact ⟨ih.1, .rederive ih.2.1, ih.2.2⟩
+  | weaken runs bound ih =>
+      exact ⟨ih.1, .weaken ih.2.1 bound, ih.2.2⟩
   | tell typing selected unitResponse runs ih =>
       exact ⟨.tell _ ih.1,
         .tell typing selected unitResponse ih.2.1,
