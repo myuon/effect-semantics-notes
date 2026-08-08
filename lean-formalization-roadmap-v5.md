@@ -271,6 +271,15 @@ silent loop to bottom.  The missing step is the converse reflection theorem
 for arbitrary typed observations and its completion into an ω-CPO/fixed-point
 model.
 
+The observation carrier is now completed one step further: increasing
+ω-chains have a constructed least upper bound, and an explicitly
+ω-continuous endofunction has a Kleene least fixed point satisfying both the
+unfold equation and least-prefixed-point induction.  Finite Writer return/log
+adequacy is now bidirectional.  M10 is no longer blocked on generic fixed-point
+infrastructure; what remains is to give the recursive Writer/free-handler
+semantic functional, prove its continuity, and connect its fixed point to
+typed source recursion and derived deep handling.
+
 If the remaining M3 proof requires changing the syntax or effect transformer, update the research
 notes before proceeding to denotation.  If M5 fails while M1–M4 hold, treat it
 as an adequacy/observation problem rather than weakening operational safety.

@@ -99,6 +99,9 @@ Implemented and kernel-checked:
   approximation preorder; a recursive Writer observer accumulates `tell`
   output, reflects finite direct Writer runs, and maps the silent loop to
   bottom at every finite projection.
+- an explicit ω-chain completion of finite observations, including least
+  upper bounds, antisymmetry, ω-continuity, Kleene least fixed points, the
+  unfolding equation and least-prefixed-point induction.
 
 Typing derivations live in `Type` rather than `Prop`: this exposes the explicit
 subeffecting derivation tree needed by the terminating mutual transformation.

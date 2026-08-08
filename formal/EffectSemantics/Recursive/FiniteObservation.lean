@@ -115,6 +115,122 @@ theorem EvalContext.plug_head_free (context : EvalContext)
           (term := Comp.freeOp interface operation parameter)
           (request := FreeRequest.mk interface operation parameter []) rfl
 
+mutual
+  theorem Comp.head_returned_sound
+      {term : Comp} {value : Val}
+      (equal : term.head = Head.returned value) : term = Comp.ret value := by
+    cases term with
+    | ret result => simp [Comp.head] at equal; cases equal; rfl
+    | letE bound body =>
+        cases found : bound.head <;> simp [Comp.head, found] at equal
+    | app function argument => cases function <;> simp [Comp.head] at equal
+    | ite condition thenBranch elseBranch =>
+        cases condition with
+        | bool flag => cases flag <;> simp [Comp.head] at equal
+        | _ => simp [Comp.head] at equal
+    | case scrutinee leftBranch rightBranch =>
+        cases scrutinee <;> simp [Comp.head] at equal
+    | baseOp operation parameter => simp [Comp.head] at equal
+    | freeOp interface operation parameter => simp [Comp.head] at equal
+
+  theorem Comp.head_internal_sound
+      {term next : Comp}
+      (equal : term.head = .internal next) : Nonempty (Step term next) := by
+    cases term with
+    | ret value => simp [Comp.head] at equal
+    | letE bound body =>
+        cases found : bound.head with
+        | returned value =>
+            have source := Comp.head_returned_sound found
+            subst bound
+            simp [Comp.head] at equal
+            subst next
+            exact ⟨.letReturn⟩
+        | internal inner =>
+            simp [Comp.head, found] at equal
+            subst next
+            obtain ⟨step⟩ := Comp.head_internal_sound found
+            exact ⟨.underLet step⟩
+        | base request => simp [Comp.head, found] at equal
+        | free request => simp [Comp.head, found] at equal
+        | stuck => simp [Comp.head, found] at equal
+    | app function argument =>
+        cases function <;> simp [Comp.head] at equal
+        · subst next; exact ⟨.beta⟩
+        · subst next; exact ⟨.fixBeta⟩
+    | ite condition thenBranch elseBranch =>
+        cases condition with
+        | bool flag =>
+          cases flag <;> simp [Comp.head] at equal
+          · subst next; exact ⟨.ifFalse⟩
+          · subst next; exact ⟨.ifTrue⟩
+        | _ => simp [Comp.head] at equal
+    | case scrutinee leftBranch rightBranch =>
+        cases scrutinee <;> simp [Comp.head] at equal
+        · subst next; exact ⟨.caseInl⟩
+        · subst next; exact ⟨.caseInr⟩
+    | baseOp operation parameter => simp [Comp.head] at equal
+    | freeOp interface operation parameter => simp [Comp.head] at equal
+
+  theorem Comp.head_base_sound
+      {term : Comp} {request : BaseRequest}
+      (equal : term.head = .base request) : ExposesBase term request := by
+    cases term with
+    | ret value => simp [Comp.head] at equal
+    | letE bound body =>
+        cases found : bound.head with
+        | returned value => simp [Comp.head, found] at equal
+        | internal inner => simp [Comp.head, found] at equal
+        | base innerRequest =>
+            simp [Comp.head, found] at equal
+            subst request
+            have exposed := Comp.head_base_sound found
+            show Comp.letE bound body = (innerRequest.outerLet body).source
+            rw [exposed, BaseRequest.outerLet_source]
+        | free innerRequest => simp [Comp.head, found] at equal
+        | stuck => simp [Comp.head, found] at equal
+    | app function argument => cases function <;> simp [Comp.head] at equal
+    | ite condition thenBranch elseBranch =>
+        cases condition with
+        | bool flag => cases flag <;> simp [Comp.head] at equal
+        | _ => simp [Comp.head] at equal
+    | case scrutinee leftBranch rightBranch => cases scrutinee <;> simp [Comp.head] at equal
+    | baseOp operation parameter =>
+        simp [Comp.head] at equal
+        subst request
+        rfl
+    | freeOp interface operation parameter => simp [Comp.head] at equal
+
+  theorem Comp.head_free_sound
+      {term : Comp} {request : FreeRequest}
+      (equal : term.head = .free request) : ExposesFree term request := by
+    cases term with
+    | ret value => simp [Comp.head] at equal
+    | letE bound body =>
+        cases found : bound.head with
+        | returned value => simp [Comp.head, found] at equal
+        | internal inner => simp [Comp.head, found] at equal
+        | base innerRequest => simp [Comp.head, found] at equal
+        | free innerRequest =>
+            simp [Comp.head, found] at equal
+            subst request
+            have exposed := Comp.head_free_sound found
+            show Comp.letE bound body = (innerRequest.outerLet body).source
+            rw [exposed, FreeRequest.outerLet_source]
+        | stuck => simp [Comp.head, found] at equal
+    | app function argument => cases function <;> simp [Comp.head] at equal
+    | ite condition thenBranch elseBranch =>
+        cases condition with
+        | bool flag => cases flag <;> simp [Comp.head] at equal
+        | _ => simp [Comp.head] at equal
+    | case scrutinee leftBranch rightBranch => cases scrutinee <;> simp [Comp.head] at equal
+    | baseOp operation parameter => simp [Comp.head] at equal
+    | freeOp interface operation parameter =>
+        simp [Comp.head] at equal
+        subst request
+        rfl
+end
+
 @[simp] theorem Comp.observe_zero (term : Comp) : term.observe 0 = none := rfl
 
 @[simp] theorem Comp.observe_return (fuel : Nat) (value : Val) :

@@ -40,4 +40,6 @@ import EffectSemantics.Recursive.DeepApprox
 import EffectSemantics.Recursive.Fixpoint
 import EffectSemantics.Recursive.FiniteObservation
 import EffectSemantics.Recursive.WriterObservation
+import EffectSemantics.Recursive.OmegaCPO
+import EffectSemantics.Recursive.FixedPoint
 import EffectSemantics.Examples.DeepApprox

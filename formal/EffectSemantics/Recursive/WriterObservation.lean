@@ -109,10 +109,54 @@ theorem WriterRuns.to_observeWriter
       simp [Comp.observeWriter, BaseRequest.source_head, selected, observed,
         WriterFiniteOutcome.prepend]
 
+/-- A returned finite Writer projection reconstructs the direct operational
+run, completing finite return/log reflection. -/
+theorem Comp.observeWriter_return_reflects
+    (observed : term.observeWriter fuel = some (.returned log value)) :
+    WriterRuns term log value := by
+  induction fuel generalizing term log value with
+  | zero => simp [Comp.observeWriter] at observed
+  | succ fuel ih =>
+      cases found : term.head with
+      | returned result =>
+          simp [Comp.observeWriter, found] at observed
+          obtain ⟨rfl, rfl⟩ := observed
+          have source := Comp.head_returned_sound found
+          subst term
+          exact .returned
+      | internal next =>
+          simp only [Comp.observeWriter, found] at observed
+          obtain ⟨step⟩ := Comp.head_internal_sound found
+          exact .internal step (ih observed)
+      | base request =>
+          by_cases selected : request.operation = 0
+          · simp only [Comp.observeWriter, found, selected, if_pos,
+              Option.map_eq_some_iff] at observed
+            obtain ⟨tail, tailObserved, transformed⟩ := observed
+            cases tail with
+            | returned tailLog tailValue =>
+                simp [WriterFiniteOutcome.prepend] at transformed
+                obtain ⟨rfl, rfl⟩ := transformed
+                exact .tell (Comp.head_base_sound found) selected
+                  (ih tailObserved)
+            | base tailLog tailRequest =>
+                simp [WriterFiniteOutcome.prepend] at transformed
+            | free tailLog tailRequest =>
+                simp [WriterFiniteOutcome.prepend] at transformed
+          · simp [Comp.observeWriter, found, selected] at observed
+      | free request => simp [Comp.observeWriter, found] at observed
+      | stuck => simp [Comp.observeWriter, found] at observed
+
 theorem ProducesWriterTree.observation_appears
     (produces : ProducesWriterTree term tree)
     (observes : WriterTree.Observes tree log value) :
     ∃ fuel, term.observeWriter fuel = some (.returned log value) :=
   (produces.sound observes).to_observeWriter
+
+theorem writer_finite_return_adequacy :
+    WriterRuns term log value ↔
+      ∃ fuel, term.observeWriter fuel = some (.returned log value) :=
+  ⟨WriterRuns.to_observeWriter,
+    fun ⟨_fuel, observed⟩ => Comp.observeWriter_return_reflects observed⟩
 
 end EffectSemantics
