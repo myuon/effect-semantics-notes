@@ -419,6 +419,13 @@ evaluation.  Consequently no finite reduction sequence starting from an old
 term can expose a newly added free request, including after recursive
 unfolding.
 
+The denotational half of old-language conservativity is checked too.  Every
+finite Writer behavior tree produced by a `BaseOnly` source is itself free of
+user-defined request nodes.  Structural shallow handling is the identity on
+such trees for every selected interface and handler table.  Hence the old
+source behavior and its denotation are unchanged, rather than merely unable
+to get stuck at a new operational boundary.
+
 If the remaining M3 proof requires changing the syntax or effect transformer, update the research
 notes before proceeding to denotation.  If M5 fails while M1–M4 hold, treat it
 as an adequacy/observation problem rather than weakening operational safety.

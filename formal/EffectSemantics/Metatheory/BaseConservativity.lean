@@ -159,6 +159,38 @@ theorem EvalContext.plug_not_baseOnly (ctx : EvalContext)
           intro frameOnly
           exact notBaseOnly frameOnly.1
 
+def EvalContextBaseOnly : EvalContext → Prop
+  | [] => True
+  | .letE body :: rest => body.BaseOnly ∧ EvalContextBaseOnly rest
+
+theorem EvalContext.plug_baseOnly_iff (ctx : EvalContext) {term : Comp} :
+    (ctx.plug term).BaseOnly ↔ term.BaseOnly ∧ EvalContextBaseOnly ctx := by
+  induction ctx generalizing term with
+  | nil => simp [EvalContextBaseOnly]
+  | cons frame rest ih =>
+      cases frame with
+      | letE body =>
+          rw [EvalContext.plug_cons, ih]
+          simp only [Frame.plug, Comp.BaseOnly, EvalContextBaseOnly]
+          constructor
+          · rintro ⟨⟨termOnly, bodyOnly⟩, restOnly⟩
+            exact ⟨termOnly, bodyOnly, restOnly⟩
+          · rintro ⟨termOnly, bodyOnly, restOnly⟩
+            exact ⟨⟨termOnly, bodyOnly⟩, restOnly⟩
+
+theorem EvalContext.plug_baseOnly {ctx : EvalContext} {term : Comp}
+    (ctxOnly : EvalContextBaseOnly ctx)
+    (termOnly : term.BaseOnly) : (ctx.plug term).BaseOnly :=
+  (ctx.plug_baseOnly_iff).mpr ⟨termOnly, ctxOnly⟩
+
+theorem BaseRequest.resume_baseOnly {request : BaseRequest} {response : Val}
+    (sourceOnly : request.source.BaseOnly)
+    (responseOnly : response.BaseOnly) :
+    (request.resume response).BaseOnly := by
+  have contextOnly := (request.context.plug_baseOnly_iff.mp sourceOnly).2
+  exact request.context.plug_baseOnly contextOnly
+    (show (Comp.ret response).BaseOnly from responseOnly)
+
 theorem Comp.baseOnly_head_not_free {term : Comp} (baseOnly : term.BaseOnly) :
     ∀ request : FreeRequest, term.head ≠ .free request := by
   intro request exposed

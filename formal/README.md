@@ -176,6 +176,9 @@ the two least fixed points.
   it is preserved by renaming, arbitrary substitution, recursive self/argument
   substitution, one internal step and finite multistep evaluation, which can
   therefore never expose a newly added free request.
+- every finite Writer behavior produced by a `BaseOnly` source has no free
+  node, and structural shallow handling is exactly the identity on such a
+  tree, giving denotational as well as operational conservativity.
 
 Remaining work is now the audit and concrete instantiation of generic
 source/tree transport premises. The recursive model, discharge, morphism and
