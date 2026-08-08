@@ -104,4 +104,132 @@ theorem recursiveStateBoundaryCert_limit_eq
     (recursiveStateBoundaryCert interface handler state).limit term =
       term.deepStateBoundaryLimit interface handler state := rfl
 
+/-- Optional refinement recording exactly the premises under which a selected
+interface cannot occur at an outward boundary. -/
+structure RecursiveDischargeCert (base : RecursiveBoundaryCert Outcome)
+    (selected : Nat) where
+  freeInterface : Outcome → Option Nat
+  Good : Comp → Prop
+  discharge : ∀ {term outcome}, Good term →
+    base.limit term = some outcome → freeInterface outcome ≠ some selected
+
+def DeepWriterBoundary.freeInterface : DeepWriterBoundary → Option Nat
+  | .free _ request => some request.interface
+  | _ => none
+
+def DeepExceptionBoundary.freeInterface : DeepExceptionBoundary → Option Nat
+  | .free request => some request.interface
+  | _ => none
+
+def DeepStateBoundary.freeInterface : DeepStateBoundary → Option Nat
+  | .free request _ => some request.interface
+  | _ => none
+
+def recursiveWriterDischargeCert
+    (handlerTyping : HasAffineHandler sig [] interface handler clauseEffect)
+    (exhaustive : handler.Exhaustive sig interface)
+    (writerUnit : WriterResponseUnit sig) :
+    RecursiveDischargeCert (recursiveWriterBoundaryCert interface handler)
+      interface where
+  freeInterface := DeepWriterBoundary.freeInterface
+  Good term := ∃ resultTy effect,
+    Nonempty (HasComp sig [] term resultTy effect)
+  discharge := by
+    intro term outcome good observed
+    obtain ⟨resultTy, effect, ⟨typing⟩⟩ := good
+    rw [recursiveWriterBoundaryCert_limit_eq] at observed
+    cases outcome with
+    | returned => simp [DeepWriterBoundary.freeInterface]
+    | base => simp [DeepWriterBoundary.freeInterface]
+    | free log request =>
+        simp only [DeepWriterBoundary.freeInterface, ne_eq,
+          Option.some.injEq]
+        exact deepWriterBoundaryLimit_discharges typing handlerTyping exhaustive
+          writerUnit observed
+
+def recursiveExceptionDischargeCert
+    (handlerTyping : HasAffineHandler sig [] interface handler clauseEffect)
+    (exhaustive : handler.Exhaustive sig interface) :
+    RecursiveDischargeCert (recursiveExceptionBoundaryCert interface handler)
+      interface where
+  freeInterface := DeepExceptionBoundary.freeInterface
+  Good term := ∃ resultTy effect,
+    Nonempty (HasComp sig [] term resultTy effect)
+  discharge := by
+    intro term outcome good observed
+    obtain ⟨resultTy, effect, ⟨typing⟩⟩ := good
+    rw [recursiveExceptionBoundaryCert_limit_eq] at observed
+    cases outcome with
+    | returned => simp [DeepExceptionBoundary.freeInterface]
+    | raised => simp [DeepExceptionBoundary.freeInterface]
+    | base => simp [DeepExceptionBoundary.freeInterface]
+    | free request =>
+        simp only [DeepExceptionBoundary.freeInterface, ne_eq,
+          Option.some.injEq]
+        exact deep_exception_boundary_limit_discharges typing handlerTyping
+          exhaustive observed
+
+def recursiveStateDischargeCert
+    (handlerTyping : HasAffineHandler sig [] interface handler clauseEffect)
+    (exhaustive : handler.Exhaustive sig interface)
+    (stateLaws : StateResponseLaws sig) (state : Bool) :
+    RecursiveDischargeCert
+      (recursiveStateBoundaryCert interface handler state) interface where
+  freeInterface := DeepStateBoundary.freeInterface
+  Good term := ∃ resultTy effect,
+    Nonempty (HasComp sig [] term resultTy effect)
+  discharge := by
+    intro term outcome good observed
+    obtain ⟨resultTy, effect, ⟨typing⟩⟩ := good
+    rw [recursiveStateBoundaryCert_limit_eq] at observed
+    cases outcome with
+    | returned => simp [DeepStateBoundary.freeInterface]
+    | base => simp [DeepStateBoundary.freeInterface]
+    | free request finalState =>
+        simp only [DeepStateBoundary.freeInterface, ne_eq,
+          Option.some.injEq]
+        exact deep_state_boundary_limit_discharges typing handlerTyping
+          exhaustive stateLaws observed
+
+structure RecursiveFiniteExtensionCert (Outcome : Type) (selected : Nat) where
+  boundary : RecursiveBoundaryCert Outcome
+  discharge : RecursiveDischargeCert boundary selected
+
+/-- Finite-boundary recursive structure-preservation theorem. -/
+theorem RecursiveFiniteExtensionCert.main
+    (cert : RecursiveFiniteExtensionCert Outcome selected) :
+    (cert.boundary.Runs term outcome ↔
+      cert.boundary.limit term = some outcome) ∧
+    (∀ {left right}, cert.boundary.Runs term left →
+      cert.boundary.Runs term right → left = right) ∧
+    (cert.discharge.Good term →
+      cert.boundary.limit term = some outcome →
+      cert.discharge.freeInterface outcome ≠ some selected) := by
+  exact ⟨cert.boundary.limit_adequacy,
+    fun first second => cert.boundary.runs_deterministic first second,
+    cert.discharge.discharge⟩
+
+def recursiveWriterExtensionCert
+    (handlerTyping : HasAffineHandler sig [] interface handler clauseEffect)
+    (exhaustive : handler.Exhaustive sig interface)
+    (writerUnit : WriterResponseUnit sig) :
+    RecursiveFiniteExtensionCert DeepWriterBoundary interface where
+  boundary := recursiveWriterBoundaryCert interface handler
+  discharge := recursiveWriterDischargeCert handlerTyping exhaustive writerUnit
+
+def recursiveExceptionExtensionCert
+    (handlerTyping : HasAffineHandler sig [] interface handler clauseEffect)
+    (exhaustive : handler.Exhaustive sig interface) :
+    RecursiveFiniteExtensionCert DeepExceptionBoundary interface where
+  boundary := recursiveExceptionBoundaryCert interface handler
+  discharge := recursiveExceptionDischargeCert handlerTyping exhaustive
+
+def recursiveStateExtensionCert
+    (handlerTyping : HasAffineHandler sig [] interface handler clauseEffect)
+    (exhaustive : handler.Exhaustive sig interface)
+    (stateLaws : StateResponseLaws sig) (state : Bool) :
+    RecursiveFiniteExtensionCert DeepStateBoundary interface where
+  boundary := recursiveStateBoundaryCert interface handler state
+  discharge := recursiveStateDischargeCert handlerTyping exhaustive stateLaws state
+
 end EffectSemantics

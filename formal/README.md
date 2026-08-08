@@ -162,10 +162,19 @@ the two least fixed points.
   stability, a direct run relation and finite adequacy.  Generic completion,
   limit adequacy, run determinism and the bottom/no-boundary characterization
   are derived; Writer, State and Exception inhabit the record.
+- `RecursiveDischargeCert` makes the additional good-term and outward-interface
+  conditions explicit and is instantiated from typedness, exhaustiveness and
+  the Writer/State/Exception response laws.
+- `RecursiveMorphismCert` and `RecursiveRelationCert` expose continuity,
+  one-layer commutation/preservation, binary admissibility and bottom as
+  separate fields; their fixed-point transport theorems are derived.
+- State and Exception now have their own type-indexed return/base/free
+  boundary relations (plus typed `raise` for Exception), admissible poles and
+  closed/open fundamental theorems under typed closing substitutions, matching
+  the previously completed Writer proof chain.
 
 Remaining work is now the audit and concrete instantiation of generic
-source/tree transport premises. Recursive Writer, State and Exception
-finite-boundary adequacy and generic fixed-point transport are no longer
-assumed.
+source/tree transport premises. The recursive model, discharge, morphism and
+relation package boundaries themselves are now machine checked.
 No `sorry`
 or project axiom is admitted in the checked library.

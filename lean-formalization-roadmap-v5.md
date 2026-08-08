@@ -392,6 +392,24 @@ limits are proved to coincide with the generic one.  This replaces the
 paper-level `RecursiveBaseAdequacy` black box for the finite-boundary layer by
 an explicit checked interface.
 
+The optional discharge and transport layers are now records as well.
+`RecursiveDischargeCert` adds a good-term predicate and a free-interface
+projection; the three bases instantiate it from source typing, handler typing,
+exhaustiveness and only their own response laws.  `RecursiveMorphismCert`
+lists source/target continuity and one-layer commutation.  Its relational
+counterpart lists both continuities, binary admissibility, bottom relatedness
+and one-layer preservation.  Fixed-point morphism/relation lifting is derived
+from these fields, so no conclusion is stored back as a certificate premise.
+
+The type-indexed fundamental layer is now replicated for State and Exception,
+not just operationally packaged.  Exception boundaries type return, residual
+requests and the raised error value; State boundaries type returns and
+residual requests while the response laws justify `get`/`put` resumptions.
+Their finite-observation poles are admissible, and both closed and open
+fundamental theorems hold under every typed closing substitution.  Thus all
+three concrete bases cover recursive source substitution, boundary typing,
+finite adequacy and selected-interface discharge.
+
 If the remaining M3 proof requires changing the syntax or effect transformer, update the research
 notes before proceeding to denotation.  If M5 fails while M1–M4 hold, treat it
 as an adequacy/observation problem rather than weakening operational safety.

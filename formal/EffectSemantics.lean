@@ -54,4 +54,6 @@ import EffectSemantics.Recursive.DeepWriterBoundaryAdequacy
 import EffectSemantics.Recursive.DeepExceptionBoundary
 import EffectSemantics.Recursive.DeepStateBoundary
 import EffectSemantics.Certificate.RecursiveModels
+import EffectSemantics.Certificate.RecursiveTransport
+import EffectSemantics.Recursive.OtherBoundaryLogicalRelations
 import EffectSemantics.Examples.DeepApprox
