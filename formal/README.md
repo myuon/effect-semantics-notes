@@ -172,6 +172,10 @@ the two least fixed points.
   boundary relations (plus typed `raise` for Exception), admissible poles and
   closed/open fundamental theorems under typed closing substitutions, matching
   the previously completed Writer proof chain.
+- old-language syntax is characterized by a recursive `BaseOnly` predicate;
+  it is preserved by renaming, arbitrary substitution, recursive self/argument
+  substitution, one internal step and finite multistep evaluation, which can
+  therefore never expose a newly added free request.
 
 Remaining work is now the audit and concrete instantiation of generic
 source/tree transport premises. The recursive model, discharge, morphism and

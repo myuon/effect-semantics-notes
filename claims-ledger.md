@@ -363,6 +363,7 @@
 | C-352 | Established in Lean | `RecursiveDischargeCert`はgood-term predicateとfree-interface projectionを追加し、Writer/Exception/Stateではsource typing、handler typing、exhaustivenessおよび各base固有response lawからinstance化される | C-343--C-351 | generic main theoremのfinite-boundary layerへ統合する |
 | C-353 | Established in Lean | `RecursiveMorphismCert`は両functionalのcontinuityとone-layer commutationを、`RecursiveRelationCert`は両continuity、binary admissibility、bottom、one-layer preservationを別fieldとして要求し、それぞれleast-fixed-point transportを導出する | C-347; no conclusion-as-premise | concrete source/tree transformationsのcompatibility instanceを検討する |
 | C-354 | Established in Lean | State/Exceptionにもtype-indexed outward-boundary relation、admissible pole、closed/open fundamental theoremが成立する。Exceptionはraised errorの型を保存し、Stateはresponse lawsでget/put resumptionを正当化するため、Writerを含む三base全てがrecursive substitutionからfinite-boundary typingまで同じ証明鎖を持つ | C-346; C-349--C-353; typed closing substitutions | generic finite recursive extension theoremの最終auditを行う |
+| C-355 | Established in Lean | free syntaxを含まない`BaseOnly` values/computationsはrenaming、arbitrary substitution、`subst0`、recursive `subst2`、one-stepおよびfinite multistep reductionで保存される。従ってold-language termは有限評価後にもnew free requestを露出しない | structural syntax predicate; recursive substitution metatheory | denotational old-language conservativityとの対応を監査する |
 
 ## 証明完了の基準
 

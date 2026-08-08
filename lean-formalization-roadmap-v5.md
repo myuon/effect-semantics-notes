@@ -410,6 +410,15 @@ fundamental theorems hold under every typed closing substitution.  Thus all
 three concrete bases cover recursive source substitution, boundary typing,
 finite adequacy and selected-interface discharge.
 
+The operational old-language conservativity item from M2 is now explicit as
+well.  A mutual `BaseOnly` predicate excludes free-operation syntax from
+values, lambda/fixpoint bodies and computations.  It is preserved by renaming,
+arbitrary simultaneous substitution, single substitution, recursive
+self/argument substitution, every internal step and finite multistep
+evaluation.  Consequently no finite reduction sequence starting from an old
+term can expose a newly added free request, including after recursive
+unfolding.
+
 If the remaining M3 proof requires changing the syntax or effect transformer, update the research
 notes before proceeding to denotation.  If M5 fails while M1–M4 hold, treat it
 as an adequacy/observation problem rather than weakening operational safety.
