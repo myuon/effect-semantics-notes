@@ -317,6 +317,15 @@ not smuggled into type preservation.  A richer boundary carrier is still
 needed to express that nonselected requests escape while selected requests do
 not.
 
+The outward-boundary carrier is now present.  It distinguishes finite return,
+old base request and free request boundaries while retaining the Writer log.
+Nonselected requests are observable rather than collapsed to bottom.  For a
+typed computation and a typed exhaustive handler, every observed outward free
+request is proved to have an interface different from the selected one.  This
+is the first mechanized semantic discharge theorem for the recursive model;
+the next refinement is stability/ω-completion of this richer carrier and its
+use as the computation pole of the fundamental relation.
+
 If the remaining M3 proof requires changing the syntax or effect transformer, update the research
 notes before proceeding to denotation.  If M5 fails while M1–M4 hold, treat it
 as an adequacy/observation problem rather than weakening operational safety.

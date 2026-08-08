@@ -118,6 +118,10 @@ Implemented and kernel-checked:
   observation returns a closed value at the original computation result type,
   while intermediate effect bounds remain existential rather than falsely
   exact.
+- an outward-boundary recursive Writer observer distinguishing return, base
+  request and free request; for typed exhaustive handlers, every finite free
+  boundary is proved different from the selected interface, giving a genuine
+  semantic discharge theorem rather than hiding requests as bottom.
 
 Typing derivations live in `Type` rather than `Prop`: this exposes the explicit
 subeffecting derivation tree needed by the terminating mutual transformation.
@@ -125,6 +129,6 @@ The associated inhabitation proposition can later be proof-irrelevant even
 though the checked certificate is retained as data.
 
 Remaining work is now concentrated in a full type-indexed fundamental
-relation and an outward-boundary model that states semantic effect discharge.
+relation, plus stability/completion of the richer outward-boundary observer.
 No `sorry`
 or project axiom is admitted in the checked library.
