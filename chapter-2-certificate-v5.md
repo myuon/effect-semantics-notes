@@ -183,9 +183,11 @@ $$
 
 acting by $q$ on base layers and identically on free generators.
 
-Likewise, a bind-compatible base logical relation lifts structurally through
-returns, base layers and free nodes.  The free-node clause relates equal
-operation tags, related parameters and pointwise-related continuations.
+Likewise, a bind-compatible base computation relation has a **structural
+lifting** $\mathsf{Str}_\Sigma(R)$ through returns, base layers and free nodes.
+The free-node clause relates equal operation tags, related parameters and
+pointwise-related continuations.  This is distinct from the observational
+graded TT-lifting used for adequacy.
 
 ## 8. Chapter-II structure-preservation theorem
 
@@ -204,7 +206,8 @@ $$
 &\eta^{\mathsf F},\mu^{\mathsf F},\mathsf{st}^{\mathsf F},
 \tau^{\mathsf F},\mathsf{op}^{\mathsf F},j,\\
 &\mathsf{monadlaw}_{\mathsf F},\mathsf{embedlaw},
-\mathsf{liftMor},\mathsf{liftRel},
+\mathsf{liftMor},\mathsf{structuralLift},\mathsf{graphLaw},
+\mathsf{ttTransport},
 \mathsf{adequate}_{\mathsf F}\;\}.
 \end{aligned}
 \tag{FreeCert}
@@ -262,7 +265,7 @@ j\circ\tau^T=\tau^{\mathsf F}\circ j.
 \tag{Embed}
 $$
 
-`liftMor` and `liftRel` have the quantified forms
+The morphism and relation fields have the quantified forms
 
 $$
 \begin{aligned}
@@ -270,10 +273,22 @@ $$
  \Rightarrow\exists!\widehat q:\mathsf F_\Sigma(T)
  \Rightarrow\mathsf F_\Sigma(U),\\
 &R\text{ bind/primitive-compatible}
- \Rightarrow\exists\widehat R\text{ closed under return, base layers,
- and free nodes}.
+ \Rightarrow\exists\mathsf{Str}_\Sigma(R)\text{ closed under return, base
+ layers, and free nodes},\\
+&\mathsf{Str}_\Sigma(\operatorname{Graph}q)
+ =\operatorname{Graph}(\mathsf F_\Sigma q),\\
+&\mathsf{TTCert}(T,U,\mathcal O)
+ \land\mathsf{PoleClosed}_\Sigma(\mathcal O^\Sigma)\\
+&\hspace{18mm}\Rightarrow
+ \mathsf{Str}_\Sigma(V^{\top\top})
+ \subseteq V^{\top_\Sigma\top_\Sigma}.
 \end{aligned}
 $$
+
+Thus `graphLaw` is an equality only for the least structural lifting.
+`ttTransport` maps it into the generally larger observational closure.  The
+grade-indexed pole and `TTCert` are defined in
+[Graded TT-lifting](graded-tt-lifting-v5.md).
 
 Finally, for every closed ground $M$,
 

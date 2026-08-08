@@ -56,7 +56,28 @@ domain/adequacy theorem, and the complete-Elgot resumption transformer.
 
 ## Relators and logical relations
 
-調べること:
+The active v5 organization uses the following primary anchors:
+
+- Katsumata, [A Semantic Formulation of TT-Lifting and Logical Predicates for
+  Computational Metalanguage](https://www.kurims.kyoto-u.ac.jp/~sinya/paper/csl05-69.pdf):
+  TT-lifting as a strong-monad lifting and source of the basic lemma.
+- Katsumata, [Relating Computational Effects by
+  TT-Lifting](https://group-mmm.org/~s-katsumata/paper/icalp2011-relating.pdf):
+  heterogeneous relations between two monadic interpretations and algebraic
+  operation compatibility.
+- Katsumata, [Parametric Effect Monads and Semantics of Effect
+  Systems](https://dl.acm.org/doi/10.1145/2535838.2535846):
+  TT-lifting for sequentially composed effect indices, directly relevant to
+  the ordered graded setting.
+- Katsumata, Sato and Uustalu, [Codensity Lifting of Monads and Its
+  Dual](https://lmcs.episciences.org/4924/pdf): a broader lifting construction
+  when categorical TT-lifting's fibrational hypotheses are too restrictive.
+
+Our precise use and notation are in [Graded TT-lifting and adequacy
+relations](graded-tt-lifting-v5.md).  In particular, the structural graph law
+is not conflated with observational TT-closure.
+
+Further work:
 
 - monad relators / simulations
 - two-sided $(S,T)$-relation lifting

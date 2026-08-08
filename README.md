@@ -30,11 +30,11 @@ effect annotation は、runtimeで起きうるeffectsを順序を保って上か
 
 1. [Ordered-effect research program v5](research-program-v5.md) — 現在の前提と全体構成
 2. [Functorial extension theorem](functorial-extension-theorem-v5.md) — 元の式 (2)--(4) への現在の主回答
-3. [Chapter I](chapter-1-foundations-v5.md) — 用語、基礎文法、base effect
-4. [Chapter II](chapter-2-free-operations-v5.md) — ordered free-operation extension
-5. [Chapter III](chapter-3-shallow-handlers-v5.md) — shallow handlerとeffect変換
-6. [Chapter IV](chapter-4-fixpoint-derived-deep-v5.md) — fixpointとdeep handlerの導出
-7. [Research map](research-map.md) — 新旧の研究線と現在地
+3. [Graded TT-lifting](graded-tt-lifting-v5.md) — structural relation、観測関係、adequacy の接続
+4. [Chapter I](chapter-1-foundations-v5.md) — 用語、基礎文法、base effect
+5. [Chapter II](chapter-2-free-operations-v5.md) — ordered free-operation extension
+6. [Chapter III](chapter-3-shallow-handlers-v5.md) — shallow handlerとeffect変換
+7. [Chapter IV](chapter-4-fixpoint-derived-deep-v5.md) — fixpointとdeep handlerの導出
 8. [Claims ledger](claims-ledger.md) — 既知・予想・未検証の台帳
 
 ## ステータス記法

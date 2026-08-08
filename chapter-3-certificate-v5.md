@@ -134,10 +134,22 @@ $$
 \begin{aligned}
 &\mathsf{FreeCert}(L_B+\Sigma,\widehat E,\mathcal K,\mathsf F_\Sigma(T))\\
 &\land\mathsf{HandlerCert}(\Delta,h,\Phi_h)
+\land\mathsf{TTCert}(S,T,\mathcal O)
 \land\mathsf{ConstructorSeparated}(\mathsf{observe}_{\mathsf F})
-\land\mathsf{clauseRel}_h.
+\land\mathsf{TTClause}_h.
 \end{aligned}
 $$
+
+Here `TTClause` means, for every operation clause,
+
+$$
+p_S\,V_P\,p_T
+\land k_S\mathrel{V_R^{\top}}k_T
+\Rightarrow
+h_S(p_S,k_S)\mathrel{V_C^{\top\top}}h_T(p_T,k_T),
+$$
+
+with the analogous value relation for return clauses.
 
 Then ground adequacy is preserved by the shallow handler:
 operational returns, base outcomes, matching replacements and forwarded
@@ -145,9 +157,10 @@ requests agree with the structural shallow denotation.
 
 ### Proof
 
-Combine Theorem III.4 with Chapter-II finite adequacy.  Clause computations use
-the fundamental relation for ordinary source terms; captured continuations use
-the pointwise continuation clause from `FreeCert`. $\square$
+Combine Theorem III.4 with Chapter-II finite adequacy.  Ordinary clause
+computations use the graded TT fundamental lemma; matching clauses use
+`TTClause`; forwarded continuations use orthogonality and pole closure.
+`observeReflect` converts the final TT relation into adequacy. $\square$
 
 ## 5. Conservativity
 
@@ -170,7 +183,8 @@ $$
 \begin{aligned}
 \mathsf{HandlerCert}(\Delta,h,\Phi_h):=\{\;&
 \mathsf{mono}_h,\mathsf{return}_h,\mathsf{match}_h,
-\mathsf{forward}_h,\mathsf{clauseRel}_h\;\}.
+\mathsf{forward}_h,\mathsf{structuralClause}_h,
+\mathsf{TTClause}_h\;\}.
 \end{aligned}
 \tag{HandlerCert}
 $$
@@ -199,9 +213,13 @@ e\leq f\Rightarrow\Phi_h(e)\leq\Phi_h(f),\\
 &\hspace{25mm}=
 \mathsf{op}_{\Gamma',j}
 (p,\lambda r.\mathsf{sh}_h(k(r))),\\
-\mathsf{clauseRel}_h:&\quad
-(p,k)\mathrel{\widehat R}(p',k')
-\Rightarrow H_i[p,k]\mathrel{\widehat R}h_i(p',k').
+\mathsf{structuralClause}_h:&\quad
+(p,k)\mathrel{\mathsf{Str}_\Delta(R)}(p',k')
+\Rightarrow H_i[p,k]\mathrel{\mathsf{Str}_\Delta(R)}h_i(p',k'),\\
+\mathsf{TTClause}_h:&\quad
+p_S\,V_P\,p_T\land k_S\mathrel{V_R^{\top}}k_T
+\Rightarrow
+h_S(p_S,k_S)\mathrel{V_C^{\top\top}}h_T(p_T,k_T).
 \end{aligned}
 $$
 
@@ -267,6 +285,8 @@ Let $P=(L_B+\Sigma,\widehat E,\mathcal K,\mathsf F_\Sigma(T))$.  The explicit th
 $$
 \begin{aligned}
 &\mathsf{FreeCert}(L_B+\Sigma,\widehat E,\mathcal K,\mathsf F_\Sigma(T))\\
+&\land\mathsf{TTCert}(S,T,\mathcal O)
+\land\mathsf{PoleClosed}_\Sigma(\mathcal O^\Sigma)\\
 &\land\Bigl(
  \mathsf{AffineCert}(\Delta,h,e')
  \land\Phi_h=\Phi_{\Delta,e'}

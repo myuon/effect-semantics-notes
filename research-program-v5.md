@@ -127,17 +127,22 @@ $$
 \begin{array}{c}
 T\mapsto\mathsf F_\Delta T
 \\[1mm]\Downarrow\\[-1mm]
-q\mapsto\mathsf F_\Delta q,quad
-R\mapsto\mathsf F_\Delta R
+q\mapsto\mathsf F_\Delta q,\quad
+R\mapsto\mathsf{Str}_\Delta R
 \\[1mm]\Downarrow\\[-1mm]
-\mathsf F_\Delta(\operatorname{Graph}q)
+\mathsf{Str}_\Delta(\operatorname{Graph}q)
 =\operatorname{Graph}(\mathsf F_\Delta q)
 \\[1mm]\Downarrow\\[-1mm]
-\text{compatible shallow handling and adequacy transport.}
+\mathsf{Str}_\Delta(V^{\top\top})
+\subseteq V^{\top_\Delta\top_\Delta}
+\\[1mm]\Downarrow\\[-1mm]
+\text{TT-compatible shallow handling and adequacy transport.}
 \end{array}
 $$
 
 Chapters I--III supply the definitions and detailed proofs behind this result.
+The [graded TT-lifting page](graded-tt-lifting-v5.md) separates structural
+generation from observational closure.
 Chapter IV is deliberately a second theorem: recursion invalidates finite
 normalization and requires domain-theoretic structure that is not part of the
 free-extension functor itself.

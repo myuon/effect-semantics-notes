@@ -101,7 +101,7 @@ This is the direct answer to the original equations (2) and (3).  It is not a
 theorem about every graded monad: existence of the displayed initial algebras
 and compatibility of $q$ are real premises.
 
-## 3. Relation lifting
+## 3. Structural relation lifting
 
 For a heterogeneous relation family
 
@@ -111,7 +111,7 @@ $$
 
 write $\mathsf{Compat}(R)$ when $R$ is closed under return, graded bind,
 strength, weakening, base primitives, and the declared observation relation.
-Define $\mathsf F_\Delta R$ inductively:
+Define $\mathsf{Str}_\Delta R$ inductively:
 
 - related returns contain related values;
 - related base layers use $R$ and pointwise-related continuations;
@@ -126,7 +126,7 @@ If $\mathsf{Compat}(R)$, then
 $$
 R:T\rightsquigarrow U
 \quad\longmapsto\quad
-\mathsf F_\Delta R:
+\mathsf{Str}_\Delta R:
 \mathsf F_\Delta T\rightsquigarrow\mathsf F_\Delta U
 $$
 
@@ -158,7 +158,7 @@ $$
 For every compatible $q$,
 
 $$
-\mathsf F_\Delta(\operatorname{Graph}(q))
+\mathsf{Str}_\Delta(\operatorname{Graph}(q))
 =
 \operatorname{Graph}(\mathsf F_\Delta(q)).
 \tag{Graph}
@@ -173,10 +173,47 @@ relation derivation.  In the base case use that the base relation is exactly
 $\operatorname{Graph}(q)$; in the free case use the induction hypothesis
 pointwise on every response. $\square$
 
-Thus the morphism and relation stories are not merely parallel: the relation
-construction is a genuine extension of the morphism construction.
+Thus the morphism and structural-relation stories are not merely parallel:
+the structural construction extends the morphism construction.  This equality
+is not asserted for the observational TT-closure introduced next.
 
-## 5. Shallow-handler compatibility
+## 5. Observational graded TT-lifting
+
+The structural relation records how two free carriers were generated.  For
+the fundamental lemma and adequacy, choose a grade-indexed observation pole
+$\mathcal O_e$ and lift a value relation $V$ by continuation
+biorthogonality:
+
+$$
+m\mathrel{V^{\top\top}_e}n
+\Longleftrightarrow
+\forall f\ \forall(k,\ell)\in V^{\top_f}.\quad
+m\gg=k\mathrel{\mathcal O_{e\cdot f}}n\gg=\ell.
+$$
+
+If the pole is coherent under weakening and closed under base and free
+constructors, then
+
+$$
+\mathsf{Str}_\Delta(V^{\top\top})
+\subseteq V^{\top_\Delta\top_\Delta}.
+\tag{Structural-TT}
+$$
+
+The inclusion may be strict because TT-closure identifies everything
+indistinguishable by the selected observations.  Hence, for a compatible
+observation-preserving morphism,
+
+$$
+\operatorname{Graph}(\mathsf F_\Delta q)
+=\mathsf{Str}_\Delta(\operatorname{Graph}q)
+\subseteq(\operatorname{Graph}q)^{\top_\Delta\top_\Delta}.
+$$
+
+The formal pole, orthogonality and closure conditions are specified in
+[Graded TT-lifting and adequacy relations](graded-tt-lifting-v5.md).
+
+## 6. Shallow-handler compatibility
 
 Fix a handler $h$ with a valid effect transformer $\Phi_h$.  A pair of
 handlers $(h_T,h_U)$ is $R$-compatible when their return clauses preserve the
@@ -195,8 +232,9 @@ $$
 $$
 
 where $q_h$ is the induced map between handler result carriers.  More
-generally, if inputs are related by $\mathsf F_\Delta R$, their shallow-handled
-outputs are related by the declared result relation.
+generally, if inputs are related by $\mathsf{Str}_\Delta R$, their
+shallow-handled outputs are structurally related.  If the clauses preserve the
+graded TT relation, the outputs are related by the result TT relation.
 :::
 
 **Proof.**  Induction over return, base layer, matching request and
@@ -208,16 +246,17 @@ The theorem deliberately does not claim that every handler is natural.  A
 handler that inspects representation-specific base data or violates the
 relation need not commute with $q$.
 
-## 6. Fundamental lemma and adequacy transport
+## 7. Fundamental lemma and adequacy transport
 
-Let the base relation reflect the selected ground $\mathcal K$-observation,
-and suppose the observation distinguishes returns, terminal base outcomes and
-free requests.
+Let a graded `TTCert` be generated from a base observation pole that reflects
+the selected ground $\mathcal K$-observation, and suppose the extended pole
+distinguishes returns, terminal base outcomes and free requests.
 
 :::{prf:theorem} Finite fundamental lemma and adequacy transport
 :label: thm-fundamental-adequacy-transport-v5
 
-Every well-typed recursion-free extended term is related to its denotation.
+Every well-typed recursion-free extended term is related to its denotation by
+the graded TT relation.
 Consequently, for every closed ground term $M$,
 
 $$
@@ -230,8 +269,9 @@ $$
 The equality is preserved after applying an $R$-compatible shallow handler.
 :::
 
-**Proof.**  The typing induction uses compatible-relation lifting for free
-operations and handler compatibility for the new handler form.  Reflection is
+**Proof.**  The typing induction uses the graded TT laws, structural lifting
+for free operations and TT-clause compatibility for the handler form.
+Reflection is
 an induction over the finite operational/free tree.  Base segments use
 `BaseCert`; free boundaries use constructor separation and pointwise
 continuation reflection.  Branches are combined by the response monad
@@ -241,11 +281,12 @@ For $\mathcal K=\mathsf{Id}$ this is ordinary single-result adequacy.  For
 $\mathcal K=\mathcal P$ it compares sets of outcomes, and for
 $\mathcal K=\mathsf{SubDist}$ it compares outcome probabilities.
 
-## 7. Exact answer and boundary
+## 8. Exact answer and boundary
 
 The original question now receives the following answer:
 
-> Free first-order operations form a functorial, relation-respecting and
+> Free first-order operations form a functorial, structurally
+> relation-respecting and
 > adequacy-preserving extension of every base package satisfying `BaseCert`
 > and the finite initial-algebra hypotheses.  Compatible shallow handlers act
 > naturally on that extension.  These properties are transported, not
@@ -258,13 +299,14 @@ Chapter IV replaces finite induction by continuity, admissibility and
 fixed-point induction; its result is a further conditional extension of this
 recursion-free theorem, not part of functoriality for free operations alone.
 
-## 8. Proof dependencies
+## 9. Proof dependencies
 
 | conclusion | indispensable input | detailed source |
 |---|---|---|
 | object construction and monad laws | polynomial initial algebra, strong graded base | [Chapter II proofs](chapter-2-proof-details-v5.md) |
 | functor laws | initiality and compatible morphisms | [Chapter II certificate](chapter-2-certificate-v5.md) |
-| relation and graph lifting | compatible base relation, structural free carrier | [Chapter II proofs](chapter-2-proof-details-v5.md) |
-| handler naturality | related clauses and effect transformer | [Chapter III proofs](chapter-3-proof-details-v5.md) |
-| adequacy transport | `BaseCert`, branchwise normalization, constructor separation | [Chapter I certificate](chapter-1-certificate-v5.md) |
+| structural relation and graph lifting | compatible base relation, structural free carrier | [Chapter II proofs](chapter-2-proof-details-v5.md) |
+| observational relation | coherent pole and graded `TTCert` | [Graded TT-lifting](graded-tt-lifting-v5.md) |
+| handler naturality | structural/TT-related clauses and effect transformer | [Chapter III proofs](chapter-3-proof-details-v5.md) |
+| adequacy transport | `BaseCert`, graded `TTCert`, branchwise normalization, constructor separation | [Chapter I certificate](chapter-1-certificate-v5.md) |
 | recursive/deep extension | continuity, admissibility, fixpoint agreement | [Chapter IV certificate](chapter-4-certificate-v5.md) |

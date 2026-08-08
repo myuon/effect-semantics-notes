@@ -186,7 +186,8 @@ For exhaustive affine clauses, with $b$ containing no $\Delta$, prove:
 2. soundness of the ordered effect-bound transformer;
 3. preservation and effect-aware progress;
 4. compatibility with the base embedding;
-5. lifting of base logical relations through the handler equations;
+5. preservation of the structural relation and graded TT relation through
+   the handler equations;
 6. ground adequacy inherited from the finite free-tree model.
 
 The general discard/multi-shot calculus is recorded, but its strongest precise

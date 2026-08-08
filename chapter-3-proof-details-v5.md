@@ -68,12 +68,14 @@ exhaustive. $\square$
 
 ## 5. Adequacy and conservativity
 
-Extend the Chapter-II relation with a handled-computation clause.  The four
-cases of the commutation proof preserve it: return uses the related return
-clause, base layers use `FreeCert`, match uses the related clause and pointwise
-continuation relation, and forwarding uses constructor separation.  Induction
-on finite height yields adequacy and reflection at the declared ground
-observations.
+Use the Chapter-II structural relation to follow the four free-carrier cases,
+and the extended graded TT relation to express observational compatibility.
+Return uses the TT-related return clauses; base layers use `TTCert`; match uses
+`TTClause` with orthogonal captured continuations; forwarding uses pole closure
+and the pointwise induction hypothesis.  The structural-to-TT inclusion moves
+the constructor induction into the observational relation.  Induction on
+finite height followed by `observeReflect` yields adequacy and reflection at
+the declared ground observations.
 
 No handler rule has a handler-free left-hand side, and the interpretation of
 old constructs is unchanged; syntactic and denotational induction therefore

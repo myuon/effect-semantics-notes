@@ -67,30 +67,41 @@ separate syntax induction: no new rule has an old left-hand side.
 
 ## 4. Adequacy lifting
 
-Define a relation $R_A$ between closed computations and free denotations:
+Choose the operational/denotational observation pole supplied by `BaseCert`.
+Its graded TT-lifting gives a base computation relation
+$V_A^{\top\top}$.  Structurally lift it to
+$\mathsf{Str}_\Delta(V_A^{\top\top})$ between closed computations and free
+denotations:
 
 - returns relate when their values do;
 - classified base outcomes relate by `BaseCert`;
 - free requests relate only when tags and parameters relate and, for every
   related response, their continuations are again in $R$.
 
-Because the calculus is recursion-free, assign each computation the finite
+Pole closure gives
+$\mathsf{Str}_\Delta(V_A^{\top\top})\subseteq
+V_A^{\top_\Delta\top_\Delta}$.  Because the calculus is recursion-free, assign each computation the finite
 height of its operational/free tree.  Prove the fundamental statement by
 induction on this height, with a subsidiary typing induction for source
 constructors.  A maximal initial base segment is discharged by base adequacy.
 At a free boundary, constructor separation identifies the unique tag and the
 height strictly decreases after any response.  This proves both preservation
-and reflection of returns, old outcomes, and free requests.
+and reflection of returns, old outcomes, and free requests; `observeReflect`
+turns the final TT relation into adequacy.
 
 ## 5. Morphisms and relations
 
 For a compatible $q:T\Rightarrow U$, equip the target free carrier with the
 source algebra transported by $q$.  Initiality yields $\mathsf F(q)$.
 Identity and composition follow because the competing lifts agree on all
-three constructors.  For a compatible logical relation, define the free
-relation by the three clauses above and prove bind closure by induction on the
-left tree.  Thus all seven components of `FreeCert` follow without inspecting
-an opaque base computation.
+three constructors.  For a compatible logical relation, define the least
+structural free relation $\mathsf{Str}_\Delta(R)$ by the three clauses above and
+prove bind closure by induction on the left tree.  The separate TT transport
+then proves
+$\mathsf{Str}_\Delta(V^{\top\top})\subseteq
+V^{\top_\Delta\top_\Delta}$ from pole closure.  Thus the relation components of
+`FreeCert` follow without identifying structural generation with
+observational closure.
 
 :::{prf:theorem} Graph lemma
 :label: thm-ii-graph-lemma-detail-v5
@@ -98,7 +109,7 @@ an opaque base computation.
 For every compatible $q:T\Rightarrow U$,
 
 $$
-\mathsf F_\Delta(\operatorname{Graph}q)
+\mathsf{Str}_\Delta(\operatorname{Graph}q)
 =\operatorname{Graph}(\mathsf F_\Delta q).
 $$
 :::
