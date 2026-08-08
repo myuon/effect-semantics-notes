@@ -189,5 +189,6 @@ $$
 =\mathsf{observe}(\llbracket M\rrbracket)(o).
 $$
 
-These four proofs establish every field claimed by `BaseCert`; determinism is
+These four proofs establish the corresponding fields of the split
+`BaseSafetyCert`, `BaseModelCert` and `BaseAdequacyCert`; determinism is
 an instance property, not a certificate premise.

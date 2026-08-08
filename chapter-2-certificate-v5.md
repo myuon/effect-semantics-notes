@@ -141,7 +141,11 @@ observations.
 Assume
 
 $$
-\mathsf{BaseCert}(L_B,E_B,\mathcal K,T,\mathsf{obs}_B)
+\mathsf{BaseSafetyCert}(L_B,E_B,\mathcal K)
+\land\mathsf{BaseModelCert}(L_B,E_B,T)
+\land\mathsf{BaseAdequacyCert}
+(L_B,\mathcal K,T,\mathsf{obs}_B,\mathsf{observe}_T)
+\land\mathsf{FiniteResponseCert}(\mathcal K)
 \land\mathsf{CarrierCert}(\mathsf F_\Sigma(T))
 \land\mathsf{MonadExtCert}(\mathsf F_\Sigma(T),\mathsf{baseAct})
 \land\mathsf{WellFounded}(\mathsf F_\Sigma(T))
@@ -185,11 +189,18 @@ $$
 
 acting by $q$ on base layers and identically on free generators.
 
-Likewise, a bind-compatible base computation relation has a **structural
-lifting** $\mathsf{Str}_\Sigma(R)$ through returns, base layers and free nodes.
-The free-node clause relates equal operation tags, related parameters and
-pointwise-related continuations.  This is distinct from the observational
-graded TT-lifting used for adequacy.
+Likewise, a compatible graded base relator
+
+$$
+\overline{T,U}_b(R)\subseteq T_bX\times U_bY
+$$
+
+has a **structural lifting** $\mathsf{Str}_\Sigma(R)$ through returns, related
+base layers and free nodes. The relator is applied to the recursively generated
+payload relation and must commute with the two `baseAct` maps. The free-node
+clause relates equal operation tags, related parameters and pointwise-related
+continuations. This is distinct from the observational graded TT-lifting used
+for adequacy.
 
 ## 8. Chapter-II structure-preservation theorem
 
@@ -277,10 +288,10 @@ $$
 &q:T\Rightarrow U\text{ compatible}
  \Rightarrow\exists!\widehat q:\mathsf F_\Sigma(T)
  \Rightarrow\mathsf F_\Sigma(U),\\
-&R\text{ bind/primitive-compatible}
- \Rightarrow\exists\mathsf{Str}_\Sigma(R)\text{ closed under return, base
- layers, and free nodes},\\
-&\mathsf{Str}_\Sigma(\operatorname{Graph}q)
+&\overline{T,U}\text{ a compatible graded relator}
+ \Rightarrow\exists\mathsf{Str}_\Sigma(R)\text{ closed under return, related
+ base layers, free nodes and bind},\\
+&\mathsf{Str}_\Sigma(\overline q)
  =\operatorname{Graph}(\mathsf F_\Sigma q),\\
 &\mathsf{TTCert}(T,U,\mathcal O)
  \land\mathsf{PoleClosed}_\Sigma(\mathcal O^\Sigma)\\
@@ -293,6 +304,18 @@ $$
 Here compatibility of $q$ includes the
 [base-action square](base-action-law-v5.md), in addition to preservation of
 the old graded monad operations.
+
+Compatibility of $\overline{T,U}$ includes monotonicity and naturality in the
+payload relation, return/bind/strength/weakening/primitive closure and
+
+$$
+u\mathrel{\overline{T,U}_b(\mathsf{Str}_{\Sigma,d}(R))}v
+\Rightarrow
+\mathsf{act}^T_{b,d}(u)
+\mathrel{\mathsf{Str}_{\Sigma,bd}(R)}
+\mathsf{act}^U_{b,d}(v).
+\tag{Free-Rel-Act}
+$$
 
 Thus `graphLaw` is an equality only for the least structural lifting.
 `ttTransport` maps it into the generally larger observational closure.  The
@@ -323,8 +346,7 @@ Let $P=(L_B,E_B,\mathcal K,T,\mathsf{obs}_B)$.  Assume:
    under the products required by strength, and its carrier has the coherent
    base action $T_b(\mathsf F_dA)\to\mathsf F_{b\cdot d}A$;
 4. the extended effect preorder cannot erase a visible $\Sigma$ factor;
-5. $\mathcal K$ has finite response support and supports the finite Kleisli
-   compositions used by recursion-free evaluation;
+5. $\mathsf{FiniteResponseCert}(\mathcal K)$ holds;
 6. the extended observation separates returns, base outcomes and free
    requests.
 

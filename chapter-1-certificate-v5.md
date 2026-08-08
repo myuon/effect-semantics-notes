@@ -223,33 +223,67 @@ the returned value.
 
 ## 7. The Chapter-I structure theorem
 
-### Definition I.1 — `BaseCert`
+### Definition I.1 — split base certificates
 
-For a base calculus $L_B$, an ordered effect algebra
-$E_B=(B,1,\cdot,\leq)$, a response monad $\mathcal K$, a graded interpretation
-$T$, and observations $\mathsf{obs}_B,\mathsf{observe}_T$ are given.  We say
-that
-
-$$
-\mathsf{BaseCert}(L_B,E_B,\mathcal K,T,\mathsf{obs}_B)
-$$
-
-holds when the following conditions are satisfied.
+For a base calculus $L_B$, ordered effect algebra
+$E_B=(B,1,\cdot,\leq)$ and response monad $\mathcal K$, define
+$\mathsf{BaseSafetyCert}(L_B,E_B,\mathcal K)$ by:
 
 1. **Operational metatheory.** Substitution and support-wise preservation hold,
    and each closed term has one selected return/redex/request position.
 2. **Typed response structure.** Every primitive has a typed
    $\mathcal K$-response; every supported recursion-free branch terminates; and
    executed primitives are covered by the declared effect bound.
-3. **Graded semantic structure.** $T$ has return, multiplication, strength,
+
+For a graded interpretation $T$, define
+$\mathsf{BaseModelCert}(L_B,E_B,T)$ by:
+
+1. **Graded semantic structure.** $T$ has return, multiplication, strength,
    coherent weakening and interpretations of all base primitives, satisfying
    the graded monad and weakening laws.
-4. **Semantic soundness.** Semantic substitution, internal-reduction
-   soundness and primitive-response soundness hold.
-5. **Observation adequacy.** Closed ground operational and denotational
-   observations agree in $\mathcal K$.
+2. **Semantic soundness.** Semantic substitution and internal-reduction
+   soundness hold.
 
-Conditions (1) and (2) are written formally as follows:
+Finally,
+$\mathsf{BaseAdequacyCert}(L_B,\mathcal K,T,
+\mathsf{obs}_B,\mathsf{observe}_T)$ means that primitive responses agree with
+their denotational observations and closed ground operational and
+denotational observations agree in $\mathcal K$. Retain the bundled name as
+
+$$
+\begin{aligned}
+&\mathsf{BaseCert}(L_B,E_B,\mathcal K,T,\mathsf{obs}_B)\\
+&\quad:\Longleftrightarrow
+\mathsf{BaseSafetyCert}(L_B,E_B,\mathcal K)
+\land\mathsf{BaseModelCert}(L_B,E_B,T)\\
+&\qquad\land
+\mathsf{BaseAdequacyCert}(L_B,\mathcal K,T,
+\mathsf{obs}_B,\mathsf{observe}_T).
+\end{aligned}
+\tag{Base-Split}
+$$
+
+End-to-end examples may use `BaseCert`; transport theorems cite only the
+component certificates they actually use.
+
+For the recursion-free adequacy theorem, define
+$\mathsf{FiniteResponseCert}(\mathcal K)$ by the following additional
+conditions.
+
+1. Every primitive response has finite support, and Kleisli composition of
+   finitely supported responses is again finitely supported.
+2. `map`, return and Kleisli composition satisfy the monad laws on these
+   supports.
+3. The return, terminal-base and free-request injections used by the
+   observation object remain pairwise disjoint after applying $\mathcal K$.
+4. Operation tags are reflected, and every response type quantified over by a
+   free-request observation is finite.
+
+This certificate is not part of `BaseModelCert`: it is needed only for the
+finite observation tree and its reflection theorem. `Id`, finite powerset and
+finitely supported subdistribution satisfy it for finite response types.
+
+The `BaseSafetyCert` fields are written formally as follows:
 
 $$
 \begin{aligned}
@@ -279,7 +313,7 @@ $$
 \end{aligned}
 $$
 
-$\dot\vee$ denotes mutually exclusive alternatives.  Condition (3) requires
+$\dot\vee$ denotes mutually exclusive alternatives.  `BaseModelCert` requires
 the following semantic data:
 
 $$
@@ -306,7 +340,8 @@ $$
 $$
 
 and compatibility of $\tau$ with $\eta,\mu,\mathsf{st}$ and every
-$\beta^T$.  Conditions (4) and (5) are:
+$\beta^T$. The remaining `BaseModelCert` fields are `semsubst` and `redsnd`;
+`respSound` and `adequate` belong to `BaseAdequacyCert`:
 
 $$
 \begin{aligned}

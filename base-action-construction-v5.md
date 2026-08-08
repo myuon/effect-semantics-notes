@@ -112,7 +112,7 @@ $$
 Naturality of the induced initial-algebra fold then proves `Act-Morphism` by
 following `(Construct-Act)` componentwise.  Thus this condition gives a
 non-circular, readily checked class of arrows in
-$\mathbf{ExtBase}_{\Delta,\mathcal K}$.
+$\mathbf{ExtBase}^{\mathrm{str}}_\Delta$.
 
 ## 5. What is and is not established
 
@@ -126,4 +126,3 @@ initial algebras but admitting no coherent base action at all.  Therefore the
 strong independence claim is left open.  The safe main theorem either assumes
 `baseAct`, derives it by this theorem, or constructs it directly in the
 concrete instance.
-

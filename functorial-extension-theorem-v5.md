@@ -36,20 +36,19 @@ extension or the existence of free-operation constructors.
 
 Fix a base syntax $L_B$, ordered effect algebra $E_B$, response monad
 $\mathcal K$, observation interface, and a first-order interface $\Delta$.
-Let $\mathbf{ExtBase}_{\Delta,\mathcal K}$ have:
+Let $\mathbf{ExtBase}^{\mathrm{str}}_\Delta$ have:
 
 - objects $T$ for which
-  $\mathsf{BaseCert}(L_B,E_B,\mathcal K,T,\mathsf{obs}_B)$ holds and the
+  $\mathsf{BaseModelCert}(L_B,E_B,T)$ holds and the
   indexed free layers admit initial algebras equipped with a coherent
-  $\mathsf{baseAct}$ and canonical separated pole;
+  $\mathsf{baseAct}$;
 - morphisms $q:T\Rightarrow U$ preserving graded return, bind, strength,
-  coherent weakening, primitive interpretations, and the selected
-  $\mathcal K$-observation, whose induced initial-algebra fold also commutes
-  with $\mathsf{baseAct}$;
+  coherent weakening and primitive interpretations, whose induced
+  initial-algebra fold also commutes with $\mathsf{baseAct}$;
 - identities and composition inherited from graded natural transformations.
 
-Let $\mathbf{Free}_{\Delta,\mathcal K}$ contain the corresponding finite free
-extensions carrying `FreeCert`.  We assume the required polynomial initial
+Let $\mathbf{Free}^{\mathrm{str}}_\Delta$ contain the corresponding finite free
+extensions carrying the carrier and monadic fields of `FreeCert`. We assume the required polynomial initial
 algebras and base actions exist and the extended preorder does not erase a
 visible $\Delta$ factor.  The full object and morphism definitions are in
 [Categories of extensible semantic packages](package-categories-v5.md).
@@ -63,9 +62,9 @@ There is a functor
 
 $$
 \mathsf F_\Delta:
-\mathbf{ExtBase}_{\Delta,\mathcal K}
+\mathbf{ExtBase}^{\mathrm{str}}_\Delta
 \longrightarrow
-\mathbf{Free}_{\Delta,\mathcal K}
+\mathbf{Free}^{\mathrm{str}}_\Delta
 $$
 
 with object action
@@ -98,8 +97,7 @@ $$
 $$
 
 Every output object preserves graded monad laws, strength, coherent
-subeffecting, the canonical base embedding, operational conservativity,
-effect safety and finite $\mathcal K$-structured adequacy.
+subeffecting, the canonical base embedding and the free generators.
 :::
 
 **Proof.**  Initiality defines the carrier fold and arrow map; the base action
@@ -110,6 +108,11 @@ actions on returns, base layers and $\Delta$ generators, so initiality makes
 them equal.  The remaining fields are exactly `Free-Transport` from Chapter
 II. $\square$
 
+Operational conservativity and effect safety are supplied separately by
+`BaseSafetyCert + OpExt`. Finite $\mathcal K$-adequacy is a corollary after
+restricting to the observed subcategory and adding `FiniteTTCert`; neither is
+a field of the structural functor.
+
 Here $\mathcal H_A$ is the indexed base-prefix/free-request layer from the
 [grade-indexed carrier construction](grade-indexed-free-carrier-v5.md).
 This is the direct answer to the original equations (2) and (3).  It is not a
@@ -118,28 +121,30 @@ and compatibility of $q$ are real premises.
 
 ## 3. Structural relation lifting
 
-For a heterogeneous relation family
+For a heterogeneous value relation $R\subseteq X\times Y$, assume a graded
+base relator
 
 $$
-R_{e,A}\subseteq T_eA\times U_eA,
+\overline{T,U}_e(R)\subseteq T_eX\times U_eY.
 $$
 
-write $\mathsf{Compat}(R)$ when $R$ is closed under return, graded bind,
-strength, weakening, base primitives, and the declared observation relation.
-Define $\mathsf{Str}_\Delta R$ inductively:
+Write $\mathsf{Compat}(\overline{T,U})$ when this relator is monotone, natural
+and closed under return, graded bind, strength, weakening, base primitives and
+the two `baseAct` maps. Define $\mathsf{Str}_\Delta R$ inductively:
 
 - related returns contain related values;
-- related base layers use $R$ and pointwise-related continuations;
+- related base layers use $\overline{T,U}_b$ on the recursively generated
+  return/free-node payload relation;
 - related free nodes have the same operation tag, related parameters and
   pointwise-related continuations.
 
 :::{prf:theorem} Compatible-relation lifting
 :label: thm-compatible-relation-lifting-v5
 
-If $\mathsf{Compat}(R)$, then
+If $\mathsf{Compat}(\overline{T,U})$, then
 
 $$
-R:T\rightsquigarrow U
+\overline{T,U}:T\rightsquigarrow U
 \quad\longmapsto\quad
 \mathsf{Str}_\Delta R:
 \mathsf F_\Delta T\rightsquigarrow\mathsf F_\Delta U
@@ -150,8 +155,9 @@ primitives and new free generators.  It preserves return and separated finite
 observation reflection.
 :::
 
-**Proof.**  Structural induction over the finite free carrier.  The base case
-uses $\mathsf{Compat}(R)$; the free case uses the pointwise continuation
+**Proof.** Structural induction over the finite free carrier. The base case
+uses the relator on the recursively generated payload relation; the free case
+uses the pointwise continuation
 hypothesis.  Bind closure is a second induction on the left carrier.  Ground
 reflection follows by constructor separation and base reflection. $\square$
 
@@ -160,12 +166,16 @@ do not lift, but structure-compatible relations do.
 
 ## 4. Graph lemma
 
-For a compatible morphism $q:T\Rightarrow U$, define
+For a compatible morphism $q:T\Rightarrow U$, use its graph relator, required
+for every $f:X\to Y$ to satisfy
 
 $$
-\operatorname{Graph}(q)_{e,A}
-=\{(x,q_{e,A}(x))\mid x\in T_eA\}.
+\overline{T,U}_e(\operatorname{Graph}f)
+=\operatorname{Graph}(U_ef\circ q_{e,X}).
+\tag{Base-Graph-Relator}
 $$
+
+Write this relator as $\overline q$.
 
 :::{prf:theorem} Graph lifting agrees with morphism lifting
 :label: thm-graph-lifting-v5
@@ -173,7 +183,7 @@ $$
 For every compatible $q$,
 
 $$
-\mathsf{Str}_\Delta(\operatorname{Graph}(q))
+\mathsf{Str}_\Delta(\overline q)
 =
 \operatorname{Graph}(\mathsf F_\Delta(q)).
 \tag{Graph}
@@ -184,8 +194,8 @@ $$
 relation shows that its right component is obtained by applying the unique
 fold $\mathsf F_\Delta(q)$.  From right to left, induction over the source
 free carrier constructs the corresponding return, base-layer or free-node
-relation derivation.  In the base case use that the base relation is exactly
-$\operatorname{Graph}(q)$; in the free case use the induction hypothesis
+relation derivation. In the base case use `(Base-Graph-Relator)` with the
+recursively induced payload map; in the free case use the induction hypothesis
 pointwise on every response. $\square$
 
 Thus the morphism and structural-relation stories are not merely parallel:
@@ -221,7 +231,7 @@ observation-preserving morphism,
 
 $$
 \operatorname{Graph}(\mathsf F_\Delta q)
-=\mathsf{Str}_\Delta(\operatorname{Graph}q)
+=\mathsf{Str}_\Delta(\overline q)
 \subseteq(\operatorname{Graph}q)^{\top_\Delta\top_\Delta}.
 $$
 
@@ -288,7 +298,7 @@ The equality is preserved after applying an $R$-compatible shallow handler.
 for free operations and TT-clause compatibility for the handler form.
 Reflection is
 an induction over the finite operational/free tree.  Base segments use
-`BaseCert`; free boundaries use constructor separation and pointwise
+`BaseAdequacyCert`; free boundaries use constructor separation and pointwise
 continuation reflection.  Branches are combined by the response monad
 $\mathcal K$. $\square$
 
@@ -302,7 +312,8 @@ The original question now receives the following answer:
 
 > Free first-order operations form a functorial, structurally
 > relation-respecting and
-> adequacy-preserving extension of every base package satisfying `BaseCert`
+> adequacy-preserving extension of every base package satisfying the split
+> safety, model and adequacy certificates
 > and the finite initial-algebra hypotheses.  Compatible shallow handlers act
 > naturally on that extension.  These properties are transported, not
 > recreated, from the base structure.
@@ -323,5 +334,5 @@ recursion-free theorem, not part of functoriality for free operations alone.
 | structural relation and graph lifting | compatible base relation, structural free carrier | [Chapter II proofs](chapter-2-proof-details-v5.md) |
 | observational relation | coherent pole and graded `TTCert` | [Graded TT-lifting](graded-tt-lifting-v5.md) |
 | handler naturality | structural/TT-related clauses and effect transformer | [Chapter III proofs](chapter-3-proof-details-v5.md) |
-| adequacy transport | `BaseCert`, graded `TTCert`, branchwise normalization, constructor separation | [Chapter I certificate](chapter-1-certificate-v5.md) |
+| adequacy transport | `BaseSafetyCert`, `BaseModelCert`, `BaseAdequacyCert`, graded `TTCert`, branchwise normalization, constructor separation | [Chapter I certificate](chapter-1-certificate-v5.md) |
 | recursive/deep extension | continuity, admissibility, fixpoint agreement | [Chapter IV certificate](chapter-4-certificate-v5.md) |

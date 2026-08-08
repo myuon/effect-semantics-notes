@@ -101,7 +101,7 @@ should preserve:
 - old-syntax operational and observational conservativity;
 - ordered upper-bound effect safety;
 - the monad/graded sequencing laws of the finite tree extension;
-- base morphisms by functorial lifting, compatible relations by the least
+- base morphisms by functorial lifting, compatible graded relators by the least
   structural lifting, and observational relations by graded TT-lifting;
 - adequacy after choosing an observation for unhandled requests.
 

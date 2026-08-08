@@ -67,14 +67,16 @@ separate syntax induction: no new rule has an old left-hand side.
 
 ## 4. Adequacy lifting
 
-Choose the operational/denotational observation pole supplied by `BaseCert`.
+Choose the operational/denotational observation pole supplied by
+`BaseAdequacyCert`; semantic bind and primitive compatibility come from
+`BaseModelCert`.
 Its graded TT-lifting gives a base computation relation
 $V_A^{\top\top}$.  Structurally lift it to
 $\mathsf{Str}_\Delta(V_A^{\top\top})$ between closed computations and free
 denotations:
 
 - returns relate when their values do;
-- classified base outcomes relate by `BaseCert`;
+- classified base outcomes relate by `BaseAdequacyCert`;
 - free requests relate only when tags and parameters relate and, for every
   related response, their continuations are again in $R$.
 
@@ -94,9 +96,11 @@ turns the final TT relation into adequacy.
 For a compatible $q:T\Rightarrow U$, equip the target free carrier with the
 source algebra transported by $q$.  Initiality yields $\mathsf F(q)$.
 Identity and composition follow because the competing lifts agree on all
-three constructors.  For a compatible logical relation, define the least
-structural free relation $\mathsf{Str}_\Delta(R)$ by the three clauses above and
-prove bind closure by induction on the left tree.  The separate TT transport
+three constructors. For a compatible graded relator
+$\overline{T,U}_b(R)$, define the least structural free relation
+$\mathsf{Str}_\Delta(R)$ by applying the relator to the recursively generated
+base-layer payload relation. Prove bind closure by induction on the left tree;
+the base case is exactly `Rel-Act`. The separate TT transport
 then proves
 $\mathsf{Str}_\Delta(V^{\top\top})\subseteq
 V^{\top_\Delta\top_\Delta}$ from pole closure.  Thus the relation components of
@@ -109,7 +113,7 @@ observational closure.
 For every compatible $q:T\Rightarrow U$,
 
 $$
-\mathsf{Str}_\Delta(\operatorname{Graph}q)
+\mathsf{Str}_\Delta(\overline q)
 =\operatorname{Graph}(\mathsf F_\Delta q).
 $$
 :::

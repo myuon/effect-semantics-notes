@@ -12,7 +12,7 @@ entire language extension.
 ### O — operational extension
 
 `OpExt` consists of the new operation syntax, typing rule, evaluation
-contexts and exposed-request boundary. It uses the fixed `BaseCert` syntax
+contexts and exposed-request boundary. It uses `BaseSafetyCert`
 and response kernel, but no denotational initial algebra.
 
 ### C — indexed carrier
@@ -51,7 +51,7 @@ requires `MonadExtCert` and compatibility of $R$ with the two base actions.
 
 ### T — observation and adequacy
 
-`FiniteTTCert` adds a finite-response $\mathcal K$, a well-founded operational
+`FiniteTTCert` adds $\mathsf{FiniteResponseCert}(\mathcal K)$, a well-founded operational
 response tree, the canonical separated observation algebra and closure of the
 base pole. The typing fundamental lemma also uses `MonadExtCert`, because
 source `let` is interpreted by extended bind.
@@ -93,14 +93,15 @@ model; it is required for the original object-and-morphism transport claim.
 
 For the fixed Chapter-I language and first-order interface $\Delta$:
 
-1. `BaseCert + OpExt` preserves operational safety and old-language
+1. `BaseSafetyCert + OpExt` preserves operational safety and old-language
    operational behavior.
 2. Adding `CarrierCert` gives a coherent indexed semantic carrier with old
    and new generators.
 3. Adding `MonadExtCert` makes that carrier a strong graded monad and makes
    the base embedding monadic.
 4. Adding `FunctorCert` lifts compatible base morphisms functorially.
-5. Adding `RelCert + FiniteTTCert` transports the finite fundamental lemma and
+5. Adding a graded base relator with `Rel-Act`, together with
+   `RelCert + FiniteTTCert`, transports the finite fundamental lemma and
    adequacy.
 6. Adding `ShallowExtCert` transports the corresponding operational,
    denotational and observational handler properties.
@@ -130,4 +131,3 @@ Adequacy and handler compatibility are not additional miracles: after level
 genuine semantic obstruction is not the existence of free-operation nodes;
 it is composition of an opaque old computation with an extended
 continuation.
-
