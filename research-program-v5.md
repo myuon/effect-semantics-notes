@@ -147,6 +147,13 @@ Chapter IV is deliberately a second theorem: recursion invalidates finite
 normalization and requires domain-theoretic structure that is not part of the
 free-extension functor itself.
 
+The source of this functor is not the category of all graded monads.  Its
+objects are the [extensible semantic packages](package-categories-v5.md) that
+also supply indexed initial algebras and a coherent
+[base action](base-action-law-v5.md).  This restriction is substantive:
+graded monad laws alone do not determine how an opaque old computation acts
+on a newly extended carrier.
+
 At each extension boundary we separately test:
 
 - type safety and unique evaluation-position decomposition;
@@ -182,8 +189,8 @@ bundles of “good properties.”  The cumulative theorem is read in three stage
 In symbols, the conclusions are
 
 $$
-\mathsf{FreeCert},qquad
-\mathsf{ShallowCert},qquad
+\mathsf{FreeCert},\qquad
+\mathsf{ShallowCert},\qquad
 \mathsf{DeepCert},
 $$
 

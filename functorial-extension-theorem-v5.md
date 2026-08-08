@@ -30,19 +30,23 @@ theorem about the resulting map.
 
 Fix a base syntax $L_B$, ordered effect algebra $E_B$, response monad
 $\mathcal K$, observation interface, and a first-order interface $\Delta$.
-Let $\mathbf{Base}_{\mathcal K}$ have:
+Let $\mathbf{ExtBase}_{\Delta,\mathcal K}$ have:
 
 - objects $T$ for which
-  $\mathsf{BaseCert}(L_B,E_B,\mathcal K,T,\mathsf{obs}_B)$ holds;
+  $\mathsf{BaseCert}(L_B,E_B,\mathcal K,T,\mathsf{obs}_B)$ holds and the
+  indexed free layers admit initial algebras equipped with a coherent
+  $\mathsf{baseAct}$ and canonical separated pole;
 - morphisms $q:T\Rightarrow U$ preserving graded return, bind, strength,
   coherent weakening, primitive interpretations, and the selected
-  $\mathcal K$-observation;
+  $\mathcal K$-observation, whose induced initial-algebra fold also commutes
+  with $\mathsf{baseAct}$;
 - identities and composition inherited from graded natural transformations.
 
 Let $\mathbf{Free}_{\Delta,\mathcal K}$ contain the corresponding finite free
 extensions carrying `FreeCert`.  We assume the required polynomial initial
-algebras exist and the extended preorder does not erase a visible $\Delta$
-factor.
+algebras and base actions exist and the extended preorder does not erase a
+visible $\Delta$ factor.  The full object and morphism definitions are in
+[Categories of extensible semantic packages](package-categories-v5.md).
 
 ## 2. Object and morphism theorem
 
@@ -53,7 +57,7 @@ There is a functor
 
 $$
 \mathsf F_\Delta:
-\mathbf{Base}_{\mathcal K}
+\mathbf{ExtBase}_{\Delta,\mathcal K}
 \longrightarrow
 \mathbf{Free}_{\Delta,\mathcal K}
 $$
@@ -92,11 +96,13 @@ subeffecting, the canonical base embedding, operational conservativity,
 effect safety and finite $\mathcal K$-structured adequacy.
 :::
 
-**Proof.**  Initiality recursively defines the object operations and the arrow
-map.  Identity and the two sides of composition are algebra morphisms with the
-same actions on returns, base layers and $\Delta$ generators, so initiality
-makes them equal.  The remaining fields are exactly `Free-Transport` from
-Chapter II. $\square$
+**Proof.**  Initiality defines the carrier fold and arrow map; the base action
+defines composition of an old base layer with an extended continuation.
+`Act-Unit` and `Act-Mult` supply the missing unit and associativity cases.
+Identity and the two sides of composition are algebra morphisms with the same
+actions on returns, base layers and $\Delta$ generators, so initiality makes
+them equal.  The remaining fields are exactly `Free-Transport` from Chapter
+II. $\square$
 
 Here $\mathcal H_A$ is the indexed base-prefix/free-request layer from the
 [grade-indexed carrier construction](grade-indexed-free-carrier-v5.md).

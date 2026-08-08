@@ -283,6 +283,10 @@ $$
 \end{aligned}
 $$
 
+Here compatibility of $q$ includes the
+[base-action square](base-action-law-v5.md), in addition to preservation of
+the old graded monad operations.
+
 Thus `graphLaw` is an equality only for the least structural lifting.
 `ttTransport` maps it into the generally larger observational closure.  The
 grade-indexed pole and `TTCert` are defined in

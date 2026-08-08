@@ -22,6 +22,7 @@ project:
       children:
         - file: research-program-v5.md
         - file: functorial-extension-theorem-v5.md
+        - file: package-categories-v5.md
         - file: graded-tt-lifting-v5.md
         - file: adequacy-pole-construction-v5.md
         - file: chapter-method-v5.md
@@ -34,7 +35,10 @@ project:
         - file: chapter-2-operational-examples-v5.md
         - file: chapter-2-denotational-v5.md
         - file: grade-indexed-free-carrier-v5.md
+        - file: base-action-law-v5.md
         - file: writer-end-to-end-v5.md
+        - file: state-end-to-end-v5.md
+        - file: exception-end-to-end-v5.md
         - file: random-end-to-end-v5.md
         - file: chapter-2-certificate-v5.md
         - file: chapter-2-proof-details-v5.md
