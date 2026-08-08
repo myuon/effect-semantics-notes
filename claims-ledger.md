@@ -358,6 +358,7 @@
 | C-347 | Established in Lean | finite-outcome mapがone-layer functionalと可換ならKleene least fixed pointとも可換する。またbinary admissible relationがbottomを含みone-layerで保存されれば二つのleast fixed pointを関係づける | polymorphic stable-observation ω-CPO; continuity of both functionals | source/tree morphismとrelationについてone-layer compatibilityをinstance化する |
 | C-348 | Established in Lean | recursive outward-boundary operational runsはreturn/internal/tell/matched/base escape/cross-interface escape/missing-clause escapeを区別し、finite fuel observationおよびcompleted boundary limitの双方と双方向にadequateである | executable head decomposition; stable boundary limit | generic package auditとsource/tree transport instanceへ進む |
 | C-349 | Established in Lean | recursive Exception instanceではbase operation 0をabortive `raise`として解釈し、return/raise/base/free boundaryを分離する。direct runsとstable limitは双方向adequateかつdeterministicで、typed exhaustive handlerはselected interfaceをdischargeする | polymorphic stable-observation completion; typed affine clauses | recursive State instanceとgeneric package recordを構成する |
+| C-350 | Established in Lean | recursive Boolean-State instanceは`get`で現在stateを返し`put`で後続stateを変更し、free handling中もstateをthreadする。direct runsとstable limitは双方向adequateかつdeterministicで、get/put response lawとtyped exhaustive handlerの下でselected interfaceをdischargeする | polymorphic stable-observation completion; `StateResponseLaws` | three-base resultsをgeneric recursive certificateへpackageする |
 
 ## 証明完了の基準
 

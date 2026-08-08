@@ -372,6 +372,16 @@ deterministic, while typed exhaustive handlers again prevent the selected
 interface from escaping.  This validates that Writer's log threading was not
 secretly required by the recursive completion or discharge argument.
 
+The recursive Boolean-State instance is now checked too.  `get` resumes with
+the current Boolean state, `put` changes the state for the remainder of the
+run, matching free clauses retain the current state, and residual base/free
+boundaries record it.  Stable-limit observations and direct operational runs
+are bidirectionally adequate and deterministic.  Under the minimal signature
+laws that `get` returns Bool and `put` returns Unit, typed exhaustive handlers
+discharge their selected interface.  Writer, State and Exception now share
+the same generic completion while retaining genuinely different base
+interaction laws.
+
 If the remaining M3 proof requires changing the syntax or effect transformer, update the research
 notes before proceeding to denotation.  If M5 fails while M1–M4 hold, treat it
 as an adequacy/observation problem rather than weakening operational safety.

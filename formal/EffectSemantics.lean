@@ -52,4 +52,5 @@ import EffectSemantics.Recursive.BoundaryLogicalRelation
 import EffectSemantics.Recursive.StableObservationMorphism
 import EffectSemantics.Recursive.DeepWriterBoundaryAdequacy
 import EffectSemantics.Recursive.DeepExceptionBoundary
+import EffectSemantics.Recursive.DeepStateBoundary
 import EffectSemantics.Examples.DeepApprox

@@ -153,10 +153,14 @@ the two least fixed points.
   instance: operation zero raises abortively, return/raise/base/free boundaries
   are separated, finite runs are adequate and deterministic, and exhaustive
   typed handlers discharge their selected interface.
+- a recursive Boolean-State instance threads the current state through `get`,
+  changes it at `put`, preserves it across free-handler matching, and exposes
+  residual base/free boundaries with their state; its stable-limit adequacy,
+  determinism and typed exhaustive discharge are checked.
 
-Remaining work is now the audit and concrete instantiation of the generic
-transport premises for source/tree semantics and the recursive State instance;
-recursive Writer/Exception finite-boundary adequacy and generic fixed-point
-transport are no longer assumed.
+Remaining work is now the audit and concrete instantiation of generic
+source/tree transport premises. Recursive Writer, State and Exception
+finite-boundary adequacy and generic fixed-point transport are no longer
+assumed.
 No `sorry`
 or project axiom is admitted in the checked library.
