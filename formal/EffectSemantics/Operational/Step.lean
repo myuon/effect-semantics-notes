@@ -4,7 +4,7 @@ namespace EffectSemantics
 
 /-- Pure/internal CBV reduction. Base and free operations are boundaries, not
 internal reductions. -/
-inductive Step : Comp → Comp → Prop where
+inductive Step : Comp → Comp → Type where
   | letReturn : Step (.letE (.ret value) body) (body.subst0 value)
   | beta : Step (.app (.lam domain latent body) argument) (body.subst0 argument)
   | ifTrue : Step (.ite (.bool true) thenBranch elseBranch) thenBranch
@@ -15,13 +15,9 @@ inductive Step : Comp → Comp → Prop where
       (rightBranch.subst0 value)
   | underLet : Step bound bound' → Step (.letE bound body) (.letE bound' body)
 
-theorem Step.underContext {term term' : Comp} (step : Step term term') :
-    ∀ ctx : EvalContext, Step (ctx.plug term) (ctx.plug term') := by
-  intro ctx
-  induction ctx generalizing term term' with
-  | nil => exact step
-  | cons frame rest ih =>
-      cases frame with
-      | letE body => exact ih (.underLet step)
+def Step.underContext {term term' : Comp} (step : Step term term') :
+    (ctx : EvalContext) → Step (ctx.plug term) (ctx.plug term')
+  | [] => step
+  | .letE _ :: rest => Step.underContext (.underLet step) rest
 
 end EffectSemantics

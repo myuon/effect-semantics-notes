@@ -85,7 +85,7 @@ theorem RenPreserves.shift (ctx : Context) (head : Ty) :
   simpa using lookup
 
 def SubstPreserves (sig : Signature) (source target : Context)
-    (subst : Nat → Val) : Prop :=
+    (subst : Nat → Val) : Type :=
   ∀ ⦃index ty⦄, Context.lookup source index = some ty →
     HasVal sig target (subst index) ty
 

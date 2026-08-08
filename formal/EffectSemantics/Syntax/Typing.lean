@@ -4,7 +4,7 @@ namespace EffectSemantics
 
 mutual
   /-- Extrinsic value typing. -/
-  inductive HasVal (sig : Signature) : Context → Val → Ty → Prop where
+  inductive HasVal (sig : Signature) : Context → Val → Ty → Type where
     | var : Context.lookup ctx index = some ty →
         HasVal sig ctx (.var index) ty
     | unit : HasVal sig ctx .unit .unit
@@ -19,7 +19,7 @@ mutual
         HasVal sig ctx (.lam domain latent body) (.arr domain latent codomain)
 
   /-- Extrinsic computation typing with an ordered may-effect upper bound. -/
-  inductive HasComp (sig : Signature) : Context → Comp → Ty → Effect → Prop where
+  inductive HasComp (sig : Signature) : Context → Comp → Ty → Effect → Type where
     | ret : HasVal sig ctx value ty →
         HasComp sig ctx (.ret value) ty 1
     | letE : HasComp sig ctx bound boundTy boundEffect →
@@ -50,12 +50,12 @@ end
 
 namespace HasComp
 
-theorem weakenEffect {sig : Signature} {ctx : Context} {term : Comp} {ty : Ty}
+def weakenEffect {sig : Signature} {ctx : Context} {term : Comp} {ty : Ty}
     {lower upper : Effect} (typing : HasComp sig ctx term ty lower)
     (bound : lower ≤ upper) : HasComp sig ctx term ty upper :=
   .subeffect typing bound
 
-theorem optionalFree {sig : Signature} {ctx : Context} {term : Comp} {ty : Ty}
+def optionalFree {sig : Signature} {ctx : Context} {term : Comp} {ty : Ty}
     (typing : HasComp sig ctx term ty 1) (interface : Nat) :
     HasComp sig ctx term ty [EffectAtom.free interface] :=
   typing.subeffect (Effect.optional_free interface)
