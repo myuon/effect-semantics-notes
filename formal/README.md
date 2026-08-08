@@ -41,14 +41,18 @@ Implemented and kernel-checked:
   clause-typing certificates and checked parameter instantiation;
 - executable `tick`/`tock` witnesses showing that matching removes the pending
   handler while a missing same-interface clause forwards and reinstalls it.
+- renaming preservation for typed residual contexts, typed reconstruction of
+  the bare continuation under a fresh response binder, and coarse affine-match
+  preservation at `clauseEffect * oldResultEffect`.
 
 Typing derivations live in `Type` rather than `Prop`: this exposes the explicit
 subeffecting derivation tree needed by the terminating mutual transformation.
 The associated inhabitation proposition can later be proof-irrelevant even
 though the checked certificate is retained as data.
 
-The next obligation is the ordered output-grade transformer for affine
-handling.  In particular, continuation retyping must expose the optionality
-needed to replace `b * [free interface] * e` by `b * clauseEffect * e`;
-this is intentionally not hidden inside the operational machine. No `sorry`
+The next obligation is the sharp ordered output-grade transformer replacing
+`b * [free interface] * e` by `b * clauseEffect * e`. The checked coarse proof
+already identifies and uses the optionality `1 ≤ [free interface]`; sharpening
+it requires retaining a principal prefix/suffix typing rather than the whole
+old result bound. This is intentionally not hidden inside the operational machine. No `sorry`
 or project axiom is admitted in the checked library.
