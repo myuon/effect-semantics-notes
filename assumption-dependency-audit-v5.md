@@ -2,7 +2,7 @@
 
 ## Status
 
-**Proof dependency audit for the recursion-free theorem.** This page records
+**Proof dependency audit for the finite and recursive theorems.** This page records
 the first point at which each semantic hypothesis is used. It prevents a
 failure to construct graded bind from being misreported as a failure of the
 entire language extension.
@@ -139,3 +139,37 @@ Adequacy and handler compatibility are not additional miracles: after level
 genuine semantic obstruction is not the existence of free-operation nodes;
 it is composition of an opaque old computation with an extended
 continuation.
+
+## 5. Recursive refinement
+
+Chapter IV does not add a single all-purpose recursion hypothesis.  It splits
+the recursive extension into five independent strata:
+
+- **RS — recursive safety:** typing of unfolding and support-wise progress;
+- **RM — recursive model:** pointed $\omega$-cpos, continuity, least fixed
+  points and the recursive resumption solution;
+- **RT — recursive TT:** an admissible pole and fixed-point compatibility;
+- **EC — effect closure:** a monotone iteration closure $K$ compatible with
+  the handler transformer;
+- **RO — recursive observation:** reflection at one explicitly selected
+  level (finite boundary, divergence, or productive infinity).
+
+Interface elimination is a sixth, orthogonal strengthening **EL**: the handler
+is exhaustive, its outward clauses are $\Delta$-free, transparent forwarding
+keeps the handler installed, and resumed computations are handled again.
+
+| recursive conclusion | RS | RM | RT | EC | RO | EL |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|
+| recursive preservation and progress | ✓ |  |  |  |  |  |
+| derived-deep least-fixed-point equations |  | ✓ |  |  |  |  |
+| recursive handler relation |  | ✓ | ✓ |  |  |  |
+| adequacy at the declared level |  | ✓ | ✓ |  | ✓ |  |
+| iteration-closed effect bound |  |  |  | ✓ |  |  |
+| outward elimination of $\Delta$ | ✓ |  |  |  |  | ✓ |
+
+The RM entries in the relation and adequacy rows supply the semantic fixed
+point and continuity; RT supplies admissible induction.  The elimination row
+does not use a domain model, observation reflection or TT reasoning: it is an
+operational type-and-boundary invariant over finite unfoldings. Thus partial deep handling is
+already definable without EL; only the claim that the whole interface has
+disappeared requires exhaustiveness.

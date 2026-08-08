@@ -192,16 +192,21 @@ bundles of “good properties.”  The cumulative theorem is read in three stage
    `FreeCert`.
 2. `FreeCert`, a closed graded TT pole and either `AffineCert` or
    `HandlerCert` yield `ShallowCert`.
-3. `ShallowCert`, an admissible recursive TT pole, `RecBaseCert`, continuity,
-   exhaustive $\Delta$-free clauses and effect-closure compatibility yield
-   `DeepCert`.
+3. `ShallowCert` and the appropriate *component* of `RecBaseCert` yield the
+   corresponding recursive conclusion: recursive safety, least-fixed-point
+   definability, recursive relation preservation, adequacy at the declared
+   observation level, or effect closure.  These conclusions form the
+   non-eliminating `DeepCert`.  Exhaustiveness and outwardly $\Delta$-free
+   clauses are additional premises only for `DeepElimCert`.
 
 In symbols, the conclusions are
 
 $$
 \mathsf{FreeCert},\qquad
 \mathsf{ShallowCert},\qquad
-\mathsf{DeepCert},
+\mathsf{DeepCert}
+\quad\text{and, under the stronger elimination premises,}\quad
+\mathsf{DeepElimCert},
 $$
 
 but each is justified only by the numbered premises on its certificate page.

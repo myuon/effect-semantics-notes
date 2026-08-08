@@ -43,7 +43,7 @@ hypothesis replaces each recursively wrapped continuation by
 $g=\mathcal D_h^n(\bot)$.  This is exactly
 $\mathcal D_h^{n+1}(\bot)$. $\square$
 
-Continuity and the `RecBaseCert` source-fixpoint agreement now give
+Continuity and the `RecModelCert` source-fixpoint agreement now give
 
 $$
 \llbracket\mathsf{loop}\rrbracket
@@ -103,12 +103,13 @@ $(b\cdot e'\cdot e)^*$.  The effect-safety interpretation concerns finite
 execution prefixes, so this uniform bound covers the recursive computation.
 No equality or exact multiplicity follows.
 
-## 6. Assembly of `DeepCert`
+## 6. Assembly of the layered certificates
 
-One-step safety supplies recursive preservation and progress; the
+One-step safety supplies `RecursiveSafetyCert`; the
 source/semantic approximation lemma supplies definability and the deep
-equations; the invariant supplies interface elimination; the admissible
-logical relation supplies adequacy; and the iteration induction supplies the
-ordered bound.  Old terms contain neither recursion nor derived-handler
-expansion, so Chapter-III conservativity remains literal.  These fields are
-exactly `DeepCert`; every stronger observation remains explicitly conditional.
+equations in `DerivedDeepCert`; the invariant separately supplies
+`DeepElimCert`; the admissible logical relation supplies
+`RecursiveHandlerRelCert` and declared-level adequacy; and the iteration
+induction supplies `RecursiveEffectCert`. Old terms contain neither recursion
+nor derived-handler expansion, so Chapter-III conservativity remains literal.
+Every stronger observation remains explicitly conditional.

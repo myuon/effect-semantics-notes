@@ -5,10 +5,30 @@
 **Conditional paper theorem.**  This page records exactly what must be added
 to `ShallowCert` and what is then preserved.
 
-## 1. Definition IV.1 — `RecBaseCert`
+## 1. Definition IV.1 — layered recursive certificates
 
 For a recursive extension $L^{\mathsf{rec}}$ and recursive carrier $\mathsf R$,
-we say that $\mathsf{RecBaseCert}(L^{\mathsf{rec}},\mathsf R,K)$ holds when:
+define the following records.
+
+1. $\mathsf{RecSafetyCert}(L^{\mathsf{rec}})$ contains recursive typing,
+   unfolding preservation and support-wise one-step progress.
+2. $\mathsf{RecModelCert}(\mathsf R)$ contains pointed $\omega$-cpos,
+   continuous semantic constructors, the recursive resumption solution,
+   source/semantic fixpoint agreement and Kleene approximation.
+3. $\mathsf{RecTTCert}(\mathsf R,\mathcal O)$ contains a bottom-containing
+   admissible pole, continuous TT operations and the fixed-point compatibility
+   used by the recursive fundamental lemma.
+4. $\mathsf{EffectClosureCert}(K)$ contains the monotone iteration closure and
+   its unit/iteration inequalities.
+5. $\mathsf{RecObservationCert}(\ell)$ selects finite-boundary,
+   termination/divergence or productive-infinite observation and supplies
+   reflection exactly at that level.
+
+The bundled abbreviation
+$\mathsf{RecBaseCert}(L^{\mathsf{rec}},\mathsf R,K,\mathcal O,\ell)$ is the
+conjunction of these five records. The following list expands their mathematical
+content; it is explanatory and does not merge them back into one indivisible
+premise.
 
 1. **Recursive typing.** Unfolding is well typed and preserves the declared
    computation type and effect bound.
@@ -23,7 +43,7 @@ we say that $\mathsf{RecBaseCert}(L^{\mathsf{rec}},\mathsf R,K)$ holds when:
 5. **Observation level and effect closure.** The certificate selects what is
    observed and supplies a monotone iteration closure $K$ for ordered effects.
 
-Conditions (1)--(4) are represented by
+The principal typing, domain and admissibility fields are represented by
 
 $$
 \begin{aligned}
@@ -50,7 +70,7 @@ Here $R$ is the recursive graded TT relation induced by an admissible pole;
 the sufficient conditions are proved in the
 [recursive TT audit](recursive-tt-audit-v5.md).
 
-The resumption equation and condition (5) are
+The remaining resumption and effect-closure fields include
 
 $$
 \mathsf{resIso}_{A}:\quad
@@ -69,8 +89,9 @@ shallow map preserve suprema of $\omega$-chains.  `obsLevel` explicitly selects
 finite-boundary, bottom/divergence, or productive-infinite observation and
 supplies the corresponding reflection map.
 
-Items 2–5 are genuine additional hypotheses.  They cannot be reconstructed
-from the finite `ShallowCert` or from monad laws.
+The model, TT, closure and observation records are genuine additional
+hypotheses, but they are not needed for one-step recursive safety. They cannot
+be reconstructed from the finite `ShallowCert` or from monad laws.
 
 ## 2. Recursive safety
 
@@ -80,8 +101,8 @@ from the finite `ShallowCert` or from monad laws.
 If
 
 $$
-\mathsf{ShallowCert}(\Delta,h,\Phi_h)
-\land\mathsf{RecBaseCert}(L^{\mathsf{rec}},\mathsf R,K),
+\mathsf{ShallowSafetyCert}(\Delta,J,h,\Phi_h)
+\land\mathsf{RecSafetyCert}(L^{\mathsf{rec}}),
 $$
 
 then
@@ -109,7 +130,8 @@ does not survive.
 :::{prf:theorem} Derived source handler equals semantic deep handler
 :label: thm-derived-deep-coincidence-v5
 
-If $\mathcal D_h$ is continuous and `fixAgree` holds, then
+If $\mathsf{RecModelCert}(\mathsf R)$ holds, the Chapter-III shallow map and
+the clause functional are continuous, then
 
 $$
 \llbracket\mathsf{deep}_{\Delta,h}^{\mathsf{derived}}(M)\rrbracket
@@ -179,7 +201,8 @@ M\Downarrow_{\ell}o
 \mathsf{observe}_{\ell}(\llbracket M\rrbracket)=o.
 $$
 
-Here $\ell$ is exactly the observation level stored in `RecBaseCert`; no
+Here $\ell$ is exactly the observation level stored in
+`RecObservationCert`; no
 stronger divergence or productive-infinite conclusion is implicit.
 :::
 
@@ -207,9 +230,28 @@ or a least principal word is outside the basic theorem.
 
 ## 7. Chapter-IV structure-preservation theorem
 
-### Definition IV.2 — `DeepCert`
+### Definition IV.2 — layered derived-deep certificates
 
-We say that $\mathsf{DeepCert}(\Delta,h,\Phi_h,K)$ holds when:
+Define:
+
+1. `RecursiveSafetyCert` by recursive preservation/progress and old-language
+   operational conservativity;
+2. `DerivedDeepCert` by source definability, the least-fixed-point equation
+   and the return/match/forward deep equations;
+3. `RecursiveHandlerRelCert` by admissible relation preservation through the
+   derived handler functional;
+4. `RecursiveAdequacyCert` by adequacy at the selected observation level;
+5. `DeepElimCert` by absence of escaping handled-interface requests on every
+   finite prefix;
+6. `RecursiveEffectCert` by closure of transformed finite effects under $K$.
+
+The bundled name $\mathsf{DeepCert}(\Delta,h,\Phi_h,K)$ contains the first
+four records and `RecursiveEffectCert`. `DeepElimCert` is attached only when
+the handler has `EliminationCert` and its clauses do not re-emit $\Delta$.
+Thus a partial derived handler still has a deep semantics and adequacy theorem
+without a false interface-elimination claim.
+
+The former bundled fields were:
 
 1. **Recursive safety and conservativity.** Preservation/progress hold at each
    step and old programs retain their behavior.
@@ -240,28 +282,26 @@ $$
 \end{aligned}
 $$
 
-:::{prf:theorem} Recursive derived-deep certificate
+:::{prf:theorem} Layered recursive derived-deep certificates
 :label: thm-recursive-derived-deep-certificate-v5
 
-Assume:
+The conclusions and their minimal additional premises are:
 
-1. the finite language and handler satisfy the safety, semantic, relational
-   and adequacy fields of `ShallowCert`, together with
-   $\mathsf{HandlerCert}(\Delta,J,h,\Phi_h)$;
-2. the recursive carrier and effect closure satisfy `RecBaseCert`;
-3. $\mathsf{EliminationCert}(\Delta,J,h,\Phi_h)$ holds and its clauses emit no
-   outward $\Delta$;
-4. the semantic handler functional is continuous;
-5. $K$ and $\Phi_h$ satisfy the closure-compatibility law;
-6. the admissible relation reflects the selected observation level $\ell$.
+1. `ShallowSafetyCert + RecSafetyCert` yields `RecursiveSafetyCert`.
+2. `ShallowSemanticCert + RecModelCert` and continuity of the handler
+   functional yield `DerivedDeepCert`.
+3. Adding `ShallowRelCert + RecTTCert` yields
+   `RecursiveHandlerRelCert` by fixed-point induction.
+4. Adding `ShallowAdequacyCert` and
+   $\mathsf{RecObservationCert}(\ell)$ yields
+   `RecursiveAdequacyCert` exactly at level $\ell$.
+5. Adding $\mathsf{EffectClosureCert}(K)$ and closure compatibility of $\Phi_h$
+   yields `RecursiveEffectCert`.
+6. Independently, `RecSafetyCert + EliminationCert`, outward $\Delta$-free
+   clauses and wrapped matching resumptions yield `DeepElimCert`.
 
-Then
-
-$$
-\mathsf{DeepCert}(\Delta,h,\Phi_h,K)
-$$
-
-holds.
+Conclusions 1--5 give the non-eliminating `DeepCert`. Conclusion 6 may be
+attached when its stronger premises hold.
 :::
 
 ## 8. Sharp limits

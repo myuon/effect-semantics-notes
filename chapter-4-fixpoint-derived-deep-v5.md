@@ -68,10 +68,15 @@ The shallow continuation `k` does not contain the handler.  The recursive
 wrapper `loop` reinstalls it after every resumption.  This is exactly the usual
 deep-handler behavior.
 
-Chapter III already forwards every $\Gamma\neq\Delta$ request with the shallow
+The same definition works for a partial handled set $J$: operations outside
+$J$ are forwarded with the search retained, while resumptions of clauses in
+$J$ are recursively wrapped. This gives a partial deep handler. Exhaustiveness
+is needed later only to conclude interface-level elimination.
+
+Chapter III already forwards every unhandled request with the shallow
 handler retained in its continuation.  Therefore the only additional wrapping
-needed to obtain deep behavior is in matching resumptions.  Shallow and deep
-differ exactly on the continuation of a caught $\Delta$ operation.
+needed to obtain deep behavior is in selected matching resumptions. Shallow
+and deep differ exactly on the continuation of a caught operation.
 
 ## 4. Ordered effect action
 

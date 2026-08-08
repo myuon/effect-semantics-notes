@@ -60,8 +60,9 @@ Three distinct recursive claims remain:
 3. **Productive infinite behavior.** Infinite visible interactions are
    compared coinductively.
 
-The current `DeepCert` proves (1), and proves (2) only when the base package
-supplies bottom reflection.  It does not prove (3) in a partiality-only model.
+`RecursiveAdequacyCert` proves (1), and proves (2) only when
+`RecObservationCert` supplies bottom reflection. It does not prove (3) in a
+partiality-only model.
 
 ## 4. Derived deep handler
 
@@ -105,8 +106,9 @@ termination, and bottom reflection does not imply productive-trace adequacy.
 
 ## 7. Revised Chapter-IV theorem boundary
 
-`RecBaseCert` must now explicitly supply an **admissible recursive pole** and
-continuous TT operations, not merely an unspecified admissible relation.  With
-those fields, the derived-deep coincidence, finite-prefix elimination and
-declared-level adequacy proofs go through.  Without them, only operational
-one-step safety and the source definition of deep handling remain.
+`RecTTCert` must explicitly supply an **admissible recursive pole** and
+continuous TT operations, not merely an unspecified admissible relation.
+`RecModelCert` separately supplies the fixpoint model, and
+`RecObservationCert` supplies only the requested reflection level. Without
+these records, `RecSafetyCert` still gives operational one-step safety;
+interface elimination remains a separate finite-prefix theorem.
