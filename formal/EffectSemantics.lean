@@ -48,4 +48,5 @@ import EffectSemantics.Recursive.DeepWriterLogicalRelation
 import EffectSemantics.Recursive.TypedDeepWriter
 import EffectSemantics.Recursive.DeepWriterBoundary
 import EffectSemantics.Recursive.StableObservation
+import EffectSemantics.Recursive.BoundaryLogicalRelation
 import EffectSemantics.Examples.DeepApprox

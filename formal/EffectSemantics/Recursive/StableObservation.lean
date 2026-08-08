@@ -212,6 +212,43 @@ theorem lfp_le_fixed (continuous : OmegaContinuous function)
     lfp function continuous ≤ candidate :=
   lfp_le_prefixed continuous (by rw [fixed]; exact le_refl candidate)
 
+def Satisfies (pole : Outcome → Prop)
+    (observation : StableObservation Outcome) : Prop :=
+  ∀ fuel outcome, observation.observeAt fuel = some outcome → pole outcome
+
+theorem Satisfies.bottom (pole : Outcome → Prop) :
+    Satisfies pole (bottom : StableObservation Outcome) := by
+  intro _ _ impossible
+  cases impossible
+
+theorem Satisfies.sup (chain : Chain Outcome)
+    (all : ∀ index, Satisfies pole (chain.sequence index)) :
+    Satisfies pole chain.sup := by
+  intro fuel outcome observed
+  obtain ⟨index, finite⟩ := chain.supAt_some_witness observed
+  exact all index fuel outcome finite
+
+def Admissible (predicate : StableObservation Outcome → Prop) : Prop :=
+  ∀ chain : Chain Outcome,
+    (∀ index, predicate (chain.sequence index)) → predicate chain.sup
+
+theorem satisfies_admissible (pole : Outcome → Prop) :
+    Admissible (Satisfies pole) := fun chain all => Satisfies.sup chain all
+
+theorem lfp_induction
+    (continuous : OmegaContinuous function)
+    (admissible : Admissible predicate)
+    (atBottom : predicate bottom)
+    (closed : ∀ observation, predicate observation →
+      predicate (function observation)) :
+    predicate (lfp function continuous) := by
+  unfold lfp
+  apply admissible (kleeneChain function continuous)
+  intro index
+  induction index with
+  | zero => exact atBottom
+  | succ index ih => exact closed _ ih
+
 end StableObservation
 
 end EffectSemantics

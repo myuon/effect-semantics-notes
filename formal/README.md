@@ -128,14 +128,21 @@ subeffecting derivation tree needed by the terminating mutual transformation.
 The associated inhabitation proposition can later be proof-irrelevant even
 though the checked certificate is retained as data.
 
-The outward-boundary observer is stable under increasing fuel and therefore
-already forms the finite-projection input needed by its later completion.
-- the finite-observation CPO infrastructure is polymorphic in its outcome:
-  arbitrary stable observations have bottom, antisymmetric approximation,
-  ω-chain suprema, continuous endofunctions and Kleene least fixed points;
-  the outward Writer boundary has a witness-reflecting limit whose selected
-  interface discharge follows from the finite theorem.
-Remaining work is now concentrated in a full type-indexed fundamental
-relation over that richer observer.
+The outward-boundary observer is stable under increasing fuel.  The reusable
+finite-observation CPO infrastructure is polymorphic in its outcome: arbitrary
+stable observations have bottom, antisymmetric approximation, ω-chain
+suprema, continuous endofunctions and Kleene least fixed points.  The outward
+Writer boundary has a witness-reflecting limit whose selected interface is
+discharged.
+
+Its type-indexed boundary relation covers return, outward base and outward
+free observations, is admissible as an observation pole, and satisfies both
+closed and open fundamental theorems under every typed closing substitution.
+Recursive-function cases are included through the mechanized substitution
+and preservation lemmas.
+
+Remaining work is now concentrated in morphism/relation transport for the
+recursive carrier and in identifying which generic paper-level package claims
+still require genuinely external domain assumptions.
 No `sorry`
 or project axiom is admitted in the checked library.

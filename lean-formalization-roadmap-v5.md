@@ -337,6 +337,17 @@ some finite projection does, and selected-interface discharge therefore holds
 at the limit as well as at each finite fuel.  This removes the last domain
 infrastructure obstacle before the type-indexed computation relation.
 
+The type-indexed relation is now checked.  Values are related by closed value
+typing; return, base-request and free-request boundaries are related by the
+original result type with existential intermediate effect bounds.  The
+resulting computation pole is admissible, every closed typed computation
+satisfies it, and the theorem extends to open terms under every typed closing
+substitution.  Because recursive values and simultaneous self/argument
+substitution are already part of the syntax metatheory, the open fundamental
+theorem includes the recursive-function case rather than assuming it.  For
+exhaustive handlers it returns boundary typing and selected-interface
+discharge together.
+
 If the remaining M3 proof requires changing the syntax or effect transformer, update the research
 notes before proceeding to denotation.  If M5 fails while M1–M4 hold, treat it
 as an adequacy/observation problem rather than weakening operational safety.
