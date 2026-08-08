@@ -280,6 +280,15 @@ infrastructure; what remains is to give the recursive Writer/free-handler
 semantic functional, prove its continuity, and connect its fixed point to
 typed source recursion and derived deep handling.
 
+The first concrete recursive-handler functional is now checked for Writer.
+Finite shallow reinstallation is definitionally the iteration of a monotone
+one-layer functional; its operational run relation and fuel observations are
+adequate in both directions.  The union of all finite observations satisfies
+the concrete deep-handler unfold equation, and the silent recursive loop has
+no finite observation.  The remaining M10 obligations are type/effect
+indexing of this limit, ω-continuity in the generic carrier, and the
+admissible logical-relation/fundamental-lemma layer.
+
 If the remaining M3 proof requires changing the syntax or effect transformer, update the research
 notes before proceeding to denotation.  If M5 fails while M1–M4 hold, treat it
 as an adequacy/observation problem rather than weakening operational safety.

@@ -102,12 +102,16 @@ Implemented and kernel-checked:
 - an explicit ω-chain completion of finite observations, including least
   upper bounds, antisymmetry, ω-continuity, Kleene least fixed points, the
   unfolding equation and least-prefixed-point induction.
+- a recursive deep Writer handler obtained by repeatedly reinstalling the
+  direct shallow match; its fuel semantics is bidirectionally adequate for
+  an inductive run relation, its limit is the union of finite observations,
+  and that limit satisfies the handler functional's fixed-point equation.
 
 Typing derivations live in `Type` rather than `Prop`: this exposes the explicit
 subeffecting derivation tree needed by the terminating mutual transformation.
 The associated inhabitation proposition can later be proof-irrelevant even
 though the checked certificate is retained as data.
 
-Remaining work is now concentrated in a genuine recursive/domain model beyond
-finite approximants. No `sorry`
+Remaining work is now concentrated in typing the recursive handler limit and
+lifting admissible relations through it. No `sorry`
 or project axiom is admitted in the checked library.

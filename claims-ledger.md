@@ -348,6 +348,7 @@
 | C-242 | Established in Lean | latent effect付きrecursive functionをcalculusへ追加してもrenaming/substitution、one-step preservation、closed progressは保たれ、empty effectのclosed loopは無限内部簡約を持つ | simultaneous argument/self substitution; CBV `fixBeta` | partial/continuous denotationとadequacyを構成する |
 | C-243 | Established in Lean | fuel-indexed finite observationはfuel増加に対して安定でbottom付き近似順序をなし、recursive Writer observerは全finite direct Writer run/tree observationをあるprojectionで再現しsilent loopを全projectionでbottomに送る | executable CBV head classification; Writer operation 0 is `tell` | typed converse reflectionとω-CPO completionを示す |
 | C-244 | Established in Lean | stable finite-observation carrierはω-chainのleast upper boundを持ち、ω-continuous endofunctionのKleene least fixed pointはunfold equationとleast-prefixed-point inductionを満たす。またWriter finite return/log observationはdirect runと双方向に一致する | classical choice for chain union; explicit continuity law | recursive Writer/free-handler functionalのcontinuityを示す |
+| C-340 | Established in Lean | recursive deep Writer handlerのfuel semanticsは一段handler functionalの有限反復と一致し、inductive run relationと双方向adequateである。全finite observationのunionとして得たlimitは同functionalのfixed-point unfold equationを満たす | direct affine shallow matchの再設置; Writer operation 0 is `tell`; unhandled outward requestsはclosed observationを持たない | typed effect dischargeとadmissible relationへ持ち上げる |
 
 ## 証明完了の基準
 
