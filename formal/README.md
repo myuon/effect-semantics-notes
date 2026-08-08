@@ -74,13 +74,18 @@ Implemented and kernel-checked:
   membership;
 - concrete effect-algebra, typed Writer monad/adequacy and finite shallow
   certificate records populated entirely by proved declarations.
+- finite State and Exception tree models with monad laws, base traversal,
+  structural relation bind/shallow preservation and executable observations;
+- common finite monad/relator/shallow-relator certificates instantiated by
+  Writer, State and Exception;
+- finite derived-deep approximants, composition, map/relation preservation,
+  two-match convergence and the partial-handler non-elimination regression.
 
 Typing derivations live in `Type` rather than `Prop`: this exposes the explicit
 subeffecting derivation tree needed by the terminating mutual transformation.
 The associated inhabitation proposition can later be proof-irrelevant even
 though the checked certificate is retained as data.
 
-The language model is now the checked monotone repair. Remaining work includes
-source-level handler/tree commutation, additional base models and recursive
-approximants. No `sorry`
+Remaining work includes source-level handler/tree commutation and a genuine
+recursive/domain model beyond finite approximants. No `sorry`
 or project axiom is admitted in the checked library.

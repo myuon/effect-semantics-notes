@@ -29,3 +29,10 @@ import EffectSemantics.Denotational.TypedWriterTT
 import EffectSemantics.Denotational.EffectLanguage
 import EffectSemantics.Denotational.LanguageGradedWriter
 import EffectSemantics.Certificate.FiniteWriter
+import EffectSemantics.Denotational.StateTree
+import EffectSemantics.Examples.StateShallow
+import EffectSemantics.Denotational.ExceptionTree
+import EffectSemantics.Examples.ExceptionShallow
+import EffectSemantics.Certificate.BaseModels
+import EffectSemantics.Recursive.DeepApprox
+import EffectSemantics.Examples.DeepApprox

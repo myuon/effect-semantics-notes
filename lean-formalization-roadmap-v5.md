@@ -17,6 +17,11 @@ found a theorem-level boundary: naive first-occurrence replacement is not
 monotone under ordered-subsequence weakening. The abstract certificate must
 therefore expose a principal-grade restriction, a coarser monotone envelope,
 or a richer effect domain rather than assuming this monotonicity.
+The monotone downward-closed language repair, concrete certificate extraction,
+State/Exception structural instances and finite derived-deep approximants are
+also now checked. The remaining recursive milestone is specifically the
+source fixpoint/domain limit and admissible TT argument, not the finite
+approximant equations.
 
 ## 1. What the formalization is meant to certify
 
