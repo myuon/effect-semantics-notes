@@ -204,7 +204,46 @@ for adequacy.
 
 ## 8. Chapter-II structure-preservation theorem
 
-### Definition II.1 — `FreeCert`
+### Definition II.1 — layered Chapter-II certificates
+
+For $\widehat L=L_B+\Sigma$ define the following records.
+
+1. $\mathsf{OpFreeCert}(\widehat L)$ contains extended substitution and
+   preservation, four-way return/redex/base/free-request decomposition, and
+   literal old-language operational conservativity.
+2. $\mathsf{EffectSafetyCert}(\widehat L,\widehat E)$ contains the factorization
+   property `effsafe`: every exposed $\Delta$ request occurs at some typed
+   position $p\Delta q\le e$. It does not require no-erasure.
+3. $\mathsf{EmptyFreeCert}(\widehat E)$ contains the no-erasure implication
+
+   $$
+   \neg\mathsf{contains}_\Sigma(e)
+   \Longrightarrow
+   \neg\exists p,q,\Delta\in\Sigma.\ p\Delta q\le e.
+   \tag{No-Erase}
+   $$
+
+4. $\mathsf{CarrierCert}(T,\Sigma,\mathsf F)$ contains the indexed Lambek
+   isomorphisms $\alpha_A:\mathcal H_A(\mathsf F A)\cong\mathsf F A$, their
+   naturality in $A$, coherent weakening, and the return/base/free
+   constructors.
+5. $\mathsf{MonadExtCert}(T,\mathsf F,\mathsf{act})$ contains `Act-Unit`,
+   `Act-Mult`, weakening, strength and free-node coherence, together with the
+   induced graded monad laws and monadic base embedding.
+6. $\mathsf{FunctorCert}(\mathsf F)$ states that every structure- and
+   action-compatible base morphism has a unique lifted strong graded monad
+   morphism and that these lifts preserve identity and composition.
+7. $\mathsf{RelCert}(\mathsf F)$ takes a compatible graded relator as input,
+   includes `Rel-Act`, constructs $\mathsf{Str}_\Sigma$, and supplies bind
+   closure and the graph law for graph-preserving relators.
+8. $\mathsf{FiniteAdequacyCert}(\widehat L,\mathcal K,\mathsf F)$ contains the
+   canonical pole, pole closure, the finite fundamental lemma and equality of
+   closed ground observations.
+
+The record names used in the dependency audit are therefore definitions, not
+informal labels.
+
+### Definition II.2 — bundled `FreeCert`
 
 For an extension $\widehat L=L_B+\Sigma$ with effect algebra $\widehat E$
 and carrier $\mathsf F=\mathsf F_\Sigma(T)$, we say that
@@ -228,6 +267,10 @@ holds when the following conditions are satisfied.
    compatible relations have a structural lifting satisfying the graph law;
    graded TT relations transport through a closed pole.
 6. **Finite adequacy.** Closed ground observations agree in $\mathcal K$.
+
+Equivalently, `FreeCert` is the conjunction of the eight records above. It is
+retained for the end-to-end theorem and concrete examples; intermediate
+theorems use the smallest appropriate record.
 
 Conditions (1) and (2) are formally:
 
@@ -332,25 +375,43 @@ $$
 
 where $o$ ranges over separated returns, base outcomes and free requests.
 
-### Theorem II.9 — Free extension certificate
+### Theorem II.9 — layered free-extension certificates
 
-Let $P=(L_B,E_B,\mathcal K,T,\mathsf{obs}_B)$.  Assume:
+Assume the following premises, each only where cited below.
 
-1. $P$ satisfies
-   $\mathsf{BaseCert}(L_B,E_B,\mathcal K,T,\mathsf{obs}_B)$;
-2. $\Sigma$ is a first-order polynomial signature disjoint from the base
+1. $\mathsf{BaseSafetyCert}(L_B,E_B,\mathcal K)$;
+2. $\mathsf{BaseModelCert}(L_B,E_B,T)$;
+3. $\mathsf{BaseAdequacyCert}
+   (L_B,\mathcal K,T,\mathsf{obs}_B,\mathsf{observe}_T)$;
+4. $\Sigma$ is a first-order polynomial signature disjoint from the base
    signature;
-3. for every $A$, the indexed layer functor $\mathcal H_A$ from
+5. for every $A$, the indexed layer functor $\mathcal H_A$ from
    [the grade-indexed construction](grade-indexed-free-carrier-v5.md) has a
    finite/well-founded initial algebra in $\mathcal C^{\widehat E}$, stable
    under the products required by strength, and its carrier has the coherent
    base action $T_b(\mathsf F_dA)\to\mathsf F_{b\cdot d}A$;
-4. the extended effect preorder cannot erase a visible $\Sigma$ factor;
-5. $\mathsf{FiniteResponseCert}(\mathcal K)$ holds;
-6. the extended observation separates returns, base outcomes and free
+6. the extended effect preorder cannot erase a visible $\Sigma$ factor;
+7. $\mathsf{FiniteResponseCert}(\mathcal K)$ holds;
+8. the extended observation separates returns, base outcomes and free
    requests.
 
-Then
+Then the following conclusions hold in order.
+
+1. Premises 1 and 4 give
+   $\mathsf{OpFreeCert}(L_B+\Sigma)$ without using premises 2, 3 and 5--8.
+2. The same typing argument gives $\mathsf{EffectSafetyCert}$ without
+   no-erasure. Adding premise 6 gives the stronger `EmptyFreeCert` corollary.
+3. Premises 2 and 4 and the initial-algebra part of premise 5 give
+   $\mathsf{CarrierCert}(T,\Sigma,\mathsf F)$.
+4. Adding the base-action part of premise 5 gives
+   $\mathsf{MonadExtCert}(T,\mathsf F,\mathsf{act})$.
+5. Compatible morphisms and graded relators respectively give
+   $\mathsf{FunctorCert}$ and $\mathsf{RelCert}$; neither conclusion uses
+   base adequacy, finite responses or constructor separation.
+6. Finally, premises 1--5, 7 and 8 give
+   $\mathsf{FiniteAdequacyCert}$.
+
+Consequently all premises together yield
 
 $$
 \mathsf{FreeCert}

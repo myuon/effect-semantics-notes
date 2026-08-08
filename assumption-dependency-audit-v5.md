@@ -14,6 +14,8 @@ entire language extension.
 `OpExt` consists of the new operation syntax, typing rule, evaluation
 contexts and exposed-request boundary. It uses `BaseSafetyCert`
 and response kernel, but no denotational initial algebra.
+Typing and residual-context factorization give `EffectSafetyCert`. The
+separate `EmptyFreeCert` additionally assumes no-erasure.
 
 ### C — indexed carrier
 
@@ -68,6 +70,8 @@ on `OpExt`; denotational commutation and handled adequacy depend on M, R and T.
 |---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | substitution, preservation, request decomposition | ✓ |  |  |  |  |  |  |
 | old-language operational conservativity | ✓ |  |  |  |  |  |  |
+| exposed-request effect factorization | ✓ |  |  |  |  |  |  |
+| no request under a $\Sigma$-free bound | ✓ + no-erasure |  |  |  |  |  |  |
 | return/base/free semantic constructors |  | ✓ |  |  |  |  |  |
 | coherent semantic weakening |  | ✓ |  |  |  |  |  |
 | extended graded bind and strength |  | ✓ | ✓ |  |  |  |  |
@@ -118,8 +122,10 @@ is used in an earlier proof. $\square$
 There are now three distinct answers to “can the base effect system be
 extended naturally?”
 
-1. **Operationally: yes**, under the small syntax and no-erasure conditions;
-   no interaction law with the denotational monad is needed.
+1. **Operationally: yes**, under the small syntax conditions; no interaction
+   law with the denotational monad is needed. No-erasure is used only for the
+   additional corollary that a $\Sigma$-free bound cannot expose a $\Sigma$
+   request.
 2. **As an indexed semantic datatype: yes**, whenever the layer initial
    algebras exist.
 3. **As a compositional graded effect semantics: conditionally**, exactly
