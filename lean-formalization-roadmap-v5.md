@@ -6,15 +6,17 @@
 checking, which claims can initially remain on paper, and the order that avoids
 committing early to category-theoretic or domain-theoretic infrastructure.
 
-**Implementation started.** The [`formal/`](https://github.com/myuon/effect-semantics-notes/tree/main/formal)
-Lean project pins Lean 4.32.2. M0, M1 syntax/typing with simultaneous
-renaming/substitution, and the initial M2 context/request representation now
-build without `sorry`. Canonical return inversion, internal one-step
-preservation, typed contexts and forward request reconstruction are now also
-checked. Converse residual-context decomposition, request-grade factorization,
-empty-free safety, closed four-way progress and internal-step determinism are
-also checked. M2's operational core is therefore complete; M3 shallow handling
-is next.
+**Implementation in progress.** The [`formal/`](https://github.com/myuon/effect-semantics-notes/tree/main/formal)
+Lean project pins Lean 4.32.2. M0--M2 and M3 sharp affine operational
+preservation are checked without `sorry`. The concrete Writer layer now checks
+free-tree monad laws, source/tree Writer adequacy, structural relation and map
+laws, finite TT closure, shallow TT preservation and ordered grade bounds.
+The response-type-indexed refinement and typed source/tree adequacy are now
+checked, as are typed shallow structural and TT transport. Mechanization also
+found a theorem-level boundary: naive first-occurrence replacement is not
+monotone under ordered-subsequence weakening. The abstract certificate must
+therefore expose a principal-grade restriction, a coarser monotone envelope,
+or a richer effect domain rather than assuming this monotonicity.
 
 ## 1. What the formalization is meant to certify
 

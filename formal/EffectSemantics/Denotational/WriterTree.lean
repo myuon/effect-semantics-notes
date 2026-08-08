@@ -59,6 +59,21 @@ theorem bind_assoc (tree : WriterTree α) (f : α → WriterTree β)
       funext response
       exact ih response
 
+theorem map_id (tree : WriterTree α) : map id tree = tree := by
+  simpa [map] using bind_ret tree
+
+theorem map_comp (first : α → β) (second : β → γ)
+    (tree : WriterTree α) :
+    map second (map first tree) = map (second ∘ first) tree := by
+  rw [map, map, bind_assoc]
+  rfl
+
+theorem map_bind (function : β → γ) (tree : WriterTree α)
+    (next : α → WriterTree β) :
+    map function (tree.bind next) =
+      tree.bind (fun value => map function (next value)) := by
+  simp only [map, bind_assoc]
+
 /-- Semantic affine clauses return one operation response tree. -/
 structure AffineSemantics where
   clause : Nat → Option (Val → WriterTree Val)
@@ -124,6 +139,14 @@ inductive Rel (relation : α → β → Prop) : WriterTree α → WriterTree β 
         (.free interface operation parameter right)
 
 theorem Rel.reflEq (tree : WriterTree α) : Rel (· = ·) tree tree := by
+  induction tree with
+  | ret value => exact .ret rfl
+  | tell message next ih => exact .tell ih
+  | free interface operation parameter continuation ih => exact .free ih
+
+/-- Mapping is precisely the lifting of the graph of the result function. -/
+theorem Rel.graphMap (function : α → β) (tree : WriterTree α) :
+    Rel (fun left right => function left = right) tree (map function tree) := by
   induction tree with
   | ret value => exact .ret rfl
   | tell message next ih => exact .tell ih

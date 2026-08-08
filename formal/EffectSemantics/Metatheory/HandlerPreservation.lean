@@ -106,4 +106,16 @@ def ShallowBoundary.resumeFreeMissingPreserveSharp
       exact @HasSharpState.pending sig ctx interface handler clauseEffect pre post
         resultTy _ (requestTyping.resumeTyping responseTyping)
 
+/-- Exhaustiveness rules out the same-interface missing-clause boundary for
+every operation actually declared by the signature. -/
+theorem AffineHandler.exhaustive_not_missing
+    {sig : Signature} {interface operation : Nat}
+    {handler : AffineHandler} {parameterTy responseTy : Ty}
+    (exhaustive : handler.Exhaustive sig interface)
+    (lookup : sig.free interface operation = some ⟨parameterTy, responseTy⟩)
+    (missing : handler.lookup operation = none) : False := by
+  obtain ⟨clause, found⟩ := exhaustive operation parameterTy responseTy lookup
+  rw [missing] at found
+  contradiction
+
 end EffectSemantics

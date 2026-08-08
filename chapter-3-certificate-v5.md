@@ -210,6 +210,37 @@ $\mathsf{HandlerCert}(\Delta,J,h,\Phi_h)$ abbreviates the conjunction of the
 typing, structural and TT certificates. It does **not** include
 `EliminationCert`.
 
+### Mechanized ordered-subsumption boundary
+
+The exact-grade exhaustive tree theorem is now kernel-checked: replacing the
+first selected interface in an exact word commutes with the typed structural
+shallow fold. It does **not** follow that the same word transformer is
+monotone for ordered-subsequence subeffecting. Lean checks the concrete
+counterexample
+
+$$
+X\Delta\leq\Delta X\Delta,
+\qquad
+\mathsf{replaceFirst}_{\Delta,R}(X\Delta)=XR,
+\qquad
+\mathsf{replaceFirst}_{\Delta,R}(\Delta X\Delta)=RX\Delta,
+$$
+
+while $XR\not\leq RX\Delta$. Thus `mono_h` is a genuine extra certificate
+condition and cannot be discharged by taking $\Phi_h$ to be naive
+first-occurrence replacement. Three sound continuations of the theorem are
+now distinguished:
+
+1. retain principal/exact grades for the sharp equation;
+2. use a coarser monotone upper envelope after subsumption;
+3. enrich the effect domain from a single word to a downward-closed language
+   of possible words.
+
+The Lean development also constructs a finite word envelope containing the
+replacement of every subword of a fixed upper word. This proves local
+existence of a sound coarse bound, but not yet a canonical compositional
+transformer.
+
 Writing $\mathsf{grade}(K)\leq d$ for “$K$ type-checks at an effect below
 $d$”, these conditions are
 

@@ -54,12 +54,33 @@ Implemented and kernel-checked:
   laws, structural shallow-handler equations and executable nested examples;
 - structural relation lifting through bind and shallow handling, naturality in
   the result carrier, and reflection of closed Writer observations.
+- source-level Writer/tree adequacy as an equivalence between direct Writer
+  runs and finite tree observations;
+- finite Writer orthogonality and TT closure, structural-to-TT inclusion,
+  shallow TT preservation and observation reflection;
+- ordered grade indexing of Writer trees, graded bind/map and proof that every
+  observed Writer trace is a subsequence of its declared grade.
+- a response-type-indexed Writer/free carrier whose continuations accept only
+  closed values of the operation's declared response type;
+- typed source/tree production, typed Writer adequacy and grade soundness;
+- typed shallow folds, structural relation/graph lifting, finite TT transport,
+  and exact-grade exhaustive first-occurrence replacement;
+- a checked counterexample showing naive first-occurrence replacement is not
+  monotone under ordered-subsequence subeffecting, plus a finite sound
+  replacement envelope for every subword.
+- downward-closed trace languages with associative sequential product,
+  principal-word embedding and a monotone language-level handler;
+- language-graded typed Writer/free trees with graded bind/map and observation
+  membership;
+- concrete effect-algebra, typed Writer monad/adequacy and finite shallow
+  certificate records populated entirely by proved declarations.
 
 Typing derivations live in `Type` rather than `Prop`: this exposes the explicit
 subeffecting derivation tree needed by the terminating mutual transformation.
 The associated inhabitation proposition can later be proof-irrelevant even
 though the checked certificate is retained as data.
 
-The next layer connects source operational evaluation to `WriterTree`, then
-uses that correspondence to close the concrete adequacy statement. No `sorry`
+The language model is now the checked monotone repair. Remaining work includes
+source-level handler/tree commutation, additional base models and recursive
+approximants. No `sorry`
 or project axiom is admitted in the checked library.
