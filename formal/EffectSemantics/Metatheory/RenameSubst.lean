@@ -19,6 +19,9 @@ mutual
     | inr valueTyping => exact .inr (valueTyping.rename_preserved preserves)
     | lam bodyTyping =>
         exact .lam (bodyTyping.rename_preserved (preserves.lift _))
+    | fixLam bodyTyping =>
+        exact .fixLam (bodyTyping.rename_preserved
+          ((preserves.lift _).lift _))
   termination_by (sizeOf value, sizeOf typing)
 
   def HasComp.rename_preserved {sig : Signature} {source target : Context}
@@ -80,6 +83,9 @@ mutual
     | inr valueTyping => exact .inr (valueTyping.subst_preserved preserves)
     | lam bodyTyping =>
         exact .lam (bodyTyping.subst_preserved (preserves.lift _))
+    | fixLam bodyTyping =>
+        exact .fixLam (bodyTyping.subst_preserved
+          ((preserves.lift _).lift _))
   termination_by (sizeOf value, sizeOf typing)
 
   def HasComp.subst_preserved {sig : Signature} {source target : Context}
@@ -132,5 +138,38 @@ def HasComp.subst0_preserved {sig : Signature} {ctx : Context}
     (valueTyping : HasVal sig ctx value valueTy) :
     HasComp sig ctx (body.subst0 value) bodyTy effect := by
   exact bodyTyping.subst_preserved (singleSubst_preserves valueTyping)
+
+def doubleSubst_preserves {sig : Signature} {ctx : Context}
+    {argument self : Val} {domain codomain : Ty} {latent : Effect}
+    (argumentTyping : HasVal sig ctx argument domain)
+    (selfTyping : HasVal sig ctx self (.arr domain latent codomain)) :
+    SubstPreserves sig
+      (domain :: .arr domain latent codomain :: ctx) ctx
+      (fun | 0 => argument | 1 => self | n + 2 => .var n) := by
+  intro index found lookup
+  cases index with
+  | zero =>
+      have equal : domain = found := Option.some.inj lookup
+      subst found
+      exact argumentTyping
+  | succ index =>
+      cases index with
+      | zero =>
+          have equal : Ty.arr domain latent codomain = found :=
+            Option.some.inj lookup
+          subst found
+          exact selfTyping
+      | succ n => exact .var lookup
+
+def HasComp.subst2_preserved {sig : Signature} {ctx : Context}
+    {body : Comp} {domain codomain : Ty} {latent : Effect}
+    {argument self : Val}
+    (bodyTyping : HasComp sig
+      (domain :: .arr domain latent codomain :: ctx) body codomain latent)
+    (argumentTyping : HasVal sig ctx argument domain)
+    (selfTyping : HasVal sig ctx self (.arr domain latent codomain)) :
+    HasComp sig ctx (body.subst2 argument self) codomain latent := by
+  exact bodyTyping.subst_preserved
+    (doubleSubst_preserves argumentTyping selfTyping)
 
 end EffectSemantics

@@ -253,6 +253,14 @@ bound explicitly; typed `let` is typed tree `bind`; and
 commutation theorem.  Thus finite M5 is complete.  The next genuinely new
 semantic obligation is M10 rather than another finite Writer lemma.
 
+The operational half of M9 is now integrated into the same calculus:
+recursive-function values bind both an argument and `self`, application uses
+checked simultaneous substitution, and preservation/progress cover the new
+unfolding rule.  A closed term at the empty effect word reduces to itself
+forever, formally separating empty-effect safety from termination.  M10 still
+requires a partial/continuous semantic carrier and a fixed-point adequacy
+argument.
+
 If the remaining M3 proof requires changing the syntax or effect transformer, update the research
 notes before proceeding to denotation.  If M5 fails while M1–M4 hold, treat it
 as an adequacy/observation problem rather than weakening operational safety.

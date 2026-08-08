@@ -12,6 +12,7 @@ mutual
     | inl (value : Val) (rightTy : Ty)
     | inr (leftTy : Ty) (value : Val)
     | lam (domain : Ty) (latent : Effect) (body : Comp)
+    | fixLam (domain : Ty) (latent : Effect) (body : Comp)
     deriving DecidableEq, Repr
 
   /-- Fine-grain computations.  Operations are ordinary computations and do

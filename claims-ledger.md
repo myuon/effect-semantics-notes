@@ -345,6 +345,7 @@
 | C-239 | Main boundary | 主定理はexact old grade、resource-valid multi-shot、handler commutation、Level-3 traces、full abstractionをunordered row/monad lawsだけからは導かない | C-186; C-192; C-196; C-211; C-231 | optional refinementsとして維持 |
 | C-240 | Established in Lean | finite Writer source semanticsについてCBV `let` はbehavior-tree `bind` と一致し、source shallow evaluationはmatching・base forwarding・cross-interface forwarding・missing forwardingの全ケースでstructural `WriterTree.shallow` と可換する | syntactic/semantic clause-table agreement (`ModelsWriterHandler`) | response-type-indexed refinementへ持ち上げる |
 | C-241 | Established in Lean | response-type-indexed Writer semanticsでもtyped `let` はtyped tree `bind` と一致し、typed source shallow evaluationは`answerWith`を含む全ケースで`TypedWriterTree.shallow`と可換する | explicit signature/parameter/resume/grade witnesses; `ModelsTypedWriterHandler` | recursive/domain modelへ拡張する |
+| C-242 | Established in Lean | latent effect付きrecursive functionをcalculusへ追加してもrenaming/substitution、one-step preservation、closed progressは保たれ、empty effectのclosed loopは無限内部簡約を持つ | simultaneous argument/self substitution; CBV `fixBeta` | partial/continuous denotationとadequacyを構成する |
 
 ## 証明完了の基準
 

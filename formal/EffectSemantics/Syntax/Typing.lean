@@ -17,6 +17,11 @@ mutual
         HasVal sig ctx (.inr leftTy value) (.sum leftTy rightTy)
     | lam : HasComp sig (domain :: ctx) body codomain latent →
         HasVal sig ctx (.lam domain latent body) (.arr domain latent codomain)
+    | fixLam :
+        HasComp sig (domain :: .arr domain latent codomain :: ctx)
+          body codomain latent →
+        HasVal sig ctx (.fixLam domain latent body)
+          (.arr domain latent codomain)
 
   /-- Extrinsic computation typing with an ordered may-effect upper bound. -/
   inductive HasComp (sig : Signature) : Context → Comp → Ty → Effect → Type where
@@ -57,6 +62,7 @@ mutual
     | .inl value => value.height + 1
     | .inr value => value.height + 1
     | .lam body => body.height + 1
+    | .fixLam body => body.height + 1
 
   def HasComp.height : HasComp sig ctx term ty effect → Nat
     | .ret value => value.height + 1

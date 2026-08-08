@@ -91,6 +91,10 @@ Implemented and kernel-checked:
 - the response-type-indexed refinement of `let`/`bind` and shallow
   commutation, with explicit typed clause-model witnesses and checked
   matching-clause execution through `answerWith`.
+- effectful recursive-function values with simultaneous argument/self
+  substitution, unfolding, renaming/substitution preservation, one-step
+  preservation and closed progress; a typed empty-effect self-loop carries an
+  explicit infinite-reduction witness.
 
 Typing derivations live in `Type` rather than `Prop`: this exposes the explicit
 subeffecting derivation tree needed by the terminating mutual transformation.

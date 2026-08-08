@@ -37,4 +37,5 @@ import EffectSemantics.Denotational.ExceptionTree
 import EffectSemantics.Examples.ExceptionShallow
 import EffectSemantics.Certificate.BaseModels
 import EffectSemantics.Recursive.DeepApprox
+import EffectSemantics.Recursive.Fixpoint
 import EffectSemantics.Examples.DeepApprox

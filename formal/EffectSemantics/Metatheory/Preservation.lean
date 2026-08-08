@@ -24,6 +24,10 @@ def Step.preserve {sig : Signature} {ctx : Context} {term term' : Comp}
       | beta =>
           cases functionTyping with
           | lam bodyTyping => exact bodyTyping.subst0_preserved argumentTyping
+      | fixBeta =>
+          cases functionTyping with
+          | fixLam bodyTyping =>
+              exact bodyTyping.subst2_preserved argumentTyping (.fixLam bodyTyping)
   | ite conditionTyping thenTyping elseTyping =>
       cases step with
       | ifTrue => exact thenTyping

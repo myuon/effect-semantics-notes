@@ -16,6 +16,8 @@ mutual
     | .inl value rightTy => .inl (value.rename rename) rightTy
     | .inr leftTy value => .inr leftTy (value.rename rename)
     | .lam domain latent body => .lam domain latent (body.rename (liftRen rename))
+    | .fixLam domain latent body =>
+        .fixLam domain latent (body.rename (liftRen (liftRen rename)))
 
   def Comp.rename (rename : Nat → Nat) : Comp → Comp
     | .ret value => .ret (value.rename rename)
@@ -44,6 +46,8 @@ mutual
     | .inl value rightTy => .inl (value.subst subst) rightTy
     | .inr leftTy value => .inr leftTy (value.subst subst)
     | .lam domain latent body => .lam domain latent (body.subst (liftSubst subst))
+    | .fixLam domain latent body =>
+        .fixLam domain latent (body.subst (liftSubst (liftSubst subst)))
 
   def Comp.subst (subst : Nat → Val) : Comp → Comp
     | .ret value => .ret (value.subst subst)
@@ -62,6 +66,11 @@ end
 /-- Substitute a closed value for the newest variable. -/
 def Comp.subst0 (value : Val) (body : Comp) : Comp :=
   body.subst (fun | 0 => value | n + 1 => .var n)
+
+/-- Simultaneously substitute the argument (index zero) and recursive self
+(index one) of a recursive function body. -/
+def Comp.subst2 (argument self : Val) (body : Comp) : Comp :=
+  body.subst (fun | 0 => argument | 1 => self | n + 2 => .var n)
 
 mutual
   theorem Val.subst_rename_cancel (rename : Nat → Nat) (subst : Nat → Val)
@@ -83,6 +92,16 @@ mutual
         congr
         exact Comp.subst_rename_cancel (liftRen rename) (liftSubst subst)
           (fun index => by cases index <;> simp [liftRen, liftSubst, Val.rename, cancel]) body
+    | fixLam domain latent body =>
+        simp only [Val.rename, Val.subst]
+        congr
+        exact Comp.subst_rename_cancel (liftRen (liftRen rename))
+          (liftSubst (liftSubst subst))
+          (fun index => by
+            cases index with
+            | zero => rfl
+            | succ index =>
+                cases index <;> simp [liftRen, liftSubst, Val.rename, cancel]) body
 
   theorem Comp.subst_rename_cancel (rename : Nat → Nat) (subst : Nat → Val)
       (cancel : ∀ index, subst (rename index) = .var index) (term : Comp) :

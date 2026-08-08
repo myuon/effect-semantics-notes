@@ -7,6 +7,8 @@ internal reductions. -/
 inductive Step : Comp → Comp → Type where
   | letReturn : Step (.letE (.ret value) body) (body.subst0 value)
   | beta : Step (.app (.lam domain latent body) argument) (body.subst0 argument)
+  | fixBeta : Step (.app (.fixLam domain latent body) argument)
+      (body.subst2 argument (.fixLam domain latent body))
   | ifTrue : Step (.ite (.bool true) thenBranch elseBranch) thenBranch
   | ifFalse : Step (.ite (.bool false) thenBranch elseBranch) elseBranch
   | caseInl : Step (.case (.inl value rightTy) leftBranch rightBranch)
@@ -20,6 +22,8 @@ def Comp.internalStep : Comp → Option Comp
   | .letE (.ret value) body => some (body.subst0 value)
   | .letE bound body => (bound.internalStep).map (fun bound' => .letE bound' body)
   | .app (.lam _ _ body) argument => some (body.subst0 argument)
+  | .app (.fixLam domain latent body) argument =>
+      some (body.subst2 argument (.fixLam domain latent body))
   | .app _ _ => none
   | .ite (.bool true) thenBranch _ => some thenBranch
   | .ite (.bool false) _ elseBranch => some elseBranch
@@ -35,6 +39,7 @@ theorem Step.to_internalStep {term term' : Comp} (step : Step term term') :
   induction step with
   | letReturn => rfl
   | beta => rfl
+  | fixBeta => rfl
   | ifTrue => rfl
   | ifFalse => rfl
   | caseInl => rfl

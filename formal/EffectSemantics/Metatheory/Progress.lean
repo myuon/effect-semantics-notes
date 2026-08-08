@@ -42,6 +42,7 @@ def HasComp.progressClosed {sig : Signature} {term : Comp} {ty : Ty}
       match functionTyping with
       | .var lookup => nomatch lookup
       | .lam _ => .internal .beta
+      | .fixLam _ => .internal .fixBeta
   | .ite conditionTyping _ _ =>
       match conditionTyping with
       | .var lookup => nomatch lookup
