@@ -6,22 +6,22 @@
 checking, which claims can initially remain on paper, and the order that avoids
 committing early to category-theoretic or domain-theoretic infrastructure.
 
-**Implementation in progress.** The [`formal/`](https://github.com/myuon/effect-semantics-notes/tree/main/formal)
-Lean project pins Lean 4.32.2. M0--M2 and M3 sharp affine operational
-preservation are checked without `sorry`. The concrete Writer layer now checks
-free-tree monad laws, source/tree Writer adequacy, structural relation and map
-laws, finite TT closure, shallow TT preservation and ordered grade bounds.
-The response-type-indexed refinement and typed source/tree adequacy are now
-checked, as are typed shallow structural and TT transport. Mechanization also
-found a theorem-level boundary: naive first-occurrence replacement is not
-monotone under ordered-subsequence weakening. The abstract certificate must
-therefore expose a principal-grade restriction, a coarser monotone envelope,
-or a richer effect domain rather than assuming this monotonicity.
-The monotone downward-closed language repair, concrete certificate extraction,
-State/Exception structural instances and finite derived-deep approximants are
-also now checked. The remaining recursive milestone is specifically the
-source fixpoint/domain limit and admissible TT argument, not the finite
-approximant equations.
+**Current checked scope.** The [`formal/`](https://github.com/myuon/effect-semantics-notes/tree/main/formal)
+Lean project pins Lean 4.32.2 and contains no `sorry` or project axiom.  M0--M9
+are checked for the fixed source calculus.  The finite-boundary part of M10 is
+also checked: polymorphic stable-observation ω-CPOs, least fixed points,
+admissible poles, open fundamental lemmas, recursive morphism/relation
+transport, and Writer/State/Exception instances with adequacy, determinism and
+selected-interface discharge.  Operational and finite Writer-denotational
+old-language conservativity are proved.
+
+Two scope boundaries are now theorem-level facts rather than missing proof
+steps.  First, naive first-occurrence word replacement is not monotone under
+ordered-subsequence weakening, so the finite handler theorem uses a principal
+grade or monotone language envelope.  Second, no finite ordered word can
+absorb a mandatory recursive prefix `[atom]·e ≤ e`; a repetition language can.
+Changing the source type system to exploit that repair is a new calculus
+choice, not completion of an omitted lemma.
 
 ## 1. What the formalization is meant to certify
 
@@ -449,13 +449,40 @@ pure trace and satisfies `[atom]·atom* ≤ atom*`.  Iteration closure is theref
 a sufficient repair for this minimal recursive pattern, while exact finite
 words are formally ruled out.
 
-If the remaining M3 proof requires changing the syntax or effect transformer, update the research
-notes before proceeding to denotation.  If M5 fails while M1–M4 hold, treat it
-as an adequacy/observation problem rather than weakening operational safety.
-If M6 fails, the object construction may still be valid: the failure concerns
-functorial transport and must not be reported as failure of free operations.
+## 8. Current formalization boundary
 
-## 8. First concrete deliverable
+The fixed calculus is now formalized through the strongest claim its present
+effect annotations can state:
+
+- recursion-free ordered-word safety, shallow commutation, TT transport and
+  finite adequacy;
+- recursive operational safety and pure divergence;
+- recursive Writer/State/Exception finite-boundary models, least-fixed-point
+  infrastructure, adequacy, open fundamental relations and deep discharge;
+- generic recursive certificates and fixed-point morphism/relation transport;
+- operational and finite Writer-denotational old-language conservativity.
+
+Further work separates into genuine extensions that are not definitionally
+determined by the current calculus:
+
+1. **Effectful recursion grading.**  Choose language-valued annotations,
+   explicit regular/star effects, or a restriction on recursive bodies.  The
+   current finite-word carrier cannot type the general case (`C-358`).
+2. **Productive infinite observations.**  Replace the partial finite-boundary
+   model by coinductive traces if infinite Writer output or transient State
+   behavior must be observable.
+3. **Arbitrary-category packaging.**  Select a category/domain library and
+   formalize indexed initial algebras or bilimits.  The current theorems are
+   concrete `Type`/finite-observation results and explicit certificate
+   transport, not a universe-polymorphic categorical construction.
+4. **Random.**  Choose a subprobability/valuation model before recursion; the
+   deterministic flat-boundary certificate intentionally does not claim this
+   instance.
+
+Items 1--4 require additional semantic or language-design input.  They must
+not be silently introduced as assumptions of the theorem already checked.
+
+## 9. First concrete deliverable
 
 The recommended first pull request is **M0–M2**, not the whole roadmap.  Its
 acceptance criterion is:
