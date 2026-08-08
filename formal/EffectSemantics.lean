@@ -12,3 +12,7 @@ import EffectSemantics.Metatheory.Preservation
 import EffectSemantics.Metatheory.ContextTyping
 import EffectSemantics.Metatheory.RequestDecomposition
 import EffectSemantics.Metatheory.Progress
+import EffectSemantics.Syntax.AffineHandler
+import EffectSemantics.Operational.ShallowHandler
+import EffectSemantics.Syntax.HandlerTyping
+import EffectSemantics.Examples.AffineShallow

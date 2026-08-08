@@ -35,12 +35,20 @@ Implemented and kernel-checked:
 - interface-free-bound safety under the concrete no-erasure preorder;
 - closed progress into return/internal/base/free boundaries and deterministic
   internal stepping.
+- a separate affine shallow-handler machine with matching, bare-continuation
+  resumption, and transparent base/nonmatching forwarding;
+- partial handler lookup, an independent exhaustiveness predicate, local
+  clause-typing certificates and checked parameter instantiation;
+- executable `tick`/`tock` witnesses showing that matching removes the pending
+  handler while a missing same-interface clause forwards and reinstalls it.
 
 Typing derivations live in `Type` rather than `Prop`: this exposes the explicit
 subeffecting derivation tree needed by the terminating mutual transformation.
 The associated inhabitation proposition can later be proof-irrelevant even
 though the checked certificate is retained as data.
 
-The next layer is partial shallow handling: source syntax, matching and
-transparent forwarding, handler preservation, and the `tick`/`tock`
-counterexample. No `sorry` or project axiom is admitted in the checked library.
+The next obligation is the ordered output-grade transformer for affine
+handling.  In particular, continuation retyping must expose the optionality
+needed to replace `b * [free interface] * e` by `b * clauseEffect * e`;
+this is intentionally not hidden inside the operational machine. No `sorry`
+or project axiom is admitted in the checked library.

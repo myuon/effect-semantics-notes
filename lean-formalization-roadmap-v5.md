@@ -219,7 +219,13 @@ At the end of each milestone:
 - negative claims have an explicit typed counterexample;
 - CI runs `lake build` from a clean checkout.
 
-If M3 requires changing the syntax or effect transformer, update the research
+The first M3 slice is now checked: affine response handlers are represented as
+separate runtime states, with bare-continuation matching and transparent
+forwarding. Partial lookup, exhaustiveness, clause instantiation and the
+`tick`/`tock` distinction are mechanized. The remaining M3 boundary is the
+ordered output-grade transformer and its preservation proof.
+
+If the remaining M3 proof requires changing the syntax or effect transformer, update the research
 notes before proceeding to denotation.  If M5 fails while M1–M4 hold, treat it
 as an adequacy/observation problem rather than weakening operational safety.
 If M6 fails, the object construction may still be valid: the failure concerns
