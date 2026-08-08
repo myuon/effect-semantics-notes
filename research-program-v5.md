@@ -154,6 +154,13 @@ also supply indexed initial algebras and a coherent
 graded monad laws alone do not determine how an opaque old computation acts
 on a newly extended carrier.
 
+This restriction begins only at semantic composition. The
+[assumption dependency audit](assumption-dependency-audit-v5.md) shows that
+operation syntax, type safety, request decomposition and old operational
+conservativity survive before any `baseAct` is chosen; indexed initiality then
+supplies the carrier and constructors; `baseAct` is first used to interpret
+general sequencing.
+
 At each extension boundary we separately test:
 
 - type safety and unique evaluation-position decomposition;

@@ -26,6 +26,12 @@ $\mathsf{sh}_{\Delta,h}$ interprets one shallow handling pass.  Functoriality
 belongs first to $\mathsf F_\Delta$; handler compatibility is an additional
 theorem about the resulting map.
 
+The [assumption dependency audit](assumption-dependency-audit-v5.md) splits
+this combined theorem into operational, carrier, monadic, functorial,
+relational, observational and handler strata. In particular, failure to
+construct `baseAct` blocks compositional graded bind, but not the operational
+extension or the existence of free-operation constructors.
+
 ## 1. Category of admissible base packages
 
 Fix a base syntax $L_B$, ordered effect algebra $E_B$, response monad

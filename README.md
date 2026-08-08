@@ -31,18 +31,19 @@ effect annotation は、runtimeで起きうるeffectsを順序を保って上か
 1. [Ordered-effect research program v5](research-program-v5.md) — 現在の前提と全体構成
 2. [Functorial extension theorem](functorial-extension-theorem-v5.md) — 元の式 (2)--(4) への現在の主回答
 3. [Categories of extensible packages](package-categories-v5.md) — 主定理の対象と射の厳密な範囲
-4. [Grade-indexed free carrier](grade-indexed-free-carrier-v5.md) — free extension の正式な添字付き構成
-5. [Base-action law](base-action-law-v5.md) — graded bind に本当に必要な追加構造
-6. [Constructing the base action](base-action-construction-v5.md) — root exposureからactionを導く十分条件
-7. [Graded TT-lifting](graded-tt-lifting-v5.md) — structural relation、観測関係、adequacy の接続
-8. [Canonical adequacy pole](adequacy-pole-construction-v5.md) — adequacy を循環なく導く証明鎖
-9. [Writer](writer-end-to-end-v5.md)、[State](state-end-to-end-v5.md)、[Exception](exception-end-to-end-v5.md)、[Random](random-end-to-end-v5.md) — end-to-end concrete instances
-10. [Chapter I](chapter-1-foundations-v5.md) — 用語、基礎文法、base effect
-11. [Chapter II](chapter-2-free-operations-v5.md) — ordered free-operation extension
-12. [Chapter III](chapter-3-shallow-handlers-v5.md) — shallow handlerとeffect変換
-13. [Chapter IV](chapter-4-fixpoint-derived-deep-v5.md) — fixpointとdeep handlerの導出
-14. [Recursive TT audit](recursive-tt-audit-v5.md) — 再帰で追加される admissibility 条件
-15. [Claims ledger](claims-ledger.md) — 既知・予想・未検証の台帳
+4. [Assumption dependency audit](assumption-dependency-audit-v5.md) — 各結論が初めて必要とする仮定
+5. [Grade-indexed free carrier](grade-indexed-free-carrier-v5.md) — free extension の正式な添字付き構成
+6. [Base-action law](base-action-law-v5.md) — graded bind に本当に必要な追加構造
+7. [Constructing the base action](base-action-construction-v5.md) — root exposureからactionを導く十分条件
+8. [Graded TT-lifting](graded-tt-lifting-v5.md) — structural relation、観測関係、adequacy の接続
+9. [Canonical adequacy pole](adequacy-pole-construction-v5.md) — adequacy を循環なく導く証明鎖
+10. [Writer](writer-end-to-end-v5.md)、[State](state-end-to-end-v5.md)、[Exception](exception-end-to-end-v5.md)、[Random](random-end-to-end-v5.md) — end-to-end concrete instances
+11. [Chapter I](chapter-1-foundations-v5.md) — 用語、基礎文法、base effect
+12. [Chapter II](chapter-2-free-operations-v5.md) — ordered free-operation extension
+13. [Chapter III](chapter-3-shallow-handlers-v5.md) — shallow handlerとeffect変換
+14. [Chapter IV](chapter-4-fixpoint-derived-deep-v5.md) — fixpointとdeep handlerの導出
+15. [Recursive TT audit](recursive-tt-audit-v5.md) — 再帰で追加される admissibility 条件
+16. [Claims ledger](claims-ledger.md) — 既知・予想・未検証の台帳
 
 ## ステータス記法
 

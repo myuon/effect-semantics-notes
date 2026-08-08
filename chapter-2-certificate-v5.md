@@ -142,6 +142,8 @@ Assume
 
 $$
 \mathsf{BaseCert}(L_B,E_B,\mathcal K,T,\mathsf{obs}_B)
+\land\mathsf{CarrierCert}(\mathsf F_\Sigma(T))
+\land\mathsf{MonadExtCert}(\mathsf F_\Sigma(T),\mathsf{baseAct})
 \land\mathsf{WellFounded}(\mathsf F_\Sigma(T))
 \land\mathsf{ConstructorSeparated}(\mathsf{observe}_{\mathsf F}).
 $$
@@ -159,6 +161,11 @@ Induct on the finite operational/denotational operation tree.  Base segments use
 the Chapter-I certificate; the free case uses constructor separation and the
 induction hypothesis pointwise on responses.  Termination ensures that no
 coinductive argument is required. $\square$
+
+The added carrier and monadic premises ensure that the denotation of every
+source `let` is actually defined. Initial algebras alone provide constructors
+but not the extended bind used in this theorem. The full separation is in the
+[assumption dependency audit](assumption-dependency-audit-v5.md).
 
 ## 7. Lifting morphisms and relations
 
