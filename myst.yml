@@ -24,6 +24,7 @@ project:
         - file: functorial-extension-theorem-v5.md
         - file: package-categories-v5.md
         - file: assumption-dependency-audit-v5.md
+        - file: lean-formalization-roadmap-v5.md
         - file: graded-tt-lifting-v5.md
         - file: adequacy-pole-construction-v5.md
         - file: chapter-method-v5.md

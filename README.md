@@ -42,8 +42,9 @@ effect annotation は、runtimeで起きうるeffectsを順序を保って上か
 12. [Chapter II](chapter-2-free-operations-v5.md) — ordered free-operation extension
 13. [Chapter III](chapter-3-shallow-handlers-v5.md) — shallow handlerとeffect変換
 14. [Chapter IV](chapter-4-fixpoint-derived-deep-v5.md) — fixpointとdeep handlerの導出
-15. [Recursive TT audit](recursive-tt-audit-v5.md) — 再帰で追加される admissibility 条件
-16. [Claims ledger](claims-ledger.md) — 既知・予想・未検証の台帳
+15. [Lean formalization roadmap](lean-formalization-roadmap-v5.md) — 機械検証する定理、依存順序、最初の実装範囲
+16. [Recursive TT audit](recursive-tt-audit-v5.md) — 再帰で追加される admissibility 条件
+17. [Claims ledger](claims-ledger.md) — 既知・予想・未検証の台帳
 
 ## ステータス記法
 
