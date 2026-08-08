@@ -10,3 +10,5 @@ import EffectSemantics.Metatheory.RenameSubst
 import EffectSemantics.Metatheory.Inversion
 import EffectSemantics.Metatheory.Preservation
 import EffectSemantics.Metatheory.ContextTyping
+import EffectSemantics.Metatheory.RequestDecomposition
+import EffectSemantics.Metatheory.Progress

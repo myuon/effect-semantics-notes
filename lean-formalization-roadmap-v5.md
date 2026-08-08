@@ -11,8 +11,10 @@ Lean project pins Lean 4.32.2. M0, M1 syntax/typing with simultaneous
 renaming/substitution, and the initial M2 context/request representation now
 build without `sorry`. Canonical return inversion, internal one-step
 preservation, typed contexts and forward request reconstruction are now also
-checked. The next target is the converse residual-context decomposition and
-request-grade factorization.
+checked. Converse residual-context decomposition, request-grade factorization,
+empty-free safety, closed four-way progress and internal-step determinism are
+also checked. M2's operational core is therefore complete; M3 shallow handling
+is next.
 
 ## 1. What the formalization is meant to certify
 

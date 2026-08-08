@@ -28,13 +28,19 @@ Implemented and kernel-checked:
 - one-step preservation for every internal reduction rule;
 - typed evaluation contexts, plugging preservation and typed reconstruction of
   exposed free requests.
+- converse plugging decomposition and reconstruction of typed residual
+  contexts;
+- request-grade factorization
+  `[free interface] * suffix ≤ declaredEffect`;
+- interface-free-bound safety under the concrete no-erasure preorder;
+- closed progress into return/internal/base/free boundaries and deterministic
+  internal stepping.
 
 Typing derivations live in `Type` rather than `Prop`: this exposes the explicit
 subeffecting derivation tree needed by the terminating mutual transformation.
 The associated inhabitation proposition can later be proof-irrelevant even
 though the checked certificate is retained as data.
 
-The next proof obligation is the converse decomposition theorem: from a typed
-closed term exposing a request, recover a typed residual context and the
-ordered request-grade factorization. No `sorry` or project axiom is admitted
-in the checked library.
+The next layer is partial shallow handling: source syntax, matching and
+transparent forwarding, handler preservation, and the `tick`/`tock`
+counterexample. No `sorry` or project axiom is admitted in the checked library.

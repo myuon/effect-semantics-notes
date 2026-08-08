@@ -66,5 +66,14 @@ theorem insert_free (pre suf : Effect) (interface : Nat) :
 theorem sublist_nil {e : Effect} (h : e ≤ (1 : Effect)) : e = 1 := by
   exact List.eq_nil_of_sublist_nil h
 
+def FreeOf (interface : Nat) (effect : Effect) : Prop :=
+  EffectAtom.free interface ∉ effect
+
+theorem factor_not_free {interface : Nat} {suffix effect : Effect}
+    (factor : [EffectAtom.free interface] * suffix ≤ effect)
+    (freeOf : FreeOf interface effect) : False := by
+  apply freeOf
+  exact factor.subset (by simp)
+
 end Effect
 end EffectSemantics
