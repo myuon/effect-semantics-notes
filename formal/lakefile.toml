@@ -1,0 +1,6 @@
+name = "effect-semantics-formal"
+version = "0.1.0"
+defaultTargets = ["EffectSemantics"]
+
+[[lean_lib]]
+name = "EffectSemantics"

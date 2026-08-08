@@ -1,0 +1,33 @@
+name: Check Lean formalization
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "formal/**"
+      - ".github/workflows/lean.yml"
+  pull_request:
+    paths:
+      - "formal/**"
+      - ".github/workflows/lean.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Build and reject warnings
+        uses: leanprover/lean-action@v1
+        with:
+          lake-package-directory: formal
+          build: true
+          build-args: "--wfail"
+          test: false
+          lint: false
+          use-mathlib-cache: false

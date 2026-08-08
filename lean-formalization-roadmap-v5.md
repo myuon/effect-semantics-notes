@@ -6,6 +6,12 @@
 checking, which claims can initially remain on paper, and the order that avoids
 committing early to category-theoretic or domain-theoretic infrastructure.
 
+**Implementation started.** The [`formal/`](https://github.com/myuon/effect-semantics-notes/tree/main/formal)
+Lean project pins Lean 4.32.2. M0, raw M1 syntax/typing and the initial M2
+context/request representation now build without `sorry`. The next checked
+lemma is simultaneous renaming/substitution for the mutually inductive value
+and computation typing judgments.
+
 ## 1. What the formalization is meant to certify
 
 The first formal artifact should certify the following end-to-end statement
