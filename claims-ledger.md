@@ -346,6 +346,7 @@
 | C-240 | Established in Lean | finite Writer source semanticsについてCBV `let` はbehavior-tree `bind` と一致し、source shallow evaluationはmatching・base forwarding・cross-interface forwarding・missing forwardingの全ケースでstructural `WriterTree.shallow` と可換する | syntactic/semantic clause-table agreement (`ModelsWriterHandler`) | response-type-indexed refinementへ持ち上げる |
 | C-241 | Established in Lean | response-type-indexed Writer semanticsでもtyped `let` はtyped tree `bind` と一致し、typed source shallow evaluationは`answerWith`を含む全ケースで`TypedWriterTree.shallow`と可換する | explicit signature/parameter/resume/grade witnesses; `ModelsTypedWriterHandler` | recursive/domain modelへ拡張する |
 | C-242 | Established in Lean | latent effect付きrecursive functionをcalculusへ追加してもrenaming/substitution、one-step preservation、closed progressは保たれ、empty effectのclosed loopは無限内部簡約を持つ | simultaneous argument/self substitution; CBV `fixBeta` | partial/continuous denotationとadequacyを構成する |
+| C-243 | Established in Lean | fuel-indexed finite observationはfuel増加に対して安定でbottom付き近似順序をなし、recursive Writer observerは全finite direct Writer run/tree observationをあるprojectionで再現しsilent loopを全projectionでbottomに送る | executable CBV head classification; Writer operation 0 is `tell` | typed converse reflectionとω-CPO completionを示す |
 
 ## 証明完了の基準
 

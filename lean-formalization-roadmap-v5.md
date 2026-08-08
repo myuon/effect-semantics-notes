@@ -261,6 +261,16 @@ forever, formally separating empty-effect safety from termination.  M10 still
 requires a partial/continuous semantic carrier and a fixed-point adequacy
 argument.
 
+The first M10 approximation layer is now checked.  Executable head
+classification agrees with every internal step and reconstructed base/free
+boundary used by the proof; observations are stable under increasing fuel;
+and stable observation sequences form a pointed approximation preorder.  The
+Writer-specific observer consumes `tell`, accumulates logs, maps every finite
+direct Writer run/tree observation to some finite projection, and maps the
+silent loop to bottom.  The missing step is the converse reflection theorem
+for arbitrary typed observations and its completion into an ω-CPO/fixed-point
+model.
+
 If the remaining M3 proof requires changing the syntax or effect transformer, update the research
 notes before proceeding to denotation.  If M5 fails while M1–M4 hold, treat it
 as an adequacy/observation problem rather than weakening operational safety.

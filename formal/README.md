@@ -95,6 +95,10 @@ Implemented and kernel-checked:
   substitution, unfolding, renaming/substitution preservation, one-step
   preservation and closed progress; a typed empty-effect self-loop carries an
   explicit infinite-reduction witness.
+- stable fuel-indexed finite observations with a bottom element and
+  approximation preorder; a recursive Writer observer accumulates `tell`
+  output, reflects finite direct Writer runs, and maps the silent loop to
+  bottom at every finite projection.
 
 Typing derivations live in `Type` rather than `Prop`: this exposes the explicit
 subeffecting derivation tree needed by the terminating mutual transformation.

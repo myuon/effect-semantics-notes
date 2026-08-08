@@ -38,4 +38,6 @@ import EffectSemantics.Examples.ExceptionShallow
 import EffectSemantics.Certificate.BaseModels
 import EffectSemantics.Recursive.DeepApprox
 import EffectSemantics.Recursive.Fixpoint
+import EffectSemantics.Recursive.FiniteObservation
+import EffectSemantics.Recursive.WriterObservation
 import EffectSemantics.Examples.DeepApprox
