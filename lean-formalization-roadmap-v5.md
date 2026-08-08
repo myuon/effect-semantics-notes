@@ -348,6 +348,22 @@ theorem includes the recursive-function case rather than assuming it.  For
 exhaustive handlers it returns boundary typing and selected-interface
 discharge together.
 
+Recursive morphism and relation transport are now available independently of
+Writer.  A map on finite outcomes that commutes with one semantic unfolding
+commutes with the corresponding Kleene least fixed points.  Likewise, any
+binary admissible relation containing the two bottoms and preserved by one
+unfolding relates the two fixed points.  These are exactly the recursion cases
+needed by the paper's morphism-lifting and logical-relation-lifting diagrams;
+future instances need prove only their one-layer compatibility premises.
+
+Recursive outward-boundary adequacy is now bidirectional.  A direct inductive
+run relation contains separate constructors for return, internal CBV steps,
+Writer output, a selected match, an old-base boundary, a different-interface
+boundary and a missing selected clause.  It is equivalent both to existence
+of a finite fuel observation and to the completed boundary limit.  Thus the
+fundamental relation's observation target is independently characterized by
+operational runs rather than only by its evaluator.
+
 If the remaining M3 proof requires changing the syntax or effect transformer, update the research
 notes before proceeding to denotation.  If M5 fails while M1–M4 hold, treat it
 as an adequacy/observation problem rather than weakening operational safety.

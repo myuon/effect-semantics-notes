@@ -141,8 +141,17 @@ closed and open fundamental theorems under every typed closing substitution.
 Recursive-function cases are included through the mechanized substitution
 and preservation lemmas.
 
-Remaining work is now concentrated in morphism/relation transport for the
-recursive carrier and in identifying which generic paper-level package claims
-still require genuinely external domain assumptions.
+Generic recursive transport is now checked: an outcome map commuting with one
+unfolding commutes with the two Kleene least fixed points, and any binary
+admissible relation containing bottom and preserved by one unfolding relates
+the two least fixed points.
+- direct recursive operational boundary runs cover return, internal steps,
+  Writer output, matched requests, old-base escape, cross-interface escape and
+  missing-clause escape; this relation is equivalent both to a finite fuel
+  observation and to the completed outward-boundary limit.
+
+Remaining work is now the audit and concrete instantiation of the generic
+transport premises for source/tree semantics; recursive finite-boundary
+adequacy and generic fixed-point transport are no longer assumed.
 No `sorry`
 or project axiom is admitted in the checked library.
