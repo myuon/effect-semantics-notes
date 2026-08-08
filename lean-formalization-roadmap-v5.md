@@ -470,6 +470,15 @@ including examples with optional recursion and two self calls in one branch.
 For the one-operation loop the generic solution is equal, not merely bounded
 by, the explicit Kleene star (`C-363`--`C-365`).
 
+The repair is now connected to an actual source language rather than only an
+effect skeleton.  A separate fine-grain CBV calculus carries effect languages
+on arrows and computations, uses language union for conditional/case effects,
+and includes effectful recursive functions.  Renaming, simultaneous
+substitution, recursive argument/self substitution, every internal CBV step,
+preservation and closed progress are checked.  A closed `freeOp; self()`
+program typechecks at the regular grade and retains it after `fixBeta`; a
+conditional recursive variant typechecks by branch union (`C-366`--`C-368`).
+
 ## 8. Current formalization boundary
 
 The fixed calculus is now formalized through the strongest claim its present
@@ -488,10 +497,11 @@ determined by the current calculus:
 
 1. **Full effectful recursion syntax.**  The conservative language-valued
    regular closure, old-grade embedding, and general least solution for
-   branching/multiple-self effect equations are now fixed.  Reindexing all
-   source arrows, contexts, substitutions, handlers and preservation proofs
-   by those languages remains a new calculus, rather than a missing theorem
-   about the existing finite-word syntax.
+   branching/multiple-self effect equations are now fixed.  Source arrows,
+   contexts, substitutions, recursion, preservation and progress have been
+   reindexed in a conservative parallel calculus.  Typed request
+   decomposition, shallow-handler residual grading and the handler
+   preservation theorem remain to be transported to language grades.
 2. **Productive infinite observations.**  Replace the partial finite-boundary
    model by coinductive traces if infinite Writer output or transient State
    behavior must be observable.

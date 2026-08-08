@@ -199,6 +199,14 @@ theorem seq_mono (leftBound : left ≤ left') (rightBound : right ≤ right') :
   exact ⟨leftTrace, rightTrace, leftBound _ leftMember,
     rightBound _ rightMember, traceBound⟩
 
+/-- If the left computation may return purely, sequencing it before `right`
+does not remove any behavior of `right`. -/
+theorem le_seq_of_pure_left (pureBound : principal 1 ≤ left) :
+    right ≤ seq left right := by
+  intro trace member
+  exact ⟨1, trace, pureBound 1 (Effect.le_refl 1), member, by
+    simpa using Effect.le_refl trace⟩
+
 theorem principal_seq (left right : Effect) :
     seq (principal left) (principal right) = principal (left * right) := by
   apply EffectLanguage.ext
