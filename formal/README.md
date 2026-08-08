@@ -88,12 +88,15 @@ Implemented and kernel-checked:
 - operational `let`/tree-`bind` correspondence and the full untyped
   source-shallow/tree-shallow commutation theorem, including matching, Writer
   forwarding, cross-interface forwarding and missing-clause forwarding.
+- the response-type-indexed refinement of `let`/`bind` and shallow
+  commutation, with explicit typed clause-model witnesses and checked
+  matching-clause execution through `answerWith`.
 
 Typing derivations live in `Type` rather than `Prop`: this exposes the explicit
 subeffecting derivation tree needed by the terminating mutual transformation.
 The associated inhabitation proposition can later be proof-irrelevant even
 though the checked certificate is retained as data.
 
-Remaining work includes source-level handler/tree commutation and a genuine
-recursive/domain model beyond finite approximants. No `sorry`
+Remaining work is now concentrated in a genuine recursive/domain model beyond
+finite approximants. No `sorry`
 or project axiom is admitted in the checked library.

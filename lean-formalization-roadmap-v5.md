@@ -246,6 +246,13 @@ are related by an explicit `ModelsWriterHandler` record, and direct shallow
 evaluation produces exactly `WriterTree.shallow` in all matching and
 forwarding cases.  What remains is its response-type-indexed refinement.
 
+That response-type-indexed refinement is now checked as well.  Typed request
+rules expose signature lookup, parameter typing, resume typing and the grade
+bound explicitly; typed `let` is typed tree `bind`; and
+`ModelsTypedWriterHandler` yields the full typed source/tree shallow
+commutation theorem.  Thus finite M5 is complete.  The next genuinely new
+semantic obligation is M10 rather than another finite Writer lemma.
+
 If the remaining M3 proof requires changing the syntax or effect transformer, update the research
 notes before proceeding to denotation.  If M5 fails while M1–M4 hold, treat it
 as an adequacy/observation problem rather than weakening operational safety.

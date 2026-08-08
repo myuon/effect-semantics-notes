@@ -25,6 +25,7 @@ import EffectSemantics.Denotational.GradedWriterTree
 import EffectSemantics.Denotational.TypedWriterTree
 import EffectSemantics.Operational.TypedWriterEvaluation
 import EffectSemantics.Operational.WriterHandlerEvaluation
+import EffectSemantics.Operational.TypedWriterHandlerEvaluation
 import EffectSemantics.Denotational.TypedShallow
 import EffectSemantics.Denotational.TypedWriterTT
 import EffectSemantics.Denotational.EffectLanguage
