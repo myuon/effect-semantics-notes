@@ -144,7 +144,9 @@ Before a general theorem, calculate:
 2. recursive State where resumptions revisit updated stores;
 3. Exception where a base exception cuts off further reinstallation;
 4. one program with an intervening nonmatching free operation, testing
-   transparent forwarding.
+   transparent forwarding;
+5. one partial same-interface handler, separating derived-deep definability
+   from whole-interface elimination.
 
 The full Chapter-IV cycle is developed in:
 

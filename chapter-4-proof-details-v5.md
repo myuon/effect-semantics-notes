@@ -113,3 +113,25 @@ equations in `DerivedDeepCert`; the invariant separately supplies
 induction supplies `RecursiveEffectCert`. Old terms contain neither recursion
 nor derived-handler expansion, so Chapter-III conservativity remains literal.
 Every stronger observation remains explicitly conditional.
+
+## 7. Partial-handler regression lemma
+
+Let $J\subsetneq I_\Delta$ and choose $i\in J$ and $j\notin J$.  In the
+derived handler, a request for $i$ enters its clause and replaces the bare
+resumption $k$ by $\lambda r.\mathsf{loop}(k(r))$.  A request for $j$ instead
+uses transparent forwarding and carries the pending `loop` in its
+continuation.  Induction over any finite sequence of resumptions therefore
+shows that every later $i$ is caught.
+
+However, the one-step program
+
+$$
+\mathsf{deep}_{\Delta,h_J}^{\mathsf{derived}}
+  (\mathsf{op}_j(p);M)
+$$
+
+exposes an $j$ request.  Since $j\in I_\Delta$, this is also an escaping
+$\Delta$ request at interface granularity.  Thus partial derived-deep
+definability does not imply `DeepElimCert`.  This is a direct countermodel to
+dropping exhaustiveness from the elimination theorem, rather than merely a
+gap in its proof. $\square$

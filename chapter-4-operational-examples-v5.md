@@ -142,3 +142,62 @@ State this duplicates the tail and its base effects in model-specific order.
 The basic theorem permits this only through an explicit handler effect
 certificate.  Exact ordered grades require an affine/linear restriction or a
 quantitative extension; they do not follow from recursion alone.
+
+## 9. Partial deep handling does not eliminate an interface
+
+Let one interface $\Delta$ contain two operations
+
+$$
+\mathsf{tick}:1\to1,
+\qquad
+\mathsf{tock}:1\to1,
+$$
+
+and let the handled set be only $J=\{\mathsf{tick}\}$.  Write $h_J$ for
+
+```text
+return x  -> return x
+tick(_,k) -> tell("h"); k(())
+```
+
+where the omitted `tock` branch means transparent forwarding, not abortion.
+Consider
+
+```text
+rounds(0)   = return ()
+rounds(n+1) = tick(); tock(); rounds(n)
+```
+
+For `deep_Delta rounds(2) with h_J`, the first `tick` is caught and its
+resumption is wrapped again:
+
+```text
+deep_Delta rounds(2) with h_J
+  --> tell("h"); deep_Delta (tock(); rounds(1)) with h_J
+  --> tell("h"); tock((), fun _ -> deep_Delta rounds(1) with h_J)
+```
+
+The last term is an exposed `tock` request.  It is not a stuck error: it is a
+boundary offered to an enclosing handler, and its continuation still contains
+the partial deep handler. If an enclosing **derived-deep** `tock` handler
+writes `"o"` and resumes at each request, evaluation continues as
+
+```text
+tell("h"); tell("o");
+tell("h"); tell("o");
+return ()
+```
+
+with Writer log $[h,o,h,o]$.  Hence all `tick` requests are handled at every
+recursive depth, while `tock` remains observable at every round.
+
+This example separates two claims:
+
+1. `DerivedDeepCert` is meaningful for a partial set $J$: fixpoint
+   reinstallation repeatedly catches every selected operation.
+2. `DeepElimCert(\Delta)` is false: since `tock` belongs to the same interface,
+   the interface-level grade $\Delta$ must remain in the outward upper bound.
+
+An operation-granular effect algebra could express elimination of `tick` while
+retaining `tock`.  The present interface-granular algebra deliberately makes
+only the weaker claim.

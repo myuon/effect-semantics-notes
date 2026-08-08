@@ -167,7 +167,9 @@ keeps the handler installed, and resumed computations are handled again.
 | iteration-closed effect bound |  |  |  | ✓ |  |  |
 | outward elimination of $\Delta$ | ✓ |  |  |  |  | ✓ |
 
-The RM entries in the relation and adequacy rows supply the semantic fixed
+Every row additionally inherits the matching finite Chapter-III certificate
+(safety, semantics, relation, adequacy, or handler typing). The RM entries in
+the relation and adequacy rows supply the semantic fixed
 point and continuity; RT supplies admissible induction.  The elimination row
 does not use a domain model, observation reflection or TT reasoning: it is an
 operational type-and-boundary invariant over finite unfoldings. Thus partial deep handling is

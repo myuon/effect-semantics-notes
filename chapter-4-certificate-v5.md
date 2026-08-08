@@ -251,7 +251,7 @@ the handler has `EliminationCert` and its clauses do not re-emit $\Delta$.
 Thus a partial derived handler still has a deep semantics and adequacy theorem
 without a false interface-elimination claim.
 
-The former bundled fields were:
+Their contents are read separately as follows:
 
 1. **Recursive safety and conservativity.** Preservation/progress hold at each
    step and old programs retain their behavior.
@@ -259,11 +259,12 @@ The former bundled fields were:
    fixed point of the semantic handler functional.
 3. **Deep equations.** Return, matching and forwarding satisfy the standard
    deep-handler equations.
-4. **Interface elimination.** No finite outward observation exposes an
-   unhandled $\Delta$ request.
-5. **Declared adequacy and iteration bound.** Adequacy holds at the selected
-   observation level and transformed recursive effects remain below the
+4. **Declared adequacy.** Adequacy holds at the selected observation level.
+5. **Iteration bound.** Transformed recursive effects remain below the
    closure bound.
+6. **Optional interface elimination.** When `DeepElimCert` is separately
+   established, no finite outward observation exposes an unhandled $\Delta$
+   request.
 
 The characteristic conditions are
 
@@ -285,20 +286,22 @@ $$
 :::{prf:theorem} Layered recursive derived-deep certificates
 :label: thm-recursive-derived-deep-certificate-v5
 
-The conclusions and their minimal additional premises are:
+The conclusions and their premises are separate implications:
 
-1. `ShallowSafetyCert + RecSafetyCert` yields `RecursiveSafetyCert`.
-2. `ShallowSemanticCert + RecModelCert` and continuity of the handler
-   functional yield `DerivedDeepCert`.
-3. Adding `ShallowRelCert + RecTTCert` yields
-   `RecursiveHandlerRelCert` by fixed-point induction.
-4. Adding `ShallowAdequacyCert` and
-   $\mathsf{RecObservationCert}(\ell)$ yields
-   `RecursiveAdequacyCert` exactly at level $\ell$.
-5. Adding $\mathsf{EffectClosureCert}(K)$ and closure compatibility of $\Phi_h$
-   yields `RecursiveEffectCert`.
-6. Independently, `RecSafetyCert + EliminationCert`, outward $\Delta$-free
-   clauses and wrapped matching resumptions yield `DeepElimCert`.
+1. `ShallowSafetyCert + RecSafetyCert` implies `RecursiveSafetyCert`.
+2. `ShallowSemanticCert + RecModelCert`, together with continuity of the
+   handler functional, implies `DerivedDeepCert`.
+3. `ShallowRelCert + RecModelCert + RecTTCert`, together with continuity of
+   the related handler functionals, implies `RecursiveHandlerRelCert` by
+   fixed-point induction.
+4. `ShallowAdequacyCert + RecModelCert + RecTTCert +`
+   $\mathsf{RecObservationCert}(\ell)$ implies `RecursiveAdequacyCert`
+   exactly at level $\ell$.
+5. `HandlerTypingCert + EffectClosureCert` and closure compatibility of
+   $\Phi_h$ imply `RecursiveEffectCert`.
+6. `ShallowSafetyCert + RecSafetyCert + EliminationCert`, outward
+   $\Delta$-free clauses and wrapped matching resumptions imply
+   `DeepElimCert`.
 
 Conclusions 1--5 give the non-eliminating `DeepCert`. Conclusion 6 may be
 attached when its stronger premises hold.
