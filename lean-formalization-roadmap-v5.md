@@ -9,8 +9,10 @@ committing early to category-theoretic or domain-theoretic infrastructure.
 **Implementation started.** The [`formal/`](https://github.com/myuon/effect-semantics-notes/tree/main/formal)
 Lean project pins Lean 4.32.2. M0, M1 syntax/typing with simultaneous
 renaming/substitution, and the initial M2 context/request representation now
-build without `sorry`. The next checked lemmas are canonical typing inversion
-through subeffecting and one-step preservation.
+build without `sorry`. Canonical return inversion, internal one-step
+preservation, typed contexts and forward request reconstruction are now also
+checked. The next target is the converse residual-context decomposition and
+request-grade factorization.
 
 ## 1. What the formalization is meant to certify
 

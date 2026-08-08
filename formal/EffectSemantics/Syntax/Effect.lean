@@ -52,6 +52,9 @@ theorem le_seq_left {e e' : Effect} (h : e ≤ e') (f : Effect) :
 theorem le_seq_right (e : Effect) {f f' : Effect} (h : f ≤ f') :
     e * f ≤ e * f' := le_seq (le_refl e) h
 
+theorem le_left_padding (e f : Effect) : f ≤ e * f := by
+  simpa only [one_mul] using le_seq (nil_le e) (le_refl f)
+
 theorem optional_free (interface : Nat) :
     (1 : Effect) ≤ [EffectAtom.free interface] := nil_le _
 

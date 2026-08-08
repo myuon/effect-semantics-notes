@@ -24,12 +24,17 @@ Implemented and kernel-checked:
   including substitution under binders and closed-value substitution;
 - CBV `let` evaluation contexts, internal reductions and exposed base/free
   request records whose continuations are reconstructed from contexts.
+- canonical return inversion through arbitrary outer subeffecting;
+- one-step preservation for every internal reduction rule;
+- typed evaluation contexts, plugging preservation and typed reconstruction of
+  exposed free requests.
 
 Typing derivations live in `Type` rather than `Prop`: this exposes the explicit
 subeffecting derivation tree needed by the terminating mutual transformation.
 The associated inhabitation proposition can later be proof-irrelevant even
 though the checked certificate is retained as data.
 
-The next proof obligation is canonical typing inversion through arbitrary
-outer subeffecting, followed by one-step preservation and request-context
-typing. No `sorry` or project axiom is admitted in the checked library.
+The next proof obligation is the converse decomposition theorem: from a typed
+closed term exposing a request, recover a typed residual context and the
+ordered request-grade factorization. No `sorry` or project axiom is admitted
+in the checked library.

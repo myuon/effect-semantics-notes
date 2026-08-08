@@ -7,3 +7,6 @@ import EffectSemantics.Operational.Context
 import EffectSemantics.Operational.Step
 import EffectSemantics.Operational.Boundary
 import EffectSemantics.Metatheory.RenameSubst
+import EffectSemantics.Metatheory.Inversion
+import EffectSemantics.Metatheory.Preservation
+import EffectSemantics.Metatheory.ContextTyping
