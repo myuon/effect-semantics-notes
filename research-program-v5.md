@@ -118,6 +118,30 @@ therefore a derived program, not a new semantic primitive.
 
 ## The staged theorem program
 
+The main recursion-free answer is now stated first as the
+[Functorial free-effect extension and adequacy transport
+theorem](functorial-extension-theorem-v5.md).  It reorganizes the original
+research equations into the following dependency chain:
+
+$$
+\begin{array}{c}
+T\mapsto\mathsf F_\Delta T
+\\[1mm]\Downarrow\\[-1mm]
+q\mapsto\mathsf F_\Delta q,quad
+R\mapsto\mathsf F_\Delta R
+\\[1mm]\Downarrow\\[-1mm]
+\mathsf F_\Delta(\operatorname{Graph}q)
+=\operatorname{Graph}(\mathsf F_\Delta q)
+\\[1mm]\Downarrow\\[-1mm]
+\text{compatible shallow handling and adequacy transport.}
+\end{array}
+$$
+
+Chapters I--III supply the definitions and detailed proofs behind this result.
+Chapter IV is deliberately a second theorem: recursion invalidates finite
+normalization and requires domain-theoretic structure that is not part of the
+free-extension functor itself.
+
 At each extension boundary we separately test:
 
 - type safety and unique evaluation-position decomposition;
@@ -139,7 +163,7 @@ proofs and certificate extraction in that order.  Chapter $n+1$ receives only
 the explicit certificate exported by Chapter $n$.
 
 The certificate names abbreviate formally declared records, not unspecified
-bundles of “good properties.”  The overall theorem has the shape
+bundles of “good properties.”  The cumulative theorem has the shape
 
 $$
 \begin{aligned}
@@ -162,7 +186,9 @@ $$
 $$
 
 Each conjunct, its quantified type, and its equations are written out in the
-certificate section of the corresponding chapter.
+certificate section of the corresponding chapter.  This cumulative display is
+an assembly theorem; the functorial theorem above is the sharper answer to the
+original object/morphism/relation-lifting question.
 
 ## Material no longer on the main line
 

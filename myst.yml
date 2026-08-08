@@ -21,6 +21,7 @@ project:
     - title: Active ordered-effect program
       children:
         - file: research-program-v5.md
+        - file: functorial-extension-theorem-v5.md
         - file: chapter-method-v5.md
         - file: chapter-1-foundations-v5.md
         - file: chapter-1-operational-examples-v5.md

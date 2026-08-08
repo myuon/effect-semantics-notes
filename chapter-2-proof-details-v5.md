@@ -91,3 +91,24 @@ three constructors.  For a compatible logical relation, define the free
 relation by the three clauses above and prove bind closure by induction on the
 left tree.  Thus all seven components of `FreeCert` follow without inspecting
 an opaque base computation.
+
+:::{prf:theorem} Graph lemma
+:label: thm-ii-graph-lemma-detail-v5
+
+For every compatible $q:T\Rightarrow U$,
+
+$$
+\mathsf F_\Delta(\operatorname{Graph}q)
+=\operatorname{Graph}(\mathsf F_\Delta q).
+$$
+:::
+
+**Proof.**  For the forward inclusion, induct on the lifted-relation
+derivation.  Each constructor forces the right component to be the
+corresponding clause of the fold defining $\mathsf F_\Delta q$.  For the
+reverse inclusion, induct on the source free carrier.  Return and free-node
+cases are immediate; a base layer uses membership in
+$\operatorname{Graph}q$ and the pointwise induction hypothesis. $\square$
+
+This identifies relation lifting with morphism lifting on graphs; it is
+stronger than merely constructing the two liftings independently.
