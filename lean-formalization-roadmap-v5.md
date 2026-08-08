@@ -289,6 +289,14 @@ no finite observation.  The remaining M10 obligations are type/effect
 indexing of this limit, ω-continuity in the generic carrier, and the
 admissible logical-relation/fundamental-lemma layer.
 
+The whole-program approximation space now has its own pointwise ω-chain
+completion.  The deep Writer functional preserves every such supremum, its
+Kleene chain has exactly the previously defined operational limit as supremum,
+and this limit is least among all pre-fixed (hence all fixed) points.  Thus the
+generic continuity obligation is discharged for the concrete Writer/deep
+handler instance; only its typed effect-indexed and logical-relation
+interfaces remain.
+
 If the remaining M3 proof requires changing the syntax or effect transformer, update the research
 notes before proceeding to denotation.  If M5 fails while M1–M4 hold, treat it
 as an adequacy/observation problem rather than weakening operational safety.

@@ -106,6 +106,9 @@ Implemented and kernel-checked:
   direct shallow match; its fuel semantics is bidirectionally adequate for
   an inductive run relation, its limit is the union of finite observations,
   and that limit satisfies the handler functional's fixed-point equation.
+- pointwise ω-chain suprema for whole-program Writer approximations, with a
+  proof that the deep-handler functional preserves them; consequently the
+  operational limit is its least pre-fixed point and least fixed point.
 
 Typing derivations live in `Type` rather than `Prop`: this exposes the explicit
 subeffecting derivation tree needed by the terminating mutual transformation.
