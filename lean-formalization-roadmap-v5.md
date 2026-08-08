@@ -459,6 +459,17 @@ regular grade for every self-free prefix followed by a self call, while also
 reusing the finite impossibility theorem to reject every principal finite
 annotation for the one-operation loop (`C-360`--`C-362`).
 
+The restriction to one tail-position self call has also been removed at the
+grade level.  Effect languages now have empty and binary-union constructions,
+and the intersection of all pre-fixed points supplies a Knaster--Tarski least
+fixed point for every monotone language functional.  Recursive effect
+expressions with pure, atoms, sequence, choice and `self` are positive in the
+self grade, so `1 ∪ grade(body,-)` has a canonical least fixed point.  Lean
+checks its unfold equation, pure inclusion, body absorption and leastness,
+including examples with optional recursion and two self calls in one branch.
+For the one-operation loop the generic solution is equal, not merely bounded
+by, the explicit Kleene star (`C-363`--`C-365`).
+
 ## 8. Current formalization boundary
 
 The fixed calculus is now formalized through the strongest claim its present
@@ -476,11 +487,11 @@ Further work separates into genuine extensions that are not definitionally
 determined by the current calculus:
 
 1. **Full effectful recursion syntax.**  The conservative language-valued
-   regular closure and its old-grade embedding are now fixed.  Reindexing all
+   regular closure, old-grade embedding, and general least solution for
+   branching/multiple-self effect equations are now fixed.  Reindexing all
    source arrows, contexts, substitutions, handlers and preservation proofs
    by those languages remains a new calculus, rather than a missing theorem
-   about the existing finite-word syntax.  Bodies with several recursive
-   occurrences additionally require a general language-equation fixed point.
+   about the existing finite-word syntax.
 2. **Productive infinite observations.**  Replace the partial finite-boundary
    model by coinductive traces if infinite Writer output or transient State
    behavior must be observable.

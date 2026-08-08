@@ -371,6 +371,9 @@
 | C-360 | Established in Lean | 任意のdownward-closed ordered effect language $L$ について有限冪の和としてKleene closure $L^*$を構成でき、$1\le L^*$、$L\cdot L^*\le L^*$、monotonicity、およびこの二条件を満たす最小性が成り立つ | language sequential product; finite natural iteration | arbitrary recursive effect equationsにはsimultaneous/least-fixed-point closureを追加する |
 | C-361 | Established in Lean | finite wordのprincipal-language埋め込みはpureとsequential productを保存し、subeffect orderを保存かつ反映する。従ってlanguage gradingは旧finite gradingの識別を潰さない保守的拡張である | ordered-subsequence preorder; downward closure | source type syntax全体のlanguage reindexingは別moduleで行う |
 | C-362 | Established in Lean | 非再帰prefix $p$ の後にself-callするeffect skeletonは $(\llbracket p\rrbracket)^*$ で型付けでき、単一operation loopはどのprincipal finite-word gradeでも型付け不能だが対応するregular gradeでは型付け可能である | explicit self-free predicate; C-358; C-360--C-361 | selfが複数・分岐して現れる一般bodyにはgeneral recursive language equationが必要 |
+| C-363 | Established in Lean | downward-closed effect languagesは空language、binary union、および任意の単調endofunctionに対する全pre-fixed pointsのintersectionを持つ。このleast pre-fixed pointは単調性だけからfixed-point equationとleastnessを満たす | impredicative intersection in `Prop`; no continuity assumption | executable grade inferenceにはregular representation/decision procedureを別途与える |
+| C-364 | Established in Lean | recursive effect expressionのgrade解釈はself gradeについて単調であり、$F_B(X)=1\cup\llbracket B\rrbracket_X$ のleast fixed pointはpureを含み一段body unfoldingを吸収する。従ってbranchおよび複数self-callを含む全effect skeletonにcanonical least recursive gradeが存在する | positivity of pure/atom/sequence/choice/self; C-363 | full source arrows/contexts/handlersをlanguage-valued gradeへreindexする |
+| C-365 | Established in Lean | generic least recursive gradeは単一operation loop上でexplicit Kleene starと等しく、optional-operation loopと一branch内に二つself-callを持つnon-affine skeletonの双方を型付けする | C-360; C-364 | multi-shot handler resource validityはmay-effect gradeとは別問題 |
 
 ## 証明完了の基準
 
