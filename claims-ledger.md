@@ -367,6 +367,7 @@
 | C-356 | Established in Lean | `BaseOnly` sourceから生成される全finite Writer behavior treeはfree nodeを持たず、任意のstructural shallow handlerはそのtree上でidentityである。従ってold-language denotationもextension前後で不変である | C-355; source/tree production | generic base foldに対するcategorical conservativityはpaper boundaryとして分離する |
 | C-357 | Established in Lean | stable-observation outcome mappingはidentity/compositionを満たし、そのgraph relationはbinary admissibleである。各`RecursiveMorphismCert`はgraph用`RecursiveRelationCert`を誘導し、least-fixed-pointでmorphism liftingとgraph-relation liftingが一致する | C-347; C-353; supremum preservation | concrete nonidentity source/tree morphism instanceはmodel-specific layerとして分離する |
 | C-358 | Established in Lean | no-erasure ordered-word preorderでは任意のfinite `e`について`[atom]·e ≤ e`は不可能である。一方、全finite反復のdownward-closed language `atom*`はpure traceを含み`[atom]·atom* ≤ atom*`を満たすため、effectful recursionにはiteration closureが必要かつ最小例には十分である | sublist length; language sequential product | full calculusをlanguage gradeへ再indexする作業は別extensionとして分離する |
+| C-359 | Established in Lean | Writer outcomeからlogを消してvalueだけを残すnonidentity mapはrecursive deep-handler functionalのone-layer unfoldingと可換し、全finite approximantおよびcompleted fixed pointへ持ち上がる | concrete Writer/result-only functionals; C-347 | arbitrary base-monad morphismはcategorical package境界として維持する |
 
 ## 証明完了の基準
 

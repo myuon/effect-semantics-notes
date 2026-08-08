@@ -58,4 +58,5 @@ import EffectSemantics.Certificate.RecursiveTransport
 import EffectSemantics.Recursive.OtherBoundaryLogicalRelations
 import EffectSemantics.Metatheory.BaseConservativity
 import EffectSemantics.Denotational.BaseConservativity
+import EffectSemantics.Recursive.DeepWriterErasure
 import EffectSemantics.Examples.DeepApprox

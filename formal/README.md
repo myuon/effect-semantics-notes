@@ -172,6 +172,9 @@ the two least fixed points.
   binary admissible, and every recursive morphism certificate induces the
   corresponding relation certificate; graph and morphism lifting agree at
   the least fixed point.
+- a concrete nonidentity instance erases Writer logs while retaining returned
+  values; it commutes with one deep-handler unfolding, every finite
+  approximant and the completed recursive fixed point.
 - State and Exception now have their own type-indexed return/base/free
   boundary relations (plus typed `raise` for Exception), admissible poles and
   closed/open fundamental theorems under typed closing substitutions, matching

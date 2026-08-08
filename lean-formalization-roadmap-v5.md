@@ -408,6 +408,13 @@ admissible relation.  Every `RecursiveMorphismCert` therefore constructs a
 the morphism fixed-point equation.  Morphism and graph-relation transport are
 not two unrelated assumptions in the recursive layer.
 
+There is now a nonidentity concrete transport instance.  Mapping a Writer
+outcome `(log,value)` to `value` commutes with one recursive handler unfolding:
+the target functional performs the same control traversal while forgetting
+`tell` output.  The equation lifts to every finite approximant and to the
+completed fixed point, which satisfies the result-only unfold equation.  This
+checks that the transport interface is usable beyond identity maps.
+
 The type-indexed fundamental layer is now replicated for State and Exception,
 not just operationally packaged.  Exception boundaries type return, residual
 requests and the raised error value; State boundaries type returns and
