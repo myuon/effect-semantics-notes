@@ -24,6 +24,65 @@ theorem bottom_le (observation : StableObservation Outcome) :
   intro _ _ impossible
   cases impossible
 
+theorem stable_mono (observation : StableObservation Outcome)
+    (observed : observation.observeAt fuel = some outcome) (extra : Nat) :
+    observation.observeAt (fuel + extra) = some outcome := by
+  induction extra with
+  | zero => simpa using observed
+  | succ extra ih =>
+      rw [Nat.add_succ]
+      exact observation.stable ih
+
+noncomputable def limitOutcome (observation : StableObservation Outcome) :
+    Option Outcome := by
+  classical
+  by_cases existsObserved : ∃ fuel outcome,
+      observation.observeAt fuel = some outcome
+  · exact some (Classical.choose (Classical.choose_spec existsObserved))
+  · exact none
+
+theorem limitOutcome_of_observed (observation : StableObservation Outcome)
+    (observed : observation.observeAt fuel = some outcome) :
+    observation.limitOutcome = some outcome := by
+  classical
+  unfold limitOutcome
+  split
+  next existsObserved =>
+    let chosenFuel := Classical.choose existsObserved
+    let chosenOutcome := Classical.choose (Classical.choose_spec existsObserved)
+    have chosenObserved : observation.observeAt chosenFuel = some chosenOutcome :=
+      Classical.choose_spec (Classical.choose_spec existsObserved)
+    let common := Nat.max fuel chosenFuel
+    have originalStable : observation.observeAt common = some outcome := by
+      obtain ⟨extra, equal⟩ := Nat.le.dest (Nat.le_max_left fuel chosenFuel)
+      change observation.observeAt (Nat.max fuel chosenFuel) = some outcome
+      simpa [equal] using observation.stable_mono observed extra
+    have chosenStable : observation.observeAt common = some chosenOutcome := by
+      obtain ⟨extra, equal⟩ := Nat.le.dest (Nat.le_max_right fuel chosenFuel)
+      change observation.observeAt (Nat.max fuel chosenFuel) = some chosenOutcome
+      simpa [equal] using observation.stable_mono chosenObserved extra
+    have equal : chosenOutcome = outcome := by
+      rw [originalStable] at chosenStable
+      exact (Option.some.inj chosenStable).symm
+    change some chosenOutcome = some outcome
+    rw [equal]
+  next absent => exact False.elim (absent ⟨fuel, outcome, observed⟩)
+
+theorem limitOutcome_some_witness (observation : StableObservation Outcome)
+    (observed : observation.limitOutcome = some outcome) :
+    ∃ fuel, observation.observeAt fuel = some outcome := by
+  classical
+  unfold limitOutcome at observed
+  split at observed
+  next existsObserved =>
+    let chosenFuel := Classical.choose existsObserved
+    let chosenOutcome := Classical.choose (Classical.choose_spec existsObserved)
+    have chosenObserved : observation.observeAt chosenFuel = some chosenOutcome :=
+      Classical.choose_spec (Classical.choose_spec existsObserved)
+    have equal : chosenOutcome = outcome := Option.some.inj observed
+    exact ⟨chosenFuel, by simpa [equal] using chosenObserved⟩
+  next absent => cases observed
+
 theorem le_refl (observation : StableObservation Outcome) :
     observation ≤ observation := fun _ _ observed => observed
 

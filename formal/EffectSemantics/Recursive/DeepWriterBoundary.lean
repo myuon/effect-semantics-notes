@@ -163,6 +163,21 @@ theorem Comp.deepWriterBoundaryLimit_some_witness
     exact ⟨chosenFuel, by simpa [equal] using chosenObserved⟩
   next absent => cases observed
 
+theorem Comp.deepWriterBoundaryLimit_eq_generic (term : Comp)
+    (interface : Nat) (handler : AffineHandler) :
+    term.deepWriterBoundaryLimit interface handler =
+      (term.deepWriterBoundaryApprox interface handler).limitOutcome := by
+  apply Option.ext
+  intro boundary
+  constructor
+  · intro observed
+    obtain ⟨fuel, finite⟩ := Comp.deepWriterBoundaryLimit_some_witness observed
+    exact StableObservation.limitOutcome_of_observed _ finite
+  · intro observed
+    obtain ⟨fuel, finite⟩ :=
+      StableObservation.limitOutcome_some_witness _ observed
+    exact Comp.deepWriterBoundaryLimit_of_observed finite
+
 /-- Exhaustive typed deep handling discharges the selected interface from
 every finite outward free boundary. -/
 theorem observeDeepWriterBoundary_discharges

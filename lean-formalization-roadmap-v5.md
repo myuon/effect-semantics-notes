@@ -364,6 +364,14 @@ of a finite fuel observation and to the completed boundary limit.  Thus the
 fundamental relation's observation target is independently characterized by
 operational runs rather than only by its evaluator.
 
+The generic outcome completion has now been exercised by a second recursive
+base.  In the Exception instance, base operation zero is abortive `raise` and
+never resumes; return, raise, residual base and residual free boundaries are
+distinct.  Direct runs and the stable limit are bidirectionally adequate and
+deterministic, while typed exhaustive handlers again prevent the selected
+interface from escaping.  This validates that Writer's log threading was not
+secretly required by the recursive completion or discharge argument.
+
 If the remaining M3 proof requires changing the syntax or effect transformer, update the research
 notes before proceeding to denotation.  If M5 fails while M1–M4 hold, treat it
 as an adequacy/observation problem rather than weakening operational safety.

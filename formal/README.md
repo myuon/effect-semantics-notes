@@ -149,9 +149,14 @@ the two least fixed points.
   Writer output, matched requests, old-base escape, cross-interface escape and
   missing-clause escape; this relation is equivalent both to a finite fuel
   observation and to the completed outward-boundary limit.
+- the same generic observation completion now supports a recursive Exception
+  instance: operation zero raises abortively, return/raise/base/free boundaries
+  are separated, finite runs are adequate and deterministic, and exhaustive
+  typed handlers discharge their selected interface.
 
 Remaining work is now the audit and concrete instantiation of the generic
-transport premises for source/tree semantics; recursive finite-boundary
-adequacy and generic fixed-point transport are no longer assumed.
+transport premises for source/tree semantics and the recursive State instance;
+recursive Writer/Exception finite-boundary adequacy and generic fixed-point
+transport are no longer assumed.
 No `sorry`
 or project axiom is admitted in the checked library.

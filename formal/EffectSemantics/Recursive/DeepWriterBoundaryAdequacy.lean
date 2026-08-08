@@ -129,4 +129,28 @@ theorem deep_writer_boundary_limit_adequacy :
     exact Comp.deepWriterBoundaryLimit_of_observed observed
   · exact Comp.deepWriterBoundaryLimit_some_witness
 
+theorem deep_writer_boundary_runs_deterministic
+    (first : DeepWriterBoundaryRuns interface handler term left)
+    (second : DeepWriterBoundaryRuns interface handler term right) :
+    left = right := by
+  have leftObserved := deep_writer_boundary_limit_adequacy.mp first
+  have rightObserved := deep_writer_boundary_limit_adequacy.mp second
+  rw [leftObserved] at rightObserved
+  exact Option.some.inj rightObserved
+
+theorem deep_writer_boundary_limit_none_iff :
+    term.deepWriterBoundaryLimit interface handler = none ↔
+      ¬ ∃ boundary, DeepWriterBoundaryRuns interface handler term boundary := by
+  constructor
+  · intro absent ⟨boundary, runs⟩
+    have observed := deep_writer_boundary_limit_adequacy.mp runs
+    rw [absent] at observed
+    cases observed
+  · intro noRun
+    cases found : term.deepWriterBoundaryLimit interface handler with
+    | none => rfl
+    | some boundary =>
+        exact False.elim (noRun ⟨boundary,
+          deep_writer_boundary_limit_adequacy.mpr found⟩)
+
 end EffectSemantics
