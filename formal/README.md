@@ -145,6 +145,7 @@ Generic recursive transport is now checked: an outcome map commuting with one
 unfolding commutes with the two Kleene least fixed points, and any binary
 admissible relation containing bottom and preserved by one unfolding relates
 the two least fixed points.
+
 - direct recursive operational boundary runs cover return, internal steps,
   Writer output, matched requests, old-base escape, cross-interface escape and
   missing-clause escape; this relation is equivalent both to a finite fuel
@@ -157,6 +158,10 @@ the two least fixed points.
   changes it at `put`, preserves it across free-handler matching, and exposes
   residual base/free boundaries with their state; its stable-limit adequacy,
   determinism and typed exhaustive discharge are checked.
+- `RecursiveBoundaryCert` isolates the common assumptions to a fuel observer,
+  stability, a direct run relation and finite adequacy.  Generic completion,
+  limit adequacy, run determinism and the bottom/no-boundary characterization
+  are derived; Writer, State and Exception inhabit the record.
 
 Remaining work is now the audit and concrete instantiation of generic
 source/tree transport premises. Recursive Writer, State and Exception

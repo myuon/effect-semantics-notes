@@ -359,6 +359,7 @@
 | C-348 | Established in Lean | recursive outward-boundary operational runsはreturn/internal/tell/matched/base escape/cross-interface escape/missing-clause escapeを区別し、finite fuel observationおよびcompleted boundary limitの双方と双方向にadequateである | executable head decomposition; stable boundary limit | generic package auditとsource/tree transport instanceへ進む |
 | C-349 | Established in Lean | recursive Exception instanceではbase operation 0をabortive `raise`として解釈し、return/raise/base/free boundaryを分離する。direct runsとstable limitは双方向adequateかつdeterministicで、typed exhaustive handlerはselected interfaceをdischargeする | polymorphic stable-observation completion; typed affine clauses | recursive State instanceとgeneric package recordを構成する |
 | C-350 | Established in Lean | recursive Boolean-State instanceは`get`で現在stateを返し`put`で後続stateを変更し、free handling中もstateをthreadする。direct runsとstable limitは双方向adequateかつdeterministicで、get/put response lawとtyped exhaustive handlerの下でselected interfaceをdischargeする | polymorphic stable-observation completion; `StateResponseLaws` | three-base resultsをgeneric recursive certificateへpackageする |
+| C-351 | Established in Lean | `RecursiveBoundaryCert`はfuel observer、stability、direct runs、finite adequacyのみを仮定し、completed limit、limit adequacy、run determinism、bottom iff no finite boundaryを導出する。Writer/State/Exceptionは同recordをinstance化し既存limitとの一致も成り立つ | C-348--C-350; polymorphic `StableObservation` | generic transport compatibilityとcertificate dependencyを監査する |
 
 ## 証明完了の基準
 

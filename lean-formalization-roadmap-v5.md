@@ -382,6 +382,16 @@ discharge their selected interface.  Writer, State and Exception now share
 the same generic completion while retaining genuinely different base
 interaction laws.
 
+Those three instances are now packaged by a single minimal
+`RecursiveBoundaryCert`.  Its fields are exactly a fuel observer, stability,
+a direct run relation and finite adequacy.  The completed limit, limit
+adequacy, uniqueness of operational outcomes and the equivalence between
+bottom and absence of every finite boundary are derived generically.  Writer,
+Exception and State instantiate the record and their previously constructed
+limits are proved to coincide with the generic one.  This replaces the
+paper-level `RecursiveBaseAdequacy` black box for the finite-boundary layer by
+an explicit checked interface.
+
 If the remaining M3 proof requires changing the syntax or effect transformer, update the research
 notes before proceeding to denotation.  If M5 fails while M1–M4 hold, treat it
 as an adequacy/observation problem rather than weakening operational safety.
