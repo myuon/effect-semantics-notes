@@ -32,8 +32,8 @@ up to the declared weakening.
 If
 
 $$
-\mathsf{FreeCert}(L_B+\Sigma,\widehat E,\mathcal K,\mathsf F_\Sigma(T))
-\land\mathsf{HandlerCert}(\Delta,h,\Phi_h)
+\mathsf{OpFreeCert}(L_B+\Sigma)
+\land\mathsf{HandlerTypingCert}(\Delta,J,h,\Phi_h)
 \land\Gamma\vdash M:A!e,
 $$
 
@@ -61,7 +61,8 @@ inside the scrutinee use Chapter-II preservation. $\square$
 If $b$ is $\Delta$-free and
 
 $$
-\mathsf{FreeCert}(L_B+\Sigma,\widehat E,\mathcal K,\mathsf F_\Sigma(T))
+\mathsf{OpFreeCert}(L_B+\Sigma)
+\land\mathsf{EffectSafetyCert}(L_B+\Sigma,\widehat E)
 \land\mathsf{AffineCert}(\Delta,h,e')
 \land\Gamma\vdash M:A!(b\cdot\Delta\cdot e),
 $$
@@ -97,8 +98,10 @@ $\Delta$.
 If
 
 $$
-\mathsf{FreeCert}(L_B+\Sigma,\widehat E,\mathcal K,\mathsf F_\Sigma(T))
-\land\mathsf{HandlerCert}(\Delta,h,\Phi_h),
+\mathsf{CarrierCert}(T,\Sigma,\mathsf F_\Sigma(T))
+\land\mathsf{MonadExtCert}(T,\mathsf F_\Sigma(T),\mathsf{act})
+\land\mathsf{BaseModelCert}(L_B,E_B,T)
+\land\mathsf{HandlerTypingCert}(\Delta,J,h,\Phi_h),
 $$
 
 then, for every closed recursion-free handled computation,
@@ -113,7 +116,7 @@ $$
 
 ### Proof sketch
 
-Induct on the finite outer base/free structure supplied by `FreeCert`.
+Induct on the finite outer base/free structure supplied by `CarrierCert`.
 
 - return uses the return equation;
 - an internal/base step uses functoriality and Chapter-II soundness;
@@ -132,11 +135,10 @@ Assume
 
 $$
 \begin{aligned}
-&\mathsf{FreeCert}(L_B+\Sigma,\widehat E,\mathcal K,\mathsf F_\Sigma(T))\\
-&\land\mathsf{HandlerCert}(\Delta,h,\Phi_h)
+&\mathsf{FiniteAdequacyCert}(L_B+\Sigma,\mathcal K,\mathsf F_\Sigma(T))\\
+&\land\mathsf{HandlerTypingCert}(\Delta,J,h,\Phi_h)
 \land\mathsf{TTCert}(S,T,\mathcal O)
-\land\mathsf{ConstructorSeparated}(\mathsf{observe}_{\mathsf F})
-\land\mathsf{TTClause}_h.
+\land\mathsf{HandlerTTCert}(h).
 \end{aligned}
 $$
 
@@ -174,20 +176,39 @@ return clause is identity on old programs.
 
 ## 6. Chapter-III structure-preservation theorem
 
-### Definition III.1 — `HandlerCert`
+### Definition III.1 — layered handler certificates
 
-For an exhaustive $\Delta$-handler $h$ and
-$\Phi_h:\widehat E\to\widehat E$, we say that
-$\mathsf{HandlerCert}(\Delta,h,\Phi_h)$ holds when:
+Let $J\subseteq I_\Delta$ be the operations for which $h$ supplies clauses,
+and let $\Phi_h:\widehat E\to\widehat E$. We say that
+$\mathsf{HandlerTypingCert}(\Delta,J,h,\Phi_h)$ holds when:
 
 1. **Monotonicity.** $\Phi_h$ respects subeffecting.
 2. **Return typing.** The return clause has an effect below $\Phi_h(1)$.
 3. **Matching typing.** Every operation clause transforms each admissible
    residual bound below the declared output bound.
 4. **Transparent forwarding.** A nonmatching operation is rebuilt and the
-   handler remains on its continuation.
-5. **Relational compatibility.** Clauses preserve both the structural relation
-   and the graded TT relation.
+   handler remains on its continuation; the effect transformer preserves the
+   unhandled prefix and transforms its residual bound.
+
+The handler need not be exhaustive. A request $\mathsf{op}_{\Delta,i}$ with
+$i\notin J$ follows the same forwarding rule as a request from another
+interface.
+
+Separately:
+
+1. $\mathsf{HandlerStructuralCert}(h)$ says that return, handled clauses and
+   forwarding preserve the structural relation.
+2. $\mathsf{HandlerTTCert}(h)$ says that return and handled clauses satisfy
+   `TTClause`, while forwarding preserves the extended pole.
+3. $\mathsf{EliminationCert}(\Delta,J,h,\Phi_h)$ requires $J=I_\Delta$ and
+   proves that the selected interface occurrence is absent from the declared
+   output position. At interface-level granularity this conclusion is not
+   available for a genuinely partial $J$.
+
+The bundled name
+$\mathsf{HandlerCert}(\Delta,J,h,\Phi_h)$ abbreviates the conjunction of the
+typing, structural and TT certificates. It does **not** include
+`EliminationCert`.
 
 Writing $\mathsf{grade}(K)\leq d$ for “$K$ type-checks at an effect below
 $d$”, these conditions are
@@ -200,7 +221,7 @@ e\leq f\Rightarrow\Phi_h(e)\leq\Phi_h(f),\\
 \Gamma,x:A\vdash H_{\mathsf{ret}}:C!r
 \land r\leq\Phi_h(1),\\
 \mathsf{match}_h:&\quad
-\forall i,b,e,d.\ b\cdot\Delta\cdot e\leq d\\
+\forall i\in J,b,e,d.\ b\cdot\Delta\cdot e\leq d\\
 &\Rightarrow
 \Bigl(
 \Gamma,p:P_i,k:R_i\xrightarrow{e}A
@@ -208,11 +229,16 @@ e\leq f\Rightarrow\Phi_h(e)\leq\Phi_h(f),\\
 \land b\cdot c_i\leq\Phi_h(d)
 \Bigr),\\
 \mathsf{forward}_h:&\quad
-\Gamma'\neq\Delta\Rightarrow
+(\Gamma'\neq\Delta\lor(\Gamma'=\Delta\land j\notin J))\Rightarrow
 \mathsf{sh}_h(\mathsf{op}_{\Gamma',j}(p,k))\\
 &\hspace{25mm}=
 \mathsf{op}_{\Gamma',j}
 (p,\lambda r.\mathsf{sh}_h(k(r))),\\
+\mathsf{forwardGrade}_h:&\quad
+\forall b,e,d.\ b\cdot\Gamma'\cdot e\le d\\
+&\quad\land(\Gamma'\neq\Delta\lor(\Gamma'=\Delta\land j\notin J))\\
+&\hspace{25mm}\Rightarrow
+b\cdot\Gamma'\cdot\Phi_h(e)\le\Phi_h(d),\\
 \mathsf{structuralClause}_h:&\quad
 (p,k)\mathrel{\mathsf{Str}_\Delta(R)}(p',k')
 \Rightarrow H_i[p,k]\mathrel{\mathsf{Str}_\Delta(R)}h_i(p',k'),\\
@@ -243,7 +269,24 @@ $$
 \Phi_{\Delta,e'}(b\cdot\Delta\cdot e)=b\cdot e'\cdot e.
 $$
 
-### Definition III.3 — `ShallowCert`
+Thus `AffineCert` includes
+$\mathsf{EliminationCert}(\Delta,I_\Delta,h,\Phi_{\Delta,e'})$. A partial
+affine family has the same clause calculation but not this interface-level
+elimination conclusion.
+
+### Definition III.3 — layered shallow certificates
+
+Define:
+
+1. `ShallowSafetyCert` by preservation, progress and the return/match/forward
+   operational boundary equations;
+2. `ShallowSemanticCert` by commutation of direct and structural handling;
+3. `ShallowRelCert` by preservation of the lifted structural and TT
+   relations;
+4. `ShallowAdequacyCert` by equality of handled operational and denotational
+   observations;
+5. `ShallowElimCert` by `EliminationCert` and its sound ordered effect
+   transformation.
 
 We say that $\mathsf{ShallowCert}(\Delta,h,\Phi_h)$ holds when:
 
@@ -255,6 +298,11 @@ We say that $\mathsf{ShallowCert}(\Delta,h,\Phi_h)$ holds when:
 4. **Adequacy.** Operational and denotational handled observations agree.
 5. **Conservativity and boundary discipline.** Handler-free terms are
    unchanged and one shallow pass stops after its first match.
+
+The bundled name contains the first four layered records and conservativity.
+It contains `ShallowElimCert` only when explicitly stated; a partial handler
+can therefore have a complete safety/semantics/adequacy theorem without
+claiming removal of $\Delta$.
 
 The principal conditions are
 
@@ -275,24 +323,29 @@ M\in L_B+\Sigma\Rightarrow
 \end{aligned}
 $$
 
-### Theorem III.6 — Shallow certificate
+### Theorem III.6 — layered shallow certificates
 
-Let $P=(L_B+\Sigma,\widehat E,\mathcal K,\mathsf F_\Sigma(T))$.  Assume:
+Let $J\subseteq I_\Delta$. Then:
 
-1. $P$ satisfies `FreeCert`;
-2. the two compared models and pole satisfy `TTCert`, and the extended pole is
-   closed under the $\Sigma$ constructors;
-3. either the handler satisfies `AffineCert` with
-   $\Phi_h=\Phi_{\Delta,e'}$, or it satisfies the general `HandlerCert`;
-4. the free observation separates its constructors.
+1. `OpFreeCert + HandlerTypingCert` yields `ShallowSafetyCert`.
+2. `CarrierCert + MonadExtCert + HandlerTypingCert` yields
+   `ShallowSemanticCert` by the four-constructor induction.
+3. Adding `RelCert + HandlerStructuralCert` yields `ShallowRelCert` for the
+   structural lifting.
+4. Adding `FiniteAdequacyCert + TTCert + HandlerTTCert` yields
+   `ShallowAdequacyCert`.
+5. `EliminationCert` is not used in conclusions 1--4. If $J=I_\Delta$ and
+   `EliminationCert` holds, the corresponding `ShallowElimCert` is obtained.
+   In particular, exhaustive `AffineCert` yields
 
-Then
+   $$
+   b\Delta e\longmapsto be'e
+   $$
 
-$$
-\mathsf{ShallowCert}(\Delta,h,\Phi_h)
-$$
+   on its declared anchored domain.
 
-holds.
+The bundled `ShallowCert` follows from conclusions 1--4 and conservativity;
+the elimination field is attached only under conclusion 5.
 
 ## 7. What is passed to Chapter IV
 

@@ -8,7 +8,8 @@ matching request, and does not reinstall itself on that matching resumption.
 
 ## 1. General shallow syntax
 
-An exhaustive handler for $\Delta$ has the standard shape
+A handler declares a set $J\subseteq I_\Delta$ of handled operations and has
+the shape
 
 ```text
 shallow_Delta M with {
@@ -23,11 +24,12 @@ $$
 k:R_i\xrightarrow{e_k}C
 $$
 
-is the captured continuation without the surrounding handler.  Exhaustiveness
-means that every operation in $\Sigma(\Delta)$ has a clause.  Operations from
-another interface are transparently forwarded with this handler retained in
-their continuations.  Evaluation can therefore cross unrelated operations
-while searching for the first matching $\Delta$ request.
+is the captured continuation without the surrounding handler. The exhaustive
+core used earlier is the special case $J=I_\Delta$. Operations from another
+interface, and operations $i\in I_\Delta\setminus J$ without a clause, are
+transparently forwarded with this handler retained in their continuations.
+Evaluation can therefore cross unhandled requests while searching for the
+first handled request.
 
 ## 2. Direct operational rules
 
@@ -39,7 +41,7 @@ $$
 \tag{S-Ret}
 $$
 
-For a matching exposed request,
+For a handled exposed request $i\in J$,
 
 $$
 \begin{aligned}
@@ -54,7 +56,8 @@ $$
 There is no `shallow` around $E[\mathsf{return}\,r]$.  That absence is the
 definition of shallowness.
 
-For $\Gamma\neq\Delta$, forwarding preserves the pending handler:
+For $\Gamma\neq\Delta$, or for $\Gamma=\Delta$ with $j\notin J$, forwarding
+preserves the pending handler:
 
 $$
 \mathsf{shallow}_\Delta
@@ -70,6 +73,12 @@ This recursive occurrence is structural: in the recursion-free calculus it
 descends into a proper continuation subtree.  At a matching node the clause
 still receives the bare continuation.  That asymmetry is the definition of
 shallow handling used here.
+
+At interface-level effect granularity, a partial handler generally cannot
+remove the factor $\Delta$: an unhandled operation from the same interface may
+be the exposed request. It still has a sound operational and denotational
+semantics, but interface elimination is reserved for the exhaustive case (or
+requires operation-granular effects).
 
 ## 3. Affine response fragment
 
@@ -151,13 +160,14 @@ $$
 $$
 \mathsf{sh}_{\Delta,h}(\mathsf{free}_{\Delta,i}(p,k))
 =\llbracket R_i[p/x]\rrbracket\mathbin{\gg=}k,
+\qquad(i\in J),
 $$
 
 $$
 \mathsf{sh}_{\Delta,h}(\mathsf{free}_{\Gamma,j}(p,k))
 =\mathsf{free}_{\Gamma,j}
 (p,r\mapsto\mathsf{sh}_{\Delta,h}(k(r)))
-\quad(\Gamma\neq\Delta).
+\quad(\Gamma\neq\Delta\ \lor\ j\notin J).
 $$
 
 The final equation recurses into $k$; the matching equation does not.

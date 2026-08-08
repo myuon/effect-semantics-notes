@@ -99,9 +99,12 @@ op(p) -> R
 whose elaboration computes `R` and invokes `k` exactly once.
 
 A request from $\Gamma\neq\Delta$ is transparently forwarded with the shallow
-handler retained in its continuation.  Thus shallow handling searches across
-unrelated interfaces but stops reinstalling itself after the first matching
-$\Delta$.  Deep handling differs only by wrapping that matching continuation.
+handler retained in its continuation. In the optional partial extension, an
+operation $i\notin J$ from the same interface is forwarded in the same way.
+Thus shallow handling searches across unhandled requests but stops reinstalling
+itself after the first selected clause. Interface-level elimination remains
+the exhaustive case $J=I_\Delta$. Deep handling differs by wrapping the
+selected matching continuation.
 
 This choice is necessary for the promised derivation in Chapter IV:
 

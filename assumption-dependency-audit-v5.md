@@ -60,9 +60,11 @@ source `let` is interpreted by extended bind.
 
 ### H — shallow handling
 
-`ShallowExtCert` adds exhaustive clauses, a valid effect transformer and
-structural/TT clause compatibility. Its operational safety part depends only
-on `OpExt`; denotational commutation and handled adequacy depend on M, R and T.
+`ShallowExtCert` adds a handled-operation set $J$, a valid effect transformer
+and structural/TT clause compatibility. Its operational safety part depends
+only on `OpExt`; denotational commutation and handled adequacy depend on M, R
+and T. Exhaustiveness $J=I_\Delta$ is required only by interface-level
+elimination, not by safety or adequacy.
 
 ## 2. Dependency table
 

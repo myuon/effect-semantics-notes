@@ -57,7 +57,8 @@ $$
 \mathsf{mapBase}(\mathsf{sh}_{\Delta,h},m),
 $$
 
-until the outer base computation returns a free node.  At a matching node,
+until the outer base computation returns a free node. At a handled node
+$i\in J$,
 
 $$
 \mathsf{sh}_{\Delta,h}
@@ -65,7 +66,8 @@ $$
 =h_i(p,k).
 $$
 
-At a nonmatching node,
+At an unhandled node, meaning $\Gamma\neq\Delta$ or
+$\Gamma=\Delta$ with $j\notin J$,
 
 $$
 \mathsf{sh}_{\Delta,h}
@@ -74,7 +76,7 @@ $$
 \left(p,\lambda r.\mathsf{sh}_{\Delta,h}(k(r))\right).
 $$
 
-There is a structural recursive call on a nonmatching continuation.  There is
+There is a structural recursive call on an unhandled continuation. There is
 no recursive call on $k$ in the matching equation.  This is the semantic
 content of shallowness.
 

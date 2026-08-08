@@ -53,7 +53,7 @@ $$
 \tag{SH-Ret}
 $$
 
-For a matching operation,
+For a handled operation $i\in J$,
 
 $$
 \begin{aligned}
@@ -71,7 +71,7 @@ $$
 The continuation contains no copy of $h$.  If the clause calls it, later free
 requests are outside this handler.
 
-For $\Gamma\neq\Delta$,
+For $\Gamma\neq\Delta$, or $\Gamma=\Delta$ with $j\notin J$,
 
 $$
 \begin{aligned}
@@ -86,8 +86,9 @@ $$
 $$
 
 The request remains visible to an outer handler, but resuming it continues the
-search for $\Delta$.  Only a matching clause receives a bare continuation and
-ends this handler.
+search for a handled operation. Only a selected clause receives a bare
+continuation and ends this handler. Existing examples use the exhaustive case
+$J=I_\Delta$ unless stated otherwise.
 
 ## 4. Affine response fragment
 
@@ -264,3 +265,38 @@ pending `Ask` handler in its continuation.  If an outer handler supplies a
 response, the subsequent `ask` is caught.  After that match, the clause's bare
 continuation is no longer protected.  This is searching shallow behavior, not
 deep handling.
+
+## 9. Partial same-interface forwarding
+
+Let one interface $\Delta$ contain both
+
+$$
+\mathsf{tick}:1\to1,
+\qquad
+\mathsf{ask}:\mathsf{String}\to\mathsf{Bool},
+$$
+
+and take $J=\{\mathsf{ask}\}$. In
+
+```text
+shallow_Delta (
+  let _ <- tick(*) in
+  ask("later")
+) with { ask(q, k) -> k true }
+```
+
+the first request `tick` has no clause. It is forwarded with the partial
+handler retained:
+
+```text
+tick(*; fun _ -> shallow_Delta (ask("later")) with h)
+```
+
+After an outer handler responds to `tick`, the pending handler catches `ask`
+and invokes its bare continuation once. Operational and tree semantics agree
+without an exhaustive clause table.
+
+At interface-level granularity the sound result still contains a $\Delta$
+factor for the forwarded `tick`. Thus this example validates safety and
+commutation but refutes unconditional interface elimination by a partial
+handler.

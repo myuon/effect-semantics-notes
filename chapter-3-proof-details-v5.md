@@ -61,10 +61,11 @@ For return, both sides interpret the return clause.  For a base layer, semantic
 congruence and the induction hypothesis commute the handler through the layer.
 For a matching node, semantic substitution identifies the operationally
 captured $\lambda r.\mathcal E[\mathsf{return}\,r]$ with the node continuation;
-both sides apply $h_i(p,k)$ without recursively transforming $k$.  For a
-nonmatching node, both sides rebuild the same node and the induction hypothesis
-identifies their transformed continuations pointwise.  These constructors are
-exhaustive. $\square$
+both sides apply $h_i(p,k)$ without recursively transforming $k$. For an
+unhandled node—either another interface or $i\notin J$—both sides rebuild the
+same node and the induction hypothesis identifies their transformed
+continuations pointwise. These cases exhaust the carrier whether or not
+$J=I_\Delta$. $\square$
 
 ## 5. Adequacy and conservativity
 
@@ -79,5 +80,7 @@ the declared ground observations.
 
 No handler rule has a handler-free left-hand side, and the interpretation of
 old constructs is unchanged; syntactic and denotational induction therefore
-prove conservativity.  Collecting residual typing, preservation, commutation,
-adequacy and the supplied $\Phi_h$ laws establishes `ShallowCert`.
+prove conservativity. Collecting residual typing, preservation, commutation,
+adequacy and the supplied $\Phi_h$ laws establishes the non-eliminating fields
+of `ShallowCert`. Interface elimination additionally uses $J=I_\Delta$ and
+`EliminationCert`.

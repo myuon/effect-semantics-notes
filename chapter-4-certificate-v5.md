@@ -245,9 +245,12 @@ $$
 
 Assume:
 
-1. the finite language and handler satisfy `ShallowCert` and `HandlerCert`;
+1. the finite language and handler satisfy the safety, semantic, relational
+   and adequacy fields of `ShallowCert`, together with
+   $\mathsf{HandlerCert}(\Delta,J,h,\Phi_h)$;
 2. the recursive carrier and effect closure satisfy `RecBaseCert`;
-3. the handler is exhaustive and its clauses emit no outward $\Delta$;
+3. $\mathsf{EliminationCert}(\Delta,J,h,\Phi_h)$ holds and its clauses emit no
+   outward $\Delta$;
 4. the semantic handler functional is continuous;
 5. $K$ and $\Phi_h$ satisfy the closure-compatibility law;
 6. the admissible relation reflects the selected observation level $\ell$.
