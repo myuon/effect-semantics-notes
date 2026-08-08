@@ -66,4 +66,28 @@ def HasComp.freeOpView {sig : Signature} {ctx : Context}
         view.parameterTyping, view.resultEq,
         Effect.le_trans view.requestBelow upperBound⟩
 
+structure BaseOpView (sig : Signature) (ctx : Context)
+    (operation : Nat) (parameter : Val) (resultTy : Ty)
+    (effect : Effect) where
+  parameterTy : Ty
+  declaredResult : Ty
+  lookup : sig.base operation = some ⟨parameterTy, declaredResult⟩
+  parameterTyping : HasVal sig ctx parameter parameterTy
+  resultEq : declaredResult = resultTy
+  requestBelow : [EffectAtom.base operation] ≤ effect
+
+def HasComp.baseOpView {sig : Signature} {ctx : Context}
+    {operation : Nat} {parameter : Val} {resultTy : Ty}
+    {effect : Effect}
+    (typing : HasComp sig ctx (.baseOp operation parameter) resultTy effect) :
+    BaseOpView sig ctx operation parameter resultTy effect :=
+  match typing with
+  | .baseOp lookup parameterTyping =>
+      ⟨_, _, lookup, parameterTyping, rfl, Effect.le_refl _⟩
+  | .subeffect inner upperBound =>
+      let view := inner.baseOpView
+      ⟨view.parameterTy, view.declaredResult, view.lookup,
+        view.parameterTyping, view.resultEq,
+        Effect.le_trans view.requestBelow upperBound⟩
+
 end EffectSemantics

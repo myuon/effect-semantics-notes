@@ -75,5 +75,27 @@ theorem factor_not_free {interface : Nat} {suffix effect : Effect}
   apply freeOf
   exact factor.subset (by simp)
 
+/-- If the left prefix contains no selected interface, an embedding of a word
+starting with that interface into `prefix ++ interface :: suffix` forces the
+remaining source word into `suffix`.  This is the ordered cancellation used by
+the sharp shallow-handler theorem. -/
+theorem cancel_first_free {interface : Nat} {tail pre suffix : Effect}
+    (freeOf : FreeOf interface pre)
+    (factor : List.Sublist (EffectAtom.free interface :: tail)
+      (pre ++ EffectAtom.free interface :: suffix)) :
+    List.Sublist tail suffix := by
+  induction pre with
+  | nil =>
+      simp only [List.nil_append] at factor
+      cases factor with
+      | cons _ rest => exact List.sublist_of_cons_sublist rest
+      | cons_cons _ rest => exact rest
+  | cons atom pre ih =>
+      simp only [FreeOf, List.mem_cons, not_or] at freeOf
+      simp only [List.cons_append] at factor
+      cases factor with
+      | cons _ rest => exact ih freeOf.2 rest
+      | cons_cons _ _ => exact (freeOf.1 rfl).elim
+
 end Effect
 end EffectSemantics

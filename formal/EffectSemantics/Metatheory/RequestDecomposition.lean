@@ -35,6 +35,17 @@ structure TypedFreeRequest (sig : Signature) (ctx : Context)
     resultTy resultEffect
   requestBelowHole : [EffectAtom.free request.interface] ≤ holeEffect
 
+structure TypedBaseRequest (sig : Signature) (ctx : Context)
+    (request : BaseRequest) (resultTy : Ty) (resultEffect : Effect) where
+  parameterTy : Ty
+  responseTy : Ty
+  holeEffect : Effect
+  lookup : sig.base request.operation = some ⟨parameterTy, responseTy⟩
+  parameterTyping : HasVal sig ctx request.parameter parameterTy
+  contextTyping : HasEvalContext sig ctx request.context responseTy holeEffect
+    resultTy resultEffect
+  requestBelowHole : [EffectAtom.base request.operation] ≤ holeEffect
+
 def HasComp.exposedFreeView {sig : Signature} {ctx : Context}
     {request : FreeRequest} {resultTy : Ty} {resultEffect : Effect}
     (typing : HasComp sig ctx request.source resultTy resultEffect) :
@@ -46,6 +57,36 @@ def HasComp.exposedFreeView {sig : Signature} {ctx : Context}
   cases resultEq
   exact ⟨parameterTy, plugged.holeTy, plugged.holeEffect, lookup,
     parameterTyping, plugged.contextTyping, requestBelow⟩
+
+def HasComp.exposedBaseView {sig : Signature} {ctx : Context}
+    {request : BaseRequest} {resultTy : Ty} {resultEffect : Effect}
+    (typing : HasComp sig ctx request.source resultTy resultEffect) :
+    TypedBaseRequest sig ctx request resultTy resultEffect := by
+  let plugged := typing.plugView (evalCtx := request.context)
+  let operation := plugged.holeTyping.baseOpView
+  rcases operation with ⟨parameterTy, declaredResult, lookup,
+    parameterTyping, resultEq, requestBelow⟩
+  cases resultEq
+  exact ⟨parameterTy, plugged.holeTy, plugged.holeEffect, lookup,
+    parameterTyping, plugged.contextTyping, requestBelow⟩
+
+def TypedFreeRequest.resumeTyping
+    (requestTyping : TypedFreeRequest sig ctx request resultTy resultEffect)
+    (responseTyping : HasVal sig ctx response requestTyping.responseTy) :
+    HasComp sig ctx (request.resume response) resultTy resultEffect :=
+  requestTyping.contextTyping.plugTyping
+    ((HasComp.ret responseTyping).subeffect
+      (Effect.le_trans (Effect.optional_free request.interface)
+        requestTyping.requestBelowHole))
+
+def TypedBaseRequest.resumeTyping
+    (requestTyping : TypedBaseRequest sig ctx request resultTy resultEffect)
+    (responseTyping : HasVal sig ctx response requestTyping.responseTy) :
+    HasComp sig ctx (request.resume response) resultTy resultEffect :=
+  requestTyping.contextTyping.plugTyping
+    ((HasComp.ret responseTyping).subeffect
+      (Effect.le_trans (Effect.nil_le [EffectAtom.base request.operation])
+        requestTyping.requestBelowHole))
 
 /-- The exposed interface occurs before a residual suffix in every declared
 upper bound of the whole request term. -/

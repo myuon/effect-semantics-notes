@@ -112,4 +112,46 @@ def HasAffineHandler.answerWithTyping
       requestTyping.parameterTyping)
     requestTyping.openResumeTypingDefault
 
+/-- Sharp ordered preservation for a matching affine clause.  A selected
+interface cannot be consumed inside the prefix because that prefix is
+interface-free; consequently the principal residual suffix embeds in `post`.
+The operational reduct is then typed at the advertised replacement word. -/
+def HasAffineHandler.answerWithTypingSharp
+    {sig : Signature} {ctx : Context} {interface : Nat}
+    {handler : AffineHandler} {clauseEffect pre post : Effect}
+    {request : FreeRequest} {resultTy : Ty} {clause : Comp}
+    (handlerTyping : HasAffineHandler sig ctx interface handler clauseEffect)
+    (termTyping : HasComp sig ctx request.source resultTy
+      (pre * [EffectAtom.free interface] * post))
+    (same : request.interface = interface)
+    (preFree : Effect.FreeOf interface pre)
+    (found : handler.lookup request.operation = some clause) :
+    HasComp sig ctx (request.answerWith clause) resultTy
+      (pre * clauseEffect * post) := by
+  let requestTyping := termTyping.exposedFreeView
+  subst interface
+  let factor := requestTyping.contextTyping.principalFactor
+    (newHole := (1 : Effect)) requestTyping.requestBelowHole
+  have suffixBelow : factor.suffix ≤ post := by
+    apply Effect.cancel_first_free preFree
+    have bound := factor.bound
+    change List.Sublist ([EffectAtom.free request.interface] ++ factor.suffix)
+      ((pre ++ [EffectAtom.free request.interface]) ++ post) at bound
+    simpa only [List.singleton_append, List.append_assoc] using bound
+  let clauseTyping := handlerTyping.instantiate found requestTyping.lookup
+    requestTyping.parameterTyping
+  let renamedContext := factor.typing.renamePreserved
+    (RenPreserves.shift ctx requestTyping.responseTy)
+  let continuationTyping : HasComp sig (requestTyping.responseTy :: ctx)
+      request.openResume resultTy factor.suffix := by
+    simpa [FreeRequest.openResume] using renamedContext.plugTyping
+      (HasComp.ret (HasVal.var rfl))
+  let reductTyping : HasComp sig ctx (request.answerWith clause) resultTy
+      (clauseEffect * factor.suffix) := by
+    exact .letE clauseTyping continuationTyping
+  apply reductTyping.subeffect
+  apply Effect.le_trans (Effect.le_seq (Effect.le_refl clauseEffect) suffixBelow)
+  simpa only [Effect.mul_assoc] using
+    Effect.le_left_padding pre (clauseEffect * post)
+
 end EffectSemantics

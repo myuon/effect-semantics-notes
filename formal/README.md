@@ -44,15 +44,18 @@ Implemented and kernel-checked:
 - renaming preservation for typed residual contexts, typed reconstruction of
   the bare continuation under a fresh response binder, and coarse affine-match
   preservation at `clauseEffect * oldResultEffect`.
+- principal residual-effect reconstruction and ordered cancellation under a
+  selected-interface-free prefix;
+- the sharp affine law
+  `pre * [free interface] * post ↦ pre * clauseEffect * post`;
+- preservation of the two-phase handler-state invariant for internal, return,
+  matching and all three typed forwarding/resumption cases.
 
 Typing derivations live in `Type` rather than `Prop`: this exposes the explicit
 subeffecting derivation tree needed by the terminating mutual transformation.
 The associated inhabitation proposition can later be proof-irrelevant even
 though the checked certificate is retained as data.
 
-The next obligation is the sharp ordered output-grade transformer replacing
-`b * [free interface] * e` by `b * clauseEffect * e`. The checked coarse proof
-already identifies and uses the optionality `1 ≤ [free interface]`; sharpening
-it requires retaining a principal prefix/suffix typing rather than the whole
-old result bound. This is intentionally not hidden inside the operational machine. No `sorry`
+The next layer is the finite Writer/free-tree denotation and its correspondence
+with this operational handler machine. No `sorry`
 or project axiom is admitted in the checked library.

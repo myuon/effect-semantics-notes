@@ -219,11 +219,12 @@ At the end of each milestone:
 - negative claims have an explicit typed counterexample;
 - CI runs `lake build` from a clean checkout.
 
-The first M3 slice is now checked: affine response handlers are represented as
+M3 operational preservation is now checked: affine response handlers are represented as
 separate runtime states, with bare-continuation matching and transparent
 forwarding. Partial lookup, exhaustiveness, clause instantiation and the
-`tick`/`tock` distinction are mechanized. The remaining M3 boundary is the
-ordered output-grade transformer and its preservation proof.
+`tick`/`tock` distinction are mechanized. Principal residual contexts and
+ordered first-interface cancellation yield the sharp transformer
+`b·Δ·e ↦ b·e'·e`, including typed forwarding/resumption.
 
 If the remaining M3 proof requires changing the syntax or effect transformer, update the research
 notes before proceeding to denotation.  If M5 fails while M1–M4 hold, treat it
