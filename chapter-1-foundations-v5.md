@@ -13,6 +13,8 @@ this specification they extend.
 
 ## 1. Syntactic categories
 
+### Definition I.1 `[C1-FOUND.1.1]` — finite source syntax [[Lean: types]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageTy#doc) [[Lean: values]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FinLanguageVal#doc) [[Lean: computations]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FinLanguageComp#doc)
+
 We use a fine-grain call-by-value calculus with separate values and
 computations.
 
@@ -39,6 +41,8 @@ category.
 
 ## 2. Judgments
 
+### Definition I.2 `[C1-FOUND.2.1]` — value and computation typing [[Lean: value typing]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageVal#doc) [[Lean: computation typing]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp#doc)
+
 Value typing and computation typing are distinct:
 
 $$
@@ -53,6 +57,11 @@ The base effect algebra is a preordered monoid
 $$
 (B,\cdot,1,\leq).
 $$
+
+The paper definition is parameterized by this preordered monoid.  The linked
+Lean judgments instantiate its grades with `EffectLanguage`; their `ret`,
+`letE`, and `subeffect` constructors realize the pure grade, ordered
+sequencing, and weakening rules below.
 
 `return` has grade $1$, sequencing multiplies grades in evaluation order, and
 subeffecting uses $\leq$:
