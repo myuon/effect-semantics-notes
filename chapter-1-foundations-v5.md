@@ -34,10 +34,12 @@ M,N ::= {}& \mathsf{return}\,V
 \end{aligned}
 $$
 
-Here $\beta:P_\beta\to R_\beta$ ranges over the fixed base primitives.  Sums
-are retained at the source level; Chapter IV will not interpret unrestricted
-fixed points as fixed points of every morphism in the same bicartesian closed
-category.
+Each fixed base primitive $\beta$ has a parameter type $P_\beta$, a response
+type $R_\beta$, and a declared effect upper bound $|\beta|$; applying it to a
+value of type $P_\beta$ produces a computation of type $R_\beta$ at that bound.
+Sums are retained at the source level; Chapter IV will not interpret
+unrestricted fixed points as fixed points of every morphism in the same
+bicartesian closed category.
 
 ## 2. Judgments
 
@@ -87,21 +89,7 @@ $$
      {\Gamma\vdash\lambda x.M:A\xrightarrow{e}B}.
 $$
 
-General CBV application evaluates the function, then the argument, then the
-function body:
-
-$$
-\frac{
-\Gamma\vdash M:(A\xrightarrow{e}B)!e_M
-\qquad
-\Gamma\vdash N:A!e_N
-}{
-\Gamma\vdash M\,N:B!(e_M\cdot e_N\cdot e)
-}.
-\tag{T-App}
-$$
-
-In the fine-grain core this is the elaboration
+General computation application is the derived elaboration
 
 ```text
 let f <- M in
@@ -109,14 +97,8 @@ let x <- N in
 f x
 ```
 
-so the displayed order is not a convention imposed after the fact.
-
-Each primitive has a declared bound:
-
-$$
-\frac{\beta:P_\beta\to R_\beta\qquad\Gamma\vdash V:P_\beta}
-     {\Gamma\vdash\beta(V):R_\beta!|\beta|}.
-$$
+Its effect and evaluation order follow from the core `let` and value
+application rules, so no separate typing rule is required.
 
 Branching requires a common upper bound.  If $M:A!b$, $N:A!c$, and
 $b\leq d$, $c\leq d$, then both branches are weakened to $d$ before applying
