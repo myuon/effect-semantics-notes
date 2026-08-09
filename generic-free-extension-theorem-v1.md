@@ -124,6 +124,21 @@ for every finite extended tree.  This is
 The morphism and logical-relation theorems are therefore distinct, as required
 by the research question.
 
+### Observation-indexed TT-lifting
+
+The formalization also keeps structural relation lifting distinct from
+observational closure.  Given a heterogeneous observation family, Lean defines
+orthogonal continuation pairs and the induced biorthogonal relation
+$V^{\top\top}$.  Return values enter this relation from orthogonality alone.
+The remaining local certificate asks separately that every base and free
+operation interpretation preserve $V^{\top\top}$.
+
+Under precisely those local conditions, every structurally related pair of
+free-extension trees has TT-related folds.  See
+[`GenericExtensionAlgebra.TTLayerCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.TTLayerCert.lift#doc).
+Thus the formal theorem does not silently infer adequacy from a structural
+relation: the observation-sensitive premise remains visible.
+
 ## 6. Concrete bases
 
 Writer is proved isomorphic to the generic construction: translations in both
@@ -141,9 +156,9 @@ law and should be a separate theorem.
 
 The next formal steps are:
 
-1. connect the abstract structural relation to the observation-indexed
-   TT-lifting and finite adequacy certificate;
-2. transport the generic finite certificate into the existing recursive
+1. connect the now-mechanized TT-lifting to a finite operational adequacy
+   certificate;
+2. transport the generic finite certificate and TT layer into the existing recursive
    completion theorem;
 3. instantiate the observation obligations for State and Exception;
 4. state precisely which non-algebraic base monads admit the required

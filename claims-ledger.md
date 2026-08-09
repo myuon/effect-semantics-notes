@@ -398,6 +398,7 @@
 | C-386 | Main recursive Writer theorem established in Lean | ordered language grades、free operations、shallow handlers、effectful fixpoint、shallowから導出したdeep handlerについてfinite theorem、least-fixed-point semantics、adequacy、fundamental typingを単一certificateとしてinstance化できる | Writer response law; typed affine handler | State/Exception/RandomはC-385のlocal base obligationsを別途instance化する |
 | C-387 | Established in Lean | one-layerで可換なbase outcome morphismはKleene完成へ持ち上がり、bottomを含みone-layer保存されるadmissible binary relationは両least fixed pointを関係づける。pointwise outcome simulationはbinary admissibleである | synchronized chain suprema; ω-continuity; no completed conclusion as premise | full abstractionにはrelation reflection/completenessが追加で必要 |
 | C-388 | Established in Lean | 任意のtyped algebraic base signature $\Sigma$ とfree signature $\Delta$ から有限free extensionを構成でき、monad laws、base retraction、signature functoriality、shallow naturality、structural relation、target algebra fold、monad morphism lifting、logical-relation liftingが同一構成から得られる | base effectがone-layer typed operation signatureとして提示されること; target operation interpretationsのbind distributivity | opaqueな任意のmonadからsignatureを自動抽出する定理、TT/adequacy transport、非代数的effectは別途必要 |
+| C-389 | Established in Lean | heterogeneous observation familyからorthogonalityとTT relationを定義でき、returnと各base/free operation layerがTTを保存すれば、free-extensionのstructural relationは二つのtarget fold間のTT relationへ持ち上がる | operation interpretationごとのTT保存; 観測関係は別途与える | operational adequacy、reflection、full abstractionはTT包含だけからは導かれない |
 
 ## 証明完了の基準
 

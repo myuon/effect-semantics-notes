@@ -197,6 +197,99 @@ theorem Relation.lift
   | baseOp operation continuation ih => exact relation.preservesBase operation _ _ ih
   | freeOp operation continuation ih => exact relation.preservesFree operation _ _ ih
 
+/-- A heterogeneous family of observations used to define a genuine
+TT-lifting between two target models. -/
+structure Observation
+    (leftCarrier rightCarrier : Type → Type) where
+  relates : ∀ {α β}, (α → β → Prop) → leftCarrier α → rightCarrier β → Prop
+
+def Orthogonal
+    (observation : Observation leftCarrier rightCarrier)
+    (valueRel : α → β → Prop)
+    (resultRel : γ → δ → Prop)
+    (leftContext : α → leftCarrier γ)
+    (rightContext : β → rightCarrier δ) : Prop :=
+  ∀ {leftValue rightValue}, valueRel leftValue rightValue →
+    observation.relates resultRel
+      (leftContext leftValue) (rightContext rightValue)
+
+/-- Biorthogonal closure of a value relation against the selected observation
+family and the two target monads. -/
+def TT
+    (left : GenericExtensionAlgebra base free leftCarrier)
+    (right : GenericExtensionAlgebra base free rightCarrier)
+    (observation : Observation leftCarrier rightCarrier)
+    (valueRel : α → β → Prop)
+    (leftTree : leftCarrier α) (rightTree : rightCarrier β) : Prop :=
+  ∀ {γ δ} (resultRel : γ → δ → Prop)
+      (leftContext : α → leftCarrier γ)
+      (rightContext : β → rightCarrier δ),
+    Orthogonal observation valueRel resultRel leftContext rightContext →
+    observation.relates resultRel
+      (left.monad.bind leftTree leftContext)
+      (right.monad.bind rightTree rightContext)
+
+theorem TT.pure
+    (related : valueRel leftValue rightValue) :
+    TT left right observation valueRel
+      (left.monad.pure leftValue) (right.monad.pure rightValue) := by
+  intro γ δ resultRel leftContext rightContext contexts
+  rw [left.monad.leftUnit, right.monad.leftUnit]
+  exact contexts related
+
+/-- Local TT obligations for old and new operation layers.  These are the
+observation-sensitive premises that cannot be obtained from monad laws alone. -/
+structure TTLayerCert
+    (left : GenericExtensionAlgebra base free leftCarrier)
+    (right : GenericExtensionAlgebra base free rightCarrier)
+    (observation : Observation leftCarrier rightCarrier) where
+  preservesBase : ∀ {α β} (valueRel : α → β → Prop)
+      (operation : base.Op)
+      (leftContinuation : base.Response operation → leftCarrier α)
+      (rightContinuation : base.Response operation → rightCarrier β),
+    (∀ response, TT left right observation valueRel
+      (leftContinuation response) (rightContinuation response)) →
+    TT left right observation valueRel
+      (left.interpretBase operation leftContinuation)
+      (right.interpretBase operation rightContinuation)
+  preservesFree : ∀ {α β} (valueRel : α → β → Prop)
+      (operation : free.Op)
+      (leftContinuation : free.Response operation → leftCarrier α)
+      (rightContinuation : free.Response operation → rightCarrier β),
+    (∀ response, TT left right observation valueRel
+      (leftContinuation response) (rightContinuation response)) →
+    TT left right observation valueRel
+      (left.interpretFree operation leftContinuation)
+      (right.interpretFree operation rightContinuation)
+
+/-- Structural free-extension relations are contained in the TT-lifting as
+soon as each one-layer operation interpretation preserves TT. -/
+theorem TTLayerCert.lift
+    {base free : OperationSignature}
+    {leftCarrier rightCarrier : Type → Type}
+    {left : GenericExtensionAlgebra base free leftCarrier}
+    {right : GenericExtensionAlgebra base free rightCarrier}
+    {observation : Observation leftCarrier rightCarrier}
+    {α β : Type} {valueRel : α → β → Prop}
+    {leftTree : FreeExtension base free α}
+    {rightTree : FreeExtension base free β}
+    (cert : TTLayerCert left right observation)
+    (treeRel : FreeExtension.Rel
+      (FreeExtension.SignatureRelation.identity base)
+      (FreeExtension.SignatureRelation.identity free)
+      valueRel leftTree rightTree) :
+    TT left right observation valueRel
+      (left.fold (base := base) (free := free) leftTree)
+      (right.fold (base := base) (free := free) rightTree) := by
+  induction treeRel with
+  | ret related => exact TT.pure related
+  | baseOp operations continuations ih =>
+      subst operations
+      exact cert.preservesBase _ _ _ _ (fun response => ih rfl)
+  | freeOp operations continuations ih =>
+      subst operations
+      exact cert.preservesFree _ _ _ _ (fun response => ih rfl)
+
 end GenericExtensionAlgebra
 
 end EffectSemantics
