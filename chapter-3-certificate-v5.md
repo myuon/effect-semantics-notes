@@ -176,6 +176,11 @@ return clause is identity on old programs.
 
 ## 6. Chapter-III structure-preservation theorem
 
+The mechanized finite bundle is
+[`languageFiniteStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageFiniteStructurePreservation#doc),
+with shallow naturality, structural-relation preservation and TT preservation
+collected in [`languageShallowCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageShallowCert#doc).
+
 ### Definition III.1 — layered handler certificates
 
 Let $J\subseteq I_\Delta$ be the operations for which $h$ supplies clauses,

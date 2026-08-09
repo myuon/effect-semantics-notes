@@ -223,6 +223,15 @@ the returned value.
 
 ## 7. The Chapter-I structure theorem
 
+For the fixed mechanized base calculus, the operational components are checked
+by [`Step.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.Step.preserve#doc)
+and [`HasComp.progressClosed`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasComp.progressClosed#doc).
+The Writer instance's operational/tree adequacy is
+[`writer_operational_tree_adequacy`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.writer_operational_tree_adequacy#doc).
+These declarations instantiate the concrete formal calculus; they do not by
+themselves mechanize the paper-level quantification over every base listed
+below.
+
 ### Definition I.1 — split base certificates
 
 For a base calculus $L_B$, ordered effect algebra

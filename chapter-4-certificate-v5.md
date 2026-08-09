@@ -230,6 +230,13 @@ or a least principal word is outside the basic theorem.
 
 ## 7. Chapter-IV structure-preservation theorem
 
+The abstract recursive implication is checked by
+[`LanguageRecursiveBaseCert.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveBaseCert.main#doc).
+Its concrete ordered-language Writer instance is
+[`languageRecursiveStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageRecursiveStructurePreservation#doc),
+and the completed adequacy theorem is
+[`language_deep_writer_semantic_adequacy`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.language_deep_writer_semantic_adequacy#doc).
+
 ### Definition IV.2 — layered derived-deep certificates
 
 Define:

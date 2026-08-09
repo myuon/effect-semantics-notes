@@ -12,6 +12,9 @@ Let subeffecting be ordered subsequence and let
 $\mathsf{replaceFirst}_{\Delta,R}$ replace the first occurrence of $\Delta$
 by the response word $R$. The operation is not monotone. Lean verifies
 
+[$\texttt{TypedWriterTree.replaceFirst\_not\_monotone}$ in Lean](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.TypedWriterTree.replaceFirst_not_monotone#doc)
+checks the following counterexample:
+
 $$
 X\Delta\leq\Delta X\Delta
 $$
@@ -80,6 +83,9 @@ $$
 (\downarrow e)\odot(\downarrow f)=\downarrow(ef).
 $$
 
+See [`EffectLanguage.seq_assoc`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.EffectLanguage.seq_assoc#doc)
+and [`EffectLanguage.principal_seq`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.EffectLanguage.principal_seq#doc).
+
 ## 4. Monotone language-level handling
 
 Define
@@ -103,6 +109,8 @@ $$
 \mathsf{Handle}_{\Delta,R}(\mathcal M).
 $$
 
+This is checked by [`EffectLanguage.handleWith_mono`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.EffectLanguage.handleWith_mono#doc).
+
 It retains the exact result because
 $\mathsf{replaceFirst}_{\Delta,R}(e)$ belongs to
 $\mathsf{Handle}_{\Delta,R}(\downarrow e)$.
@@ -119,6 +127,8 @@ $$
 Thus a compiler may retain a single-word annotation by accepting a coarse
 finite envelope, while the language semantics records the precise monotone
 object.
+
+The corresponding bound is [`TypedWriterTree.replaceFirst_le_envelope`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.TypedWriterTree.replaceFirst_le_envelope#doc).
 
 ## 5. Consequence for the main theorem
 

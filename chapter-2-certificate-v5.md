@@ -204,6 +204,11 @@ for adequacy.
 
 ## 8. Chapter-II structure-preservation theorem
 
+The current language-graded finite realization is checked by
+[`languageFiniteStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageFiniteStructurePreservation#doc);
+its operational/tree adequacy component is
+[`language_writer_operational_tree_adequacy`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.language_writer_operational_tree_adequacy#doc).
+
 ### Definition II.1 — layered Chapter-II certificates
 
 For $\widehat L=L_B+\Sigma$ define the following records.
