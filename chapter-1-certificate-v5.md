@@ -83,13 +83,37 @@ sequencing.
 
 ### Theorem I.4 `[C1-CERT.2.2]` — unique decomposition [[Lean: progress]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed#doc) [[Lean: exclusivity]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageProgress.kind_unique#doc) [[Lean: reduct uniqueness]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.deterministic#doc)
 
-Every closed well-typed base computation has a unique evaluation-position
-decomposition as a return, an internal redex in its evaluation context, or an exposed base request
-$\mathcal E[\beta(V)]$.
+If
 
-This is the effect-aware progress theorem used by later chapters.  It does not
-call an exposed request “stuck,” and it does not assert that the request has a
-unique response.
+$
+\vdash M:A!b,
+$
+
+then exactly one of the following three alternatives holds:
+
+$
+\begin{aligned}
+&\exists V.\ M=\mathsf{return}\,V,\\
+&\exists M'.\ M\longrightarrow M',\\
+&\exists \mathcal E,\beta,V.\ M=\mathcal E[\beta(V)].
+\end{aligned}
+\tag{I.4}
+$
+
+Here $\mathcal E$ ranges over call-by-value evaluation contexts.  The three
+lines are mutually exclusive, and the internal reduct is unique:
+
+$
+M\longrightarrow M_1\ \land\ M\longrightarrow M_2
+\quad\Longrightarrow\quad
+M_1=M_2.
+$
+
+Thus a closed well-typed computation either has returned, can make one
+determinate internal step, or is waiting at one exposed base request.  The last
+case is an observable boundary, not a stuck term; the theorem selects the
+request position but does not assert that the environment supplies a unique
+response.
 
 ## 3. Termination
 
