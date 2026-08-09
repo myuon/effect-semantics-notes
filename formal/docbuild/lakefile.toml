@@ -1,0 +1,13 @@
+name = "effect-semantics-docbuild"
+reservoir = false
+version = "0.1.0"
+packagesDir = "../.lake/packages"
+
+[[require]]
+name = "effect-semantics-formal"
+path = "../"
+
+[[require]]
+scope = "leanprover"
+name = "doc-gen4"
+rev = "v4.32.2"

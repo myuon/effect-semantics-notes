@@ -4,6 +4,13 @@ import EffectSemantics.Recursive.LanguageDeepWriter
 
 namespace EffectSemantics
 
+/-!
+# Recursive Writer instance
+
+This module discharges the generic recursive certificate for the ordered
+language-graded Writer observation and proves the typed observation pole.
+-/
+
 /-- The recursive completion of the finite ordered-language theorem for the
 Writer base observation.  Its only base-specific premise says that operation
 zero, when declared, returns Unit. -/

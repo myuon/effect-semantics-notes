@@ -1,5 +1,8 @@
 # Effect Semantics Research Notes
 
+The published site includes both the mathematical research notes and an
+[automatically generated Lean API reference](https://myuon.github.io/effect-semantics-notes/lean/).
+
 > This repository is rendered as a MyST website. Mathematical notation in the
 > Markdown source is typeset in the browser, while the source remains easy to
 > edit and review in Git.

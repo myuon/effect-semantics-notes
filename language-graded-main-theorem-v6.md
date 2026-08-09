@@ -4,6 +4,13 @@ This page records the theorem that is now checked in Lean.  It supersedes the
 earlier provisional statements that mixed finite ordered words, unordered
 rows, and exact runtime traces.
 
+The generated Lean API reference contains the exact checked declarations:
+
+- [`LanguageRecursiveBaseCert.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveBaseCert.main#doc)
+- [`languageRecursiveStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageRecursiveStructurePreservation#doc)
+- [`LanguageRecursiveMorphismCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveMorphismCert.lift#doc)
+- [`LanguageRecursiveRelationCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveRelationCert.lift#doc)
+
 ## 1. Fixed source language
 
 The source is fine-grain call-by-value with value types

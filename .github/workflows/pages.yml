@@ -27,6 +27,14 @@ jobs:
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
+      - name: Set up Lean
+        uses: leanprover/lean-action@v1
+        with:
+          lake-package-directory: formal
+          build: false
+          test: false
+          lint: false
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -39,6 +47,16 @@ jobs:
         env:
           BASE_URL: /${{ github.event.repository.name }}
         run: myst build --html
+
+      - name: Build Lean API reference
+        working-directory: formal/docbuild
+        env:
+          DOCGEN_SRC: github
+          DISABLE_EQUATIONS: "1"
+        run: lake build EffectSemantics:docs
+
+      - name: Add Lean API reference to website
+        run: cp -R formal/docbuild/.lake/build/doc _build/html/lean
 
       - name: Upload website
         uses: actions/upload-pages-artifact@v4

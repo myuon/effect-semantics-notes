@@ -4,6 +4,13 @@ import EffectSemantics.Recursive.FlatApproximationTransport
 
 namespace EffectSemantics
 
+/-!
+# Generic recursive language-extension certificate
+
+This module states the base-independent recursive structure-preservation
+theorem and the separate morphism and logical-relation lifting principles.
+-/
+
 /-- Base-independent syntax/effect part of the extension theorem. -/
 structure LanguageSourceStructureCert (sig : LanguageSignature) where
   effects : LanguageEffectCert
