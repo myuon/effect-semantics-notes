@@ -25,6 +25,7 @@ project:
         - file: package-categories-v5.md
         - file: assumption-dependency-audit-v5.md
         - file: lean-formalization-roadmap-v5.md
+        - file: language-graded-main-theorem-v6.md
         - file: effect-language-repair-v5.md
         - file: graded-tt-lifting-v5.md
         - file: adequacy-pole-construction-v5.md

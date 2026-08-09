@@ -159,6 +159,26 @@ The finite theorem uses partial finite production for recursive programs.
 Recursive language-valued adequacy requires transporting the existing stable
 finite-observation/Kleene completion layer.
 
+## 2026-08-09 — Recursive language-graded main theorem
+
+### Established in Lean
+
+- deterministic language head observation and finite stability;
+- generic flat whole-program ω-CPO and Kleene least fixed point;
+- derived deep Writer handler as the least fixed point of repeated shallow
+  handling;
+- operational/denotational adequacy and result typing;
+- non-circular abstract `LanguageRecursiveBaseCert.main`;
+- recursive morphism and binary logical-relation lifting;
+- concrete Writer instantiation and recursive `fixBeta` example.
+
+### Boundary
+
+The generic theorem is parameterized by a base one-layer functional, its
+finite-iterate adequacy, and pole preservation.  Productive traces,
+probability, full abstraction, and arbitrary-category packaging are not
+silently included.
+
 ## 2026-08-04 — Notation separation
 
 The symbol $H_\Delta$ had been overloaded for both an operation-shape functor and a shallow handler. These are distinct. We now write

@@ -523,11 +523,20 @@ runs the clause and the bare captured continuation.  It preserves structural
 relations and their TT closure, and the matching source reduct denotes exactly
 the same clause/continuation bind (`C-375`--`C-379`).
 
-1. **Recursive language-grade adequacy.**  Full effectful recursion syntax,
-   regular least grades, finite source/tree production, shallow commutation,
-   logical relations and TT lifting are now connected.  The remaining step is
-   to transport the completed stable-observation/Kleene layer to
-   language-valued grades.
+The recursive language-grade layer is now closed for Writer and abstracted for
+other finite-observation bases.  Executable head observations are stable;
+shallow matching induces an ω-continuous one-layer functional; its Kleene
+least fixed point satisfies unfold and leastness; operational deep runs are
+adequate; and the typed observation pole is preserved by fixed-point
+induction.  One-layer morphism commutation and admissible binary relations
+also lift to the completed fixed points.  `LanguageRecursiveBaseCert.main`
+isolates the three non-circular obligations required from another base
+(`C-380`--`C-387`).
+
+1. **Additional recursive base instances.**  State, Exception and Random must
+   instantiate the new language-graded one-layer functional, finite-iterate
+   adequacy, and pole-preservation obligations.  The generic completed theorem
+   itself is now checked.
 2. **Productive infinite observations.**  Replace the partial finite-boundary
    model by coinductive traces if infinite Writer output or transient State
    behavior must be observable.
