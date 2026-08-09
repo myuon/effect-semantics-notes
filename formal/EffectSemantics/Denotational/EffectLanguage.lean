@@ -152,6 +152,92 @@ def handle (selected : Nat) (replacement : Effect)
     rintro ⟨input, inputMember, largerBound⟩
     exact ⟨input, inputMember, Effect.le_trans below largerBound⟩
 
+/-- First-occurrence handling with a language-valued clause effect. -/
+def handleWith (selected : Nat) (replacement input : EffectLanguage) :
+    EffectLanguage where
+  contains output := ∃ source, input.contains source ∧
+    ((EffectAtom.free selected ∉ source ∧ output ≤ source) ∨
+      ∃ replacementTrace, replacement.contains replacementTrace ∧
+        output ≤ TypedWriterTree.replaceFirst selected replacementTrace source)
+  downward := by
+    intro smaller larger below
+    rintro ⟨source, sourceMember, unchanged | replaced⟩
+    · exact ⟨source, sourceMember, Or.inl
+        ⟨unchanged.1, Effect.le_trans below unchanged.2⟩⟩
+    · rcases replaced with ⟨replacementTrace, replacementMember, largerBound⟩
+      exact ⟨source, sourceMember, Or.inr
+        ⟨replacementTrace, replacementMember,
+          Effect.le_trans below largerBound⟩⟩
+
+theorem handleWith_mono
+    (replacementBound : replacement ≤ replacement')
+    (inputBound : input ≤ input') :
+    handleWith selected replacement input ≤
+      handleWith selected replacement' input' := by
+  rintro output ⟨source, sourceMember, unchanged | replaced⟩
+  · exact ⟨source, inputBound source sourceMember, Or.inl unchanged⟩
+  · rcases replaced with ⟨replacementTrace, replacementMember, outputBound⟩
+    exact ⟨source, inputBound source sourceMember, Or.inr
+      ⟨replacementTrace, replacementBound replacementTrace replacementMember,
+        outputBound⟩⟩
+
+theorem pure_le_handleWith (inputPure : principal 1 ≤ input) :
+    principal 1 ≤ handleWith selected replacement input := by
+  intro output outputPure
+  have outputNil := Effect.sublist_nil outputPure
+  subst output
+  exact ⟨1, inputPure 1 (Effect.le_refl 1), Or.inl
+    ⟨by simp, Effect.le_refl 1⟩⟩
+
+/-- A currently exposed selected request followed by `suffix` is transformed
+to the clause language followed by that same suffix. -/
+theorem seq_replacement_le_handleWith
+    (inputBound : seq (principal [EffectAtom.free selected]) suffix ≤ input) :
+    seq replacement suffix ≤ handleWith selected replacement input := by
+  rintro output ⟨replacementTrace, suffixTrace, replacementMember,
+    suffixMember, outputBound⟩
+  let source := [EffectAtom.free selected] * suffixTrace
+  have sourceMember : input.contains source := inputBound source
+    ⟨[EffectAtom.free selected], suffixTrace, Effect.le_refl _, suffixMember,
+      Effect.le_refl _⟩
+  refine ⟨source, sourceMember, Or.inr
+    ⟨replacementTrace, replacementMember, ?_⟩⟩
+  simpa [source, TypedWriterTree.replaceFirst, Effect.mul_def] using outputBound
+
+/-- A pure clause eliminates the only selected request in a singleton
+principal input language. -/
+theorem handleWith_pure_singleton (selected : Nat) :
+    handleWith selected (principal 1)
+      (principal [EffectAtom.free selected]) = principal 1 := by
+  apply le_antisymm
+  · rintro output ⟨source, sourceBound, unchanged | replaced⟩
+    · cases source with
+      | nil => exact unchanged.2
+      | cons atom rest =>
+          have atomMember : atom ∈ [EffectAtom.free selected] :=
+            sourceBound.subset (by simp)
+          have atomEq : atom = EffectAtom.free selected := by
+            simpa using atomMember
+          subst atom
+          exact False.elim (unchanged.1 (by simp))
+    · rcases replaced with ⟨replacementTrace, replacementPure, outputBound⟩
+      have replacementEq := Effect.sublist_nil replacementPure
+      subst replacementTrace
+      cases source with
+      | nil => exact outputBound
+      | cons atom rest =>
+          cases sourceBound with
+          | cons _ impossible =>
+              have sourceNil := List.eq_nil_of_sublist_nil impossible
+              contradiction
+          | cons_cons _ restBound =>
+              have restNil := List.eq_nil_of_sublist_nil restBound
+              subst rest
+              change output ≤ (1 : Effect)
+              simpa [TypedWriterTree.replaceFirst] using outputBound
+  · exact pure_le_handleWith
+      (principal_mono (Effect.nil_le [EffectAtom.free selected]))
+
 theorem handle_mono (bound : lower ≤ upper) :
     handle selected replacement lower ≤ handle selected replacement upper := by
   change ∀ output,

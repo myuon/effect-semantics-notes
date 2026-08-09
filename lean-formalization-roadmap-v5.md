@@ -479,6 +479,25 @@ preservation and closed progress are checked.  A closed `freeOp; self()`
 program typechecks at the regular grade and retains it after `fixBeta`; a
 conditional recursive variant typechecks by branch union (`C-366`--`C-368`).
 
+Typed request decomposition and shallow handling have now been transported as
+well.  A typed CBV let-context reconstructs a principal residual language
+`K` with `Delta·K ≤ input`.  The first-occurrence transformer accepts an
+arbitrary language-valued clause grade `R` and proves
+`R·K ≤ handleWith Delta R input`.  Clause substitution, opened continuation
+typing, matching reduct typing, and preservation of internal/return/matching
+handler transitions are checked.  In the concrete singleton request/pure
+clause example, the transformed language is definitionally proved equal to
+the pure principal language, so static elimination is observable in the final
+typing judgment (`C-369`--`C-372`).
+
+The forwarding side is closed too.  Typed free and base request views type a
+response plugged back through the captured let-context.  Base requests,
+cross-interface requests and selected operations with a missing clause are
+forwarded with the same shallow handler reinstalled and preserve the original
+input grade.  Closed handler progress now covers internal, return, match and
+all forwarding cases.  The source internal-step relation is deterministic by
+agreement with its executable reducer (`C-373`--`C-374`).
+
 ## 8. Current formalization boundary
 
 The fixed calculus is now formalized through the strongest claim its present
@@ -500,8 +519,11 @@ determined by the current calculus:
    branching/multiple-self effect equations are now fixed.  Source arrows,
    contexts, substitutions, recursion, preservation and progress have been
    reindexed in a conservative parallel calculus.  Typed request
-   decomposition, shallow-handler residual grading and the handler
-   preservation theorem remain to be transported to language grades.
+   decomposition, shallow residual grading, and handler-step preservation are
+   now transported, including forwarding resumes and complete closed handler
+   progress.  The next untransported layer is the language-indexed
+   denotational/logical-relation account and its agreement with this source
+   machine.
 2. **Productive infinite observations.**  Replace the partial finite-boundary
    model by coinductive traces if infinite Writer output or transient State
    behavior must be observable.
