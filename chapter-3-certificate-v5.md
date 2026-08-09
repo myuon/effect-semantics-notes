@@ -1,5 +1,21 @@
 # Chapter III — shallow-handler proofs and `ShallowCert`
 
+:::{admonition} Lean correspondence — `ShallowCert`
+:class: tip
+The paper record is a readable certificate decomposition. The current source-language bundle is **Lean checked** by [`languageShallowCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageShallowCert#doc), while the generic semantic laws are bundled by [`genericFreeExtensionStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericFreeExtensionStructurePreservation#doc). [Full mapping](review-guide.md#chapter-iii-shallow-handlers).
+:::
+
+### Numbered-statement inventory
+
+| statement | review status | correspondence |
+|---|---|---|
+| Lemma III.1, continuation typing | Lean checked component | [`LanguageFreeRequest.openResume_subst0`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFreeRequest.openResume_subst0#doc) |
+| Theorem III.2, handler preservation | Lean checked in bundle | [`languageShallowCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageShallowCert#doc) |
+| Theorem III.3, affine effect transformation | Lean checked component | [`EffectLanguage.handleWith_mono`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.EffectLanguage.handleWith_mono#doc) |
+| Theorem III.4, operational/denotational commutation | Lean checked in source/tree bundle | [`languageFiniteStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageFiniteStructurePreservation#doc) |
+| Theorem III.5, adequacy preservation | Lean checked generic layer | [`GenericExtensionAlgebra.AdequacyCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.AdequacyCert.lift#doc) |
+| Definition III.1–III.3 and Theorem III.6 | Paper certificate packaging | checked generic and language bundles above |
+
 ## Status
 
 **Conditional paper theorem.**  The affine fragment has a derived effect

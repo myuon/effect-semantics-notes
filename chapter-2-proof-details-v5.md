@@ -1,5 +1,10 @@
 # Chapter II — detailed free-extension proofs
 
+:::{admonition} Review role
+:class: note
+This appendix explains proofs whose canonical Lean declarations are listed in the [Chapter-II correspondence table](review-guide.md#chapter-ii-free-operations). A theorem without an individual API link here should be read as a paper derivation, not silently as mechanized.
+:::
+
 ## 1. Operational lemmas
 
 Substitution is the Chapter-I simultaneous induction with one additional

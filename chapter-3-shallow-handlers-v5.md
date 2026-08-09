@@ -1,5 +1,10 @@
 # Chapter III — shallow handlers over ordered effects
 
+:::{admonition} Formalization status
+:class: tip
+The affine response fragment, transparent forwarding, shallow termination after the first match, map naturality, and structural-relation preservation are **Lean checked**. The more general continuation-usage discussion is a **Boundary / paper design space**. See the [Chapter-III correspondence table](review-guide.md#chapter-iii-shallow-handlers).
+:::
+
 ## Status
 
 **Working handler specification.**  The calculus remains recursion-free.  A

@@ -1,5 +1,10 @@
 # Functorial free-effect extension and adequacy transport
 
+:::{admonition} Formalization status — abstract packaging
+:class: note
+**Paper abstraction.** The Type-level carrier, identity/composition laws, morphism lift, relation lift, TT layer, shallow naturality, and adequacy transport are individually Lean checked in the [generic finite theorem](generic-free-extension-theorem-v1.md). The single category-level functor theorem stated here is not itself one Lean declaration.
+:::
+
 ## Status
 
 **Main recursion-free theorem, conditional on the displayed premises.**  This

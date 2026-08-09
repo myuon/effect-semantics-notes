@@ -1,5 +1,10 @@
 # Chapter I — terminology and fixed base calculus
 
+:::{admonition} Lean correspondence — syntax and typing
+:class: tip
+**Lean checked.** Values/computations are [`Val` and `Comp`](https://myuon.github.io/effect-semantics-notes/lean/EffectSemantics/Syntax/Term.html); language-graded judgments are [`HasLanguageVal` and `HasLanguageComp`](https://myuon.github.io/effect-semantics-notes/lean/EffectSemantics/Syntax/LanguageCalculus.html). The paper-level `BaseCert` is a readable packaging of checked component lemmas, not a single declaration with the same fields. [Full mapping](review-guide.md#chapter-i-fixed-base-language).
+:::
+
 ## Status
 
 **Foundational specification.**  No free operation, handler or fixed point is

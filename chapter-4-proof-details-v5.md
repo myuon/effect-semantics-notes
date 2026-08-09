@@ -1,5 +1,10 @@
 # Chapter IV — detailed recursive and derived-deep proofs
 
+:::{admonition} Review role
+:class: note
+This is the recursive proof appendix. The exact LFP, adequacy, morphism, relation, TT, and conservativity declarations are linked in the [Chapter-IV correspondence table](review-guide.md#chapter-iv-recursion-and-derived-deep-handling).
+:::
+
 ## 1. One-step recursion safety
 
 :::{prf:theorem} Recursive one-step progress and preservation

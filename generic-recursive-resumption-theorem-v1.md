@@ -1,5 +1,10 @@
 # Generic recursive resumption theorem
 
+:::{admonition} Canonical checked abstraction
+:class: tip
+Every generic conclusion on this page links to its checked declaration. The principal bundle is [`GenericRecursiveResumptionCert.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumptionCert.main#doc). Writer, State, and Exception are separate checked instances. Read the concrete Chapter-IV programs first; see the [dependency map](review-guide.md#chapter-iv-recursion-and-derived-deep-handling).
+:::
+
 ## Status
 
 **Mechanized in Lean for flat terminating observations.** This extends the

@@ -1,5 +1,10 @@
 # Assumption dependency audit
 
+:::{admonition} Review role
+:class: note
+This page is an assumption audit, not an additional main theorem. Rows linking to declarations are **Lean checked**; the stratification into O/C/M/F/R/T/H is a **Paper abstraction** used to expose which conclusion consumes which hypothesis.
+:::
+
 ## Status
 
 **Proof dependency audit for the finite and recursive theorems.** This page records

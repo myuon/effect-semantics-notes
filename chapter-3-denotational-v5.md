@@ -1,5 +1,10 @@
 # Chapter III — denotational shallow handling
 
+:::{admonition} Lean correspondence — shallow denotation
+:class: tip
+**Lean checked.** Clauses are [`FreeExtension.AffineHandler`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.AffineHandler#doc), denotation is [`FreeExtension.shallow`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.shallow#doc), naturality is [`shallow_map`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.shallow_map#doc), and relation preservation is [`shallow_rel`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.shallow_rel#doc).
+:::
+
 ## Status
 
 **Semantic construction over `FreeCert`.**  The principal total theorem is for

@@ -1,5 +1,10 @@
 # Chapter I — operational semantics and concrete machines
 
+:::{admonition} Lean correspondence — Chapter I
+:class: tip
+**Lean checked.** CBV reduction is [`LanguageStep`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep#doc), preservation is [`LanguageStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc), and closed progress is [`HasLanguageComp.progressClosed`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed#doc). See the [Chapter-I correspondence table](review-guide.md#chapter-i-fixed-base-language).
+:::
+
 ## Status
 
 **Derived operational development.**  This page expands the syntax fixed in

@@ -1,5 +1,10 @@
 # Chapter III — detailed shallow-handler proofs
 
+:::{admonition} Review role
+:class: note
+This is the Chapter-III proof appendix. Exact mechanized declarations are indexed in the [shallow-handler correspondence table](review-guide.md#chapter-iii-shallow-handlers); unlinked generalizations remain paper proofs.
+:::
+
 ## 1. Residual continuation lemma
 
 :::{prf:lemma} Typed residual context

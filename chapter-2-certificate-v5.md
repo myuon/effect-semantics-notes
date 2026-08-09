@@ -1,5 +1,22 @@
 # Chapter II — preservation proofs and `FreeCert`
 
+:::{admonition} Lean correspondence — `FreeCert`
+:class: tip
+The readable `FreeCert` record is a **Paper abstraction**. Its central conclusions are individually **Lean checked** by [`genericFreeExtensionStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericFreeExtensionStructurePreservation#doc), [`Morphism.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.Morphism.lift#doc), [`Relation.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.Relation.lift#doc), and [`AdequacyCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.AdequacyCert.lift#doc). [Full mapping](review-guide.md#chapter-ii-free-operations).
+:::
+
+### Numbered-statement inventory
+
+| statement | review status | correspondence |
+|---|---|---|
+| Lemma II.1–Theorem II.3, substitution/preservation/progress | Lean checked components | [`LanguageStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc), [`HasLanguageComp.progressClosed`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed#doc) |
+| Corollary II.4, empty-free-effect safety | Paper corollary of typed progress | no separate declaration claimed |
+| Theorem II.5, old-language operational conservativity | Lean checked component | [`Step.preservesBaseOnly`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.Step.preservesBaseOnly#doc) |
+| Theorem II.6, free-extension algebra | Lean checked | [`genericFreeExtensionStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericFreeExtensionStructurePreservation#doc) |
+| Theorem II.7, denotational conservativity | Lean checked | [`eraseFree_embedBase`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.eraseFree_embedBase#doc) |
+| Theorem II.8, finite adequacy lifting | Lean checked | [`GenericExtensionAlgebra.AdequacyCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.AdequacyCert.lift#doc) |
+| Definition II.1–II.2 and Theorem II.9, `FreeCert` | Paper packaging of checked layers | [generic finite theorem](generic-free-extension-theorem-v1.md) |
+
 ## Status
 
 **Conditional paper theorem.**  This page proves the recursion-free free

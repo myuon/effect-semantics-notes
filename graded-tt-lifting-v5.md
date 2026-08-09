@@ -1,5 +1,10 @@
 # Graded TT-lifting and adequacy relations
 
+:::{admonition} Formalization status
+:class: note
+Finite observation-indexed TT closure is **Lean checked** by [`GenericExtensionAlgebra.TTLayerCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.TTLayerCert.lift#doc); recursive pointwise outcome-TT closure is checked by [`GenericRecursiveOutcomeTTCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveOutcomeTTCert.lift#doc). Additional graded/categorical generality on this page is a **Paper abstraction**.
+:::
+
 ## Status
 
 **Adopted relation architecture; conditional paper derivation.**  This page

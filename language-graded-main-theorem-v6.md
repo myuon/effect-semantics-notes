@@ -1,5 +1,10 @@
 # Language-graded structure-preservation theorem
 
+:::{admonition} Canonical checked theorem
+:class: tip
+This is the source-language summary after the concrete chapters. The finite bundle is [`languageFiniteStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageFiniteStructurePreservation#doc); the recursive Writer bundle is [`languageRecursiveStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageRecursiveStructurePreservation#doc). For the base-independent construction, continue to the [generic finite](generic-free-extension-theorem-v1.md) and [generic recursive](generic-recursive-resumption-theorem-v1.md) theorems.
+:::
+
 This page records the theorem that is now checked in Lean.  It supersedes the
 earlier provisional statements that mixed finite ordered words, unordered
 rows, and exact runtime traces.

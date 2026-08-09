@@ -1,5 +1,10 @@
 # Chapter II — direct semantics and concrete free-operation programs
 
+:::{admonition} Lean correspondence — Chapter II
+:class: tip
+**Lean checked.** Typed requests are represented by [`OperationSignature`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.OperationSignature#doc) and finite request trees by [`FreeExtension`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension#doc). Concrete Writer conversion and observation are checked in [`GenericBaseInstances`](https://myuon.github.io/effect-semantics-notes/lean/EffectSemantics/Examples/GenericBaseInstances.html). [Full mapping](review-guide.md#chapter-ii-free-operations).
+:::
+
 ## Status
 
 **Operational development.**  This page adds free operations to the
@@ -237,4 +242,3 @@ The examples establish the intended boundary:
 - the machine recovers a continuation from the unique CBV context;
 - static effects conservatively bound possible order and may include effects
   absent from a particular run.
-

@@ -1,5 +1,10 @@
 # State end-to-end certificate instance
 
+:::{admonition} Lean correspondence — State
+:class: tip
+**Lean checked:** typed `get`/`put` signature [`stateBaseSignature`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.stateBaseSignature#doc), honest state-transformer observer [`genericRecursiveStateObserver`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericRecursiveStateObserver#doc), concrete toggle calculations [`toggle_from_false`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveState.toggle_from_false#doc) and [`toggle_from_true`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveState.toggle_from_true#doc), and recursive [`limit_adequacy`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveState.limit_adequacy#doc). The ordered grade-indexed TT package below remains a **Paper abstraction**.
+:::
+
 ## Status
 
 **Concrete recursion-free derivation.**  This instance checks that the generic

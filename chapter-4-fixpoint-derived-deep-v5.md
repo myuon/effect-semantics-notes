@@ -1,5 +1,10 @@
 # Chapter IV — fixed points and derived deep handlers
 
+:::{admonition} Formalization status
+:class: tip
+The finite-layer resumption, shallow reinstallation functional, Kleene LFP theorem, terminating adequacy, recursive relations, and old-language conservativity are **Lean checked**. Productive infinite observations remain an explicit **Boundary** of the flat domain. [Full mapping](review-guide.md#chapter-iv-recursion-and-derived-deep-handling).
+:::
+
 ## Status
 
 **Research specification.**  This chapter adds computation-level recursion.

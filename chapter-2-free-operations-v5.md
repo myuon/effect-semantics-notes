@@ -1,5 +1,10 @@
 # Chapter II — ordered free-operation extension
 
+:::{admonition} Formalization status
+:class: tip
+The typed finite carrier, monad laws, base embedding, morphisms, relations, TT lifting, and finite adequacy are **Lean checked**; see the [Chapter-II table](review-guide.md#chapter-ii-free-operations). The stronger grade-indexed carrier notation in this chapter is a **Paper abstraction** layered over the separately mechanized ordered effect-language bounds.
+:::
+
 ## Status
 
 **Working extension specification.**  This chapter adds user-defined

@@ -1,5 +1,10 @@
 # Chapter IV — recursion, derived deep handling, and programs
 
+:::{admonition} Lean correspondence — Chapter IV
+:class: tip
+**Lean checked.** The executable finite-fuel resumption evaluator is [`genericRunFuel`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericRunFuel#doc), and [`genericRunFuel_eq_iterate`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericRunFuel_eq_iterate#doc) identifies it with finite semantic iteration. The Writer request/resume/`tell` calculation reaches the LFP in [`example_limit_true`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveWriter.example_limit_true#doc).
+:::
+
 ## Status
 
 **Operational development over `ShallowCert`.**  Fixpoint is added to the

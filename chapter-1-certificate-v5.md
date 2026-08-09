@@ -1,5 +1,22 @@
 # Chapter I — metatheory and base certificate
 
+:::{admonition} Lean correspondence — theorem bundle
+:class: tip
+**Lean checked components:** substitution and typing live in [`LanguageRenameSubst`](https://myuon.github.io/effect-semantics-notes/lean/EffectSemantics/Syntax/LanguageRenameSubst.html), preservation in [`LanguageStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc), progress in [`HasLanguageComp.progressClosed`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed#doc). `BaseCert` is the chapter's **Paper abstraction** of these separately checked obligations. [Statement-by-statement map](review-guide.md#chapter-i-fixed-base-language).
+:::
+
+### Numbered-statement inventory
+
+| statement | review status | correspondence |
+|---|---|---|
+| Lemma I.1–I.2, substitution | Paper abstraction over mechanized syntax | [`LanguageRenameSubst`](https://myuon.github.io/effect-semantics-notes/lean/EffectSemantics/Syntax/LanguageRenameSubst.html) |
+| Theorem I.3, preservation | Lean checked | [`LanguageStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc) |
+| Theorem I.4, decomposition/progress | Lean checked at closed progress; uniqueness is a paper strengthening | [`HasLanguageComp.progressClosed`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed#doc) |
+| Theorem I.5, recursion-free normalization | Paper proof | no Lean declaration claimed |
+| Lemma I.6–Theorem I.7, semantic substitution/soundness | Paper abstraction | checked operational/tree correspondence is indexed separately |
+| Theorem I.8, effect upper-bound safety | Lean checked component | [`HasLanguageEffect.observationMember`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.TypedWriterTree.HasLanguageEffect.observationMember#doc) |
+| Definition I.1 and Theorem I.9, `BaseCert` | Paper certificate packaging | component theorems above |
+
 ## Status
 
 **Paper proof package.**  This page extracts exactly what Chapter II may assume

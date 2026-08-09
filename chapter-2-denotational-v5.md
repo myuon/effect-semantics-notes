@@ -1,5 +1,10 @@
 # Chapter II — denotational free extension
 
+:::{admonition} Lean correspondence — finite denotation
+:class: tip
+**Lean checked.** The carrier and bind are [`FreeExtension`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension#doc); target interpretation is [`GenericExtensionAlgebra.fold`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.fold#doc), with bind preservation in [`fold_bind`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.fold_bind#doc). [Full mapping](review-guide.md#chapter-ii-free-operations).
+:::
+
 ## Status
 
 **Semantic construction and hypothesis audit.**  This page builds the free

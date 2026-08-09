@@ -33,25 +33,35 @@ effect annotation は、runtimeで起きうるeffectsを順序を保って上か
 
 ## 読み方
 
-1. [Ordered-effect research program v5](research-program-v5.md) — 現在の前提と全体構成
-2. [Functorial extension theorem](functorial-extension-theorem-v5.md) — 元の式 (2)--(4) への現在の主回答
-3. [Categories of extensible packages](package-categories-v5.md) — 主定理の対象と射の厳密な範囲
-4. [Assumption dependency audit](assumption-dependency-audit-v5.md) — 各結論が初めて必要とする仮定
-5. [Grade-indexed free carrier](grade-indexed-free-carrier-v5.md) — free extension の正式な添字付き構成
-6. [Base-action law](base-action-law-v5.md) — graded bind に本当に必要な追加構造
-7. [Constructing the base action](base-action-construction-v5.md) — root exposureからactionを導く十分条件
-8. [Graded TT-lifting](graded-tt-lifting-v5.md) — structural relation、観測関係、adequacy の接続
-9. [Canonical adequacy pole](adequacy-pole-construction-v5.md) — adequacy を循環なく導く証明鎖
-10. [Writer](writer-end-to-end-v5.md)、[State](state-end-to-end-v5.md)、[Exception](exception-end-to-end-v5.md)、[Random](random-end-to-end-v5.md) — end-to-end concrete instances
-11. [Chapter I](chapter-1-foundations-v5.md) — 用語、基礎文法、base effect
-12. [Chapter II](chapter-2-free-operations-v5.md) — ordered free-operation extension
-13. [Chapter III](chapter-3-shallow-handlers-v5.md) — shallow handlerとeffect変換
-14. [Chapter IV](chapter-4-fixpoint-derived-deep-v5.md) — fixpointとdeep handlerの導出
-15. [Lean formalization roadmap](lean-formalization-roadmap-v5.md) — 機械検証する定理、依存順序、最初の実装範囲
-16. [Recursive TT audit](recursive-tt-audit-v5.md) — 再帰で追加される admissibility 条件
-17. [Claims ledger](claims-ledger.md) — 既知・予想・未検証の台帳
+最初に [Review guide and theorem dependency map](review-guide.md) を開く。
+ここに標準的な読書順、各定義・定理の Lean 対応、形式化されていない
+境界を集約している。
+
+本文は次のように、具体的な計算から抽象定理へ進む。
+
+1. [Chapter I: concrete base machines](chapter-1-operational-examples-v5.md)
+2. [Chapter II: programs with free operations](chapter-2-operational-examples-v5.md)
+3. [Writer](writer-end-to-end-v5.md)、[State](state-end-to-end-v5.md)、[Exception](exception-end-to-end-v5.md) の end-to-end instance
+4. [Chapter III: shallow-handler calculations](chapter-3-operational-examples-v5.md)
+5. [Chapter IV: recursive and derived-deep programs](chapter-4-operational-examples-v5.md)
+6. [Language-level main theorem](language-graded-main-theorem-v6.md)
+7. [Generic finite theorem](generic-free-extension-theorem-v1.md)
+8. [Generic recursive theorem](generic-recursive-resumption-theorem-v1.md)
+9. [Functorial extension theorem](functorial-extension-theorem-v5.md) と [package categories](package-categories-v5.md)
+
+各 chapter では **operational examples → syntax/typing → denotation →
+certificate → detailed proofs** の順に読む。旧 unordered 方針、探索メモ、
+旧版は目次の後半に分離してあり、現在の主定理の依存関係には入らない。
 
 ## ステータス記法
+
+査読用の正本ページでは、次の三区分を使う。
+
+- **Lean checked**: 表示した API 宣言がその主張を kernel-check している
+- **Paper abstraction**: 構成要素は形式化済みだが、その抽象的包装自体は紙上の記述
+- **Boundary / conjecture**: 現在の定理としては主張しない
+
+探索メモ内の旧ステータスは以下の意味を持つ。
 
 - **Established**: 定義または証明を手元で確認済み
 - **Derived**: 明示した仮定から紙上で導出済み

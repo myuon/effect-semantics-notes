@@ -1,5 +1,10 @@
 # Generic finite free-extension theorem
 
+:::{admonition} Canonical checked abstraction
+:class: tip
+Every construction and theorem claimed on this page has an individual generated-API link. The overall checked bundle is [`genericFreeExtensionStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericFreeExtensionStructurePreservation#doc). Read the concrete Chapter-II programs before this abstraction; see the [dependency map](review-guide.md#chapter-ii-free-operations).
+:::
+
 ## Status
 
 **Mechanized in Lean.** This page isolates the finite abstract construction

@@ -1,5 +1,10 @@
 # Categories of extensible semantic packages
 
+:::{admonition} Formalization status — categorical layer
+:class: note
+**Paper abstraction.** This page organizes the mechanized Type-level constructions into source/target package categories. Identity, composition, folds, and lifting components are Lean checked, but the whole category-valued functor is not currently formalized as a category-theory object.
+:::
+
 ## Status
 
 **Formal categorical boundary for the recursion-free theorem.**  The

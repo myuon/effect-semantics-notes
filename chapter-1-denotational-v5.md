@@ -1,5 +1,10 @@
 # Chapter I — denotational semantics
 
+:::{admonition} Formalization status
+:class: tip
+The concrete Writer/tree interpretation and its operational adequacy are **Lean checked** by [`language_writer_operational_tree_adequacy`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.language_writer_operational_tree_adequacy#doc). The fully general graded semantic package on this page is a **Paper abstraction** whose mechanized components are indexed in the [review guide](review-guide.md#chapter-i-fixed-base-language).
+:::
+
 ## Status
 
 **Semantic specification with concrete instances.**  This page interprets only

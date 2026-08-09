@@ -1,5 +1,21 @@
 # Chapter IV — recursion certificate and derived-deep theorem
 
+:::{admonition} Lean correspondence — recursive certificate
+:class: tip
+The canonical generic certificate is [`GenericRecursiveResumptionCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumptionCert#doc), with main theorem [`main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumptionCert.main#doc). Morphism, relation, and TT conclusions have separate checked lifts; see the [Chapter-IV table](review-guide.md#chapter-iv-recursion-and-derived-deep-handling).
+:::
+
+### Numbered-statement inventory
+
+| statement | review status | correspondence |
+|---|---|---|
+| Definition IV.1, recursive local certificate | Lean checked counterpart | [`GenericRecursiveResumptionCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumptionCert#doc) |
+| recursive preservation/progress | Lean checked source-language component | [`languageRecursiveStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageRecursiveStructurePreservation#doc) |
+| derived/deep coincidence | Lean checked semantically by shallow reinstallation functional | [`RecursiveResumptionSystem.functional`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.RecursiveResumptionSystem.functional#doc) |
+| exhaustive-interface elimination | Paper theorem under the displayed exhaustiveness premise | no stronger unconditional claim |
+| recursive adequacy transport | Lean checked | [`GenericRecursiveResumptionCert.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumptionCert.main#doc) |
+| Definition IV.2 and layered theorem | Paper packaging of checked LFP/morphism/relation/TT layers | [generic recursive theorem](generic-recursive-resumption-theorem-v1.md) |
+
 ## Status
 
 **Conditional paper theorem.**  This page records exactly what must be added

@@ -1,5 +1,10 @@
 # Chapter III — direct shallow-handler semantics and programs
 
+:::{admonition} Lean correspondence — Chapter III
+:class: tip
+**Lean checked.** The finite semantic handler is [`FreeExtension.shallow`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.shallow#doc); its matching and forwarding equations are [`shallow_match`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.shallow_match#doc) and [`shallow_forward`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.shallow_forward#doc). [Full mapping](review-guide.md#chapter-iii-shallow-handlers).
+:::
+
 ## Status
 
 **Operational development.**  This page adds shallow handlers to the

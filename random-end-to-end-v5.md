@@ -1,5 +1,10 @@
 # Random/SubDist end-to-end certificate instance
 
+:::{admonition} Formalization status — Random
+:class: warning
+**Boundary / paper instance.** The generic framework permits nondeterministic base behavior only after choosing an observation domain and adequacy notion. Unlike Writer, State, and Exception, this page does not currently have a complete recursive Lean instance. Do not infer determinism or adequacy from `BaseCert` notation alone.
+:::
+
 ## Status
 
 **Concrete finite probabilistic derivation.**  This page checks that the main

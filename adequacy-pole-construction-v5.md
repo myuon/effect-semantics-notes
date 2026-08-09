@@ -1,5 +1,10 @@
 # Non-circular observation pole and adequacy transport
 
+:::{admonition} Lean correspondence
+:class: tip
+Finite adequacy transport is **Lean checked** by [`GenericExtensionAlgebra.AdequacyCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.AdequacyCert.lift#doc); recursive pole induction and limit adequacy are checked by [`GenericRecursiveResumptionCert.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumptionCert.main#doc). This page explains the non-circular proof architecture connecting them.
+:::
+
 ## Status
 
 **Corrected proof architecture.**  This page defines the TT pole from the

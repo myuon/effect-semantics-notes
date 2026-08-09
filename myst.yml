@@ -18,49 +18,64 @@ project:
   license: CC-BY-4.0
   toc:
     - file: README.md
-    - title: Active ordered-effect program
+    - title: Start here
       children:
+        - file: review-guide.md
         - file: research-program-v5.md
-        - file: functorial-extension-theorem-v5.md
-        - file: package-categories-v5.md
-        - file: assumption-dependency-audit-v5.md
-        - file: lean-formalization-roadmap-v5.md
+        - file: objects-and-notation.md
         - file: lean-api-reference.md
-        - file: language-graded-main-theorem-v6.md
-        - file: generic-free-extension-theorem-v1.md
-        - file: generic-recursive-resumption-theorem-v1.md
-        - file: effect-language-repair-v5.md
-        - file: graded-tt-lifting-v5.md
-        - file: adequacy-pole-construction-v5.md
+        - file: claims-ledger.md
         - file: chapter-method-v5.md
-        - file: chapter-1-foundations-v5.md
+    - title: "Chapter I — concrete base language"
+      children:
         - file: chapter-1-operational-examples-v5.md
+        - file: chapter-1-foundations-v5.md
         - file: chapter-1-denotational-v5.md
         - file: chapter-1-certificate-v5.md
         - file: chapter-1-proof-details-v5.md
-        - file: chapter-2-free-operations-v5.md
+    - title: "Chapter II — concrete free operations"
+      children:
         - file: chapter-2-operational-examples-v5.md
-        - file: chapter-2-denotational-v5.md
-        - file: grade-indexed-free-carrier-v5.md
-        - file: base-action-law-v5.md
-        - file: base-action-construction-v5.md
+        - file: chapter-2-free-operations-v5.md
         - file: writer-end-to-end-v5.md
         - file: state-end-to-end-v5.md
         - file: exception-end-to-end-v5.md
         - file: random-end-to-end-v5.md
+        - file: chapter-2-denotational-v5.md
         - file: chapter-2-certificate-v5.md
         - file: chapter-2-proof-details-v5.md
-        - file: chapter-3-shallow-handlers-v5.md
+        - file: grade-indexed-free-carrier-v5.md
+        - file: base-action-law-v5.md
+        - file: base-action-construction-v5.md
+    - title: "Chapter III — concrete shallow handlers"
+      children:
         - file: chapter-3-operational-examples-v5.md
+        - file: chapter-3-shallow-handlers-v5.md
         - file: chapter-3-denotational-v5.md
         - file: chapter-3-certificate-v5.md
         - file: chapter-3-proof-details-v5.md
-        - file: chapter-4-fixpoint-derived-deep-v5.md
+    - title: "Chapter IV — recursion and derived deep handling"
+      children:
         - file: chapter-4-operational-examples-v5.md
+        - file: chapter-4-fixpoint-derived-deep-v5.md
         - file: chapter-4-denotational-v5.md
-        - file: recursive-tt-audit-v5.md
         - file: chapter-4-certificate-v5.md
         - file: chapter-4-proof-details-v5.md
+        - file: recursive-tt-audit-v5.md
+    - title: Abstract theorems after the examples
+      children:
+        - file: language-graded-main-theorem-v6.md
+        - file: generic-free-extension-theorem-v1.md
+        - file: generic-recursive-resumption-theorem-v1.md
+        - file: functorial-extension-theorem-v5.md
+        - file: package-categories-v5.md
+        - file: assumption-dependency-audit-v5.md
+        - file: graded-tt-lifting-v5.md
+        - file: adequacy-pole-construction-v5.md
+        - file: effect-language-repair-v5.md
+    - title: Formalization and audit
+      children:
+        - file: lean-formalization-roadmap-v5.md
     - title: Earlier unordered program (reference)
       children:
         - file: research-map.md
@@ -116,7 +131,6 @@ project:
         - file: fixpoint-design.md
         - file: exact-layer-calculus-v2.md
         - file: semantic-interface-v1.md
-        - file: objects-and-notation.md
     - title: Supporting ordered/shallow exploration
       children:
         - file: research-synthesis-v1.md
@@ -145,7 +159,6 @@ project:
         - file: principal-word-recovery-v1.md
         - file: base-conservativity-v1.md
         - file: candidate-constructions.md
-        - file: claims-ledger.md
         - file: open-questions.md
     - title: Future directions
       children:

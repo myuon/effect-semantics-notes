@@ -1,5 +1,10 @@
 # Exception end-to-end certificate instance
 
+:::{admonition} Lean correspondence — Exception
+:class: tip
+**Lean checked:** the non-resumable typed signature [`exceptionBaseSignature`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.exceptionBaseSignature#doc), finite observer [`genericRecursiveExceptionObserver`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericRecursiveExceptionObserver#doc), continuity [`functional_continuous`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveException.functional_continuous#doc), and recursive [`limit_adequacy`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveException.limit_adequacy#doc). The fully ordered `TTCert` formulation below is a **Paper abstraction**.
+:::
+
 ## Status
 
 **Concrete recursion-free derivation.**  This instance checks abortive base

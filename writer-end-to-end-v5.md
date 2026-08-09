@@ -1,5 +1,10 @@
 # Writer end-to-end certificate instance
 
+:::{admonition} Lean correspondence — Writer
+:class: tip
+**Lean checked:** generic/concrete tree round trips [`writerToGeneric_genericToWriter`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.writerToGeneric_genericToWriter#doc), finite observation agreement [`genericWriterRunClosed_writerToGeneric`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericWriterRunClosed_writerToGeneric#doc), recursive limit adequacy [`GenericRecursiveWriter.limit_adequacy`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveWriter.limit_adequacy#doc), and the concrete derived-deep result [`example_limit_true`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveWriter.example_limit_true#doc). The grade-indexed `BaseCert→FreeCert→TTCert` presentation below is a **Paper abstraction** of these checked components.
+:::
+
 ## Status
 
 **Concrete recursion-free derivation.**  This page instantiates the complete
