@@ -118,4 +118,157 @@ def genericExceptionExtensionCert :
     GenericFreeExtensionCert exceptionBaseSignature userOperationSignature :=
   genericFreeExtensionStructurePreservation _ _
 
+/-! ## Closed Writer observation as a generic target algebra -/
+
+abbrev WriterOutcome (α : Type) := Option (List Val × α)
+
+def WriterOutcome.pure (value : α) : WriterOutcome α := some ([], value)
+
+def WriterOutcome.bind (result : WriterOutcome α)
+    (next : α → WriterOutcome β) : WriterOutcome β :=
+  match result with
+  | none => none
+  | some (firstLog, value) =>
+      match next value with
+      | none => none
+      | some (secondLog, resultValue) =>
+          some (firstLog ++ secondLog, resultValue)
+
+theorem WriterOutcome.bind_pure (result : WriterOutcome α) :
+    WriterOutcome.bind result WriterOutcome.pure = result := by
+  cases result with
+  | none => rfl
+  | some result => rcases result with ⟨log, value⟩; simp [WriterOutcome.bind, WriterOutcome.pure]
+
+theorem WriterOutcome.bind_assoc (result : WriterOutcome α)
+    (first : α → WriterOutcome β) (second : β → WriterOutcome γ) :
+    WriterOutcome.bind (WriterOutcome.bind result first) second =
+      WriterOutcome.bind result (fun value => WriterOutcome.bind (first value) second) := by
+  cases result with
+  | none => rfl
+  | some result =>
+      rcases result with ⟨firstLog, value⟩
+      cases foundFirst : first value with
+      | none => simp [WriterOutcome.bind, foundFirst]
+      | some result =>
+          rcases result with ⟨secondLog, middleValue⟩
+          cases foundSecond : second middleValue with
+          | none => simp [WriterOutcome.bind, foundFirst, foundSecond]
+          | some result =>
+              rcases result with ⟨thirdLog, resultValue⟩
+              simp [WriterOutcome.bind, foundFirst, foundSecond, List.append_assoc]
+
+def writerOutcomeMonadCert : FiniteMonadCert WriterOutcome where
+  pure := WriterOutcome.pure
+  bind := WriterOutcome.bind
+  leftUnit := by
+    intro α β value next
+    cases found : next value <;> simp [WriterOutcome.bind, WriterOutcome.pure, found]
+  rightUnit := WriterOutcome.bind_pure
+  associative := WriterOutcome.bind_assoc
+
+def WriterOutcome.tell (message : Val) (next : WriterOutcome α) : WriterOutcome α :=
+  match next with
+  | none => none
+  | some (log, value) => some (message :: log, value)
+
+theorem WriterOutcome.tell_bind (message : Val) (result : WriterOutcome α)
+    (next : α → WriterOutcome β) :
+    WriterOutcome.bind (WriterOutcome.tell message result) next =
+      WriterOutcome.tell message (WriterOutcome.bind result next) := by
+  cases result with
+  | none => rfl
+  | some result =>
+      rcases result with ⟨log, value⟩
+      cases found : next value <;> simp [WriterOutcome.tell, WriterOutcome.bind, found]
+
+def writerOutcomeAlgebra :
+    GenericExtensionAlgebra writerBaseSignature userOperationSignature WriterOutcome where
+  monad := writerOutcomeMonadCert
+  interpretBase
+    | .tell message, continuation => WriterOutcome.tell message (continuation ())
+  interpretFree := fun _ _ => none
+  baseBind := by
+    intro α β operation continuation next
+    cases operation with
+    | tell message =>
+        change WriterOutcome.bind (WriterOutcome.tell message (continuation ())) next =
+          WriterOutcome.tell message (WriterOutcome.bind (continuation ()) next)
+        exact WriterOutcome.tell_bind message (continuation ()) next
+  freeBind := by
+    intro α β operation continuation next
+    change WriterOutcome.bind none next = none
+    rfl
+
+def genericInitialAlgebra (base free : OperationSignature) :
+    GenericExtensionAlgebra base free (FreeExtension base free) where
+  monad := genericFreeMonadCert base free
+  interpretBase := FreeExtension.baseOp
+  interpretFree := FreeExtension.freeOp
+  baseBind := fun _ _ _ => rfl
+  freeBind := fun _ _ _ => rfl
+
+def genericWriterRunClosed
+    (tree : FreeExtension writerBaseSignature userOperationSignature α) :
+    WriterOutcome α := writerOutcomeAlgebra.fold tree
+
+theorem genericInitialAlgebra_fold (tree : FreeExtension base free α) :
+    (genericInitialAlgebra base free).fold tree = tree := by
+  induction tree with
+  | ret => rfl
+  | baseOp operation continuation ih =>
+      simp only [GenericExtensionAlgebra.fold, genericInitialAlgebra]
+      congr
+      funext response
+      exact ih response
+  | freeOp operation continuation ih =>
+      simp only [GenericExtensionAlgebra.fold, genericInitialAlgebra]
+      congr
+      funext response
+      exact ih response
+
+def genericWriterObservationMorphism :
+    GenericExtensionAlgebra.Morphism
+      (genericInitialAlgebra writerBaseSignature userOperationSignature)
+      writerOutcomeAlgebra where
+  map := genericWriterRunClosed
+  pure := fun _ => rfl
+  bind := fun tree next =>
+    GenericExtensionAlgebra.fold_bind writerOutcomeAlgebra tree next
+  preservesBase := fun _ _ => rfl
+  preservesFree := fun _ _ => rfl
+
+def genericWriterAdequacyCert :
+    GenericExtensionAlgebra.AdequacyCert
+      (genericInitialAlgebra writerBaseSignature userOperationSignature)
+      writerOutcomeAlgebra where
+  observe := genericWriterObservationMorphism
+
+theorem genericWriter_finite_adequacy
+    (tree : FreeExtension writerBaseSignature userOperationSignature α) :
+    genericWriterRunClosed tree = writerOutcomeAlgebra.fold tree := by
+  have adequate := genericWriterAdequacyCert.lift tree
+  rw [genericInitialAlgebra_fold] at adequate
+  exact adequate
+
+/-- The generic Writer observation is extensionally the existing concrete
+`WriterTree.runClosed`; this prevents the abstract adequacy theorem from being
+a disconnected duplicate model. -/
+theorem genericWriterRunClosed_writerToGeneric (tree : WriterTree α) :
+    genericWriterRunClosed (writerToGeneric tree) = WriterTree.runClosed tree := by
+  induction tree with
+  | ret value =>
+      change WriterOutcome.pure value = some ([], value)
+      rfl
+  | tell message next ih =>
+      change WriterOutcome.tell message
+          (genericWriterRunClosed (writerToGeneric next)) =
+        (WriterTree.runClosed next).map
+          (fun result => (message :: result.1, result.2))
+      rw [ih]
+      cases WriterTree.runClosed next <;> rfl
+  | free interface operation parameter continuation ih =>
+      change none = none
+      rfl
+
 end EffectSemantics

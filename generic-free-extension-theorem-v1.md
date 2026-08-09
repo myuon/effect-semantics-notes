@@ -139,6 +139,22 @@ free-extension trees has TT-related folds.  See
 Thus the formal theorem does not silently infer adequacy from a structural
 relation: the observation-sensitive premise remains visible.
 
+### Finite adequacy transport
+
+An operational outcome model is presented as a second algebra for the same
+base/free signatures.  An observation map from the denotational algebra must
+preserve `pure`, `bind`, and the interpretations of every base and free
+operation.  These are local one-layer equations, not a global adequacy
+assumption.  Lean then derives
+
+$$
+\mathsf{observe}(\mathsf{fold}_D(t))=\mathsf{fold}_O(t)
+$$
+
+for every finite extended computation, including the restriction to embedded
+old-language trees.  See
+[`GenericExtensionAlgebra.AdequacyCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.AdequacyCert.lift#doc).
+
 ## 6. Concrete bases
 
 Writer is proved isomorphic to the generic construction: translations in both
@@ -146,6 +162,13 @@ directions are inverse and the forward translation preserves `bind`.  State
 uses typed operations `get : Bool` and `put(b) : Unit`; Exception uses
 `raise(e) : Empty`, making its non-resumability explicit.  All three receive
 the same generic finite certificate.
+
+For Writer, the operational target is the partial outcome
+$\mathsf{Option}(\mathsf{List}(\mathsf{Val})\times A)$.  `tell` prefixes the
+log and an unhandled free operation produces no closed outcome.  This algebra
+instantiates the generic adequacy certificate, and Lean proves that its fold
+is extensionally equal to the pre-existing `WriterTree.runClosed`:
+[`genericWriterRunClosed_writerToGeneric`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericWriterRunClosed_writerToGeneric#doc).
 
 ## 7. What remains
 
@@ -156,10 +179,9 @@ law and should be a separate theorem.
 
 The next formal steps are:
 
-1. connect the now-mechanized TT-lifting to a finite operational adequacy
-   certificate;
-2. transport the generic finite certificate and TT layer into the existing recursive
-   completion theorem;
-3. instantiate the observation obligations for State and Exception;
-4. state precisely which non-algebraic base monads admit the required
+1. choose and fix a base-independent recursive resumption syntax, then
+   transport the generic finite certificate and TT layer into the existing
+   least-fixed-point completion theorem;
+2. instantiate the observation obligations for State and Exception;
+3. state precisely which non-algebraic base monads admit the required
    one-layer presentation.

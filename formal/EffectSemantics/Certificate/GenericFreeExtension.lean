@@ -290,6 +290,43 @@ theorem TTLayerCert.lift
       subst operations
       exact cert.preservesFree _ _ _ _ (fun response => ih rfl)
 
+/-- A non-circular finite adequacy certificate.  The operational observation
+is itself an algebra, and `observe` is required to commute only with return,
+bind, and each one-layer operation interpretation. -/
+structure AdequacyCert
+    (denotational : GenericExtensionAlgebra base free denotation)
+    (operational : GenericExtensionAlgebra base free outcome) where
+  observe : GenericExtensionAlgebra.Morphism denotational operational
+
+/-- Local observation laws imply adequacy for every finite computation in the
+extended language. -/
+theorem AdequacyCert.lift
+    {base free : OperationSignature}
+    {denotation outcome : Type → Type}
+    {denotational : GenericExtensionAlgebra base free denotation}
+    {operational : GenericExtensionAlgebra base free outcome}
+    (cert : AdequacyCert denotational operational)
+    (tree : FreeExtension base free α) :
+    cert.observe.map
+        (denotational.fold (base := base) (free := free) tree) =
+      operational.fold (base := base) (free := free) tree :=
+  cert.observe.lift tree
+
+/-- The same adequacy equation specialized to an old-language computation.
+It shows that the generic theorem restricts to the base observation rather
+than changing it when the free signature is adjoined. -/
+theorem AdequacyCert.liftBase
+    {base free : OperationSignature}
+    {denotation outcome : Type → Type}
+    {denotational : GenericExtensionAlgebra base free denotation}
+    {operational : GenericExtensionAlgebra base free outcome}
+    (cert : AdequacyCert denotational operational)
+    (tree : FreeExtension.BaseTree base α) :
+    cert.observe.map
+        (denotational.fold (FreeExtension.embedBase (free := free) tree)) =
+      operational.fold (FreeExtension.embedBase (free := free) tree) :=
+  cert.lift _
+
 end GenericExtensionAlgebra
 
 end EffectSemantics

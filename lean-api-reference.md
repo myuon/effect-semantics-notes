@@ -31,7 +31,9 @@ solely because a related result appears here.
 | Monad morphisms lift through the free extension | [`GenericExtensionAlgebra.Morphism.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.Morphism.lift#doc) |
 | Logical relations lift through the free extension | [`GenericExtensionAlgebra.Relation.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.Relation.lift#doc) |
 | Observation-indexed TT-lifting contains structural tree relations | [`GenericExtensionAlgebra.TTLayerCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.TTLayerCert.lift#doc) |
+| Local observation laws imply finite adequacy | [`GenericExtensionAlgebra.AdequacyCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.AdequacyCert.lift#doc) |
 | Existing Writer tree is recovered by round-trip | [`writerToGeneric_genericToWriter`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.writerToGeneric_genericToWriter#doc) |
+| Generic Writer observation agrees with existing `runClosed` | [`genericWriterRunClosed_writerToGeneric`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericWriterRunClosed_writerToGeneric#doc) |
 
 ## Recursive completion and derived deep handling
 
