@@ -40,6 +40,7 @@ import EffectSemantics.Certificate.BaseModels
 import EffectSemantics.Certificate.GenericFreeExtension
 import EffectSemantics.Certificate.FunctorialFreeExtension
 import EffectSemantics.Certificate.GradedPackageFunctor
+import EffectSemantics.Certificate.FiniteTreeGradedConstruction
 import EffectSemantics.Examples.GenericBaseInstances
 import EffectSemantics.Examples.PartialHandlerCounterexample
 import EffectSemantics.Recursive.DeepApprox

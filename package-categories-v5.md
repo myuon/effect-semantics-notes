@@ -9,7 +9,9 @@ Compatible arrows, including the `Act-Morphism` square, form a category, and
 selecting the chosen extension is the Lean-checked functor
 [`gradedFreeExtensionFunctor`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.gradedFreeExtensionFunctor#doc).
 Existence of the indexed initial algebra and the full graded monad/action laws
-remain object-side hypotheses rather than consequences of this packaging.
+remain object-side hypotheses for arbitrary grades. The finite-tree instance
+is constructed by
+[`finiteTreeExtensiblePackage`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.finiteTreeExtensiblePackage#doc).
 :::
 
 ## Status
@@ -49,6 +51,17 @@ An object is a strong $E_B$-graded model $T$ such that:
 
 Thus the category contains **extensible base packages**, not every graded
 monad.
+
+### Constructed finite instance
+
+For the one-point grade algebra and arbitrary typed signatures
+$(\Sigma_B,\Delta)$, Lean constructs the old and extended models, their
+canonical embedding, and `baseAct` by recursively flattening an old tree whose
+leaves are extended computations. It then checks unit, multiplication and
+naturality of that action, plus uniqueness of the structural fold. See
+[`finiteTreeActionCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.finiteTreeActionCert#doc)
+and
+[`StructuralMap.unique`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.StructuralMap.unique#doc).
 
 ### Morphisms
 

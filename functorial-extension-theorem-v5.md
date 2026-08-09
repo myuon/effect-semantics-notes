@@ -14,7 +14,10 @@ declaration. At the abstract boundary,
 checks the category and functor laws for chosen graded extensions whose arrows
 satisfy the explicit `Act-Morphism` square. The construction of each indexed
 initial algebra and its full monad/action certificate remains an object-side
-hypothesis; the theorem does not assert that every graded monad admits one.
+hypothesis in the arbitrary graded case. For the finite-tree model, existence
+is now constructed by
+[`finiteTreeExtensiblePackage`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.finiteTreeExtensiblePackage#doc),
+with initiality and both action equations checked separately.
 :::
 
 ### Statement inventory
@@ -22,6 +25,7 @@ hypothesis; the theorem does not assert that every graded monad admits one.
 | statement | Lean status | correspondence |
 |---|---|---|
 | `[FUN.2.1]` finite free-carrier functor | checked at Type/signature level | [`functorialFreeExtension`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.functorialFreeExtension#doc) |
+| `[FUN.2.2]` finite carrier/action existence | constructed for every pair of typed signatures over the one-point grade algebra | [`finiteTreeExtensiblePackage`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.finiteTreeExtensiblePackage#doc), [`StructuralMap.unique`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.StructuralMap.unique#doc), [`finiteTreeActionCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.finiteTreeActionCert#doc) |
 | `[PKG.4.1]` chosen graded-package functor | category, `Act-Morphism` closure and functor laws checked; object construction remains conditional | [`gradedFreeExtensionFunctor`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.gradedFreeExtensionFunctor#doc) |
 | `[FUN.3.1]` structural relation closure | checked | [`Rel.bind`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.Rel.bind#doc) |
 | `[FUN.4.1]` graph equality | checked in both directions | [`Rel.graphMapSignature_iff`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.Rel.graphMapSignature_iff#doc) |
@@ -128,6 +132,23 @@ $$
 Every output object preserves graded monad laws, strength, coherent
 subeffecting, the canonical base embedding and the free generators.
 :::
+
+:::{prf:theorem} `[FUN.2.2]` Finite construction witness [[Lean: package]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.finiteTreeExtensiblePackage#doc) [[Lean: initiality]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.StructuralMap.unique#doc)
+:label: thm-finite-construction-witness-v5
+
+For every pair of typed algebraic-operation signatures
+$(\Sigma_B,\Delta)$, the finite tree carrier constructs an object of the
+package category over the one-point grade algebra. Its old-base action obeys
+unit, multiplication and value naturality, and its structural fold is the
+unique map preserving return, base operations and free operations.
+:::
+
+This is an existence theorem rather than another assumption. It covers the
+ordinary ungraded algebraic-effect calculus and supplies a reference witness
+for the abstract theorem. It does **not** yet construct the indexed carrier for
+an arbitrary nontrivial ordered grade algebra: that step additionally needs a
+grade-indexed layer construction and a distributive/base-action law compatible
+with grade multiplication and weakening.
 
 **Proof.**  Initiality defines the carrier fold and arrow map; the base action
 defines composition of an old base layer with an extended continuation.
