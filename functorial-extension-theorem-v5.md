@@ -2,8 +2,27 @@
 
 :::{admonition} Formalization status — abstract packaging
 :class: note
-**Paper abstraction.** The Type-level carrier, identity/composition laws, morphism lift, relation lift, TT layer, shallow naturality, and adequacy transport are individually Lean checked in the [generic finite theorem](generic-free-extension-theorem-v1.md). The single category-level functor theorem stated here is not itself one Lean declaration.
+**Lean-checked concrete functor; graded abstraction remains conditional.** The
+Type-level finite carrier is now bundled by
+[`FunctorialFreeExtensionCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FunctorialFreeExtensionCert#doc),
+and instantiated by
+[`functorialFreeExtension`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.functorialFreeExtension#doc).
+This proves identity, composition, bind naturality, exact graph lifting,
+structural relation compatibility and the same-carrier shallow laws in one
+declaration. The stronger category of arbitrary graded base packages still
+depends on the displayed initial-algebra and `baseAct` hypotheses.
 :::
+
+### Statement inventory
+
+| statement | Lean status | correspondence |
+|---|---|---|
+| `[FUN.2.1]` finite free-carrier functor | checked at Type/signature level | [`functorialFreeExtension`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.functorialFreeExtension#doc) |
+| `[FUN.3.1]` structural relation closure | checked | [`Rel.bind`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.Rel.bind#doc) |
+| `[FUN.4.1]` graph equality | checked in both directions | [`Rel.graphMapSignature_iff`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.Rel.graphMapSignature_iff#doc) |
+| `[FUN.5.1]` structural-to-TT inclusion | checked under layer certificate | [`TTLayerCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.TTLayerCert.lift#doc) |
+| `[FUN.6.1]` shallow compatibility | checked for value naturality and one shared structural handler; heterogeneous handler naturality remains conditional | [`shallow_map`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.shallow_map#doc), [`Rel.shallow`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.Rel.shallow#doc) |
+| `[FUN.7.1]` finite adequacy transport | checked as fold naturality; the typed-language fundamental lemma remains separate | [`functorialFreeExtension_adequacyTransport`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.functorialFreeExtension_adequacyTransport#doc) |
 
 ## Status
 
@@ -60,7 +79,7 @@ visible $\Delta$ factor.  The full object and morphism definitions are in
 
 ## 2. Object and morphism theorem
 
-:::{prf:theorem} Functorial free-effect extension
+:::{prf:theorem} `[FUN.2.1]` Functorial free-effect extension [[Lean: finite Type-level instance]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.functorialFreeExtension#doc)
 :label: thm-functorial-free-extension-v5
 
 There is a functor
@@ -143,7 +162,7 @@ the two `baseAct` maps. Define $\mathsf{Str}_\Delta R$ inductively:
 - related free nodes have the same operation tag, related parameters and
   pointwise-related continuations.
 
-:::{prf:theorem} Compatible-relation lifting
+:::{prf:theorem} `[FUN.3.1]` Compatible-relation lifting [[Lean: structural carrier]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.Rel.bind#doc)
 :label: thm-compatible-relation-lifting-v5
 
 If $\mathsf{Compat}(\overline{T,U})$, then
@@ -182,7 +201,7 @@ $$
 
 Write this relator as $\overline q$.
 
-:::{prf:theorem} Graph lifting agrees with morphism lifting
+:::{prf:theorem} `[FUN.4.1]` Graph lifting agrees with morphism lifting [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.Rel.graphMapSignature_iff#doc)
 :label: thm-graph-lifting-v5
 
 For every compatible $q$,
@@ -208,6 +227,13 @@ the structural construction extends the morphism construction.  This equality
 is not asserted for the observational TT-closure introduced next.
 
 ## 5. Observational graded TT-lifting
+
+:::{prf:theorem} `[FUN.5.1]` Structural lifting is contained in TT lifting [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.TTLayerCert.lift#doc)
+:label: thm-structural-tt-v5
+
+Under `TTLayerCert`, every structurally related pair of finite free trees has
+TT-related folds.
+:::
 
 The structural relation records how two free carriers were generated.  For
 the fundamental lemma and adequacy, choose a grade-indexed observation pole
@@ -250,7 +276,7 @@ handlers $(h_T,h_U)$ is $R$-compatible when their return clauses preserve the
 value relation and their matching clauses preserve the lifted continuation
 relation.
 
-:::{prf:theorem} Naturality and relational compatibility of shallow handling
+:::{prf:theorem} `[FUN.6.1]` Naturality and relational compatibility of shallow handling [[Lean: same-carrier components]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.shallow_map#doc)
 :label: thm-shallow-naturality-v5
 
 For a compatible morphism $q$ and compatible handlers,
@@ -282,7 +308,7 @@ Let a graded `TTCert` be generated from a base observation pole that reflects
 the selected ground $\mathcal K$-observation, and suppose the extended pole
 distinguishes returns, terminal base outcomes and free requests.
 
-:::{prf:theorem} Finite fundamental lemma and adequacy transport
+:::{prf:theorem} `[FUN.7.1]` Finite fundamental lemma and adequacy transport [[Lean: adequacy fold transport]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.functorialFreeExtension_adequacyTransport#doc)
 :label: thm-fundamental-adequacy-transport-v5
 
 Every well-typed recursion-free extended term is related to its denotation by

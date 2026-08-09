@@ -35,6 +35,9 @@ Implemented and kernel-checked:
 - one-step preservation for every internal reduction rule;
 - typed evaluation contexts, plugging preservation and typed reconstruction of
   exposed free requests.
+- a bundled Type-level functorial free-extension certificate, including
+  identity/composition, bind naturality, exact graph lifting, structural
+  relation closure, shallow compatibility, and finite adequacy transport;
 - converse plugging decomposition and reconstruction of typed residual
   contexts;
 - request-grade factorization

@@ -350,6 +350,40 @@ theorem Rel.graphMapSignature
       subst leftResponse
       exact ih (freeMap.onResponse operation rightResponse)
 
+/-- The structural lifting of graph relations is not merely sound: its right
+component is uniquely the functorial image of the left tree. -/
+theorem Rel.eq_mapSignature_of_graph
+    (related : Rel baseMap.graph freeMap.graph
+      (fun left right => valueMap left = right) left right) :
+    mapSignature baseMap freeMap valueMap left = right := by
+  induction related with
+  | ret values =>
+      subst values
+      rfl
+  | baseOp operations continuations ih =>
+      subst operations
+      simp only [mapSignature]
+      congr
+      funext response
+      exact ih rfl
+  | freeOp operations continuations ih =>
+      subst operations
+      simp only [mapSignature]
+      congr
+      funext response
+      exact ih rfl
+
+/-- Exact graph theorem for the structural relation lifting. -/
+theorem Rel.graphMapSignature_iff :
+    Rel baseMap.graph freeMap.graph
+      (fun left right => valueMap left = right) tree target ↔
+      mapSignature baseMap freeMap valueMap tree = target := by
+  constructor
+  · exact Rel.eq_mapSignature_of_graph
+  · intro equal
+    subst target
+    exact Rel.graphMapSignature baseMap freeMap valueMap tree
+
 /-- An affine shallow handler.  Operations whose clause is absent are
 forwarded; the first operation with a clause is replaced by the clause tree,
 which is bound to the bare continuation. -/

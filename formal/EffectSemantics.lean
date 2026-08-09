@@ -38,6 +38,7 @@ import EffectSemantics.Denotational.ExceptionTree
 import EffectSemantics.Examples.ExceptionShallow
 import EffectSemantics.Certificate.BaseModels
 import EffectSemantics.Certificate.GenericFreeExtension
+import EffectSemantics.Certificate.FunctorialFreeExtension
 import EffectSemantics.Examples.GenericBaseInstances
 import EffectSemantics.Examples.PartialHandlerCounterexample
 import EffectSemantics.Recursive.DeepApprox
