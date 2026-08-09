@@ -12,21 +12,33 @@
 
 ## Base graded monad
 
-基礎圏 $\mathcal C$ 上で、各 $b\in B$ に自己関手 $T_b$ を持ち、
+preordered monoid $B$ を thin monoidal category とみなす。基礎圏
+$\mathcal C$ 上の base graded monad は lax monoidal functor
 
-$$
+$
+T:(B,\cdot,I)\longrightarrow
+([\mathcal C,\mathcal C],\circ,\operatorname{Id}_{\mathcal C})
+$
+
+とする。その lax monoidal structure を成分表示すると
+
+$
 \eta_X:X\to T_I X,
 \qquad
 \mu_{b,c,X}:T_bT_cX\to T_{b\cdot c}X
-$$
+$
 
-および subeffect coercion
+である。また、$b\le c$ に対応する $B$ の射は、関手 $T$ によって
+subeffect coercion
 
-$$
+$
 \tau_{b,c,X}:T_bX\to T_cX \quad (b\le c)
-$$
+$
 
-を持つものを考える。必要な strength、余積、指数対象は構成を確定した時点で列挙する。
+へ写る。coercion の恒等律・合成律と $\mu$ との整合性は、$T$ の関手性と
+lax monoidal structure の自然性に含まれる。必要な strength、余積、指数対象は
+構成を確定した時点で列挙する。strength を要求する場合は、余域を strong
+endofunctor と strong natural transformation の圏に置き換える。
 
 ## Free effect interfaces
 
