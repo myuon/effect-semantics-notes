@@ -4,6 +4,9 @@ This page records the theorem that is now checked in Lean.  It supersedes the
 earlier provisional statements that mixed finite ordered words, unordered
 rows, and exact runtime traces.
 
+The previously missing base-independent finite construction is now stated in
+[Generic finite free-extension theorem](generic-free-extension-theorem-v1.md).
+
 The generated Lean API reference contains the exact checked declarations:
 
 - [`LanguageRecursiveBaseCert.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveBaseCert.main#doc)

@@ -18,6 +18,7 @@ import EffectSemantics.Syntax.HandlerTyping
 import EffectSemantics.Examples.AffineShallow
 import EffectSemantics.Metatheory.HandlerPreservation
 import EffectSemantics.Denotational.WriterTree
+import EffectSemantics.Denotational.GenericFreeExtension
 import EffectSemantics.Examples.WriterShallow
 import EffectSemantics.Operational.WriterEvaluation
 import EffectSemantics.Denotational.WriterTT
@@ -36,6 +37,8 @@ import EffectSemantics.Examples.StateShallow
 import EffectSemantics.Denotational.ExceptionTree
 import EffectSemantics.Examples.ExceptionShallow
 import EffectSemantics.Certificate.BaseModels
+import EffectSemantics.Certificate.GenericFreeExtension
+import EffectSemantics.Examples.GenericBaseInstances
 import EffectSemantics.Recursive.DeepApprox
 import EffectSemantics.Recursive.Fixpoint
 import EffectSemantics.Recursive.FiniteObservation
