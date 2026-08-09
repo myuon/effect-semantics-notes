@@ -18,6 +18,17 @@ Links of the form `lean/find/?pattern=...#doc` open the generated API search at
 the exact declaration.  The complete cross-reference is also available in the
 [Lean formalization index](lean-api-reference.md).
 
+### Stable statement identifiers
+
+Every definition, lemma, theorem, and corollary on the canonical proof path
+has a globally unique identifier such as `C2-CERT.6.1`.  The format is
+`NOTE.SECTION.STATEMENT`: `C1`--`C4` name the concrete chapters, `CERT` and
+`PROOF` distinguish certificate and detailed-proof notes, and `LG`, `GF`, and
+`GR` name the language-level, generic-finite, and generic-recursive theorem
+notes.  These identifiers are stable: later insertions do not renumber an
+existing statement.  Older labels such as “Theorem II.8” remain as readable
+aliases.
+
 ## Canonical reading order
 
 ```{mermaid}

@@ -36,7 +36,7 @@ concatenation, while conditional and case effects use language union.
 The annotation is a may-effect upper bound.  It need not equal the unique
 runtime path, but it retains ordering information between all possible paths.
 
-## 2. Finite theorem [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageFiniteStructurePreservation#doc)
+## 2. Finite theorem `[LG.2.1]` [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageFiniteStructurePreservation#doc)
 
 For every fixed typed base/free signature, adding free requests and affine
 shallow handlers preserves the following structures.
@@ -55,7 +55,7 @@ shallow handlers preserves the following structures.
 
 Lean packages these conclusions as `LanguageFiniteStructureCert`.
 
-## 3. Recursive completion and derived deep handling [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageRecursiveStructurePreservation#doc)
+## 3. Recursive completion and derived deep handling `[LG.3.1]` [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageRecursiveStructurePreservation#doc)
 
 Let
 
@@ -97,7 +97,7 @@ least-fixed-point denotation, adequacy, and ground fundamental property form
 one checked proof chain.  These conclusions are packaged as
 `LanguageRecursiveStructureCert`.
 
-## 4. Abstract base theorem [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveBaseCert.main#doc)
+## 4. Abstract base theorem `[LG.4.1]` [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveBaseCert.main#doc)
 
 The recursive proof does not intrinsically require Writer.  An arbitrary base
 instance supplies only:
@@ -119,7 +119,7 @@ This non-circular premise record is `LanguageRecursiveBaseCert`; its theorem is
 instantiate it using typed request decomposition and the Unit response law for
 Writer operation zero.
 
-## 5. Morphisms and logical relations [[Lean: morphism]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveMorphismCert.lift#doc) [[Lean: relation]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveRelationCert.lift#doc)
+## 5. Morphisms and logical relations `[LG.5.1]` [[Lean: morphism]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveMorphismCert.lift#doc) [[Lean: relation]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveRelationCert.lift#doc)
 
 Let $q:O_S\to O_T$ be a base outcome map.  If it commutes with one semantic
 layer, $q_\ast\circ F_S=F_T\circ q_\ast$, then it commutes with recursive

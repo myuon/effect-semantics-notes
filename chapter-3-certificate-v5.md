@@ -24,7 +24,7 @@ certificate.
 
 ## 1. Typing preservation
 
-### Lemma III.1 — continuation typing [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFreeRequest.openResume_subst0#doc)
+### Lemma III.1 `[C3-CERT.1.1]` — continuation typing [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFreeRequest.openResume_subst0#doc)
 
 If
 
@@ -43,7 +43,7 @@ $$
 The ordered input bound contains the primitive grade $\Delta$ before $e_k$,
 up to the declared weakening.
 
-### Theorem III.2 — handler preservation [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageShallowCert#doc)
+### Theorem III.2 `[C3-CERT.1.2]` — handler preservation [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageShallowCert#doc)
 
 If
 
@@ -72,7 +72,7 @@ inside the scrutinee use Chapter-II preservation. $\square$
 
 ## 2. Affine effect theorem
 
-### Theorem III.3 — affine effect transformation [[Lean: monotonicity component]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.EffectLanguage.handleWith_mono#doc)
+### Theorem III.3 `[C3-CERT.2.1]` — affine effect transformation [[Lean: monotonicity component]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.EffectLanguage.handleWith_mono#doc)
 
 If $b$ is $\Delta$-free and
 
@@ -109,7 +109,7 @@ $\Delta$.
 
 ## 3. Operational/denotational commutation
 
-### Theorem III.4 — operational/denotational commutation [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageFiniteStructurePreservation#doc)
+### Theorem III.4 `[C3-CERT.3.1]` — operational/denotational commutation [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageFiniteStructurePreservation#doc)
 
 If
 
@@ -145,7 +145,7 @@ bare continuation.  This distinguishes shallow from deep handling.
 
 ## 4. Adequacy preservation
 
-### Theorem III.5 — adequacy preservation [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.AdequacyCert.lift#doc)
+### Theorem III.5 `[C3-CERT.4.1]` — adequacy preservation [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.AdequacyCert.lift#doc)
 
 Assume
 
@@ -197,7 +197,7 @@ The mechanized finite bundle is
 with shallow naturality, structural-relation preservation and TT preservation
 collected in [`languageShallowCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageShallowCert#doc).
 
-### Definition III.1 — layered handler certificates [Paper packaging]
+### Definition III.1 `[C3-CERT.6.1]` — layered handler certificates [Paper packaging]
 
 Let $J\subseteq I_\Delta$ be the operations for which $h$ supplies clauses,
 and let $\Phi_h:\widehat E\to\widehat E$. We say that
@@ -301,7 +301,7 @@ h_S(p_S,k_S)\mathrel{V_C^{\top\top}}h_T(p_T,k_T).
 \end{aligned}
 $$
 
-### Definition III.2 — `AffineCert` [Paper packaging]
+### Definition III.2 `[C3-CERT.6.2]` — `AffineCert` [Paper packaging]
 
 The affine response fragment satisfies
 $\mathsf{AffineCert}(\Delta,h,e')$ when:
@@ -326,7 +326,7 @@ $\mathsf{EliminationCert}(\Delta,I_\Delta,h,\Phi_{\Delta,e'})$. A partial
 affine family has the same clause calculation but not this interface-level
 elimination conclusion.
 
-### Definition III.3 — layered shallow certificates [Paper packaging]
+### Definition III.3 `[C3-CERT.6.3]` — layered shallow certificates [Paper packaging]
 
 Define:
 
@@ -375,7 +375,7 @@ M\in L_B+\Sigma\Rightarrow
 \end{aligned}
 $$
 
-### Theorem III.6 — layered shallow certificates [Paper packaging of Lean-checked layers]
+### Theorem III.6 `[C3-CERT.6.4]` — layered shallow certificates [Paper packaging of Lean-checked layers]
 
 Let $J\subseteq I_\Delta$. Then:
 

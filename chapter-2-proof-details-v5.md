@@ -37,7 +37,7 @@ whose actions are:
 
 Initiality yields one map, written $(-)\mathbin{\gg=}f$.
 
-:::{prf:theorem} Free graded-monad laws [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericFreeExtensionStructurePreservation#doc)
+:::{prf:theorem} `[C2-PROOF.2.1]` Free graded-monad laws [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericFreeExtensionStructurePreservation#doc)
 :label: thm-ii-free-monad-laws-v5
 
 The resulting return and bind satisfy both unit laws and associativity, and
@@ -112,7 +112,7 @@ V^{\top_\Delta\top_\Delta}$ from pole closure.  Thus the relation components of
 `FreeCert` follow without identifying structural generation with
 observational closure.
 
-:::{prf:theorem} Graph lemma [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.Rel.graphMapSignature#doc)
+:::{prf:theorem} `[C2-PROOF.5.1]` Graph lemma [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.Rel.graphMapSignature#doc)
 :label: thm-ii-graph-lemma-detail-v5
 
 For every compatible $q:T\Rightarrow U$,

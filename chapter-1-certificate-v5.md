@@ -24,7 +24,7 @@ when it adds free operations.
 
 ## 1. Syntactic substitution
 
-### Lemma I.1 — value substitution [[Lean: substitution development]](https://myuon.github.io/effect-semantics-notes/lean/EffectSemantics/Syntax/LanguageRenameSubst.html)
+### Lemma I.1 `[C1-CERT.1.1]` — value substitution [[Lean: substitution development]](https://myuon.github.io/effect-semantics-notes/lean/EffectSemantics/Syntax/LanguageRenameSubst.html)
 
 If
 
@@ -40,7 +40,7 @@ $$
 \Gamma\vdash V[W/x]:B.
 $$
 
-### Lemma I.2 — computation substitution [[Lean: substitution development]](https://myuon.github.io/effect-semantics-notes/lean/EffectSemantics/Syntax/LanguageRenameSubst.html)
+### Lemma I.2 `[C1-CERT.1.2]` — computation substitution [[Lean: substitution development]](https://myuon.github.io/effect-semantics-notes/lean/EffectSemantics/Syntax/LanguageRenameSubst.html)
 
 If
 
@@ -61,7 +61,7 @@ uses substitution only in its parameter; no continuation case exists.
 
 ## 2. Preservation and decomposition
 
-### Theorem I.3 — internal preservation [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc)
+### Theorem I.3 `[C1-CERT.2.1]` — internal preservation [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc)
 
 If
 
@@ -81,7 +81,7 @@ The $\beta$ and `let-return` cases use Lemma I.2.  Branch rules retain the
 declared common effect.  Context closure uses associativity of graded
 sequencing.
 
-### Theorem I.4 — unique decomposition [[Lean: closed progress]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed#doc) [Paper: uniqueness strengthening]
+### Theorem I.4 `[C1-CERT.2.2]` — unique decomposition [[Lean: closed progress]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed#doc) [Paper: uniqueness strengthening]
 
 Every closed well-typed base computation has a unique evaluation-position
 decomposition as a return, an internal redex in its evaluation context, or an exposed base request
@@ -93,7 +93,7 @@ unique response.
 
 ## 3. Termination
 
-### Theorem I.5 — recursion-free machine normalization [Paper]
+### Theorem I.5 `[C1-CERT.3.1]` — recursion-free machine normalization [Paper]
 
 Assume every element in the support of every base response is typed and each
 recursion-free response branch is terminating.  Then every closed well-typed
@@ -119,7 +119,7 @@ The theorem is deliberately absent from the Chapter-IV certificate.
 
 ## 4. Denotational soundness
 
-### Lemma I.6 — semantic substitution [Paper abstraction]
+### Lemma I.6 `[C1-CERT.4.1]` — semantic substitution [Paper abstraction]
 
 For a computation $M$,
 
@@ -134,7 +134,7 @@ $$
 The `let` case uses naturality of strength and multiplication.  The primitive
 case is ordinary composition with $\beta^T$.
 
-### Theorem I.7 — internal reduction soundness [Paper abstraction]
+### Theorem I.7 `[C1-CERT.4.2]` — internal reduction soundness [Paper abstraction]
 
 If $M\to M'$, then
 
@@ -147,7 +147,7 @@ coproduct elimination.  Context closure uses congruence of graded bind.
 
 ## 5. Effect upper-bound safety
 
-### Theorem I.8 — effect upper-bound safety [[Lean: checked component]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.TypedWriterTree.HasLanguageEffect.observationMember#doc)
+### Theorem I.8 `[C1-CERT.5.1]` — effect upper-bound safety [[Lean: checked component]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.TypedWriterTree.HasLanguageEffect.observationMember#doc)
 
 If
 
@@ -249,7 +249,7 @@ These declarations instantiate the concrete formal calculus; they do not by
 themselves mechanize the paper-level quantification over every base listed
 below.
 
-### Definition I.1 — split base certificates [Paper packaging]
+### Definition I.1 `[C1-CERT.7.1]` — split base certificates [Paper packaging]
 
 For a base calculus $L_B$, ordered effect algebra
 $E_B=(B,1,\cdot,\leq)$ and response monad $\mathcal K$, define
@@ -388,7 +388,7 @@ $$
 \end{aligned}
 $$
 
-### Theorem I.9 — Base certificate extraction [Paper packaging]
+### Theorem I.9 `[C1-CERT.7.2]` — Base certificate extraction [Paper packaging]
 
 For each $X\in\{\mathsf{Writer},\mathsf{State},\mathsf{Exception},
 \mathsf{Random}\}$, let
