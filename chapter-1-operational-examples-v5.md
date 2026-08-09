@@ -173,7 +173,8 @@ $$
 \vdash N:\mathsf{Bool}![n].
 $$
 
-Rule `T-App` gives
+Expanding the derived application and applying the core `let` and value
+application rules gives
 
 $$
 \vdash M\,N:\mathsf{Bool}!([m]\cdot[n]\cdot[e]).
