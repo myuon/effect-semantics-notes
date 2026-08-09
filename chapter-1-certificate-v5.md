@@ -85,29 +85,29 @@ sequencing.
 
 If
 
-$
+$$
 \vdash M:A!b,
-$
+$$
 
 then exactly one of the following three alternatives holds:
 
-$
+$$
 \begin{aligned}
 &\exists V.\ M=\mathsf{return}\,V,\\
 &\exists M'.\ M\longrightarrow M',\\
 &\exists \mathcal E,\beta,V.\ M=\mathcal E[\beta(V)].
 \end{aligned}
 \tag{I.4}
-$
+$$
 
 Here $\mathcal E$ ranges over call-by-value evaluation contexts.  The three
 lines are mutually exclusive, and the internal reduct is unique:
 
-$
+$$
 M\longrightarrow M_1\ \land\ M\longrightarrow M_2
 \quad\Longrightarrow\quad
 M_1=M_2.
-$
+$$
 
 Thus a closed well-typed computation either has returned, can make one
 determinate internal step, or is waiting at one exposed base request.  The last
