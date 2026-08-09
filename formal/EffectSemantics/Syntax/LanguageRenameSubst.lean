@@ -18,8 +18,8 @@ mutual
     | .inr leftTy value => .inr leftTy (value.rename rename)
     | .lam domain latent body =>
         .lam domain latent (body.rename (liftLanguageRen rename))
-    | .fixLam recursive domain latent body =>
-        .fixLam recursive domain latent
+    | .fixLam allowed domain latent body =>
+        .fixLam allowed domain latent
           (body.rename (liftLanguageRen (liftLanguageRen rename)))
 
   def LanguageComp.rename {mode} (rename : Nat → Nat) :
@@ -56,8 +56,8 @@ mutual
     | .inr leftTy value => .inr leftTy (value.subst subst)
     | .lam domain latent body =>
         .lam domain latent (body.subst (liftLanguageSubst subst))
-    | .fixLam recursive domain latent body =>
-        .fixLam recursive domain latent
+    | .fixLam allowed domain latent body =>
+        .fixLam allowed domain latent
           (body.subst (liftLanguageSubst (liftLanguageSubst subst)))
 
   def LanguageComp.subst {mode} (subst : Nat → LanguageVal mode) :
@@ -133,7 +133,7 @@ mutual
             cases index <;>
               simp [liftLanguageRen, liftLanguageSubst,
                 LanguageVal.rename, cancel]) body
-    | fixLam recursive domain latent body =>
+    | fixLam allowed domain latent body =>
         simp only [LanguageVal.rename, LanguageVal.subst]
         congr
         exact LanguageComp.subst_rename_cancel

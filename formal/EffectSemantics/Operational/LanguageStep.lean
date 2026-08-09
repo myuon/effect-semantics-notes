@@ -9,8 +9,8 @@ inductive LanguageStep {mode : RecMode} :
   | beta : LanguageStep (.app (.lam domain latent body) argument)
       (body.subst0 argument)
   | fixBeta : LanguageStep
-      (.app (.fixLam recursive domain latent body) argument)
-      (body.subst2 argument (.fixLam recursive domain latent body))
+      (.app (.fixLam allowed domain latent body) argument)
+      (body.subst2 argument (.fixLam allowed domain latent body))
   | ifTrue : LanguageStep (.ite (.bool true) thenBranch elseBranch) thenBranch
   | ifFalse : LanguageStep (.ite (.bool false) thenBranch elseBranch) elseBranch
   | caseInl : LanguageStep (.case (.inl value rightTy) leftBranch rightBranch)
@@ -27,8 +27,8 @@ def LanguageComp.internalStep {mode} :
   | .letE bound body =>
       bound.internalStep.map (fun next => .letE next body)
   | .app (.lam _ _ body) argument => some (body.subst0 argument)
-  | .app (.fixLam recursive domain latent body) argument =>
-      some (body.subst2 argument (.fixLam recursive domain latent body))
+  | .app (.fixLam allowed domain latent body) argument =>
+      some (body.subst2 argument (.fixLam allowed domain latent body))
   | .app _ _ => none
   | .ite (.bool true) thenBranch _ => some thenBranch
   | .ite (.bool false) _ elseBranch => some elseBranch
