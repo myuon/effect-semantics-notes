@@ -1,5 +1,6 @@
 import EffectSemantics.Denotational.LanguageSourceShallow
 import EffectSemantics.Denotational.LanguageWriterTT
+import EffectSemantics.Syntax.LanguageNoFix
 
 namespace EffectSemantics
 
@@ -25,6 +26,8 @@ structure LanguageCoreCert (sig : LanguageSignature) where
       (first second : LanguageProgress term), first.kind = second.kind
   reductUnique : ∀ {term left right},
     LanguageStep term left → LanguageStep term right → left = right
+  noFixPreservation : ∀ {term next},
+    LanguageStep term next → term.NoFix → next.NoFix
   canonicalBool : ∀ {value}, HasLanguageVal sig [] value .bool →
     ∃ boolean, value = .bool boolean
   canonicalArrow : ∀ {value domain latent codomain},
@@ -43,6 +46,7 @@ def languageCoreCert (sig : LanguageSignature) : LanguageCoreCert sig where
   progress := HasLanguageComp.progressClosed
   progressClassUnique := LanguageProgress.kind_unique
   reductUnique := LanguageStep.deterministic
+  noFixPreservation := LanguageStep.preserve_noFix
   canonicalBool := HasLanguageVal.closed_bool_canonical
   canonicalArrow := HasLanguageVal.closed_arr_canonical
   canonicalSum := HasLanguageVal.closed_sum_canonical

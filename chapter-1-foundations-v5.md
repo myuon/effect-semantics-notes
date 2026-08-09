@@ -191,7 +191,8 @@ A base instance supplies:
 - the ordered upper-bound algebra $B$;
 - effect soundness of its primitive machine rules;
 - substitution, preservation and effect-aware progress;
-- recursion-free branchwise normalization for Chapters I–III;
+- a recursion-free predicate $M.\mathsf{NoFix}$, closed under substitution and
+  reduction, plus branchwise normalization for that fragment in Chapters I–III;
 - an observation function $\mathsf{obs}_B$;
 - optionally a graded monad $T_b$ and an adequacy certificate relating
   denotation to $\mathsf{obs}_B$.
@@ -220,7 +221,8 @@ Before adding operations we must prove or assume, per base instance:
 1. substitution;
 2. preservation;
 3. unique evaluation-context/request decomposition;
-4. recursion-free branchwise normalization and a well-defined outcome object
+4. structural closure of $M.\mathsf{NoFix}$ and recursion-free branchwise
+   normalization for that fragment, yielding a well-defined outcome object
    in $\mathcal K(\mathsf{Obs}_B)$;
 5. effect soundness: runtime steps never perform an effect excluded by the
    declared bound;

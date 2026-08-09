@@ -63,6 +63,7 @@ import EffectSemantics.Certificate.RegularRecursion
 import EffectSemantics.Syntax.RegularRecursion
 import EffectSemantics.Syntax.LanguageCalculus
 import EffectSemantics.Syntax.LanguageRenameSubst
+import EffectSemantics.Syntax.LanguageNoFix
 import EffectSemantics.Metatheory.LanguageSubstitution
 import EffectSemantics.Operational.LanguageStep
 import EffectSemantics.Metatheory.LanguagePreservation
