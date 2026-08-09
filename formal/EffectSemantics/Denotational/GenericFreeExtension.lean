@@ -447,6 +447,48 @@ theorem shallow_map (handler : AffineHandler base free)
           simp only [map, bind_assoc, free_bind]
           rw [shallow_match handler found]
 
+/-- Compatibility of two handler families with the value-functor action.
+This is the concrete clause square needed for heterogeneous handler
+naturality. -/
+structure AffineHandler.ValueCompatible
+    (source target : AffineHandler base free) : Prop where
+  clause : ∀ operation,
+    target.clause operation =
+      (source.clause operation).map (map id)
+
+/-- Shallow handling is natural between two distinct handlers exactly when
+their clauses commute with the carrier map. -/
+theorem shallow_map_compatible
+    (source target : AffineHandler base free)
+    (compatible : source.ValueCompatible target)
+    (function : α → β) (tree : FreeExtension base free α) :
+    map function (shallow source tree) =
+      shallow target (map function tree) := by
+  induction tree with
+  | ret => rfl
+  | baseOp operation continuation ih =>
+      simp only [shallow, map, base_bind]
+      congr
+      funext response
+      exact ih response
+  | freeOp operation continuation ih =>
+      cases found : source.clause operation with
+      | none =>
+          have targetMissing : target.clause operation = none := by
+            simpa [found] using compatible.clause operation
+          rw [shallow_forward source found]
+          simp only [map, free_bind]
+          rw [shallow_forward target targetMissing]
+          congr
+          funext response
+          exact ih response
+      | some responseTree =>
+          have targetFound : target.clause operation = some (map id responseTree) := by
+            simpa [found] using compatible.clause operation
+          rw [shallow_match source found]
+          simp only [map, bind_assoc, free_bind]
+          rw [shallow_match target targetFound, map_id]
+
 theorem Rel.shallow
     (treeRel : Rel (SignatureRelation.identity base)
       (SignatureRelation.identity free) valueRel left right)

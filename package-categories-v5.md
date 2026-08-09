@@ -2,7 +2,14 @@
 
 :::{admonition} Formalization status — categorical layer
 :class: note
-**Paper abstraction.** This page organizes the mechanized Type-level constructions into source/target package categories. Identity, composition, folds, and lifting components are Lean checked, but the whole category-valued functor is not currently formalized as a category-theory object.
+**Lean-checked categorical skeleton.** The chosen graded models and base
+actions are bundled by
+[`ExtensibleGradedPackage`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ExtensibleGradedPackage#doc).
+Compatible arrows, including the `Act-Morphism` square, form a category, and
+selecting the chosen extension is the Lean-checked functor
+[`gradedFreeExtensionFunctor`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.gradedFreeExtensionFunctor#doc).
+Existence of the indexed initial algebra and the full graded monad/action laws
+remain object-side hypotheses rather than consequences of this packaging.
 :::
 
 ## Status
@@ -92,7 +99,7 @@ Again, equality is componentwise.
 
 ## 4. Functor
 
-:::{prf:theorem} Package-level free-extension functor
+:::{prf:theorem} `[PKG.4.1]` Package-level free-extension functor [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.gradedFreeExtensionFunctor#doc)
 :label: thm-package-free-functor-v5
 
 The assignments
@@ -114,11 +121,12 @@ $$
 :::
 
 **Proof.** Object well-definedness is the carrier/monadic part of
-`Free-Transport`. Indexed initiality
-defines the arrow map; primitive and base-action compatibility ensure it is a
-target morphism.  The lift of the identity and the identity on the free
-carrier agree on return, base layers and free generators, hence are equal by
-initiality.  The same uniqueness argument proves composition. $\square$
+`Free-Transport`. Indexed initiality defines the arrow map; primitive and
+base-action compatibility ensure it is a target morphism. Lean checks that
+the embedding and action squares hold for identities and are closed under
+composition, and then checks both functor laws. The initial-algebra argument
+that constructs each chosen object is deliberately a premise of this
+categorical layer. $\square$
 
 ## 5. Relations are not morphisms
 

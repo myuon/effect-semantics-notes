@@ -2,15 +2,19 @@
 
 :::{admonition} Formalization status — abstract packaging
 :class: note
-**Lean-checked concrete functor; graded abstraction remains conditional.** The
+**Lean-checked concrete functor and graded package functor.** The
 Type-level finite carrier is now bundled by
 [`FunctorialFreeExtensionCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FunctorialFreeExtensionCert#doc),
 and instantiated by
 [`functorialFreeExtension`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.functorialFreeExtension#doc).
 This proves identity, composition, bind naturality, exact graph lifting,
 structural relation compatibility and the same-carrier shallow laws in one
-declaration. The stronger category of arbitrary graded base packages still
-depends on the displayed initial-algebra and `baseAct` hypotheses.
+declaration. At the abstract boundary,
+[`gradedFreeExtensionFunctor`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.gradedFreeExtensionFunctor#doc)
+checks the category and functor laws for chosen graded extensions whose arrows
+satisfy the explicit `Act-Morphism` square. The construction of each indexed
+initial algebra and its full monad/action certificate remains an object-side
+hypothesis; the theorem does not assert that every graded monad admits one.
 :::
 
 ### Statement inventory
@@ -18,10 +22,11 @@ depends on the displayed initial-algebra and `baseAct` hypotheses.
 | statement | Lean status | correspondence |
 |---|---|---|
 | `[FUN.2.1]` finite free-carrier functor | checked at Type/signature level | [`functorialFreeExtension`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.functorialFreeExtension#doc) |
+| `[PKG.4.1]` chosen graded-package functor | category, `Act-Morphism` closure and functor laws checked; object construction remains conditional | [`gradedFreeExtensionFunctor`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.gradedFreeExtensionFunctor#doc) |
 | `[FUN.3.1]` structural relation closure | checked | [`Rel.bind`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.Rel.bind#doc) |
 | `[FUN.4.1]` graph equality | checked in both directions | [`Rel.graphMapSignature_iff`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.Rel.graphMapSignature_iff#doc) |
 | `[FUN.5.1]` structural-to-TT inclusion | checked under layer certificate | [`TTLayerCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.TTLayerCert.lift#doc) |
-| `[FUN.6.1]` shallow compatibility | checked for value naturality and one shared structural handler; heterogeneous handler naturality remains conditional | [`shallow_map`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.shallow_map#doc), [`Rel.shallow`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.Rel.shallow#doc) |
+| `[FUN.6.1]` shallow compatibility | checked for one shared handler and for distinct value-compatible handlers; heterogeneous TT clauses remain conditional | [`shallow_map_compatible`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.shallow_map_compatible#doc), [`Rel.shallow`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.Rel.shallow#doc) |
 | `[FUN.7.1]` finite adequacy transport | checked as fold naturality; the typed-language fundamental lemma remains separate | [`functorialFreeExtension_adequacyTransport`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.functorialFreeExtension_adequacyTransport#doc) |
 
 ## Status
@@ -79,7 +84,7 @@ visible $\Delta$ factor.  The full object and morphism definitions are in
 
 ## 2. Object and morphism theorem
 
-:::{prf:theorem} `[FUN.2.1]` Functorial free-effect extension [[Lean: finite Type-level instance]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.functorialFreeExtension#doc)
+:::{prf:theorem} `[FUN.2.1]` Functorial free-effect extension [[Lean: finite instance]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.functorialFreeExtension#doc) [[Lean: graded package laws]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.gradedFreeExtensionFunctor#doc)
 :label: thm-functorial-free-extension-v5
 
 There is a functor
@@ -276,7 +281,7 @@ handlers $(h_T,h_U)$ is $R$-compatible when their return clauses preserve the
 value relation and their matching clauses preserve the lifted continuation
 relation.
 
-:::{prf:theorem} `[FUN.6.1]` Naturality and relational compatibility of shallow handling [[Lean: same-carrier components]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.shallow_map#doc)
+:::{prf:theorem} `[FUN.6.1]` Naturality and relational compatibility of shallow handling [[Lean: compatible handlers]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.shallow_map_compatible#doc)
 :label: thm-shallow-naturality-v5
 
 For a compatible morphism $q$ and compatible handlers,
