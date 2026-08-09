@@ -7,7 +7,7 @@ This is the Chapter-III proof appendix. Exact mechanized declarations are indexe
 
 ## 1. Residual continuation lemma
 
-:::{prf:lemma} Typed residual context
+:::{prf:lemma} Typed residual context [[Lean: substitution component]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFreeRequest.openResume_subst0#doc)
 :label: lem-iii-residual-context-v5
 
 If $\Gamma\vdash\mathcal E[\mathsf{op}_{\Delta,i}(V)]:A!d$, then there are
@@ -55,7 +55,7 @@ not merely the matching one.
 
 ## 4. Commutation
 
-:::{prf:theorem} Shallow commutation
+:::{prf:theorem} Shallow commutation [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageFiniteStructurePreservation#doc)
 :label: thm-iii-commutation-detail-v5
 
 The direct handler interpretation equals the first-matching structural map.

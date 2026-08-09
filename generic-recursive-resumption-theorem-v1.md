@@ -11,7 +11,7 @@ Every generic conclusion on this page links to its checked declaration. The prin
 finite typed-signature construction to recursion while keeping generic facts,
 base-specific obligations, and real boundaries separate.
 
-## 1. One finite layer at a time
+## 1. One finite layer at a time [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.RecursiveResumptionSystem.functional#doc)
 
 For base signature $\Sigma$, adjoined signature $\Delta$, recursive states
 $X$, and results $A$, a resumption system exposes
@@ -33,7 +33,7 @@ The handler is reinstalled at each recursive boundary, so $\mu\Phi_h$ is the
 deep behavior derived from fixpoint plus shallow handling. See
 [`RecursiveResumptionSystem.functional`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.RecursiveResumptionSystem.functional#doc).
 
-## 2. Exact observer obligations
+## 2. Exact observer obligations [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.RecursiveObserverContinuity#doc)
 
 The finite observer proves two local properties:
 
@@ -45,7 +45,7 @@ They form
 [`RecursiveObserverContinuity`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.RecursiveObserverContinuity#doc)
 and imply continuity of $\Phi_h$ without a Writer-specific assumption.
 
-## 3. Generic fixed-point theorem
+## 3. Generic fixed-point theorem [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumptionCert.main#doc)
 
 A recursive certificate also gives a finite-run relation and a one-layer
 preserved predicate $P(x,o)$. Lean derives:
@@ -67,7 +67,7 @@ fuel. Lean proves this evaluator equals the corresponding Kleene iterate.
 Adequacy concerns terminating finite observations. Productive infinite traces
 are bottom in this flat domain.
 
-## 4. Morphisms, relations, and TT
+## 4. Morphisms, relations, and TT [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveRelationCert.lift#doc)
 
 These transports remain distinct:
 
@@ -85,7 +85,7 @@ tree; the recursive theorem supplies admissible fixed-point closure. It does
 not confuse morphisms with relations or structural closure with observational
 TT closure.
 
-## 5. Old-language conservativity
+## 5. Old-language conservativity [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumptionCert.oldLanguageConservative#doc)
 
 If each exposed tree is `BaseOnly`, shallow handling is the identity. Hence
 handled and unhandled functionals, and then their least fixed points, agree:

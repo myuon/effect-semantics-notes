@@ -29,7 +29,7 @@ $$
 Parameters are stored in the operation itself.  The response family specifies
 the type accepted by its continuation.
 
-## 2. The carrier
+## 2. The carrier [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension#doc)
 
 The finite extension is the initial tree
 
@@ -61,7 +61,7 @@ witness is a left inverse of $\iota$.  The embedding also preserves `bind`.
 Thus old computations do not acquire new requests merely by adjoining
 $\Delta$.
 
-## 3. Functorial action and structural relations
+## 3. Functorial action and structural relations [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.mapSignature_comp#doc)
 
 A typed signature morphism maps operations forward and responses
 contravariantly.  Lean constructs its action on the whole tree and proves
@@ -82,7 +82,7 @@ and return values lift structurally to trees.  The lifted relation is closed
 under `bind`; the graph of a signature morphism agrees with its structural
 map.
 
-## 4. Shallow handling
+## 4. Shallow handling [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.shallow#doc)
 
 An affine handler supplies an optional response tree for each free operation.
 Base operations and missing clauses are forwarded recursively.  At the first
@@ -94,7 +94,7 @@ Lean proves map naturality and preservation of every structural result
 relation.  These results are bundled into
 [`genericFreeExtensionStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericFreeExtensionStructurePreservation#doc).
 
-## 5. Folding into an arbitrary model
+## 5. Folding into an arbitrary model [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.fold_bind#doc)
 
 Let $T$ be a target monad equipped with interpretations of every operation in
 $\Sigma$ and $\Delta$.  If those interpretations distribute over `bind`, the
@@ -129,7 +129,7 @@ for every finite extended tree.  This is
 The morphism and logical-relation theorems are therefore distinct, as required
 by the research question.
 
-### Observation-indexed TT-lifting
+### Observation-indexed TT-lifting [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.TTLayerCert.lift#doc)
 
 The formalization also keeps structural relation lifting distinct from
 observational closure.  Given a heterogeneous observation family, Lean defines
@@ -144,7 +144,7 @@ free-extension trees has TT-related folds.  See
 Thus the formal theorem does not silently infer adequacy from a structural
 relation: the observation-sensitive premise remains visible.
 
-### Finite adequacy transport
+### Finite adequacy transport [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.AdequacyCert.lift#doc)
 
 An operational outcome model is presented as a second algebra for the same
 base/free signatures.  An observation map from the denotational algebra must

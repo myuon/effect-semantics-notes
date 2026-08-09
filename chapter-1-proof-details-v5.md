@@ -9,7 +9,7 @@ This is a proof appendix. Use the [Chapter-I mapping](review-guide.md#chapter-i-
 
 We work modulo alpha-renaming and use capture-avoiding substitution.
 
-:::{prf:lemma} Weakening
+:::{prf:lemma} Weakening [Paper]
 :label: lem-i-weakening-v5
 
 If $\Gamma\vdash J$ and $x\notin\mathrm{dom}(\Gamma)$, then
@@ -20,7 +20,7 @@ $\Gamma,x:A\vdash J$.
 the induction hypothesis.  Variable lookup uses the original membership;
 effect annotations are unchanged. $\square$
 
-:::{prf:lemma} Value and computation substitution
+:::{prf:lemma} Value and computation substitution [[Lean: substitution development]](https://myuon.github.io/effect-semantics-notes/lean/EffectSemantics/Syntax/LanguageRenameSubst.html)
 :label: lem-i-substitution-v5
 
 If $\Gamma,x:A\vdash J$ and $\Gamma\vdash W:A$, substituting $W$ for $x$
@@ -40,7 +40,7 @@ the grammar. $\square$
 
 ## 2. Preservation
 
-:::{prf:lemma} Application elaboration
+:::{prf:lemma} Application elaboration [Paper]
 :label: lem-i-application-elaboration-v5
 
 If
@@ -62,7 +62,7 @@ The outer `let` has effect $e_M\cdot(e_N\cdot e)$, equal to the claimed grade
 by associativity.  The two nested `let` evaluation contexts enforce the same
 left-to-right order. $\square$
 
-:::{prf:theorem} Internal preservation
+:::{prf:theorem} Internal preservation [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc)
 :label: thm-i-preservation-detail-v5
 
 If $\Gamma\vdash M:A!b$ and $M\to M'$, then
@@ -89,7 +89,7 @@ through the elaboration lemma. $\square$
 
 ## 3. Unique decomposition
 
-:::{prf:lemma} Canonical values
+:::{prf:lemma} Canonical values [Paper]
 :label: lem-i-canonical-v5
 
 A closed value of function, product, sum, unit, or base type has the
@@ -99,7 +99,7 @@ corresponding introduction form.
 **Proof.** Inversion of the value typing derivation; a closed variable case is
 impossible. $\square$
 
-:::{prf:theorem} Unique base decomposition
+:::{prf:theorem} Unique base decomposition [[Lean: progress component]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed#doc) [Paper: uniqueness strengthening]
 :label: thm-i-decomposition-detail-v5
 
 Every closed typed computation is exactly one of a return, a uniquely located
@@ -124,7 +124,7 @@ support of the base response kernel reaches a classified observation, and a func
 is in $\mathcal V_{A\xrightarrow{b}B}$ when it maps every $\mathcal V_A$ argument to
 $\mathcal C_B$.
 
-:::{prf:lemma} Fundamental reducibility lemma
+:::{prf:lemma} Fundamental reducibility lemma [Paper]
 :label: lem-i-reducibility-v5
 
 If $\Gamma\vdash J$, every closing substitution mapping variables to
@@ -138,7 +138,7 @@ the body; a terminal base outcome remains terminal.  A primitive is reducible
 by the base-package termination hypothesis.  Products, sums and cases are
 standard.  Subeffecting does not change the term. $\square$
 
-:::{prf:theorem} Recursion-free normalization
+:::{prf:theorem} Recursion-free normalization [Paper]
 :label: thm-i-normalization-detail-v5
 
 Every branch of a closed typed Chapter-I computation reaches a classified base

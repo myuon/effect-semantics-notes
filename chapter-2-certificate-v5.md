@@ -25,7 +25,7 @@ hypotheses.
 
 ## 1. Substitution and preservation
 
-### Lemma II.1 — substitution
+### Lemma II.1 — substitution [[Lean: substitution development]](https://myuon.github.io/effect-semantics-notes/lean/EffectSemantics/Syntax/LanguageRenameSubst.html)
 
 The Chapter-I value/computation substitution lemmas remain valid after adding
 free operations.
@@ -53,7 +53,7 @@ $$
 
 No continuation substitution case is needed in source syntax.
 
-### Theorem II.2 — internal preservation
+### Theorem II.2 — internal preservation [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc)
 
 If $M:A!e$ and $M\to M'$, then $M':A!e$.  All principal reductions are old
 Chapter-I rules; the only new form is inert until captured by a future handler.
@@ -61,7 +61,7 @@ Context preservation follows from ordered multiplication.
 
 ## 2. Effect-aware progress
 
-### Theorem II.3 — extended decomposition
+### Theorem II.3 — extended decomposition [[Lean: closed progress]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed#doc)
 
 A closed well-typed computation has exactly one selected evaluation form: it
 returns, has a uniquely located internal redex, exposes a uniquely located base
@@ -75,7 +75,7 @@ Induction on syntax, reusing Chapter-I canonical forms.  The new operation case
 is immediate.  In a sequencing context, unique decomposition of the left term
 determines exactly one enclosing case. $\square$
 
-### Corollary II.4 — empty-free-effect safety
+### Corollary II.4 — empty-free-effect safety [Paper corollary]
 
 If the extended bound contains no free-interface factor and weakening cannot
 remove free factors, evaluation cannot expose a free request.
@@ -85,7 +85,7 @@ $1\leq\Delta$ may terminate without exposing $\Delta$.
 
 ## 3. Old-language operational conservativity
 
-### Theorem II.5
+### Theorem II.5 — old-language operational conservativity [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.Step.preservesBaseOnly#doc)
 
 For an old Chapter-I term, the Chapter-II transition relation and observations
 coincide with the Chapter-I ones.
@@ -99,7 +99,7 @@ observations in $\mathcal K$. $\square$
 
 ## 4. Free-extension algebra
 
-### Theorem II.6
+### Theorem II.6 — free-extension algebra [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericFreeExtensionStructurePreservation#doc)
 
 Assume that $T$ is a strong graded monad, $\Sigma$ is a first-order
 polynomial signature, and the indexed layer construction has both its initial
@@ -124,7 +124,7 @@ $T$. $\square$
 
 ## 5. Denotational conservativity
 
-### Theorem II.7
+### Theorem II.7 — denotational conservativity [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.eraseFree_embedBase#doc)
 
 For every old typed term,
 
@@ -153,7 +153,7 @@ response continuation.  For first-order ground examples this may be tested by
 supplying every possible finite response and comparing the resulting base
 observations.
 
-### Theorem II.8 — finite adequacy lifting
+### Theorem II.8 — finite adequacy lifting [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.AdequacyCert.lift#doc)
 
 Assume
 
@@ -226,7 +226,7 @@ The current language-graded finite realization is checked by
 its operational/tree adequacy component is
 [`language_writer_operational_tree_adequacy`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.language_writer_operational_tree_adequacy#doc).
 
-### Definition II.1 — layered Chapter-II certificates
+### Definition II.1 — layered Chapter-II certificates [Paper packaging]
 
 For $\widehat L=L_B+\Sigma$ define the following records.
 
@@ -265,7 +265,7 @@ For $\widehat L=L_B+\Sigma$ define the following records.
 The record names used in the dependency audit are therefore definitions, not
 informal labels.
 
-### Definition II.2 — bundled `FreeCert`
+### Definition II.2 — bundled `FreeCert` [Paper packaging]
 
 For an extension $\widehat L=L_B+\Sigma$ with effect algebra $\widehat E$
 and carrier $\mathsf F=\mathsf F_\Sigma(T)$, we say that
@@ -397,7 +397,7 @@ $$
 
 where $o$ ranges over separated returns, base outcomes and free requests.
 
-### Theorem II.9 — layered free-extension certificates
+### Theorem II.9 — layered free-extension certificates [Paper packaging of Lean-checked layers]
 
 Assume the following premises, each only where cited below.
 

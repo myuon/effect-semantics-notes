@@ -21,7 +21,7 @@ The canonical generic certificate is [`GenericRecursiveResumptionCert`](https://
 **Conditional paper theorem.**  This page records exactly what must be added
 to `ShallowCert` and what is then preserved.
 
-## 1. Definition IV.1 — layered recursive certificates
+## 1. Definition IV.1 — layered recursive certificates [[Lean: counterpart]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumptionCert#doc)
 
 For a recursive extension $L^{\mathsf{rec}}$ and recursive carrier $\mathsf R$,
 define the following records.
@@ -111,7 +111,7 @@ be reconstructed from the finite `ShallowCert` or from monad laws.
 
 ## 2. Recursive safety
 
-:::{prf:theorem} Recursive preservation and progress
+:::{prf:theorem} Recursive preservation and progress [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageRecursiveStructurePreservation#doc)
 :label: thm-recursive-preservation-v5
 
 If
@@ -143,7 +143,7 @@ does not survive.
 
 ## 3. Derived/deep coincidence
 
-:::{prf:theorem} Derived source handler equals semantic deep handler
+:::{prf:theorem} Derived source handler equals semantic deep handler [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.RecursiveResumptionSystem.functional#doc)
 :label: thm-derived-deep-coincidence-v5
 
 If $\mathsf{RecModelCert}(\mathsf R)$ holds, the Chapter-III shallow map and
@@ -167,7 +167,7 @@ identify their suprema. $\square$
 
 ## 4. Deep elimination
 
-:::{prf:theorem} Elimination of an exhaustive interface
+:::{prf:theorem} Elimination of an exhaustive interface [Paper]
 :label: thm-deep-elimination-v5
 
 If
@@ -197,7 +197,7 @@ invariant.
 
 ## 5. Adequacy
 
-:::{prf:theorem} Recursive adequacy transport
+:::{prf:theorem} Recursive adequacy transport [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumptionCert.main#doc)
 :label: thm-recursive-adequacy-v5
 
 If
@@ -253,7 +253,7 @@ Its concrete ordered-language Writer instance is
 and the completed adequacy theorem is
 [`language_deep_writer_semantic_adequacy`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.language_deep_writer_semantic_adequacy#doc).
 
-### Definition IV.2 — layered derived-deep certificates
+### Definition IV.2 — layered derived-deep certificates [Paper packaging]
 
 Define:
 
@@ -306,7 +306,7 @@ $$
 \end{aligned}
 $$
 
-:::{prf:theorem} Layered recursive derived-deep certificates
+:::{prf:theorem} Layered recursive derived-deep certificates [Paper packaging of Lean-checked layers]
 :label: thm-recursive-derived-deep-certificate-v5
 
 The conclusions and their premises are separate implications:

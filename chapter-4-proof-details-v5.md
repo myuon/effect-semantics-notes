@@ -7,7 +7,7 @@ This is the recursive proof appendix. The exact LFP, adequacy, morphism, relatio
 
 ## 1. One-step recursion safety
 
-:::{prf:theorem} Recursive one-step progress and preservation
+:::{prf:theorem} Recursive one-step progress and preservation [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageRecursiveStructurePreservation#doc)
 :label: thm-iv-one-step-safety-v5
 
 A closed typed computation is a classified boundary or has one uniquely
@@ -31,7 +31,7 @@ itself an extra progress case.
 Let `loop_n` be the derived handler loop with recursive calls replaced by
 `loop_{n-1}` and `loop_0=\bot`.
 
-:::{prf:lemma} Source/semantic approximants
+:::{prf:lemma} Source/semantic approximants [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericRunFuel_eq_iterate#doc)
 :label: lem-iv-approximants-v5
 
 For every $n$,
@@ -59,7 +59,7 @@ $$
 
 This proves derived/deep coincidence.
 
-## 3. Operational elimination invariant
+## 3. Operational elimination invariant [Paper]
 
 Define $P(C)$ to mean: no finite reduction prefix of $C$ ends at an exposed
 $\Delta$ request outside a pending derived handler.  Prove $P(\mathsf{loop}_n
@@ -75,7 +75,7 @@ unfoldings and is therefore a prefix of some approximant.  Hence it has $P$.
 This proves operational deep elimination without assuming termination.
 Admissibility gives the parallel denotational statement at the supremum.
 
-## 4. Recursive logical relation
+## 4. Recursive logical relation [[Lean: generic relation lift]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveRelationCert.lift#doc)
 
 Take the Chapter-III relation and require admissibility: it contains bottom
 and is closed under suprema of increasing chains.  The fundamental lemma is a
@@ -88,7 +88,7 @@ stage.  Applying the observation-reflection field proves finite-boundary
 adequacy.  Bottom or productive-trace reflection follows only if it is a field
 of `RecBaseCert`.
 
-## 5. Ordered iteration bound
+## 5. Ordered iteration bound [Paper]
 
 Let $K(e)=e^*$ be monotone with $1\le e^*$ and
 $e\cdot e^*\le e^*$.  Induction gives $e^n\le e^*$ for every $n$: the zero
@@ -108,7 +108,7 @@ $(b\cdot e'\cdot e)^*$.  The effect-safety interpretation concerns finite
 execution prefixes, so this uniform bound covers the recursive computation.
 No equality or exact multiplicity follows.
 
-## 6. Assembly of the layered certificates
+## 6. Assembly of the layered certificates [Paper packaging]
 
 One-step safety supplies `RecursiveSafetyCert`; the
 source/semantic approximation lemma supplies definability and the deep
@@ -119,7 +119,7 @@ induction supplies `RecursiveEffectCert`. Old terms contain neither recursion
 nor derived-handler expansion, so Chapter-III conservativity remains literal.
 Every stronger observation remains explicitly conditional.
 
-## 7. Partial-handler regression lemma
+## 7. Partial-handler regression lemma [Paper counterexample]
 
 Let $J\subsetneq I_\Delta$ and choose $i\in J$ and $j\notin J$.  In the
 derived handler, a request for $i$ enters its clause and replaces the bare
