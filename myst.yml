@@ -75,6 +75,7 @@ project:
         - file: effect-language-repair-v5.md
     - title: Formalization and audit
       children:
+        - file: formalization-gap-audit.md
         - file: lean-formalization-roadmap-v5.md
     - title: Earlier unordered program (reference)
       children:

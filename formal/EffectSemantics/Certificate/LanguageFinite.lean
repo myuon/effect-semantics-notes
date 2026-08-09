@@ -5,6 +5,48 @@ namespace EffectSemantics
 
 open EffectLanguage
 
+/-- Kernel-checked core certificate for the fixed source calculus.  It keeps
+the syntactic obligations separate from Writer-specific observation. -/
+structure LanguageCoreCert (sig : LanguageSignature) where
+  valueSubstitution : ∀ {source target value ty subst},
+    HasLanguageVal sig source value ty →
+    LanguageSubstPreserves sig source target subst →
+    HasLanguageVal sig target (value.subst subst) ty
+  computationSubstitution : ∀ {source target term ty effect subst},
+    HasLanguageComp sig source term ty effect →
+    LanguageSubstPreserves sig source target subst →
+    HasLanguageComp sig target (term.subst subst) ty effect
+  preservation : ∀ {term next ctx resultTy effect},
+    LanguageStep term next → HasLanguageComp sig ctx term resultTy effect →
+      HasLanguageComp sig ctx next resultTy effect
+  progress : ∀ {term resultTy effect},
+    HasLanguageComp sig [] term resultTy effect → LanguageProgress term
+  progressClassUnique : ∀ {term}
+      (first second : LanguageProgress term), first.kind = second.kind
+  reductUnique : ∀ {term left right},
+    LanguageStep term left → LanguageStep term right → left = right
+  canonicalBool : ∀ {value}, HasLanguageVal sig [] value .bool →
+    ∃ boolean, value = .bool boolean
+  canonicalArrow : ∀ {value domain latent codomain},
+    HasLanguageVal sig [] value (.arr domain latent codomain) →
+    (∃ body, value = .lam domain latent body) ∨
+      (∃ body, value = .fixLam domain latent body)
+  canonicalSum : ∀ {value leftTy rightTy},
+    HasLanguageVal sig [] value (.sum leftTy rightTy) →
+    (∃ left, value = .inl left rightTy) ∨
+      (∃ right, value = .inr leftTy right)
+
+def languageCoreCert (sig : LanguageSignature) : LanguageCoreCert sig where
+  valueSubstitution := fun typing preserves => typing.subst_preserved preserves
+  computationSubstitution := fun typing preserves => typing.subst_preserved preserves
+  preservation := LanguageStep.preserve
+  progress := HasLanguageComp.progressClosed
+  progressClassUnique := LanguageProgress.kind_unique
+  reductUnique := LanguageStep.deterministic
+  canonicalBool := HasLanguageVal.closed_bool_canonical
+  canonicalArrow := HasLanguageVal.closed_arr_canonical
+  canonicalSum := HasLanguageVal.closed_sum_canonical
+
 /-- The ordered effect-language algebra needed by the finite extension. -/
 structure LanguageEffectCert where
   seqAssociative : ∀ first second third,
@@ -18,6 +60,11 @@ structure LanguageEffectCert where
   handlerMatch : ∀ {selected replacement suffix input},
     seq (principal [EffectAtom.free selected]) suffix ≤ input →
     seq replacement suffix ≤ handleWith selected replacement input
+  anchoredAffine : ∀ {selected pre replacement suffix},
+    Effect.FreeOf selected pre →
+    principal (pre * replacement * suffix) ≤
+      handleWith selected (principal replacement)
+        (principal (pre * [EffectAtom.free selected] * suffix))
 
 theorem languageEffectCert : LanguageEffectCert where
   seqAssociative := seq_assoc
@@ -27,6 +74,7 @@ theorem languageEffectCert : LanguageEffectCert where
     handleWith_mono (EffectLanguage.le_refl _) bound
   handlerReturn := pure_le_handleWith
   handlerMatch := seq_replacement_le_handleWith
+  anchoredAffine := anchored_replacement_le_handleWith
 
 /-- The response-typed tree model, including its graded bind and finite
 operational adequacy theorem. -/
@@ -47,6 +95,23 @@ structure LanguageWriterCert (sig : LanguageSignature) where
       {typing : HasLanguageComp sig [] term resultTy effect} {tree},
     ProducesLanguageWriterTree sig typing tree →
     LanguageWriterTree.HasEffect tree effect
+  semanticSequencing : ∀ {bound boundTy boundEffect body resultTy bodyEffect}
+      {boundTyping : HasLanguageComp sig [] bound boundTy boundEffect}
+      {bodyTyping : HasLanguageComp sig (boundTy :: []) body resultTy bodyEffect}
+      {tree : LanguageWriterTree sig (LanguageClosedVal sig boundTy)}
+      (_boundProduces : ProducesLanguageWriterTree sig boundTyping tree)
+      (continuation : LanguageClosedVal sig boundTy →
+        LanguageWriterTree sig (LanguageClosedVal sig resultTy))
+      (_bodyProduces : ∀ value, ProducesLanguageWriterTree sig
+        (bodyTyping.subst0_preserved value.typing) (continuation value)),
+    ProducesLanguageWriterTree sig (.letE boundTyping bodyTyping)
+      (tree.bind continuation)
+  internalStepInvariant : ∀ {term next resultTy effect}
+      {typing : HasLanguageComp sig [] term resultTy effect},
+    (step : LanguageStep term next) →
+    ∀ {tree : LanguageWriterTree sig (LanguageClosedVal sig resultTy)},
+      ProducesLanguageWriterTree sig (step.preserve typing) tree →
+      ProducesLanguageWriterTree sig typing tree
   adequacy : ∀ {term resultTy effect}
       {typing : HasLanguageComp sig [] term resultTy effect} {log value},
     Nonempty (LanguageWriterRuns sig typing log value) ↔
@@ -59,6 +124,12 @@ noncomputable def languageWriterCert (sig : LanguageSignature) :
   bindAssociative := LanguageWriterTree.bind_assoc
   gradedBind := LanguageWriterTree.HasEffect.bind
   gradeSound := ProducesLanguageWriterTree.effectSound
+  semanticSequencing := ProducesLanguageWriterTree.letE
+  internalStepInvariant := fun {term next resultTy effect} {typing} step
+      {tree} produces =>
+    ProducesLanguageWriterTree.internalStepInvariant (sig := sig) (term := term)
+      (next := next) (resultTy := resultTy) (effect := effect)
+      (typing := typing) step (tree := tree) produces
   adequacy := language_writer_operational_tree_adequacy
 
 /-- Properties of every semantic shallow handler; no handler-specific law is
@@ -95,12 +166,56 @@ theorem languageShallowCert (sig : LanguageSignature) :
   ttPreserved := fun related selected handler =>
     related.shallowTT selected handler
 
+/-- Exact source-language certificate exported by Chapter II, before a
+handler is added.  This separates the free-operation stage from the shallow
+handler stage in the mechanized dependency graph. -/
+structure LanguageFreeStageCert (sig : LanguageSignature) where
+  core : LanguageCoreCert sig
+  effects : LanguageEffectCert
+  writer : LanguageWriterCert sig
+  preservation : ∀ {term next ctx resultTy effect},
+    LanguageStep term next → HasLanguageComp sig ctx term resultTy effect →
+      HasLanguageComp sig ctx next resultTy effect
+  progress : ∀ {term resultTy effect},
+    HasLanguageComp sig [] term resultTy effect → LanguageProgress term
+
+noncomputable def languageFreeStagePreservation
+    (sig : LanguageSignature) : LanguageFreeStageCert sig where
+  core := languageCoreCert sig
+  effects := languageEffectCert
+  writer := languageWriterCert sig
+  preservation := LanguageStep.preserve
+  progress := HasLanguageComp.progressClosed
+
+/-- Exact source-language certificate exported by Chapter III. -/
+structure LanguageHandlerStageCert (sig : LanguageSignature) where
+  free : LanguageFreeStageCert sig
+  shallow : LanguageShallowCert sig
+  handlerPreservation : ∀ {ctx interface handler replacement input resultTy state next},
+    HasLanguageAffineHandler sig ctx interface handler replacement →
+    LanguageShallowStep state next →
+    HasLanguageHandlerState sig ctx interface handler replacement input resultTy state →
+    HasLanguageHandlerState sig ctx interface handler replacement input resultTy next
+  handlerProgress : ∀ {interface handler replacement input resultTy term},
+    HasLanguageHandlerState sig [] interface handler replacement input resultTy
+      (.shallow interface handler term) →
+    LanguageShallowProgress (.shallow interface handler term)
+
+noncomputable def languageHandlerStagePreservation
+    (sig : LanguageSignature) : LanguageHandlerStageCert sig where
+  free := languageFreeStagePreservation sig
+  shallow := languageShallowCert sig
+  handlerPreservation := fun handlerTyping step typing =>
+    step.preserve handlerTyping typing
+  handlerProgress := HasLanguageHandlerState.progressClosed
+
 /-- Finite ordered-language structure preservation theorem.  For every base
 signature, adjoining typed free requests and affine shallow handling yields a
 well-typed source calculus, a graded response tree model, operational/tree
 adequacy, and relation/TT-compatible shallow elimination.  Matching source
 commutation is supplied by `ProducesLanguageWriterTree.answerWith`. -/
 structure LanguageFiniteStructureCert (sig : LanguageSignature) where
+  core : LanguageCoreCert sig
   effects : LanguageEffectCert
   writer : LanguageWriterCert sig
   shallow : LanguageShallowCert sig
@@ -109,13 +224,25 @@ structure LanguageFiniteStructureCert (sig : LanguageSignature) where
       HasLanguageComp sig ctx next resultTy effect
   progress : ∀ {term resultTy effect},
     HasLanguageComp sig [] term resultTy effect → LanguageProgress term
+  handlerPreservation : ∀ {ctx interface handler replacement input resultTy state next},
+    HasLanguageAffineHandler sig ctx interface handler replacement →
+    LanguageShallowStep state next →
+    HasLanguageHandlerState sig ctx interface handler replacement input resultTy state →
+    HasLanguageHandlerState sig ctx interface handler replacement input resultTy next
+  handlerProgress : ∀ {interface handler replacement input resultTy term},
+    HasLanguageHandlerState sig [] interface handler replacement input resultTy
+      (.shallow interface handler term) →
+    LanguageShallowProgress (.shallow interface handler term)
 
 noncomputable def languageFiniteStructurePreservation
     (sig : LanguageSignature) : LanguageFiniteStructureCert sig where
-  effects := languageEffectCert
-  writer := languageWriterCert sig
-  shallow := languageShallowCert sig
-  preservation := LanguageStep.preserve
-  progress := HasLanguageComp.progressClosed
+  core := (languageHandlerStagePreservation sig).free.core
+  effects := (languageHandlerStagePreservation sig).free.effects
+  writer := (languageHandlerStagePreservation sig).free.writer
+  shallow := (languageHandlerStagePreservation sig).shallow
+  preservation := (languageHandlerStagePreservation sig).free.preservation
+  progress := (languageHandlerStagePreservation sig).free.progress
+  handlerPreservation := (languageHandlerStagePreservation sig).handlerPreservation
+  handlerProgress := (languageHandlerStagePreservation sig).handlerProgress
 
 end EffectSemantics

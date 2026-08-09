@@ -14,6 +14,92 @@ inductive LanguageProgress : LanguageComp → Type where
   | internal : LanguageStep term term' → LanguageProgress term
   | boundary : LanguageBoundary term → LanguageProgress term
 
+/-- The three progress classes are mutually exclusive.  This is the missing
+"selected position" half of unique decomposition; uniqueness of the reduct
+inside the `internal` class is supplied by `LanguageStep.deterministic`. -/
+theorem LanguageBoundary.not_return
+    (boundary : LanguageBoundary (.ret value)) : False := by
+  cases boundary
+
+theorem LanguageStep.not_boundary
+    (step : LanguageStep term next) : LanguageBoundary term → False := by
+  intro boundary
+  induction step with
+  | letReturn =>
+      cases boundary with
+      | underLet inner => exact inner.not_return
+  | beta => cases boundary
+  | fixBeta => cases boundary
+  | ifTrue => cases boundary
+  | ifFalse => cases boundary
+  | caseInl => cases boundary
+  | caseInr => cases boundary
+  | underLet _ ih =>
+      cases boundary with
+      | underLet inner => exact ih inner
+
+inductive LanguageProgressKind where
+  | returned
+  | internal
+  | boundary
+  deriving DecidableEq
+
+def LanguageProgress.kind : LanguageProgress term → LanguageProgressKind
+  | .returned => .returned
+  | .internal _ => .internal
+  | .boundary _ => .boundary
+
+/-- Any two progress derivations for the same closed term select the same
+outer class.  Together with `LanguageStep.deterministic`, an internal class
+also selects a unique reduct. -/
+theorem LanguageProgress.kind_unique
+    (first second : LanguageProgress term) : first.kind = second.kind := by
+  cases first with
+  | returned =>
+      cases second with
+      | returned => rfl
+      | internal step => cases step
+      | boundary request => exact False.elim request.not_return
+  | internal firstStep =>
+      cases second with
+      | returned => cases firstStep
+      | internal _ => rfl
+      | boundary request => exact False.elim (firstStep.not_boundary request)
+  | boundary firstRequest =>
+      cases second with
+      | returned => cases firstRequest
+      | internal secondStep => exact False.elim (secondStep.not_boundary firstRequest)
+      | boundary _ => rfl
+
+/-- Canonical forms for closed Boolean values. -/
+theorem HasLanguageVal.closed_bool_canonical
+    (typing : HasLanguageVal sig [] value .bool) :
+    ∃ boolean, value = .bool boolean := by
+  cases typing with
+  | var lookup => nomatch lookup
+  | bool => exact ⟨_, rfl⟩
+
+/-- Canonical forms for closed function values, including recursive
+functions. -/
+theorem HasLanguageVal.closed_arr_canonical
+    (typing : HasLanguageVal sig [] value (.arr domain latent codomain)) :
+    (∃ body, value = .lam domain latent body) ∨
+      (∃ body, value = .fixLam domain latent body) := by
+  cases typing with
+  | var lookup => nomatch lookup
+  | lam => exact Or.inl ⟨_, rfl⟩
+  | fixLam => exact Or.inr ⟨_, rfl⟩
+
+/-- Canonical forms for closed sum values. -/
+theorem HasLanguageVal.closed_sum_canonical
+    (typing : HasLanguageVal sig [] value (.sum leftTy rightTy)) :
+    (∃ left, value = .inl left rightTy) ∨
+      (∃ right, value = .inr leftTy right) := by
+  cases typing with
+  | var lookup => nomatch lookup
+  | inl => exact Or.inl ⟨_, rfl⟩
+  | inr => exact Or.inr ⟨_, rfl⟩
+
 /-- Closed, well-typed language-graded computations return, reduce, or expose
 one base/free boundary. -/
 def HasLanguageComp.progressClosed

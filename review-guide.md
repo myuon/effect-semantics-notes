@@ -17,6 +17,8 @@ three labels.
 Links of the form `lean/find/?pattern=...#doc` open the generated API search at
 the exact declaration.  The complete cross-reference is also available in the
 [Lean formalization index](lean-api-reference.md).
+The remaining paper and partial obligations are tracked, without duplicate
+entries, in the [formalization gap audit](formalization-gap-audit.md).
 
 ### Stable statement identifiers
 
@@ -70,7 +72,8 @@ Read in this order:
 | preservation | Lean checked | [`LanguageStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc) |
 | closed progress | Lean checked | [`HasLanguageComp.progressClosed`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed#doc) |
 | Writer operational/tree adequacy | Lean checked | [`language_writer_operational_tree_adequacy`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.language_writer_operational_tree_adequacy#doc) |
-| paper-level `BaseCert` packaging | Paper abstraction | component declarations above; see [certificate assumptions](chapter-1-certificate-v5.md) |
+| source-language base package | Lean checked | [`LanguageCoreCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageCoreCert#doc), [`LanguageWriterCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageWriterCert#doc) |
+| categorical `BaseCert` presentation | Readable abstraction | exact instance boundary is stated in [certificate assumptions](chapter-1-certificate-v5.md) |
 
 ## Chapter II — free operations
 
@@ -96,6 +99,7 @@ Read concrete programs before the carrier construction:
 | finite relation lifting | Lean checked | [`GenericExtensionAlgebra.Relation.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.Relation.lift#doc) |
 | finite TT lifting | Lean checked | [`GenericExtensionAlgebra.TTLayerCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.TTLayerCert.lift#doc) |
 | finite adequacy transport | Lean checked | [`GenericExtensionAlgebra.AdequacyCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.AdequacyCert.lift#doc) |
+| Chapter-II source package | Lean checked | [`LanguageFreeStageCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFreeStageCert#doc) |
 
 The ordered grade-indexed carrier in the chapter notes is a stronger paper
 presentation.  The fully mechanized theorem uses the ungraded typed tree plus
@@ -116,6 +120,7 @@ as a **Paper abstraction** where it occurs.
 | forwarding shallow transformation | Lean checked | [`FreeExtension.shallow`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.shallow#doc) |
 | matching and forwarding equations | Lean checked | [`shallow_match`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.shallow_match#doc), [`shallow_forward`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.shallow_forward#doc) |
 | map naturality | Lean checked | [`shallow_map`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.shallow_map#doc) |
+| Chapter-III source package | Lean checked | [`LanguageHandlerStageCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageHandlerStageCert#doc) |
 | structural relation preservation | Lean checked | [`Rel.shallow`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.Rel.shallow#doc) |
 | source-language shallow certificate | Lean checked | [`languageShallowCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageShallowCert#doc) |
 | finite structure-preservation bundle | Lean checked | [`languageFiniteStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageFiniteStructurePreservation#doc) |

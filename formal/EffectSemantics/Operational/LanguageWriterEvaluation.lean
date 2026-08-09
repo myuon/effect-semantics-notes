@@ -112,6 +112,18 @@ inductive ProducesLanguageWriterTree (sig : LanguageSignature) :
         (.free request.interface request.operation lookup
           ⟨request.parameter, parameterTyping⟩ continuation)
 
+/-- Relational denotational soundness of one internal source step.  The tree
+semantics is intentionally a relation (it remains partial once `fixLam` is
+available), so this is the precise counterpart of an equality of total
+denotations. -/
+noncomputable def ProducesLanguageWriterTree.internalStepInvariant
+    {typing : HasLanguageComp sig [] term resultTy effect}
+    (step : LanguageStep term next)
+    {tree : LanguageWriterTree sig (LanguageClosedVal sig resultTy)}
+    (produces : ProducesLanguageWriterTree sig (step.preserve typing) tree) :
+    ProducesLanguageWriterTree sig typing tree :=
+  .internal step produces
+
 /-- CBV source sequencing is semantic tree bind. -/
 noncomputable def ProducesLanguageWriterTree.letE
     {boundTyping : HasLanguageComp sig [] bound boundTy boundEffect}
@@ -229,5 +241,16 @@ noncomputable def ProducesLanguageWriterTree.effectSound
       exact (LanguageWriterTree.HasEffect.tell ih).weaken bound
   | free typing lookup parameterTyping continuation resumeTyping bound produces ih =>
       exact (LanguageWriterTree.HasEffect.free ih).weaken bound
+
+/-- A source/tree evaluation can only produce observations admitted by the
+declared ordered effect upper bound.  This is the executable tree-level form
+of the Chapter-I may-effect theorem. -/
+noncomputable def ProducesLanguageWriterTree.observationEffectSound
+    {typing : HasLanguageComp sig [] term resultTy effect}
+    {tree : LanguageWriterTree sig (LanguageClosedVal sig resultTy)}
+    (produces : ProducesLanguageWriterTree sig typing tree)
+    (_observes : LanguageWriterTree.Observes tree log value) :
+    LanguageWriterTree.HasEffect tree effect :=
+  produces.effectSound
 
 end EffectSemantics

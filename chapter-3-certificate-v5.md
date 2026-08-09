@@ -2,7 +2,9 @@
 
 :::{admonition} Lean correspondence — `ShallowCert`
 :class: tip
-The paper record is a readable certificate decomposition. The current source-language bundle is **Lean checked** by [`languageShallowCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageShallowCert#doc), while the generic semantic laws are bundled by [`genericFreeExtensionStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericFreeExtensionStructurePreservation#doc). [Full mapping](review-guide.md#chapter-iii-shallow-handlers).
+The source-language Chapter-III boundary is the exact Lean record
+[`LanguageHandlerStageCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageHandlerStageCert#doc), constructed by
+[`languageHandlerStagePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageHandlerStagePreservation#doc). Structural relation and TT preservation are bundled by [`languageShallowCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageShallowCert#doc). [Full mapping](review-guide.md#chapter-iii-shallow-handlers).
 :::
 
 ### Numbered-statement inventory
@@ -10,11 +12,11 @@ The paper record is a readable certificate decomposition. The current source-lan
 | statement | review status | correspondence |
 |---|---|---|
 | Lemma III.1, continuation typing | Lean checked component | [`LanguageFreeRequest.openResume_subst0`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFreeRequest.openResume_subst0#doc) |
-| Theorem III.2, handler preservation | Lean checked in bundle | [`languageShallowCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageShallowCert#doc) |
+| Theorem III.2, handler preservation | Lean checked in source-stage bundle | [`languageHandlerStagePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageHandlerStagePreservation#doc) |
 | Theorem III.3, affine effect transformation | Lean checked component | [`EffectLanguage.handleWith_mono`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.EffectLanguage.handleWith_mono#doc) |
 | Theorem III.4, operational/denotational commutation | Lean checked in source/tree bundle | [`languageFiniteStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageFiniteStructurePreservation#doc) |
 | Theorem III.5, adequacy preservation | Lean checked generic layer | [`GenericExtensionAlgebra.AdequacyCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.AdequacyCert.lift#doc) |
-| Definition III.1–III.3 and Theorem III.6 | Paper certificate packaging | checked generic and language bundles above |
+| Definition III.1–III.3 and Theorem III.6 | readable decomposition with exact source-stage package | [`LanguageHandlerStageCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageHandlerStageCert#doc) |
 
 ## Status
 
@@ -43,7 +45,7 @@ $$
 The ordered input bound contains the primitive grade $\Delta$ before $e_k$,
 up to the declared weakening.
 
-### Theorem III.2 `[C3-CERT.1.2]` — handler preservation [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageShallowCert#doc)
+### Theorem III.2 `[C3-CERT.1.2]` — handler preservation [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageHandlerStagePreservation#doc)
 
 If
 
@@ -72,7 +74,7 @@ inside the scrutinee use Chapter-II preservation. $\square$
 
 ## 2. Affine effect theorem
 
-### Theorem III.3 `[C3-CERT.2.1]` — affine effect transformation [[Lean: monotonicity component]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.EffectLanguage.handleWith_mono#doc)
+### Theorem III.3 `[C3-CERT.2.1]` — affine effect transformation [[Lean: anchored theorem]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.EffectLanguage.anchored_replacement_le_handleWith_of_bounds#doc) [[Lean: monotonicity]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.EffectLanguage.handleWith_mono#doc) [[Boundary: naive word transformer]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.TypedWriterTree.replaceFirst_not_monotone#doc)
 
 If $b$ is $\Delta$-free and
 
@@ -105,7 +107,10 @@ $$
 follows from $1\leq e'$ and monotonicity.  The return rule is identity. $\square$
 
 This theorem is an upper-bound theorem, not an assertion that every run reaches
-$\Delta$.
+$\Delta$. Lean checks the sharp theorem for the displayed anchored
+factorization and obtains its weakened language-bound form by monotonicity. It
+separately checks that raw `replaceFirst` on arbitrary upper words is not
+monotone; that stronger formulation is therefore not claimed.
 
 ## 3. Operational/denotational commutation
 
@@ -197,7 +202,7 @@ The mechanized finite bundle is
 with shallow naturality, structural-relation preservation and TT preservation
 collected in [`languageShallowCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageShallowCert#doc).
 
-### Definition III.1 `[C3-CERT.6.1]` — layered handler certificates [Paper packaging]
+### Definition III.1 `[C3-CERT.6.1]` — layered handler certificates [[Lean: exact source package]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageHandlerStageCert#doc)
 
 Let $J\subseteq I_\Delta$ be the operations for which $h$ supplies clauses,
 and let $\Phi_h:\widehat E\to\widehat E$. We say that
@@ -301,7 +306,7 @@ h_S(p_S,k_S)\mathrel{V_C^{\top\top}}h_T(p_T,k_T).
 \end{aligned}
 $$
 
-### Definition III.2 `[C3-CERT.6.2]` — `AffineCert` [Paper packaging]
+### Definition III.2 `[C3-CERT.6.2]` — `AffineCert` [[Lean: source typing structure]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageAffineHandler#doc)
 
 The affine response fragment satisfies
 $\mathsf{AffineCert}(\Delta,h,e')$ when:
@@ -326,7 +331,7 @@ $\mathsf{EliminationCert}(\Delta,I_\Delta,h,\Phi_{\Delta,e'})$. A partial
 affine family has the same clause calculation but not this interface-level
 elimination conclusion.
 
-### Definition III.3 `[C3-CERT.6.3]` — layered shallow certificates [Paper packaging]
+### Definition III.3 `[C3-CERT.6.3]` — layered shallow certificates [[Lean: exact source package]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageHandlerStageCert#doc)
 
 Define:
 
@@ -375,7 +380,7 @@ M\in L_B+\Sigma\Rightarrow
 \end{aligned}
 $$
 
-### Theorem III.6 `[C3-CERT.6.4]` — layered shallow certificates [Paper packaging of Lean-checked layers]
+### Theorem III.6 `[C3-CERT.6.4]` — layered shallow certificates [[Lean: source theorem]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageHandlerStagePreservation#doc)
 
 Let $J\subseteq I_\Delta$. Then:
 

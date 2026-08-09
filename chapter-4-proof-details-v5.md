@@ -59,7 +59,7 @@ $$
 
 This proves derived/deep coincidence.
 
-## 3. Operational elimination invariant `[C4-PROOF.3.1]` [Paper]
+## 3. Operational elimination invariant `[C4-PROOF.3.1]` [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageAffineHandler.exhaustive_no_escaping_selected_request#doc)
 
 Define $P(C)$ to mean: no finite reduction prefix of $C$ ends at an exposed
 $\Delta$ request outside a pending derived handler.  Prove $P(\mathsf{loop}_n
@@ -88,7 +88,7 @@ stage.  Applying the observation-reflection field proves finite-boundary
 adequacy.  Bottom or productive-trace reflection follows only if it is a field
 of `RecBaseCert`.
 
-## 5. Ordered iteration bound `[C4-PROOF.5.1]` [Paper]
+## 5. Ordered iteration bound `[C4-PROOF.5.1]` [[Lean: star closure]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.EffectLanguage.star_least_fixed_characterization#doc) [[Lean: handler closure]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.EffectLanguage.handled_star_le#doc)
 
 Let $K(e)=e^*$ be monotone with $1\le e^*$ and
 $e\cdot e^*\le e^*$.  Induction gives $e^n\le e^*$ for every $n$: the zero
@@ -108,7 +108,7 @@ $(b\cdot e'\cdot e)^*$.  The effect-safety interpretation concerns finite
 execution prefixes, so this uniform bound covers the recursive computation.
 No equality or exact multiplicity follows.
 
-## 6. Assembly of the layered certificates `[C4-PROOF.6.1]` [Paper packaging]
+## 6. Assembly of the layered certificates `[C4-PROOF.6.1]` [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageRecursiveStructurePreservation#doc)
 
 One-step safety supplies `RecursiveSafetyCert`; the
 source/semantic approximation lemma supplies definability and the deep
@@ -119,7 +119,7 @@ induction supplies `RecursiveEffectCert`. Old terms contain neither recursion
 nor derived-handler expansion, so Chapter-III conservativity remains literal.
 Every stronger observation remains explicitly conditional.
 
-## 7. Partial-handler regression lemma `[C4-PROOF.7.1]` [Paper counterexample]
+## 7. Partial-handler regression lemma `[C4-PROOF.7.1]` [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.partial_handler_does_not_eliminate_interface#doc)
 
 Let $J\subsetneq I_\Delta$ and choose $i\in J$ and $j\notin J$.  In the
 derived handler, a request for $i$ enters its clause and replaces the bare

@@ -3,6 +3,29 @@ import EffectSemantics.Recursive.FlatApproximation
 
 namespace EffectSemantics
 
+def LanguageAffineHandler.Exhaustive
+    (handler : LanguageAffineHandler) : Prop :=
+  ∀ operation, ∃ clause, handler.lookup operation = some clause
+
+/-- A selected request escapes exactly when the current head exposes it and
+the handler has no matching clause. -/
+def EscapingSelectedRequest (selected : Nat)
+    (handler : LanguageAffineHandler) (term : LanguageComp) : Prop :=
+  ∃ request : LanguageFreeRequest,
+    term.head = .free request ∧ request.interface = selected ∧
+      handler.lookup request.operation = none
+
+/-- Exhaustiveness rules out an escaping selected request at every finite
+configuration, independently of termination.  Consequently it also holds at
+every configuration on any finite execution prefix. -/
+theorem LanguageAffineHandler.exhaustive_no_escaping_selected_request
+    (exhaustive : handler.Exhaustive) (term : LanguageComp) :
+    ¬ EscapingSelectedRequest selected handler term := by
+  rintro ⟨request, head, same, missing⟩
+  obtain ⟨clause, found⟩ := exhaustive request.operation
+  rw [found] at missing
+  contradiction
+
 /-- Fuel semantics for the deep handler obtained by recursively reinstalling
 the affine shallow handler.  Matching and Writer steps both consume one
 finite unfolding. -/

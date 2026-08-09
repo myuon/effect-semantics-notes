@@ -242,6 +242,26 @@ def HasLanguageEvalContext.plugTyping
   | .letE bodyTyping bound restTyping =>
       restTyping.plugTyping ((HasLanguageComp.letE termTyping bodyTyping).subeffect bound)
 
+/-- A context is non-erasing when every sequential suffix admits the empty
+trace.  This is the exact local premise missing from unconditional
+empty-free-effect safety. -/
+def HasLanguageEvalContext.NonErasing :
+    HasLanguageEvalContext sig ctx evalCtx holeTy holeEffect resultTy resultEffect → Prop
+  | .hole => True
+  | .letE (bodyEffect := bodyEffect) _ _ rest =>
+      bodyEffect.contains 1 ∧ rest.NonErasing
+
+theorem HasLanguageEvalContext.propagates_of_nonErasing
+    (contextTyping : HasLanguageEvalContext sig ctx evalCtx
+      holeTy holeEffect resultTy resultEffect)
+    (nonErasing : contextTyping.NonErasing)
+    (member : holeEffect.contains trace) : resultEffect.contains trace := by
+  induction contextTyping with
+  | hole => exact member
+  | letE bodyTyping frameBound restTyping ih =>
+      exact ih nonErasing.2
+        (frameBound trace (EffectLanguage.le_seq_of_one_right nonErasing.1 trace member))
+
 structure LanguagePlugView
     {evalCtx : LanguageEvalContext} {hole : LanguageComp}
     (typing : HasLanguageComp sig ctx
@@ -289,6 +309,26 @@ def HasLanguageComp.exposedFreeView
   cases resultEq
   exact ⟨parameterTy, plugged.holeTy, plugged.holeEffect, lookup,
     parameterTyping, plugged.contextTyping, requestBelow⟩
+
+/-- Under the non-erasing continuation premise, the interface atom of an
+exposed request is visible in the whole computation's declared language. -/
+theorem TypedLanguageFreeRequest.interface_visible
+    {request : LanguageFreeRequest}
+    {typing : HasLanguageComp sig ctx request.source resultTy resultEffect}
+    (requestTyping : TypedLanguageFreeRequest typing)
+    (nonErasing : requestTyping.contextTyping.NonErasing) :
+    resultEffect.contains [EffectAtom.free request.interface] := by
+  apply requestTyping.contextTyping.propagates_of_nonErasing nonErasing
+  exact requestTyping.requestBelowHole _ (Effect.le_refl _)
+
+theorem TypedLanguageFreeRequest.not_exposed_of_interface_absent
+    {request : LanguageFreeRequest}
+    {typing : HasLanguageComp sig ctx request.source resultTy resultEffect}
+    (requestTyping : TypedLanguageFreeRequest typing)
+    (nonErasing : requestTyping.contextTyping.NonErasing)
+    (absent : ∀ trace, resultEffect.contains trace →
+      EffectAtom.free request.interface ∉ trace) : False := by
+  exact absent _ (requestTyping.interface_visible nonErasing) (by simp)
 
 structure TypedLanguageBaseRequest
     {request : LanguageBaseRequest}

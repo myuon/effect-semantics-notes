@@ -39,6 +39,7 @@ import EffectSemantics.Examples.ExceptionShallow
 import EffectSemantics.Certificate.BaseModels
 import EffectSemantics.Certificate.GenericFreeExtension
 import EffectSemantics.Examples.GenericBaseInstances
+import EffectSemantics.Examples.PartialHandlerCounterexample
 import EffectSemantics.Recursive.DeepApprox
 import EffectSemantics.Recursive.Fixpoint
 import EffectSemantics.Recursive.FiniteObservation
@@ -66,6 +67,7 @@ import EffectSemantics.Metatheory.LanguageSubstitution
 import EffectSemantics.Operational.LanguageStep
 import EffectSemantics.Metatheory.LanguagePreservation
 import EffectSemantics.Examples.LanguageRecursion
+import EffectSemantics.Examples.EffectErasureCounterexample
 import EffectSemantics.Metatheory.LanguageProgress
 import EffectSemantics.Metatheory.LanguageRequests
 import EffectSemantics.Operational.LanguageShallowHandler

@@ -141,6 +141,23 @@ def seq (left right : EffectLanguage) : EffectLanguage where
     exact ⟨leftTrace, rightTrace, leftMember, rightMember,
       Effect.le_trans below largerBound⟩
 
+/-- An empty suffix erases every sequential prefix.  This law explains why
+empty-free-effect safety needs a non-erasing/well-formedness premise. -/
+theorem seq_right_bottom (language : EffectLanguage) :
+    seq language bottom = bottom := by
+  apply le_antisymm
+  · rintro trace ⟨leftTrace, rightTrace, leftMember, rightMember, bound⟩
+    exact False.elim rightMember
+  · exact bottom_le _
+
+/-- If the suffix admits the empty trace, sequencing cannot erase any trace
+already admitted by the prefix. -/
+theorem le_seq_of_one_right (oneMember : right.contains 1) :
+    left ≤ seq left right := by
+  intro trace traceMember
+  exact ⟨trace, 1, traceMember, oneMember, by
+    simpa [Effect.mul_def] using Effect.le_refl trace⟩
+
 /-- Monotone language-level shallow transformer: transform each possible
 trace, then take downward closure. -/
 def handle (selected : Nat) (replacement : Effect)
@@ -203,6 +220,35 @@ theorem seq_replacement_le_handleWith
   refine ⟨source, sourceMember, Or.inr
     ⟨replacementTrace, replacementMember, ?_⟩⟩
   simpa [source, TypedWriterTree.replaceFirst, Effect.mul_def] using outputBound
+
+/-- The sharp affine effect equation on an anchored principal word.  The
+prefix-freeness premise ensures that the displayed selected atom is the first
+one handled. -/
+theorem anchored_replacement_le_handleWith
+    (freeOf : Effect.FreeOf selected pre) :
+    principal (pre * replacementTrace * suffixTrace) ≤
+      handleWith selected (principal replacementTrace)
+        (principal (pre * [EffectAtom.free selected] * suffixTrace)) := by
+  intro output outputBound
+  let source := pre * [EffectAtom.free selected] * suffixTrace
+  refine ⟨source, Effect.le_refl source, Or.inr
+    ⟨replacementTrace, Effect.le_refl replacementTrace, ?_⟩⟩
+  rw [show source = pre ++ EffectAtom.free selected :: suffixTrace by
+    simp [source, Effect.mul_def, List.append_assoc]]
+  rw [TypedWriterTree.replaceFirst_anchored freeOf]
+  change output ≤ pre ++ replacementTrace ++ suffixTrace at outputBound
+  simpa [Effect.mul_def, List.append_assoc] using outputBound
+
+/-- Monotone upper-bound form of the anchored affine theorem. -/
+theorem anchored_replacement_le_handleWith_of_bounds
+    (freeOf : Effect.FreeOf selected pre)
+    (replacementBound : principal replacementTrace ≤ replacement)
+    (inputBound : principal
+      (pre * [EffectAtom.free selected] * suffixTrace) ≤ input) :
+    principal (pre * replacementTrace * suffixTrace) ≤
+      handleWith selected replacement input := by
+  exact le_trans (anchored_replacement_le_handleWith freeOf)
+    (handleWith_mono replacementBound inputBound)
 
 /-- A pure clause eliminates the only selected request in a singleton
 principal input language. -/
@@ -433,6 +479,14 @@ theorem power_mono (bound : lower ≤ upper) (count : Nat) :
 theorem star_mono (bound : lower ≤ upper) : star lower ≤ star upper := by
   rintro trace ⟨count, member⟩
   exact ⟨count, power_mono bound count trace member⟩
+
+/-- Handler-specific recursive effect closure: once one body execution is
+bounded by `handledBody`, every finite number of handled iterations is bounded
+by its Kleene closure. -/
+theorem handled_star_le
+    (bodyBound : handleWith selected replacement body ≤ handledBody) :
+    star (handleWith selected replacement body) ≤ star handledBody :=
+  star_mono bodyBound
 
 /-- `star body` is the least language containing the pure trace and closed
 under prefixing by one body execution. -/

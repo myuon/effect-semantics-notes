@@ -2,7 +2,10 @@
 
 :::{admonition} Lean correspondence — `FreeCert`
 :class: tip
-The readable `FreeCert` record is a **Paper abstraction**. Its central conclusions are individually **Lean checked** by [`genericFreeExtensionStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericFreeExtensionStructurePreservation#doc), [`Morphism.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.Morphism.lift#doc), [`Relation.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.Relation.lift#doc), and [`AdequacyCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.AdequacyCert.lift#doc). [Full mapping](review-guide.md#chapter-ii-free-operations).
+The source-language Chapter-II boundary is now an exact Lean record,
+[`LanguageFreeStageCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFreeStageCert#doc), constructed by
+[`languageFreeStagePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageFreeStagePreservation#doc).
+The grade-independent semantic core is [`GenericFreeExtensionCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericFreeExtensionCert#doc), with morphism, relation and adequacy lifts checked separately. The stronger grade-indexed initial-algebra presentation below remains a readable abstraction, not an identification theorem between the two representations. [Full mapping](review-guide.md#chapter-ii-free-operations).
 :::
 
 ### Numbered-statement inventory
@@ -10,12 +13,12 @@ The readable `FreeCert` record is a **Paper abstraction**. Its central conclusio
 | statement | review status | correspondence |
 |---|---|---|
 | Lemma II.1–Theorem II.3, substitution/preservation/progress | Lean checked components | [`LanguageStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc), [`HasLanguageComp.progressClosed`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed#doc) |
-| Corollary II.4, empty-free-effect safety | Paper corollary of typed progress | no separate declaration claimed |
+| Boundary II.4, empty-free-effect safety | false without non-erasure; repaired theorem Lean checked | [`not_exposed_of_interface_absent`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.TypedLanguageFreeRequest.not_exposed_of_interface_absent#doc) |
 | Theorem II.5, old-language operational conservativity | Lean checked component | [`Step.preservesBaseOnly`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.Step.preservesBaseOnly#doc) |
 | Theorem II.6, free-extension algebra | Lean checked | [`genericFreeExtensionStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericFreeExtensionStructurePreservation#doc) |
 | Theorem II.7, denotational conservativity | Lean checked | [`eraseFree_embedBase`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.eraseFree_embedBase#doc) |
 | Theorem II.8, finite adequacy lifting | Lean checked | [`GenericExtensionAlgebra.AdequacyCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.AdequacyCert.lift#doc) |
-| Definition II.1–II.2 and Theorem II.9, `FreeCert` | Paper packaging of checked layers | [generic finite theorem](generic-free-extension-theorem-v1.md) |
+| Definition II.1–II.2 and Theorem II.9, `FreeCert` | readable grade-indexed abstraction; ungraded structural core Lean checked | [`GenericFreeExtensionCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericFreeExtensionCert#doc) |
 
 ## Status
 
@@ -25,7 +28,7 @@ hypotheses.
 
 ## 1. Substitution and preservation
 
-### Lemma II.1 `[C2-CERT.1.1]` — substitution [[Lean: substitution development]](https://myuon.github.io/effect-semantics-notes/lean/EffectSemantics/Syntax/LanguageRenameSubst.html)
+### Lemma II.1 `[C2-CERT.1.1]` — substitution [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.subst_preserved#doc)
 
 The Chapter-I value/computation substitution lemmas remain valid after adding
 free operations.
@@ -75,12 +78,17 @@ Induction on syntax, reusing Chapter-I canonical forms.  The new operation case
 is immediate.  In a sequencing context, unique decomposition of the left term
 determines exactly one enclosing case. $\square$
 
-### Corollary II.4 `[C2-CERT.2.2]` — empty-free-effect safety [Paper corollary]
+### Boundary II.4 `[C2-CERT.2.2]` — empty-free-effect safety [[Lean: counterexample]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.empty_free_effect_safety_counterexample#doc) [[Lean: repaired theorem]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.TypedLanguageFreeRequest.not_exposed_of_interface_absent#doc)
 
-If the extended bound contains no free-interface factor and weakening cannot
-remove free factors, evaluation cannot expose a free request.
+The unconditional statement is false for the current effect algebra:
+sequential composition with `bottom` erases every prefix.  Lean checks a
+closed typed term whose annotation is `bottom` but whose first boundary is a
+free request.  The repaired theorem assumes that every continuation frame is
+**non-erasing**, meaning its suffix language contains the empty trace.  Under
+that premise, absence of the selected interface from every trace in the final
+bound implies that evaluation cannot expose the request.
 
-This is a may-effect safety result.  The converse is false: a term typed using
+This repaired statement is a may-effect safety result.  The converse is false: a term typed using
 $1\leq\Delta$ may terminate without exposing $\Delta$.
 
 ## 3. Old-language operational conservativity
@@ -226,7 +234,7 @@ The current language-graded finite realization is checked by
 its operational/tree adequacy component is
 [`language_writer_operational_tree_adequacy`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.language_writer_operational_tree_adequacy#doc).
 
-### Definition II.1 `[C2-CERT.8.1]` — layered Chapter-II certificates [Paper packaging]
+### Definition II.1 `[C2-CERT.8.1]` — layered Chapter-II certificates [[Lean: source stage]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFreeStageCert#doc) [[Lean: semantic core]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericFreeExtensionCert#doc)
 
 For $\widehat L=L_B+\Sigma$ define the following records.
 
@@ -265,7 +273,7 @@ For $\widehat L=L_B+\Sigma$ define the following records.
 The record names used in the dependency audit are therefore definitions, not
 informal labels.
 
-### Definition II.2 `[C2-CERT.8.2]` — bundled `FreeCert` [Paper packaging]
+### Definition II.2 `[C2-CERT.8.2]` — bundled `FreeCert` [Readable grade-indexed abstraction]
 
 For an extension $\widehat L=L_B+\Sigma$ with effect algebra $\widehat E$
 and carrier $\mathsf F=\mathsf F_\Sigma(T)$, we say that
@@ -397,7 +405,7 @@ $$
 
 where $o$ ranges over separated returns, base outcomes and free requests.
 
-### Theorem II.9 `[C2-CERT.8.3]` — layered free-extension certificates [Paper packaging of Lean-checked layers]
+### Theorem II.9 `[C2-CERT.8.3]` — layered free-extension certificates [[Lean: source theorem]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageFreeStagePreservation#doc) [[Lean: generic theorem]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericFreeExtensionStructurePreservation#doc)
 
 Assume the following premises, each only where cited below.
 
@@ -441,6 +449,11 @@ $$
 $$
 
 holds.
+
+The two linked Lean theorems check the source-language and ungraded generic
+structural layers exactly. The additional indexed Lambek-isomorphism and
+coherent base-action premises in the displayed theorem are explicit paper
+hypotheses; no unchecked bridge equating the two carriers is claimed.
 
 ### Boundary
 

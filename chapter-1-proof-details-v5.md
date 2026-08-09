@@ -9,7 +9,7 @@ This is a proof appendix. Use the [Chapter-I mapping](review-guide.md#chapter-i-
 
 We work modulo alpha-renaming and use capture-avoiding substitution.
 
-:::{prf:lemma} `[C1-PROOF.1.1]` Weakening [Paper]
+:::{prf:lemma} `[C1-PROOF.1.1]` Weakening [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.rename_preserved#doc)
 :label: lem-i-weakening-v5
 
 If $\Gamma\vdash J$ and $x\notin\mathrm{dom}(\Gamma)$, then
@@ -20,7 +20,7 @@ $\Gamma,x:A\vdash J$.
 the induction hypothesis.  Variable lookup uses the original membership;
 effect annotations are unchanged. $\square$
 
-:::{prf:lemma} `[C1-PROOF.1.2]` Value and computation substitution [[Lean: substitution development]](https://myuon.github.io/effect-semantics-notes/lean/EffectSemantics/Syntax/LanguageRenameSubst.html)
+:::{prf:lemma} `[C1-PROOF.1.2]` Value and computation substitution [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.subst_preserved#doc)
 :label: lem-i-substitution-v5
 
 If $\Gamma,x:A\vdash J$ and $\Gamma\vdash W:A$, substituting $W$ for $x$
@@ -40,7 +40,7 @@ the grammar. $\square$
 
 ## 2. Preservation
 
-:::{prf:lemma} `[C1-PROOF.2.1]` Application elaboration [Paper]
+:::{prf:lemma} `[C1-PROOF.2.1]` Application elaboration [Derived notation]
 :label: lem-i-application-elaboration-v5
 
 If
@@ -89,7 +89,7 @@ through the elaboration lemma. $\square$
 
 ## 3. Unique decomposition
 
-:::{prf:lemma} `[C1-PROOF.3.1]` Canonical values [Paper]
+:::{prf:lemma} `[C1-PROOF.3.1]` Canonical values [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageVal.closed_arr_canonical#doc)
 :label: lem-i-canonical-v5
 
 A closed value of function, product, sum, unit, or base type has the
@@ -99,7 +99,7 @@ corresponding introduction form.
 **Proof.** Inversion of the value typing derivation; a closed variable case is
 impossible. $\square$
 
-:::{prf:theorem} `[C1-PROOF.3.2]` Unique base decomposition [[Lean: progress component]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed#doc) [Paper: uniqueness strengthening]
+:::{prf:theorem} `[C1-PROOF.3.2]` Unique base decomposition [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageProgress.kind_unique#doc)
 :label: thm-i-decomposition-detail-v5
 
 Every closed typed computation is exactly one of a return, a uniquely located
@@ -124,7 +124,7 @@ support of the base response kernel reaches a classified observation, and a func
 is in $\mathcal V_{A\xrightarrow{b}B}$ when it maps every $\mathcal V_A$ argument to
 $\mathcal C_B$.
 
-:::{prf:lemma} `[C1-PROOF.4.1]` Fundamental reducibility lemma [Paper]
+:::{prf:conjecture} `[C1-PROOF.4.1]` Fundamental reducibility lemma [Formalization boundary]
 :label: lem-i-reducibility-v5
 
 If $\Gamma\vdash J$, every closing substitution mapping variables to
@@ -138,7 +138,7 @@ the body; a terminal base outcome remains terminal.  A primitive is reducible
 by the base-package termination hypothesis.  Products, sums and cases are
 standard.  Subeffecting does not change the term. $\square$
 
-:::{prf:theorem} `[C1-PROOF.4.2]` Recursion-free normalization [Paper]
+:::{prf:conjecture} `[C1-PROOF.4.2]` Recursion-free normalization [Formalization boundary]
 :label: thm-i-normalization-detail-v5
 
 Every branch of a closed typed Chapter-I computation reaches a classified base
@@ -152,9 +152,16 @@ evaluation position; the typed response map supplies the possibly many
 successors at a primitive request.  Branchwise well-foundedness therefore
 defines the $\mathcal K$-structured result. $\square$
 
+This outline is not presented as kernel-checked: the formal grammar contains
+`fixLam`, while this claim requires a separately defined `NoFix` fragment and
+a well-founded response-kernel premise.
+
 ## 5. Semantic soundness and effect safety
 
-Semantic substitution is proved simultaneously for values and computations by
+In the mechanized response-tree semantics, semantic sequencing/substitution is
+[`ProducesLanguageWriterTree.letE`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.letE#doc), and one-step invariance is
+[`ProducesLanguageWriterTree.internalStepInvariant`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.internalStepInvariant#doc).
+For a total categorical model, semantic substitution is proved simultaneously for values and computations by
 typing induction.  The binder cases use functoriality, strength naturality and
 the monad laws; primitives use naturality of their supplied interpretation.
 Each principal reduction equation then follows respectively from semantic

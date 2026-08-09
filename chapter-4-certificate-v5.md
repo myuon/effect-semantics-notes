@@ -12,9 +12,9 @@ The canonical generic certificate is [`GenericRecursiveResumptionCert`](https://
 | Definition IV.1, recursive local certificate | Lean checked counterpart | [`GenericRecursiveResumptionCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumptionCert#doc) |
 | recursive preservation/progress | Lean checked source-language component | [`languageRecursiveStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageRecursiveStructurePreservation#doc) |
 | derived/deep coincidence | Lean checked semantically by shallow reinstallation functional | [`RecursiveResumptionSystem.functional`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.RecursiveResumptionSystem.functional#doc) |
-| exhaustive-interface elimination | Paper theorem under the displayed exhaustiveness premise | no stronger unconditional claim |
+| exhaustive-interface elimination | Lean checked source-boundary theorem under exhaustiveness | [`exhaustive_no_escaping_selected_request`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageAffineHandler.exhaustive_no_escaping_selected_request#doc) |
 | recursive adequacy transport | Lean checked | [`GenericRecursiveResumptionCert.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumptionCert.main#doc) |
-| Definition IV.2 and layered theorem | Paper packaging of checked LFP/morphism/relation/TT layers | [generic recursive theorem](generic-recursive-resumption-theorem-v1.md) |
+| Definition IV.2 and layered theorem | readable decomposition with exact source and generic packages | [`LanguageRecursiveStructureCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveStructureCert#doc) |
 
 ## Status
 
@@ -167,7 +167,7 @@ identify their suprema. $\square$
 
 ## 4. Deep elimination
 
-:::{prf:theorem} `[C4-CERT.4.1]` Elimination of an exhaustive interface [Paper]
+:::{prf:theorem} `[C4-CERT.4.1]` Elimination of an exhaustive interface [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageAffineHandler.exhaustive_no_escaping_selected_request#doc)
 :label: thm-deep-elimination-v5
 
 If
@@ -194,6 +194,11 @@ matching request enters a clause; a nonmatching request is rebuilt with the
 invariant in its continuation.  Admissibility closes the semantic statement
 at the least fixed point.  Divergence does not invalidate the prefix safety
 invariant.
+
+In Lean, `EscapingSelectedRequest` is the directly checkable boundary
+predicate: the current head is a selected free request for which lookup
+returns `none`. Exhaustiveness rules this out for every configuration, hence
+also for every member of any finite execution prefix; termination is not used.
 
 ## 5. Adequacy
 
@@ -253,7 +258,7 @@ Its concrete ordered-language Writer instance is
 and the completed adequacy theorem is
 [`language_deep_writer_semantic_adequacy`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.language_deep_writer_semantic_adequacy#doc).
 
-### Definition IV.2 `[C4-CERT.7.1]` — layered derived-deep certificates [Paper packaging]
+### Definition IV.2 `[C4-CERT.7.1]` — layered derived-deep certificates [[Lean: source package]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveStructureCert#doc)
 
 Define:
 
@@ -306,7 +311,7 @@ $$
 \end{aligned}
 $$
 
-:::{prf:theorem} `[C4-CERT.7.2]` Layered recursive derived-deep certificates [Paper packaging of Lean-checked layers]
+:::{prf:theorem} `[C4-CERT.7.2]` Layered recursive derived-deep certificates [[Lean: source theorem]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageRecursiveStructurePreservation#doc)
 :label: thm-recursive-derived-deep-certificate-v5
 
 The conclusions and their premises are separate implications:

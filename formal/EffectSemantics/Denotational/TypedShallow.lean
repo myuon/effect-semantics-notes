@@ -145,6 +145,22 @@ def replaceFirst (selected : Nat) (replacement : Effect) : Effect → Effect
       if atom = EffectAtom.free selected then replacement ++ tail
       else atom :: replaceFirst selected replacement tail
 
+/-- Exact first-occurrence replacement under a prefix known not to contain
+the selected interface. -/
+theorem replaceFirst_anchored
+    (freeOf : Effect.FreeOf selected pre) :
+    replaceFirst selected replacement
+      (pre ++ EffectAtom.free selected :: suffix) =
+      pre ++ replacement ++ suffix := by
+  induction pre with
+  | nil => simp [replaceFirst]
+  | cons atom tail ih =>
+      simp only [Effect.FreeOf, List.mem_cons, not_or] at freeOf
+      have atomNotSelected : atom ≠ EffectAtom.free selected := by
+        intro equal
+        exact freeOf.1 equal.symm
+      simp [replaceFirst, atomNotSelected, ih freeOf.2, List.append_assoc]
+
 /-- First-occurrence replacement is not monotone for ordered-subsequence
 subeffecting.  This checked counterexample is why the exact-grade theorem below
 cannot be lifted through arbitrary weakening without a monotone envelope or a
