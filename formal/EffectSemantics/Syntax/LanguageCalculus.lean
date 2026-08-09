@@ -20,26 +20,47 @@ structure LanguageSignature where
   base : Nat → Option LanguageOpDecl
   free : Nat → Nat → Option LanguageOpDecl
 
+/-- Whether the source grammar contains general recursion.  The finite
+fragment is used by Chapters I--III; Chapter IV explicitly moves to the
+recursive fragment. -/
+inductive RecMode where
+  | finite
+  | recursive
+  deriving DecidableEq
+
+/-- Evidence that the recursive constructor is available in a syntax mode. -/
+inductive FixAllowed : RecMode → Type where
+  | recursive : FixAllowed .recursive
+
 mutual
-  inductive LanguageVal where
+  inductive LanguageVal (mode : RecMode) : Type where
     | var (index : Nat)
     | unit
     | bool (value : Bool)
-    | pair (left right : LanguageVal)
-    | inl (value : LanguageVal) (rightTy : LanguageTy)
-    | inr (leftTy : LanguageTy) (value : LanguageVal)
-    | lam (domain : LanguageTy) (latent : EffectLanguage) (body : LanguageComp)
-    | fixLam (domain : LanguageTy) (latent : EffectLanguage) (body : LanguageComp)
+    | pair (left right : LanguageVal mode)
+    | inl (value : LanguageVal mode) (rightTy : LanguageTy)
+    | inr (leftTy : LanguageTy) (value : LanguageVal mode)
+    | lam (domain : LanguageTy) (latent : EffectLanguage)
+        (body : LanguageComp mode)
+    | fixLam (allowed : FixAllowed mode) (domain : LanguageTy)
+        (latent : EffectLanguage) (body : LanguageComp mode)
 
-  inductive LanguageComp where
-    | ret (value : LanguageVal)
-    | letE (bound : LanguageComp) (body : LanguageComp)
-    | app (function argument : LanguageVal)
-    | ite (condition : LanguageVal) (thenBranch elseBranch : LanguageComp)
-    | case (scrutinee : LanguageVal) (leftBranch rightBranch : LanguageComp)
-    | baseOp (operation : Nat) (parameter : LanguageVal)
-    | freeOp (interface operation : Nat) (parameter : LanguageVal)
+  inductive LanguageComp (mode : RecMode) : Type where
+    | ret (value : LanguageVal mode)
+    | letE (bound : LanguageComp mode) (body : LanguageComp mode)
+    | app (function argument : LanguageVal mode)
+    | ite (condition : LanguageVal mode)
+        (thenBranch elseBranch : LanguageComp mode)
+    | case (scrutinee : LanguageVal mode)
+        (leftBranch rightBranch : LanguageComp mode)
+    | baseOp (operation : Nat) (parameter : LanguageVal mode)
+    | freeOp (interface operation : Nat) (parameter : LanguageVal mode)
 end
+
+abbrev FinLanguageVal := LanguageVal .finite
+abbrev FinLanguageComp := LanguageComp .finite
+abbrev RecLanguageVal := LanguageVal .recursive
+abbrev RecLanguageComp := LanguageComp .recursive
 
 abbrev LanguageContext := List LanguageTy
 
@@ -49,8 +70,8 @@ def LanguageContext.lookup : LanguageContext → Nat → Option LanguageTy
   | _ :: rest, index + 1 => LanguageContext.lookup rest index
 
 mutual
-  inductive HasLanguageVal (sig : LanguageSignature) :
-      LanguageContext → LanguageVal → LanguageTy → Type where
+  inductive HasLanguageVal (sig : LanguageSignature) {mode : RecMode} :
+      LanguageContext → LanguageVal mode → LanguageTy → Type where
     | var : LanguageContext.lookup ctx index = some ty →
         HasLanguageVal sig ctx (.var index) ty
     | unit : HasLanguageVal sig ctx .unit .unit
@@ -64,14 +85,15 @@ mutual
         HasLanguageVal sig ctx (.inr leftTy value) (.sum leftTy rightTy)
     | lam : HasLanguageComp sig (domain :: ctx) body codomain latent →
         HasLanguageVal sig ctx (.lam domain latent body) (.arr domain latent codomain)
-    | fixLam :
+    | fixLam (allowed : FixAllowed mode) :
         HasLanguageComp sig (domain :: .arr domain latent codomain :: ctx)
           body codomain latent →
-        HasLanguageVal sig ctx (.fixLam domain latent body)
+        HasLanguageVal sig ctx (.fixLam allowed domain latent body)
           (.arr domain latent codomain)
 
-  inductive HasLanguageComp (sig : LanguageSignature) :
-      LanguageContext → LanguageComp → LanguageTy → EffectLanguage → Type where
+  inductive HasLanguageComp (sig : LanguageSignature) {mode : RecMode} :
+      LanguageContext → LanguageComp mode →
+        LanguageTy → EffectLanguage → Type where
     | ret : HasLanguageVal sig ctx value ty →
         HasLanguageComp sig ctx (.ret value) ty (principal 1)
     | letE : HasLanguageComp sig ctx bound boundTy boundEffect →

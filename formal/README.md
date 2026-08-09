@@ -1,5 +1,12 @@
 # Effect Semantics Lean formalization
 
+The source grammar is indexed by `RecMode`. Chapters I–III use
+`FinLanguageVal`/`FinLanguageComp`; Chapter IV uses
+`RecLanguageVal`/`RecLanguageComp`. General recursion requires
+`FixAllowed mode`, inhabited only at `.recursive`. The checked inclusion and
+one-step simulation are in
+`EffectSemantics.Metatheory.LanguageRecursionEmbedding`.
+
 Pinned toolchain: Lean `v4.32.2`.
 
 Build from this directory with:

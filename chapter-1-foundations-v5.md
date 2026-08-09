@@ -2,7 +2,7 @@
 
 :::{admonition} Lean correspondence — syntax and typing
 :class: tip
-**Lean checked.** Values/computations are [`Val` and `Comp`](https://myuon.github.io/effect-semantics-notes/lean/EffectSemantics/Syntax/Term.html); language-graded judgments are [`HasLanguageVal` and `HasLanguageComp`](https://myuon.github.io/effect-semantics-notes/lean/EffectSemantics/Syntax/LanguageCalculus.html). The paper-level `BaseCert` is a readable packaging of checked component lemmas, not a single declaration with the same fields. [Full mapping](review-guide.md#chapter-i-fixed-base-language).
+**Lean checked.** This chapter uses [`FinLanguageVal` and `FinLanguageComp`](https://myuon.github.io/effect-semantics-notes/lean/EffectSemantics/Syntax/LanguageCalculus.html); Chapter IV separately uses `RecLanguageVal` and `RecLanguageComp`. Both instantiate one mode-indexed grammar, but `FixAllowed .finite` has no constructor, so finite terms cannot contain `fixLam`. The paper-level `BaseCert` is a readable packaging of checked component lemmas. [Full mapping](review-guide.md#chapter-i-fixed-base-language).
 :::
 
 ## Status
@@ -191,7 +191,7 @@ A base instance supplies:
 - the ordered upper-bound algebra $B$;
 - effect soundness of its primitive machine rules;
 - substitution, preservation and effect-aware progress;
-- a recursion-free predicate $M.\mathsf{NoFix}$, closed under substitution and
+- the separate grammar `FinLanguageComp`, closed under substitution and
   reduction, plus branchwise normalization for that fragment in Chapters I–III;
 - an observation function $\mathsf{obs}_B$;
 - optionally a graded monad $T_b$ and an adequacy certificate relating
@@ -221,7 +221,7 @@ Before adding operations we must prove or assume, per base instance:
 1. substitution;
 2. preservation;
 3. unique evaluation-context/request decomposition;
-4. structural closure of $M.\mathsf{NoFix}$ and recursion-free branchwise
+4. structural closure of `FinLanguageComp` and recursion-free branchwise
    normalization for that fragment, yielding a well-defined outcome object
    in $\mathcal K(\mathsf{Obs}_B)$;
 5. effect soundness: runtime steps never perform an effect excluded by the

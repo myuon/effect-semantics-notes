@@ -12,14 +12,13 @@ language-graded Writer observation and proves the typed observation pole.
 -/
 
 /-- The recursive completion of the finite ordered-language theorem for the
-Writer base observation.  Its only base-specific premise says that operation
-zero, when declared, returns Unit. -/
+Writer base observation.  Its base-specific premises are isolated at the two
+visible recursive boundaries: the Writer response and a matched free request. -/
 structure LanguageRecursiveStructureCert
     (sig : LanguageSignature) (selected : Nat)
-    (handler : LanguageAffineHandler) (replacement : EffectLanguage) where
+    (handler : LanguageAffineHandler .recursive) (replacement : EffectLanguage) where
   finite : LanguageFiniteStructureCert sig
-  writerResponse : LanguageWriterResponseUnit sig
-  handlerTyping : HasLanguageAffineHandler sig [] selected handler replacement
+  boundaries : LanguageRecursiveBoundaryTypingCert sig selected handler replacement
   continuous : FlatApproximation.OmegaContinuous
     (languageDeepWriterFunctional selected handler)
   unfold : languageDeepWriterFunctional selected handler
@@ -35,19 +34,18 @@ structure LanguageRecursiveStructureCert
     HasLanguageComp sig [] term resultTy effect →
     languageDeepWriterSemantics selected handler term = some (log, value) →
     Nonempty (HasLanguageVal sig [] value resultTy)
-  poleAdmissible : ∀ (pole : LanguageComp →
-      (List LanguageVal × LanguageVal) → Prop),
+  poleAdmissible : ∀ (pole : RecLanguageComp →
+      (List RecLanguageVal × RecLanguageVal) → Prop),
     FlatApproximation.Admissible (FlatApproximation.Satisfies pole)
 
 def LanguageTypedWriterPole (sig : LanguageSignature) :
-    LanguageComp → (List LanguageVal × LanguageVal) → Prop :=
+    RecLanguageComp → (List RecLanguageVal × RecLanguageVal) → Prop :=
   fun term outcome => ∀ (resultTy : LanguageTy) (effect : EffectLanguage),
     HasLanguageComp sig [] term resultTy effect →
       Nonempty (HasLanguageVal sig [] outcome.2 resultTy)
 
 theorem languageDeepWriterLayer_preserves_typedPole
-    (writerResponse : LanguageWriterResponseUnit sig)
-    (handlerTyping : HasLanguageAffineHandler sig [] selected handler replacement)
+    (boundaries : LanguageRecursiveBoundaryTypingCert sig selected handler replacement)
     (approximation : LanguageDeepWriterApproximation)
     (good : FlatApproximation.Satisfies (LanguageTypedWriterPole sig)
       approximation) :
@@ -60,30 +58,21 @@ theorem languageDeepWriterLayer_preserves_typedPole
       simp only [found] at observed
       have outcomeEq : ([], value) = outcome := Option.some.inj observed
       subst outcome
-      have source := LanguageComp.head_returned_sound found
+      have source := RecLanguageComp.head_returned_sound found
       subst term
       exact ⟨typing.returnView.valueTyping⟩
   | internal next =>
       simp only [found] at observed
-      obtain ⟨step⟩ := LanguageComp.head_internal_sound found
+      obtain ⟨step⟩ := RecLanguageComp.head_internal_sound found
       exact good next outcome observed resultTy effect (step.preserve typing)
   | base request =>
       by_cases writer : request.operation = 0
       · simp only [found, writer, if_pos, Option.map_eq_some_iff] at observed
         obtain ⟨tail, finite, transformed⟩ := observed
-        have source := LanguageComp.head_base_sound found
+        have source := RecLanguageComp.head_base_sound found
         rw [source] at typing
-        let requestTyping := typing.exposedBaseView
-        have operationLookup : sig.base 0 =
-            some ⟨requestTyping.parameterTy, requestTyping.responseTy⟩ := by
-          simpa [writer] using requestTyping.lookup
-        have responseEq := writerResponse.responseUnit operationLookup
-        have unitTyping : HasLanguageVal sig [] (.unit : LanguageVal)
-            requestTyping.responseTy := by
-          rw [responseEq]
-          exact .unit
         have tailGood := good (request.resume .unit) tail finite resultTy effect
-          (requestTyping.resumeTyping unitTyping)
+          (boundaries.baseResume writer typing)
         cases tail with
         | mk tailLog tailValue =>
             simp at transformed
@@ -96,18 +85,17 @@ theorem languageDeepWriterLayer_preserves_typedPole
         | none => simp [found, same, clauseFound] at observed
         | some clause =>
             simp only [found, same, if_pos, clauseFound] at observed
-            have source := LanguageComp.head_free_sound found
+            have source := RecLanguageComp.head_free_sound found
             rw [source] at typing
             exact good (request.answerWith clause) outcome observed resultTy
               (EffectLanguage.handleWith selected replacement effect)
-              (handlerTyping.answerWithTyping typing same clauseFound)
+              (boundaries.matchedAnswer same clauseFound typing)
       · simp [found, same] at observed
   | stuck => simp [found] at observed
 
 noncomputable def languageWriterRecursiveBaseCert
-    (writerResponse : LanguageWriterResponseUnit sig)
-    (handlerTyping : HasLanguageAffineHandler sig [] selected handler replacement) :
-    LanguageRecursiveBaseCert sig (List LanguageVal × LanguageVal) where
+    (boundaries : LanguageRecursiveBoundaryTypingCert sig selected handler replacement) :
+    LanguageRecursiveBaseCert sig (List RecLanguageVal × RecLanguageVal) where
   source := languageSourceStructureCert sig
   functional := languageDeepWriterFunctional selected handler
   continuous := languageDeepWriterFunctional_continuous selected handler
@@ -129,25 +117,23 @@ noncomputable def languageWriterRecursiveBaseCert
       exact observed
   pole := LanguageTypedWriterPole sig
   layerPreservesPole := languageDeepWriterLayer_preserves_typedPole
-    writerResponse handlerTyping
+    boundaries
 
 /-- Recursive ordered-language structure-preservation theorem.  Shallow
 handling supplies the one-layer functional; recursion supplies its least
 fixed point.  Adequacy and the ground fundamental property survive this
 completion. -/
 noncomputable def languageRecursiveStructurePreservation
-    (writerResponse : LanguageWriterResponseUnit sig)
-    (handlerTyping : HasLanguageAffineHandler sig [] selected handler replacement) :
+    (boundaries : LanguageRecursiveBoundaryTypingCert sig selected handler replacement) :
     LanguageRecursiveStructureCert sig selected handler replacement where
   finite := languageFiniteStructurePreservation sig
-  writerResponse := writerResponse
-  handlerTyping := handlerTyping
+  boundaries := boundaries
   continuous := languageDeepWriterFunctional_continuous selected handler
   unfold := languageDeepWriterSemantics_unfold
   least := languageDeepWriterSemantics_le_prefixed
   adequacy := language_deep_writer_semantic_adequacy
   fundamental := fun typing observed =>
-    languageDeepWriterSemantics_result_typed writerResponse handlerTyping
+    languageDeepWriterSemantics_result_typed boundaries
       typing observed
   poleAdmissible := FlatApproximation.satisfies_admissible
 

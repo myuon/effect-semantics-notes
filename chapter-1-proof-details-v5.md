@@ -118,10 +118,9 @@ disjoint. $\square$
 
 ## 4. Recursion-free normalization
 
-Restrict terms by the Lean-checked predicate
-[`LanguageComp.NoFix`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageComp.NoFix#doc).
-The fragment is substitution-closed and step-closed by
-[`LanguageStep.preserve_noFix`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve_noFix#doc).
+Restrict terms to the Lean type
+[`FinLanguageComp`](https://myuon.github.io/effect-semantics-notes/lean/EffectSemantics/Syntax/LanguageCalculus.html).
+The fragment is substitution-closed and step-closed by construction.
 Define reducible values $\mathcal V_A$ and computations $\mathcal C_A$ by
 type recursion.  A computation is in $\mathcal C_A$ when every branch in the
 support of the base response kernel reaches a classified observation, and a function value
@@ -145,8 +144,8 @@ standard.  Subeffecting does not change the term. $\square$
 :::{prf:conjecture} `[C1-PROOF.4.2]` Recursion-free normalization [Formalization boundary]
 :label: thm-i-normalization-detail-v5
 
-Every branch of a closed typed Chapter-I computation satisfying
-$M.\mathsf{NoFix}$ reaches a classified base
+Every branch of a closed typed Chapter-I computation
+$M:\mathsf{FinLanguageComp}$ reaches a classified base
 observation, so $\mathsf{run}_{\mathcal K}(M)\in\mathcal K(\mathsf{Obs}_B)$ is
 well defined.
 :::

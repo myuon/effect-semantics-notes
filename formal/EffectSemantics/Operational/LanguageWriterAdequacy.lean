@@ -5,10 +5,10 @@ namespace EffectSemantics
 open EffectLanguage
 
 inductive LanguageWriterRuns (sig : LanguageSignature) :
-    {term : LanguageComp} → {resultTy : LanguageTy} →
+    {term : FinLanguageComp} → {resultTy : LanguageTy} →
     {effect : EffectLanguage} →
     (typing : HasLanguageComp sig [] term resultTy effect) →
-    List LanguageVal → LanguageClosedVal sig resultTy → Type where
+    List FinLanguageVal → LanguageClosedVal sig resultTy → Type where
   | returned (typing : HasLanguageComp sig [] (.ret value) resultTy effect) :
       LanguageWriterRuns sig typing [] ⟨value, typing.returnView.valueTyping⟩
   | internal (step : LanguageStep term next)

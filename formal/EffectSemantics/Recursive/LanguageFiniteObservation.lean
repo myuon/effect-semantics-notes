@@ -5,13 +5,13 @@ namespace EffectSemantics
 
 /-- Deterministic head classification for the language-graded source. -/
 inductive LanguageHead where
-  | returned (value : LanguageVal)
-  | internal (next : LanguageComp)
+  | returned (value : FinLanguageVal)
+  | internal (next : FinLanguageComp)
   | base (request : LanguageBaseRequest)
   | free (request : LanguageFreeRequest)
   | stuck
 
-def LanguageComp.head : LanguageComp → LanguageHead
+def LanguageComp.head : FinLanguageComp → LanguageHead
   | .ret value => .returned value
   | .letE bound body =>
       match bound.head with
@@ -21,8 +21,7 @@ def LanguageComp.head : LanguageComp → LanguageHead
       | .free request => .free (request.outerLet body)
       | .stuck => .stuck
   | .app (.lam _ _ body) argument => .internal (body.subst0 argument)
-  | .app (.fixLam domain latent body) argument =>
-      .internal (body.subst2 argument (.fixLam domain latent body))
+  | .app (.fixLam allowed _ _ _) _ => nomatch allowed
   | .app _ _ => .stuck
   | .ite (.bool true) thenBranch _ => .internal thenBranch
   | .ite (.bool false) _ elseBranch => .internal elseBranch
@@ -39,7 +38,7 @@ theorem LanguageStep.to_head (step : LanguageStep term next) :
   induction step with
   | letReturn => rfl
   | beta => rfl
-  | fixBeta => rfl
+  | fixBeta => nomatch ‹FixAllowed .finite›
   | ifTrue => rfl
   | ifFalse => rfl
   | caseInl => rfl
@@ -102,14 +101,17 @@ theorem LanguageEvalContext.plug_head_free (context : LanguageEvalContext)
 
 mutual
   theorem LanguageComp.head_returned_sound
-      {term : LanguageComp} {value : LanguageVal}
+      {term : FinLanguageComp} {value : FinLanguageVal}
       (equal : term.head = LanguageHead.returned value) :
       term = LanguageComp.ret value := by
     cases term with
     | ret result => simp [LanguageComp.head] at equal; cases equal; rfl
     | letE bound body =>
         cases found : bound.head <;> simp [LanguageComp.head, found] at equal
-    | app function argument => cases function <;> simp [LanguageComp.head] at equal
+    | app function argument =>
+        cases function with
+        | fixLam allowed _ _ _ => nomatch allowed
+        | _ => simp [LanguageComp.head] at equal
     | ite condition thenBranch elseBranch =>
         cases condition with
         | bool flag => cases flag <;> simp [LanguageComp.head] at equal
@@ -120,7 +122,7 @@ mutual
     | freeOp interface operation parameter => simp [LanguageComp.head] at equal
 
   theorem LanguageComp.head_internal_sound
-      {term next : LanguageComp}
+      {term next : FinLanguageComp}
       (equal : term.head = .internal next) : Nonempty (LanguageStep term next) := by
     cases term with
     | ret value => simp [LanguageComp.head] at equal
@@ -141,9 +143,13 @@ mutual
         | free request => simp [LanguageComp.head, found] at equal
         | stuck => simp [LanguageComp.head, found] at equal
     | app function argument =>
-        cases function <;> simp [LanguageComp.head] at equal
-        · subst next; exact ⟨.beta⟩
-        · subst next; exact ⟨.fixBeta⟩
+        cases function with
+        | lam domain latent body =>
+            simp [LanguageComp.head] at equal
+            subst next
+            exact ⟨.beta⟩
+        | fixLam allowed _ _ _ => nomatch allowed
+        | _ => simp [LanguageComp.head] at equal
     | ite condition thenBranch elseBranch =>
         cases condition with
         | bool flag =>
@@ -159,7 +165,7 @@ mutual
     | freeOp interface operation parameter => simp [LanguageComp.head] at equal
 
   theorem LanguageComp.head_base_sound
-      {term : LanguageComp} {request : LanguageBaseRequest}
+      {term : FinLanguageComp} {request : LanguageBaseRequest}
       (equal : term.head = .base request) : term = request.source := by
     cases term with
     | ret value => simp [LanguageComp.head] at equal
@@ -174,7 +180,10 @@ mutual
             rw [exposed, LanguageBaseRequest.outerLet_source]
         | free innerRequest => simp [LanguageComp.head, found] at equal
         | stuck => simp [LanguageComp.head, found] at equal
-    | app function argument => cases function <;> simp [LanguageComp.head] at equal
+    | app function argument =>
+        cases function with
+        | fixLam allowed _ _ _ => nomatch allowed
+        | _ => simp [LanguageComp.head] at equal
     | ite condition thenBranch elseBranch =>
         cases condition with
         | bool flag => cases flag <;> simp [LanguageComp.head] at equal
@@ -188,7 +197,7 @@ mutual
     | freeOp interface operation parameter => simp [LanguageComp.head] at equal
 
   theorem LanguageComp.head_free_sound
-      {term : LanguageComp} {request : LanguageFreeRequest}
+      {term : FinLanguageComp} {request : LanguageFreeRequest}
       (equal : term.head = .free request) : term = request.source := by
     cases term with
     | ret value => simp [LanguageComp.head] at equal
@@ -203,7 +212,10 @@ mutual
             have exposed := LanguageComp.head_free_sound found
             rw [exposed, LanguageFreeRequest.outerLet_source]
         | stuck => simp [LanguageComp.head, found] at equal
-    | app function argument => cases function <;> simp [LanguageComp.head] at equal
+    | app function argument =>
+        cases function with
+        | fixLam allowed _ _ _ => nomatch allowed
+        | _ => simp [LanguageComp.head] at equal
     | ite condition thenBranch elseBranch =>
         cases condition with
         | bool flag => cases flag <;> simp [LanguageComp.head] at equal
@@ -218,12 +230,12 @@ mutual
 end
 
 inductive LanguageFiniteOutcome where
-  | returned (value : LanguageVal)
+  | returned (value : FinLanguageVal)
   | base (request : LanguageBaseRequest)
   | free (request : LanguageFreeRequest)
 
 /-- Fuel counts internal CBV reductions; a visible head is observed directly. -/
-def LanguageComp.observe : Nat → LanguageComp → Option LanguageFiniteOutcome
+def LanguageComp.observe : Nat → FinLanguageComp → Option LanguageFiniteOutcome
   | 0, _ => none
   | fuel + 1, term =>
       match term.head with
@@ -234,7 +246,7 @@ def LanguageComp.observe : Nat → LanguageComp → Option LanguageFiniteOutcome
       | .stuck => none
 
 theorem LanguageComp.observe_succ_of_some
-    {term : LanguageComp} {fuel : Nat} {outcome : LanguageFiniteOutcome}
+    {term : FinLanguageComp} {fuel : Nat} {outcome : LanguageFiniteOutcome}
     (observed : term.observe fuel = some outcome) :
     term.observe (fuel + 1) = some outcome := by
   induction fuel generalizing term with
@@ -249,7 +261,7 @@ theorem LanguageComp.observe_succ_of_some
       | free request => simpa [LanguageComp.observe, found] using observed
       | stuck => simp [LanguageComp.observe, found] at observed
 
-def LanguageComp.stableObservation (term : LanguageComp) :
+def LanguageComp.stableObservation (term : FinLanguageComp) :
     StableObservation LanguageFiniteOutcome where
   observeAt fuel := term.observe fuel
   stable := LanguageComp.observe_succ_of_some

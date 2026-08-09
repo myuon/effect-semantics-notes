@@ -29,7 +29,7 @@ noncomputable def shallow (selected : Nat) (handler : AffineSemantics sig) :
 theorem shallow_return (value : α) :
     shallow selected handler (.ret value) = .ret value := rfl
 
-theorem shallow_tell (message : LanguageVal)
+theorem shallow_tell (message : FinLanguageVal)
     (tail : LanguageWriterTree sig α) :
     shallow selected handler (.tell message tail) =
       .tell message (shallow selected handler tail) := rfl

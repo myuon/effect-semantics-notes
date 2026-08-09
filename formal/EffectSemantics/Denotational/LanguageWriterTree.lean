@@ -5,13 +5,13 @@ namespace EffectSemantics
 open EffectLanguage
 
 structure LanguageClosedVal (sig : LanguageSignature) (ty : LanguageTy) where
-  value : LanguageVal
+  value : FinLanguageVal
   typing : HasLanguageVal sig [] value ty
 
 /-- Response-typed Writer/free behavior trees for the language-graded source. -/
 inductive LanguageWriterTree (sig : LanguageSignature) (α : Type) where
   | ret (value : α)
-  | tell (message : LanguageVal) (next : LanguageWriterTree sig α)
+  | tell (message : FinLanguageVal) (next : LanguageWriterTree sig α)
   | free (interface operation : Nat)
       {parameterTy responseTy : LanguageTy}
       (lookup : sig.free interface operation =
@@ -91,7 +91,7 @@ noncomputable def HasEffect.bind
       exact ih.weaken (EffectLanguage.seq_mono bound
         (EffectLanguage.le_refl nextLanguage))
 
-inductive Observes : LanguageWriterTree sig α → List LanguageVal → α → Type where
+inductive Observes : LanguageWriterTree sig α → List FinLanguageVal → α → Type where
   | ret : Observes (.ret value) [] value
   | tell : Observes tree log value →
       Observes (.tell message tree) (message :: log) value

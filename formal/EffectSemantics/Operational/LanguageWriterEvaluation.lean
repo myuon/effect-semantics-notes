@@ -59,7 +59,7 @@ noncomputable def TypedLanguageBaseRequest.principal
 /-- A closed typed source computation unfolds to a response-typed
 Writer/free tree.  The relation is partial in the presence of recursion. -/
 inductive ProducesLanguageWriterTree (sig : LanguageSignature) :
-    {term : LanguageComp} → {resultTy : LanguageTy} →
+    {term : FinLanguageComp} → {resultTy : LanguageTy} →
     {effect : EffectLanguage} →
     (typing : HasLanguageComp sig [] term resultTy effect) →
     LanguageWriterTree sig (LanguageClosedVal sig resultTy) → Type where
@@ -224,7 +224,7 @@ noncomputable def ProducesLanguageWriterTree.letE
           (ih response continuation bodyProduces))
 
 noncomputable def ProducesLanguageWriterTree.effectSound
-    {sig : LanguageSignature} {term : LanguageComp}
+    {sig : LanguageSignature} {term : FinLanguageComp}
     {resultTy : LanguageTy} {effect : EffectLanguage}
     {typing : HasLanguageComp sig [] term resultTy effect}
     {tree : LanguageWriterTree sig (LanguageClosedVal sig resultTy)}

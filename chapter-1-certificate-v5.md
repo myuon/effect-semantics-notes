@@ -12,7 +12,7 @@
 | Lemma I.1–I.2, substitution | Lean checked | [`HasLanguageComp.subst_preserved`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.subst_preserved#doc) |
 | Theorem I.3, preservation | Lean checked | [`LanguageStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc) |
 | Theorem I.4, decomposition/progress | Lean checked at closed progress; uniqueness is a paper strengthening | [`HasLanguageComp.progressClosed`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed#doc) |
-| Conjecture I.5, recursion-free normalization | Precisely scoped formalization boundary | [`LanguageComp.NoFix`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageComp.NoFix#doc) and its substitution/reduction closure are Lean checked; reducibility normalization remains future work |
+| Conjecture I.5, recursion-free normalization | Precisely scoped formalization boundary | `FinLanguageComp` excludes recursion by construction and is substitution/reduction closed; reducibility normalization remains future work |
 | Lemma I.6–Theorem I.7, semantic substitution/soundness | Lean checked for the relational Writer/free-tree semantics | [`letE`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.letE#doc), [`internalStepInvariant`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.internalStepInvariant#doc) |
 | Theorem I.8, effect upper-bound safety | Lean checked component | [`HasLanguageEffect.observationMember`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.TypedWriterTree.HasLanguageEffect.observationMember#doc) |
 | Definition I.1 and Theorem I.9, `BaseCert` | Paper certificate packaging | component theorems above |
@@ -95,7 +95,7 @@ unique response.
 
 ### Conjecture I.5 `[C1-CERT.3.1]` — recursion-free machine normalization [Formalization boundary]
 
-Assume $M.\mathsf{NoFix}$, every element in the support of every base response
+Assume $M:\mathsf{FinLanguageComp}$, every element in the support of every base response
 is typed, and each recursion-free response branch is terminating. Then every
 closed well-typed Chapter-I program $M$ induces a well-defined outcome
 
@@ -115,11 +115,12 @@ reducible by the base-package branch-termination assumption.  Function,
 product and sum cases are standard.  Unique decomposition identifies the
 request; Kleisli composition in $\mathcal K$ combines its possible responses.
 
-The recursion-free fragment is now defined by
-[`LanguageVal.NoFix`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageVal.NoFix#doc) and
-[`LanguageComp.NoFix`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageComp.NoFix#doc).
-It is closed under renaming, substitution and internal reduction; the latter
-is [`LanguageStep.preserve_noFix`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve_noFix#doc), whose `fixBeta` case is impossible. What remains unmechanized is the reducibility/strong-normalization argument and the explicit well-founded response-kernel package. The claim is deliberately absent from Chapter IV.
+The recursion-free fragment is the separate Lean type
+[`FinLanguageComp`](https://myuon.github.io/effect-semantics-notes/lean/EffectSemantics/Syntax/LanguageCalculus.html).
+It is closed by construction under renaming, substitution and internal
+reduction; `fixBeta` cannot be constructed. What remains unmechanized is the
+reducibility/strong-normalization argument and the explicit well-founded
+response-kernel package. The claim is deliberately absent from Chapter IV.
 
 ## 4. Denotational soundness
 

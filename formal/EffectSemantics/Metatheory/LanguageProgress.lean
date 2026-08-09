@@ -3,13 +3,13 @@ import EffectSemantics.Metatheory.LanguagePreservation
 namespace EffectSemantics
 
 /-- An unhandled operation together with the surrounding CBV `let` stack. -/
-inductive LanguageBoundary : LanguageComp → Type where
+inductive LanguageBoundary {mode : RecMode} : LanguageComp mode → Type where
   | base : LanguageBoundary (.baseOp operation parameter)
   | free : LanguageBoundary (.freeOp interface operation parameter)
   | underLet : LanguageBoundary bound →
       LanguageBoundary (.letE bound body)
 
-inductive LanguageProgress : LanguageComp → Type where
+inductive LanguageProgress {mode : RecMode} : LanguageComp mode → Type where
   | returned : LanguageProgress (.ret value)
   | internal : LanguageStep term term' → LanguageProgress term
   | boundary : LanguageBoundary term → LanguageProgress term
@@ -84,11 +84,11 @@ functions. -/
 theorem HasLanguageVal.closed_arr_canonical
     (typing : HasLanguageVal sig [] value (.arr domain latent codomain)) :
     (∃ body, value = .lam domain latent body) ∨
-      (∃ body, value = .fixLam domain latent body) := by
+      (∃ allowed body, value = .fixLam allowed domain latent body) := by
   cases typing with
   | var lookup => nomatch lookup
   | lam => exact Or.inl ⟨_, rfl⟩
-  | fixLam => exact Or.inr ⟨_, rfl⟩
+  | fixLam => exact Or.inr ⟨_, _, rfl⟩
 
 /-- Canonical forms for closed sum values. -/
 theorem HasLanguageVal.closed_sum_canonical
@@ -119,7 +119,7 @@ def HasLanguageComp.progressClosed
       match functionTyping with
       | .var lookup => nomatch lookup
       | .lam _ => .internal .beta
-      | .fixLam _ => .internal .fixBeta
+      | .fixLam _ _ => .internal .fixBeta
   | .ite conditionTyping _ _ =>
       match conditionTyping with
       | .var lookup => nomatch lookup

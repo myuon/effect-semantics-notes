@@ -63,10 +63,10 @@ import EffectSemantics.Certificate.RegularRecursion
 import EffectSemantics.Syntax.RegularRecursion
 import EffectSemantics.Syntax.LanguageCalculus
 import EffectSemantics.Syntax.LanguageRenameSubst
-import EffectSemantics.Syntax.LanguageNoFix
 import EffectSemantics.Metatheory.LanguageSubstitution
 import EffectSemantics.Operational.LanguageStep
 import EffectSemantics.Metatheory.LanguagePreservation
+import EffectSemantics.Metatheory.LanguageRecursionEmbedding
 import EffectSemantics.Examples.LanguageRecursion
 import EffectSemantics.Examples.EffectErasureCounterexample
 import EffectSemantics.Metatheory.LanguageProgress

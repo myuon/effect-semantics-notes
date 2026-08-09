@@ -5,20 +5,20 @@ namespace EffectSemantics
 open EffectLanguage
 
 inductive LanguageFrame where
-  | letE (body : LanguageComp)
+  | letE (body : FinLanguageComp)
 
 abbrev LanguageEvalContext := List LanguageFrame
 
-def LanguageFrame.plug : LanguageFrame → LanguageComp → LanguageComp
+def LanguageFrame.plug : LanguageFrame → FinLanguageComp → FinLanguageComp
   | .letE body, bound => .letE bound body
 
-def LanguageEvalContext.plug : LanguageEvalContext → LanguageComp → LanguageComp
+def LanguageEvalContext.plug : LanguageEvalContext → FinLanguageComp → FinLanguageComp
   | [], term => term
   | frame :: rest, term =>
       LanguageEvalContext.plug rest (frame.plug term)
 
 theorem LanguageEvalContext.plug_append
-    (left right : LanguageEvalContext) (term : LanguageComp) :
+    (left right : LanguageEvalContext) (term : FinLanguageComp) :
     LanguageEvalContext.plug (left ++ right) term =
       LanguageEvalContext.plug right (LanguageEvalContext.plug left term) := by
   induction left generalizing term with
@@ -36,9 +36,9 @@ def LanguageEvalContext.rename (rename : Nat → Nat)
 
 theorem LanguageEvalContext.plug_subst_rename_cancel
     (context : LanguageEvalContext) (rename : Nat → Nat)
-    (subst : Nat → LanguageVal)
+    (subst : Nat → FinLanguageVal)
     (cancel : ∀ index, subst (rename index) = .var index)
-    {transformed original : LanguageComp}
+    {transformed original : FinLanguageComp}
     (hole : transformed.subst subst = original) :
     (LanguageEvalContext.plug (LanguageEvalContext.rename rename context)
       transformed).subst subst = LanguageEvalContext.plug context original := by
@@ -61,24 +61,24 @@ theorem LanguageEvalContext.plug_subst_rename_cancel
 structure LanguageFreeRequest where
   interface : Nat
   operation : Nat
-  parameter : LanguageVal
+  parameter : FinLanguageVal
   context : LanguageEvalContext
 
-def LanguageFreeRequest.source (request : LanguageFreeRequest) : LanguageComp :=
+def LanguageFreeRequest.source (request : LanguageFreeRequest) : FinLanguageComp :=
   LanguageEvalContext.plug request.context
     (.freeOp request.interface request.operation request.parameter)
 
 def LanguageFreeRequest.openResume (request : LanguageFreeRequest) :
-    LanguageComp :=
+    FinLanguageComp :=
   LanguageEvalContext.plug
     (LanguageEvalContext.rename (· + 1) request.context) (.ret (.var 0))
 
 def LanguageFreeRequest.resume (request : LanguageFreeRequest)
-    (response : LanguageVal) : LanguageComp :=
+    (response : FinLanguageVal) : FinLanguageComp :=
   LanguageEvalContext.plug request.context (.ret response)
 
 @[simp] theorem LanguageFreeRequest.openResume_subst0
-    (request : LanguageFreeRequest) (response : LanguageVal) :
+    (request : LanguageFreeRequest) (response : FinLanguageVal) :
     request.openResume.subst0 response = request.resume response := by
   apply LanguageEvalContext.plug_subst_rename_cancel request.context (· + 1)
     (fun | 0 => response | index + 1 => .var index)
@@ -87,19 +87,19 @@ def LanguageFreeRequest.resume (request : LanguageFreeRequest)
   · rfl
 
 def LanguageFreeRequest.outerLet (request : LanguageFreeRequest)
-    (body : LanguageComp) : LanguageFreeRequest :=
+    (body : FinLanguageComp) : LanguageFreeRequest :=
   { request with context := request.context ++ [.letE body] }
 
 @[simp] theorem LanguageFreeRequest.outerLet_source
-    (request : LanguageFreeRequest) (body : LanguageComp) :
+    (request : LanguageFreeRequest) (body : FinLanguageComp) :
     (request.outerLet body).source = .letE request.source body := by
   unfold LanguageFreeRequest.outerLet LanguageFreeRequest.source
   rw [LanguageEvalContext.plug_append]
   rfl
 
 @[simp] theorem LanguageFreeRequest.outerLet_resume
-    (request : LanguageFreeRequest) (body : LanguageComp)
-    (response : LanguageVal) :
+    (request : LanguageFreeRequest) (body : FinLanguageComp)
+    (response : FinLanguageVal) :
     (request.outerLet body).resume response =
       .letE (request.resume response) body := by
   unfold LanguageFreeRequest.outerLet LanguageFreeRequest.resume
@@ -108,38 +108,38 @@ def LanguageFreeRequest.outerLet (request : LanguageFreeRequest)
 
 structure LanguageBaseRequest where
   operation : Nat
-  parameter : LanguageVal
+  parameter : FinLanguageVal
   context : LanguageEvalContext
 
-def LanguageBaseRequest.source (request : LanguageBaseRequest) : LanguageComp :=
+def LanguageBaseRequest.source (request : LanguageBaseRequest) : FinLanguageComp :=
   LanguageEvalContext.plug request.context
     (.baseOp request.operation request.parameter)
 
 def LanguageBaseRequest.resume (request : LanguageBaseRequest)
-    (response : LanguageVal) : LanguageComp :=
+    (response : FinLanguageVal) : FinLanguageComp :=
   LanguageEvalContext.plug request.context (.ret response)
 
 def LanguageBaseRequest.outerLet (request : LanguageBaseRequest)
-    (body : LanguageComp) : LanguageBaseRequest :=
+    (body : FinLanguageComp) : LanguageBaseRequest :=
   { request with context := request.context ++ [.letE body] }
 
 @[simp] theorem LanguageBaseRequest.outerLet_source
-    (request : LanguageBaseRequest) (body : LanguageComp) :
+    (request : LanguageBaseRequest) (body : FinLanguageComp) :
     (request.outerLet body).source = .letE request.source body := by
   unfold LanguageBaseRequest.outerLet LanguageBaseRequest.source
   rw [LanguageEvalContext.plug_append]
   rfl
 
 @[simp] theorem LanguageBaseRequest.outerLet_resume
-    (request : LanguageBaseRequest) (body : LanguageComp)
-    (response : LanguageVal) :
+    (request : LanguageBaseRequest) (body : FinLanguageComp)
+    (response : FinLanguageVal) :
     (request.outerLet body).resume response =
       .letE (request.resume response) body := by
   unfold LanguageBaseRequest.outerLet LanguageBaseRequest.resume
   rw [LanguageEvalContext.plug_append]
   rfl
 
-inductive LanguageBoundaryView : LanguageComp → Type where
+inductive LanguageBoundaryView : FinLanguageComp → Type where
   | base (request : LanguageBaseRequest) : LanguageBoundaryView request.source
   | free (request : LanguageFreeRequest) : LanguageBoundaryView request.source
 
@@ -263,7 +263,7 @@ theorem HasLanguageEvalContext.propagates_of_nonErasing
         (frameBound trace (EffectLanguage.le_seq_of_one_right nonErasing.1 trace member))
 
 structure LanguagePlugView
-    {evalCtx : LanguageEvalContext} {hole : LanguageComp}
+    {evalCtx : LanguageEvalContext} {hole : FinLanguageComp}
     (typing : HasLanguageComp sig ctx
       (LanguageEvalContext.plug evalCtx hole) resultTy resultEffect) where
   holeTy : LanguageTy
@@ -273,7 +273,7 @@ structure LanguagePlugView
     holeTy holeEffect resultTy resultEffect
 
 def HasLanguageComp.plugView
-    {evalCtx : LanguageEvalContext} {hole : LanguageComp}
+    {evalCtx : LanguageEvalContext} {hole : FinLanguageComp}
     (typing : HasLanguageComp sig ctx
       (LanguageEvalContext.plug evalCtx hole) resultTy resultEffect) :
     LanguagePlugView typing :=

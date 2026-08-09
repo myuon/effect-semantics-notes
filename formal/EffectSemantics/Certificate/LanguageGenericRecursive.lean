@@ -14,10 +14,10 @@ theorem and the separate morphism and logical-relation lifting principles.
 /-- Base-independent syntax/effect part of the extension theorem. -/
 structure LanguageSourceStructureCert (sig : LanguageSignature) where
   effects : LanguageEffectCert
-  preservation : ∀ {term next ctx resultTy effect},
+  preservation : ∀ {term next : RecLanguageComp} {ctx resultTy effect},
     LanguageStep term next → HasLanguageComp sig ctx term resultTy effect →
       HasLanguageComp sig ctx next resultTy effect
-  progress : ∀ {term resultTy effect},
+  progress : ∀ {term : RecLanguageComp} {resultTy effect},
     HasLanguageComp sig [] term resultTy effect → LanguageProgress term
   handlerPreservation : ∀ {ctx interface handler replacement input resultTy
       state next},
@@ -47,13 +47,13 @@ the completed semantics and its fundamental property are derived below. -/
 structure LanguageRecursiveBaseCert (sig : LanguageSignature)
     (Outcome : Type) where
   source : LanguageSourceStructureCert sig
-  functional : FlatApproximation.Carrier LanguageComp Outcome →
-    FlatApproximation.Carrier LanguageComp Outcome
+  functional : FlatApproximation.Carrier RecLanguageComp Outcome →
+    FlatApproximation.Carrier RecLanguageComp Outcome
   continuous : FlatApproximation.OmegaContinuous functional
-  Runs : LanguageComp → Outcome → Prop
+  Runs : RecLanguageComp → Outcome → Prop
   finiteAdequacy : ∀ {term outcome}, Runs term outcome ↔
     ∃ fuel, FlatApproximation.iterate functional fuel term = some outcome
-  pole : LanguageComp → Outcome → Prop
+  pole : RecLanguageComp → Outcome → Prop
   layerPreservesPole : ∀ approximation,
     FlatApproximation.Satisfies pole approximation →
     FlatApproximation.Satisfies pole (functional approximation)
@@ -61,7 +61,7 @@ structure LanguageRecursiveBaseCert (sig : LanguageSignature)
 namespace LanguageRecursiveBaseCert
 
 noncomputable def semantics (cert : LanguageRecursiveBaseCert sig Outcome) :
-    FlatApproximation.Carrier LanguageComp Outcome :=
+    FlatApproximation.Carrier RecLanguageComp Outcome :=
   FlatApproximation.lfp cert.functional cert.continuous
 
 /-- Abstract recursive structure-preservation theorem.  Any base satisfying
@@ -109,8 +109,8 @@ recursive completion. -/
 structure LanguageRecursiveRelationCert
     (left : LanguageRecursiveBaseCert sig Left)
     (right : LanguageRecursiveBaseCert sig Right)
-    (relation : FlatApproximation.Carrier LanguageComp Left →
-      FlatApproximation.Carrier LanguageComp Right → Prop) : Prop where
+    (relation : FlatApproximation.Carrier RecLanguageComp Left →
+      FlatApproximation.Carrier RecLanguageComp Right → Prop) : Prop where
   admissible : FlatApproximation.BinaryAdmissible relation
   bottom : relation FlatApproximation.bottom FlatApproximation.bottom
   oneLayer : ∀ {leftApprox rightApprox},

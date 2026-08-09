@@ -1,4 +1,5 @@
 import EffectSemantics.Syntax.LanguageCalculus
+import Init.Omega
 
 namespace EffectSemantics
 
@@ -7,7 +8,8 @@ def liftLanguageRen (rename : Nat → Nat) : Nat → Nat
   | index + 1 => rename index + 1
 
 mutual
-  def LanguageVal.rename (rename : Nat → Nat) : LanguageVal → LanguageVal
+  def LanguageVal.rename {mode} (rename : Nat → Nat) :
+      LanguageVal mode → LanguageVal mode
     | .var index => .var (rename index)
     | .unit => .unit
     | .bool value => .bool value
@@ -16,11 +18,12 @@ mutual
     | .inr leftTy value => .inr leftTy (value.rename rename)
     | .lam domain latent body =>
         .lam domain latent (body.rename (liftLanguageRen rename))
-    | .fixLam domain latent body =>
-        .fixLam domain latent
+    | .fixLam recursive domain latent body =>
+        .fixLam recursive domain latent
           (body.rename (liftLanguageRen (liftLanguageRen rename)))
 
-  def LanguageComp.rename (rename : Nat → Nat) : LanguageComp → LanguageComp
+  def LanguageComp.rename {mode} (rename : Nat → Nat) :
+      LanguageComp mode → LanguageComp mode
     | .ret value => .ret (value.rename rename)
     | .letE bound body =>
         .letE (bound.rename rename) (body.rename (liftLanguageRen rename))
@@ -37,12 +40,14 @@ mutual
         .freeOp interface operation (parameter.rename rename)
 end
 
-def liftLanguageSubst (subst : Nat → LanguageVal) : Nat → LanguageVal
+def liftLanguageSubst {mode} (subst : Nat → LanguageVal mode) :
+    Nat → LanguageVal mode
   | 0 => .var 0
   | index + 1 => (subst index).rename (· + 1)
 
 mutual
-  def LanguageVal.subst (subst : Nat → LanguageVal) : LanguageVal → LanguageVal
+  def LanguageVal.subst {mode} (subst : Nat → LanguageVal mode) :
+      LanguageVal mode → LanguageVal mode
     | .var index => subst index
     | .unit => .unit
     | .bool value => .bool value
@@ -51,12 +56,12 @@ mutual
     | .inr leftTy value => .inr leftTy (value.subst subst)
     | .lam domain latent body =>
         .lam domain latent (body.subst (liftLanguageSubst subst))
-    | .fixLam domain latent body =>
-        .fixLam domain latent
+    | .fixLam recursive domain latent body =>
+        .fixLam recursive domain latent
           (body.subst (liftLanguageSubst (liftLanguageSubst subst)))
 
-  def LanguageComp.subst (subst : Nat → LanguageVal) :
-      LanguageComp → LanguageComp
+  def LanguageComp.subst {mode} (subst : Nat → LanguageVal mode) :
+      LanguageComp mode → LanguageComp mode
     | .ret value => .ret (value.subst subst)
     | .letE bound body =>
         .letE (bound.subst subst) (body.subst (liftLanguageSubst subst))
@@ -73,19 +78,37 @@ mutual
         .freeOp interface operation (parameter.subst subst)
 end
 
-def LanguageComp.subst0 (value : LanguageVal) (body : LanguageComp) :
-    LanguageComp :=
+def LanguageComp.subst0 {mode} (value : LanguageVal mode)
+    (body : LanguageComp mode) : LanguageComp mode :=
   body.subst (fun | 0 => value | index + 1 => .var index)
 
-def LanguageComp.subst2 (argument self : LanguageVal) (body : LanguageComp) :
-    LanguageComp :=
+def LanguageComp.subst2 {mode} (argument self : LanguageVal mode)
+    (body : LanguageComp mode) : LanguageComp mode :=
   body.subst (fun | 0 => argument | 1 => self | index + 2 => .var index)
 
 mutual
+  def LanguageVal.nodes {mode} : LanguageVal mode → Nat
+    | .var _ | .unit | .bool _ => 1
+    | .pair left right => left.nodes + right.nodes + 1
+    | .inl value _ | .inr _ value => value.nodes + 1
+    | .lam _ _ body | .fixLam _ _ _ body => body.nodes + 1
+
+  def LanguageComp.nodes {mode} : LanguageComp mode → Nat
+    | .ret value => value.nodes + 1
+    | .letE bound body => bound.nodes + body.nodes + 1
+    | .app function argument => function.nodes + argument.nodes + 1
+    | .ite condition thenBranch elseBranch =>
+        condition.nodes + thenBranch.nodes + elseBranch.nodes + 1
+    | .case scrutinee leftBranch rightBranch =>
+        scrutinee.nodes + leftBranch.nodes + rightBranch.nodes + 1
+    | .baseOp _ parameter | .freeOp _ _ parameter => parameter.nodes + 1
+end
+
+mutual
   theorem LanguageVal.subst_rename_cancel
-      (rename : Nat → Nat) (subst : Nat → LanguageVal)
+      {mode} (rename : Nat → Nat) (subst : Nat → LanguageVal mode)
       (cancel : ∀ index, subst (rename index) = .var index)
-      (term : LanguageVal) :
+      (term : LanguageVal mode) :
       (term.rename rename).subst subst = term := by
     cases term with
     | var index => exact cancel index
@@ -110,7 +133,7 @@ mutual
             cases index <;>
               simp [liftLanguageRen, liftLanguageSubst,
                 LanguageVal.rename, cancel]) body
-    | fixLam domain latent body =>
+    | fixLam recursive domain latent body =>
         simp only [LanguageVal.rename, LanguageVal.subst]
         congr
         exact LanguageComp.subst_rename_cancel
@@ -125,9 +148,9 @@ mutual
                     LanguageVal.rename, cancel]) body
 
   theorem LanguageComp.subst_rename_cancel
-      (rename : Nat → Nat) (subst : Nat → LanguageVal)
+      {mode} (rename : Nat → Nat) (subst : Nat → LanguageVal mode)
       (cancel : ∀ index, subst (rename index) = .var index)
-      (term : LanguageComp) :
+      (term : LanguageComp mode) :
       (term.rename rename).subst subst = term := by
     cases term with
     | ret result =>
@@ -196,8 +219,8 @@ theorem LanguageRenPreserves.shift (ctx : LanguageContext) (head : LanguageTy) :
     LanguageRenPreserves ctx (head :: ctx) (· + 1) :=
   fun _ _ lookup => lookup
 
-def LanguageSubstPreserves (sig : LanguageSignature)
-    (source target : LanguageContext) (subst : Nat → LanguageVal) : Type :=
+def LanguageSubstPreserves (sig : LanguageSignature) {mode}
+    (source target : LanguageContext) (subst : Nat → LanguageVal mode) : Type :=
   ∀ ⦃index ty⦄, LanguageContext.lookup source index = some ty →
     HasLanguageVal sig target (subst index) ty
 

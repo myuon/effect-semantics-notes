@@ -17,8 +17,9 @@ mutual
     | inl inner => exact .inl (inner.rename_preserved preserves)
     | inr inner => exact .inr (inner.rename_preserved preserves)
     | lam body => exact .lam (body.rename_preserved (preserves.lift _))
-    | fixLam body =>
-        exact .fixLam (body.rename_preserved ((preserves.lift _).lift _))
+    | fixLam recursive body =>
+        exact .fixLam recursive
+          (body.rename_preserved ((preserves.lift _).lift _))
   termination_by (sizeOf value, sizeOf typing)
 
   def HasLanguageComp.rename_preserved
@@ -80,8 +81,9 @@ mutual
     | inl inner => exact .inl (inner.subst_preserved preserves)
     | inr inner => exact .inr (inner.subst_preserved preserves)
     | lam body => exact .lam (body.subst_preserved (preserves.lift _))
-    | fixLam body =>
-        exact .fixLam (body.subst_preserved ((preserves.lift _).lift _))
+    | fixLam recursive body =>
+        exact .fixLam recursive
+          (body.subst_preserved ((preserves.lift _).lift _))
   termination_by (sizeOf value, sizeOf typing)
 
   def HasLanguageComp.subst_preserved

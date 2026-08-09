@@ -1,6 +1,5 @@
 import EffectSemantics.Denotational.LanguageSourceShallow
 import EffectSemantics.Denotational.LanguageWriterTT
-import EffectSemantics.Syntax.LanguageNoFix
 
 namespace EffectSemantics
 
@@ -9,32 +8,32 @@ open EffectLanguage
 /-- Kernel-checked core certificate for the fixed source calculus.  It keeps
 the syntactic obligations separate from Writer-specific observation. -/
 structure LanguageCoreCert (sig : LanguageSignature) where
-  valueSubstitution : ∀ {source target value ty subst},
+  valueSubstitution : ∀ {source target} {value : FinLanguageVal} {ty}
+      {subst : Nat → FinLanguageVal},
     HasLanguageVal sig source value ty →
     LanguageSubstPreserves sig source target subst →
     HasLanguageVal sig target (value.subst subst) ty
-  computationSubstitution : ∀ {source target term ty effect subst},
+  computationSubstitution : ∀ {source target} {term : FinLanguageComp}
+      {ty effect} {subst : Nat → FinLanguageVal},
     HasLanguageComp sig source term ty effect →
     LanguageSubstPreserves sig source target subst →
     HasLanguageComp sig target (term.subst subst) ty effect
-  preservation : ∀ {term next ctx resultTy effect},
+  preservation : ∀ {term next : FinLanguageComp} {ctx resultTy effect},
     LanguageStep term next → HasLanguageComp sig ctx term resultTy effect →
       HasLanguageComp sig ctx next resultTy effect
-  progress : ∀ {term resultTy effect},
+  progress : ∀ {term : FinLanguageComp} {resultTy effect},
     HasLanguageComp sig [] term resultTy effect → LanguageProgress term
-  progressClassUnique : ∀ {term}
+  progressClassUnique : ∀ {term : FinLanguageComp}
       (first second : LanguageProgress term), first.kind = second.kind
-  reductUnique : ∀ {term left right},
+  reductUnique : ∀ {term left right : FinLanguageComp},
     LanguageStep term left → LanguageStep term right → left = right
-  noFixPreservation : ∀ {term next},
-    LanguageStep term next → term.NoFix → next.NoFix
-  canonicalBool : ∀ {value}, HasLanguageVal sig [] value .bool →
+  canonicalBool : ∀ {value : FinLanguageVal}, HasLanguageVal sig [] value .bool →
     ∃ boolean, value = .bool boolean
-  canonicalArrow : ∀ {value domain latent codomain},
+  canonicalArrow : ∀ {value : FinLanguageVal} {domain latent codomain},
     HasLanguageVal sig [] value (.arr domain latent codomain) →
     (∃ body, value = .lam domain latent body) ∨
-      (∃ body, value = .fixLam domain latent body)
-  canonicalSum : ∀ {value leftTy rightTy},
+      (∃ allowed body, value = .fixLam allowed domain latent body)
+  canonicalSum : ∀ {value : FinLanguageVal} {leftTy rightTy},
     HasLanguageVal sig [] value (.sum leftTy rightTy) →
     (∃ left, value = .inl left rightTy) ∨
       (∃ right, value = .inr leftTy right)
@@ -46,7 +45,6 @@ def languageCoreCert (sig : LanguageSignature) : LanguageCoreCert sig where
   progress := HasLanguageComp.progressClosed
   progressClassUnique := LanguageProgress.kind_unique
   reductUnique := LanguageStep.deterministic
-  noFixPreservation := LanguageStep.preserve_noFix
   canonicalBool := HasLanguageVal.closed_bool_canonical
   canonicalArrow := HasLanguageVal.closed_arr_canonical
   canonicalSum := HasLanguageVal.closed_sum_canonical
@@ -177,10 +175,10 @@ structure LanguageFreeStageCert (sig : LanguageSignature) where
   core : LanguageCoreCert sig
   effects : LanguageEffectCert
   writer : LanguageWriterCert sig
-  preservation : ∀ {term next ctx resultTy effect},
+  preservation : ∀ {term next : FinLanguageComp} {ctx resultTy effect},
     LanguageStep term next → HasLanguageComp sig ctx term resultTy effect →
       HasLanguageComp sig ctx next resultTy effect
-  progress : ∀ {term resultTy effect},
+  progress : ∀ {term : FinLanguageComp} {resultTy effect},
     HasLanguageComp sig [] term resultTy effect → LanguageProgress term
 
 noncomputable def languageFreeStagePreservation
@@ -223,10 +221,10 @@ structure LanguageFiniteStructureCert (sig : LanguageSignature) where
   effects : LanguageEffectCert
   writer : LanguageWriterCert sig
   shallow : LanguageShallowCert sig
-  preservation : ∀ {term next ctx resultTy effect},
+  preservation : ∀ {term next : FinLanguageComp} {ctx resultTy effect},
     LanguageStep term next → HasLanguageComp sig ctx term resultTy effect →
       HasLanguageComp sig ctx next resultTy effect
-  progress : ∀ {term resultTy effect},
+  progress : ∀ {term : FinLanguageComp} {resultTy effect},
     HasLanguageComp sig [] term resultTy effect → LanguageProgress term
   handlerPreservation : ∀ {ctx interface handler replacement input resultTy state next},
     HasLanguageAffineHandler sig ctx interface handler replacement →

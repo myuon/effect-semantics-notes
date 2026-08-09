@@ -44,8 +44,9 @@ def LanguageStep.preserve
           | lam bodyTyping => exact bodyTyping.subst0_preserved argumentTyping
       | fixBeta =>
           cases functionTyping with
-          | fixLam bodyTyping =>
-              exact bodyTyping.subst2_preserved argumentTyping (.fixLam bodyTyping)
+          | fixLam recursive bodyTyping =>
+              exact bodyTyping.subst2_preserved argumentTyping
+                (HasLanguageVal.fixLam (allowed := _) bodyTyping)
   | ite conditionTyping thenTyping elseTyping =>
       cases step with
       | ifTrue =>

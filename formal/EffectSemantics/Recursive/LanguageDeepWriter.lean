@@ -1,25 +1,26 @@
+import EffectSemantics.Recursive.LanguageRequests
 import EffectSemantics.Recursive.LanguageFiniteObservation
 import EffectSemantics.Recursive.FlatApproximation
 
 namespace EffectSemantics
 
-def LanguageAffineHandler.Exhaustive
-    (handler : LanguageAffineHandler) : Prop :=
+def RecLanguageHandlerExhaustive
+    (handler : LanguageAffineHandler .recursive) : Prop :=
   ∀ operation, ∃ clause, handler.lookup operation = some clause
 
 /-- A selected request escapes exactly when the current head exposes it and
 the handler has no matching clause. -/
 def EscapingSelectedRequest (selected : Nat)
-    (handler : LanguageAffineHandler) (term : LanguageComp) : Prop :=
-  ∃ request : LanguageFreeRequest,
+    (handler : LanguageAffineHandler .recursive) (term : RecLanguageComp) : Prop :=
+  ∃ request : RecLanguageFreeRequest,
     term.head = .free request ∧ request.interface = selected ∧
       handler.lookup request.operation = none
 
 /-- Exhaustiveness rules out an escaping selected request at every finite
 configuration, independently of termination.  Consequently it also holds at
 every configuration on any finite execution prefix. -/
-theorem LanguageAffineHandler.exhaustive_no_escaping_selected_request
-    (exhaustive : handler.Exhaustive) (term : LanguageComp) :
+theorem recLanguageHandlerExhaustive_no_escaping_selected_request
+    (exhaustive : RecLanguageHandlerExhaustive handler) (term : RecLanguageComp) :
     ¬ EscapingSelectedRequest selected handler term := by
   rintro ⟨request, head, same, missing⟩
   obtain ⟨clause, found⟩ := exhaustive request.operation
@@ -29,8 +30,8 @@ theorem LanguageAffineHandler.exhaustive_no_escaping_selected_request
 /-- Fuel semantics for the deep handler obtained by recursively reinstalling
 the affine shallow handler.  Matching and Writer steps both consume one
 finite unfolding. -/
-def LanguageComp.observeDeepWriter : Nat → Nat → LanguageAffineHandler →
-    LanguageComp → Option (List LanguageVal × LanguageVal)
+def LanguageComp.observeDeepWriter : Nat → Nat → LanguageAffineHandler .recursive →
+    RecLanguageComp → Option (List RecLanguageVal × RecLanguageVal)
   | 0, _, _, _ => none
   | fuel + 1, selected, handler, term =>
       match term.head with
@@ -51,9 +52,9 @@ def LanguageComp.observeDeepWriter : Nat → Nat → LanguageAffineHandler →
       | .stuck => none
 
 theorem LanguageComp.observeDeepWriter_succ_of_some
-    {term : LanguageComp} {fuel selected : Nat}
-    {handler : LanguageAffineHandler}
-    {result : List LanguageVal × LanguageVal}
+    {term : RecLanguageComp} {fuel selected : Nat}
+    {handler : LanguageAffineHandler .recursive}
+    {result : List RecLanguageVal × RecLanguageVal}
     (observed : term.observeDeepWriter fuel selected handler = some result) :
     term.observeDeepWriter (fuel + 1) selected handler = some result := by
   induction fuel generalizing term result with
@@ -85,18 +86,18 @@ theorem LanguageComp.observeDeepWriter_succ_of_some
           · simp [LanguageComp.observeDeepWriter, found, same] at observed
       | stuck => simp [LanguageComp.observeDeepWriter, found] at observed
 
-def LanguageComp.deepWriterObservation (term : LanguageComp)
-    (selected : Nat) (handler : LanguageAffineHandler) :
-    StableObservation (List LanguageVal × LanguageVal) where
+def LanguageComp.deepWriterObservation (term : RecLanguageComp)
+    (selected : Nat) (handler : LanguageAffineHandler .recursive) :
+    StableObservation (List RecLanguageVal × RecLanguageVal) where
   observeAt fuel := term.observeDeepWriter fuel selected handler
   stable := LanguageComp.observeDeepWriter_succ_of_some
 
 abbrev LanguageDeepWriterApproximation :=
-  FlatApproximation.Carrier LanguageComp (List LanguageVal × LanguageVal)
+  FlatApproximation.Carrier RecLanguageComp (List RecLanguageVal × RecLanguageVal)
 
 /-- One unfolding of the recursively reinstalled language handler. -/
 def languageDeepWriterFunctional (selected : Nat)
-    (handler : LanguageAffineHandler)
+    (handler : LanguageAffineHandler .recursive)
     (next : LanguageDeepWriterApproximation) : LanguageDeepWriterApproximation :=
   fun term =>
     match term.head with
@@ -144,13 +145,13 @@ theorem languageDeepWriterFunctional_monotone
   | stuck => simp [found] at observed
 
 def iterateLanguageDeepWriter (selected : Nat)
-    (handler : LanguageAffineHandler) : Nat → LanguageDeepWriterApproximation
+    (handler : LanguageAffineHandler .recursive) : Nat → LanguageDeepWriterApproximation
   | 0 => FlatApproximation.bottom
   | fuel + 1 => languageDeepWriterFunctional selected handler
       (iterateLanguageDeepWriter selected handler fuel)
 
 theorem languageObserveDeepWriter_eq_iterate (fuel selected : Nat)
-    (handler : LanguageAffineHandler) (term : LanguageComp) :
+    (handler : LanguageAffineHandler .recursive) (term : RecLanguageComp) :
     term.observeDeepWriter fuel selected handler =
       iterateLanguageDeepWriter selected handler fuel term := by
   induction fuel generalizing term with
@@ -161,7 +162,7 @@ theorem languageObserveDeepWriter_eq_iterate (fuel selected : Nat)
           languageDeepWriterFunctional, found, ih]
 
 theorem languageDeepWriterFunctional_continuous (selected : Nat)
-    (handler : LanguageAffineHandler) :
+    (handler : LanguageAffineHandler .recursive) :
     FlatApproximation.OmegaContinuous
       (languageDeepWriterFunctional selected handler) where
   monotone := languageDeepWriterFunctional_monotone
@@ -209,7 +210,7 @@ theorem languageDeepWriterFunctional_continuous (selected : Nat)
         term result finite
 
 noncomputable def languageDeepWriterSemantics (selected : Nat)
-    (handler : LanguageAffineHandler) : LanguageDeepWriterApproximation :=
+    (handler : LanguageAffineHandler .recursive) : LanguageDeepWriterApproximation :=
   FlatApproximation.lfp (languageDeepWriterFunctional selected handler)
     (languageDeepWriterFunctional_continuous selected handler)
 
@@ -229,18 +230,18 @@ theorem languageDeepWriterSemantics_le_prefixed
 
 /-- Direct terminating runs of the recursively reinstalled shallow handler. -/
 inductive LanguageDeepWriterRuns (selected : Nat)
-    (handler : LanguageAffineHandler) :
-    LanguageComp → List LanguageVal → LanguageVal → Prop where
+    (handler : LanguageAffineHandler .recursive) :
+    RecLanguageComp → List RecLanguageVal → RecLanguageVal → Prop where
   | returned : LanguageDeepWriterRuns selected handler (.ret value) [] value
   | internal : LanguageStep term next →
       LanguageDeepWriterRuns selected handler next log value →
       LanguageDeepWriterRuns selected handler term log value
-  | tell (request : LanguageBaseRequest) : term = request.source →
+  | tell (request : RecLanguageBaseRequest) : term = request.source →
       request.operation = 0 →
       LanguageDeepWriterRuns selected handler (request.resume .unit) log value →
       LanguageDeepWriterRuns selected handler term
         (request.parameter :: log) value
-  | matched (request : LanguageFreeRequest) : term = request.source →
+  | matched (request : RecLanguageFreeRequest) : term = request.source →
       request.interface = selected →
       handler.lookup request.operation = some clause →
       LanguageDeepWriterRuns selected handler
@@ -255,7 +256,7 @@ theorem LanguageDeepWriterRuns.to_observation
   | internal step runs ih =>
       obtain ⟨fuel, observed⟩ := ih
       exact ⟨fuel + 1, by
-        simp [LanguageComp.observeDeepWriter, step.to_head, observed]⟩
+        simp [LanguageComp.observeDeepWriter, step.to_recHead, observed]⟩
   | tell request exposed writer runs ih =>
       obtain ⟨fuel, observed⟩ := ih
       refine ⟨fuel + 1, ?_⟩
@@ -277,12 +278,12 @@ theorem LanguageComp.observeDeepWriter_reflects
       | returned result =>
           simp [LanguageComp.observeDeepWriter, found] at observed
           obtain ⟨rfl, rfl⟩ := observed
-          have source := LanguageComp.head_returned_sound found
+          have source := RecLanguageComp.head_returned_sound found
           subst term
           exact .returned
       | internal next =>
           simp only [LanguageComp.observeDeepWriter, found] at observed
-          obtain ⟨step⟩ := LanguageComp.head_internal_sound found
+          obtain ⟨step⟩ := RecLanguageComp.head_internal_sound found
           exact .internal step (ih observed)
       | base request =>
           by_cases writer : request.operation = 0
@@ -293,7 +294,7 @@ theorem LanguageComp.observeDeepWriter_reflects
             | mk tailLog tailValue =>
                 simp at transformed
                 obtain ⟨rfl, rfl⟩ := transformed
-                exact .tell request (LanguageComp.head_base_sound found) writer
+                exact .tell request (RecLanguageComp.head_base_sound found) writer
                   (ih tailObserved)
           · simp [LanguageComp.observeDeepWriter, found, writer] at observed
       | free request =>
@@ -305,7 +306,7 @@ theorem LanguageComp.observeDeepWriter_reflects
             | some clause =>
                 simp only [LanguageComp.observeDeepWriter, found, same, if_pos,
                   clauseFound] at observed
-                exact .matched request (LanguageComp.head_free_sound found) same
+                exact .matched request (RecLanguageComp.head_free_sound found) same
                   clauseFound (ih observed)
           · simp [LanguageComp.observeDeepWriter, found, same] at observed
       | stuck => simp [LanguageComp.observeDeepWriter, found] at observed
@@ -359,17 +360,27 @@ theorem language_deep_writer_semantic_adequacy :
     obtain ⟨fuel, finite⟩ := languageDeepWriterSemantics_some_witness observed
     exact LanguageComp.observeDeepWriter_reflects finite
 
-/-- The only extra base-specific assumption used by typed Writer runs. -/
-structure LanguageWriterResponseUnit (sig : LanguageSignature) : Prop where
-  responseUnit : ∀ {parameterTy responseTy},
-    sig.base 0 = some ⟨parameterTy, responseTy⟩ → responseTy = .unit
+/-- Typing obligations at the two visible recursive boundaries.  Internal
+steps need no extra assumption: ordinary preservation already covers them. -/
+structure LanguageRecursiveBoundaryTypingCert (sig : LanguageSignature)
+    (selected : Nat) (handler : LanguageAffineHandler .recursive)
+    (replacement : EffectLanguage) where
+  baseResume : ∀ {request : RecLanguageBaseRequest} {resultTy effect},
+    request.operation = 0 →
+    HasLanguageComp sig [] request.source resultTy effect →
+    HasLanguageComp sig [] (request.resume .unit) resultTy effect
+  matchedAnswer : ∀ {request : RecLanguageFreeRequest} {clause resultTy effect},
+    request.interface = selected →
+    handler.lookup request.operation = some clause →
+    HasLanguageComp sig [] request.source resultTy effect →
+    HasLanguageComp sig [] (request.answerWith clause) resultTy
+      (EffectLanguage.handleWith selected replacement effect)
 
 /-- Every finite result of the derived deep handler retains the source result
 type.  The recursive proof uses ordinary preservation at internal steps and
 the already checked affine matching-reduct theorem. -/
 theorem LanguageDeepWriterRuns.result_typed
-    (writerSig : LanguageWriterResponseUnit sig)
-    (handlerTyping : HasLanguageAffineHandler sig [] selected handler replacement)
+    (boundaries : LanguageRecursiveBoundaryTypingCert sig selected handler replacement)
     (runs : LanguageDeepWriterRuns selected handler term log value)
     (typing : HasLanguageComp sig [] term resultTy effect) :
     Nonempty (HasLanguageVal sig [] value resultTy) := by
@@ -378,28 +389,18 @@ theorem LanguageDeepWriterRuns.result_typed
   | internal step runs ih => exact ih (step.preserve typing)
   | tell request exposed writer runs ih =>
       rw [exposed] at typing
-      let requestTyping := typing.exposedBaseView
-      have operationLookup : sig.base 0 =
-          some ⟨requestTyping.parameterTy, requestTyping.responseTy⟩ := by
-        simpa [writer] using requestTyping.lookup
-      have responseEq := writerSig.responseUnit operationLookup
-      have unitTyping : HasLanguageVal sig [] (.unit : LanguageVal)
-          requestTyping.responseTy := by
-        rw [responseEq]
-        exact .unit
-      exact ih (requestTyping.resumeTyping unitTyping)
+      exact ih (boundaries.baseResume writer typing)
   | matched request exposed same found runs ih =>
       rw [exposed] at typing
-      exact ih (handlerTyping.answerWithTyping typing same found)
+      exact ih (boundaries.matchedAnswer same found typing)
 
 theorem languageDeepWriterSemantics_result_typed
-    (writerSig : LanguageWriterResponseUnit sig)
-    (handlerTyping : HasLanguageAffineHandler sig [] selected handler replacement)
+    (boundaries : LanguageRecursiveBoundaryTypingCert sig selected handler replacement)
     (typing : HasLanguageComp sig [] term resultTy effect)
     (observed : languageDeepWriterSemantics selected handler term =
       some (log, value)) :
     Nonempty (HasLanguageVal sig [] value resultTy) :=
   (language_deep_writer_semantic_adequacy.mpr observed).result_typed
-    writerSig handlerTyping typing
+    boundaries typing
 
 end EffectSemantics

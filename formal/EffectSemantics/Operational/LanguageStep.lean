@@ -3,12 +3,14 @@ import EffectSemantics.Metatheory.LanguageSubstitution
 namespace EffectSemantics
 
 /-- Internal CBV reduction for the language-graded calculus. -/
-inductive LanguageStep : LanguageComp → LanguageComp → Type where
+inductive LanguageStep {mode : RecMode} :
+    LanguageComp mode → LanguageComp mode → Type where
   | letReturn : LanguageStep (.letE (.ret value) body) (body.subst0 value)
   | beta : LanguageStep (.app (.lam domain latent body) argument)
       (body.subst0 argument)
-  | fixBeta : LanguageStep (.app (.fixLam domain latent body) argument)
-      (body.subst2 argument (.fixLam domain latent body))
+  | fixBeta : LanguageStep
+      (.app (.fixLam recursive domain latent body) argument)
+      (body.subst2 argument (.fixLam recursive domain latent body))
   | ifTrue : LanguageStep (.ite (.bool true) thenBranch elseBranch) thenBranch
   | ifFalse : LanguageStep (.ite (.bool false) thenBranch elseBranch) elseBranch
   | caseInl : LanguageStep (.case (.inl value rightTy) leftBranch rightBranch)
@@ -18,14 +20,15 @@ inductive LanguageStep : LanguageComp → LanguageComp → Type where
   | underLet : LanguageStep bound bound' →
       LanguageStep (.letE bound body) (.letE bound' body)
 
-def LanguageComp.internalStep : LanguageComp → Option LanguageComp
+def LanguageComp.internalStep {mode} :
+    LanguageComp mode → Option (LanguageComp mode)
   | .ret _ => none
   | .letE (.ret value) body => some (body.subst0 value)
   | .letE bound body =>
       bound.internalStep.map (fun next => .letE next body)
   | .app (.lam _ _ body) argument => some (body.subst0 argument)
-  | .app (.fixLam domain latent body) argument =>
-      some (body.subst2 argument (.fixLam domain latent body))
+  | .app (.fixLam recursive domain latent body) argument =>
+      some (body.subst2 argument (.fixLam recursive domain latent body))
   | .app _ _ => none
   | .ite (.bool true) thenBranch _ => some thenBranch
   | .ite (.bool false) _ elseBranch => some elseBranch

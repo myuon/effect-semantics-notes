@@ -2,21 +2,24 @@ import EffectSemantics.Metatheory.LanguageRequests
 
 namespace EffectSemantics
 
-structure LanguageAffineHandler where
-  clauses : List (Nat × LanguageComp)
+structure LanguageAffineHandler (mode : RecMode := .finite) where
+  clauses : List (Nat × LanguageComp mode)
 
-def LanguageAffineHandler.lookup (handler : LanguageAffineHandler)
-    (operation : Nat) : Option LanguageComp :=
+abbrev FinLanguageAffineHandler := LanguageAffineHandler .finite
+abbrev RecLanguageAffineHandler := LanguageAffineHandler .recursive
+
+def LanguageAffineHandler.lookup {mode} (handler : LanguageAffineHandler mode)
+    (operation : Nat) : Option (LanguageComp mode) :=
   (handler.clauses.find? (fun clause => clause.1 = operation)).map Prod.snd
 
 def LanguageFreeRequest.answerWith
-    (request : LanguageFreeRequest) (clause : LanguageComp) : LanguageComp :=
+    (request : LanguageFreeRequest) (clause : FinLanguageComp) : FinLanguageComp :=
   .letE (clause.subst0 request.parameter) request.openResume
 
 inductive LanguageHandlerState where
-  | core (term : LanguageComp)
+  | core (term : FinLanguageComp)
   | shallow (interface : Nat) (handler : LanguageAffineHandler)
-      (term : LanguageComp)
+      (term : FinLanguageComp)
 
 inductive LanguageShallowStep :
     LanguageHandlerState → LanguageHandlerState → Type where
@@ -48,7 +51,7 @@ inductive LanguageShallowBoundary : LanguageHandlerState → Type where
 
 def LanguageShallowBoundary.resume :
     LanguageShallowBoundary (.shallow interface handler term) →
-      LanguageVal → LanguageHandlerState
+      FinLanguageVal → LanguageHandlerState
   | .base request, response =>
       .shallow interface handler (request.resume response)
   | .freeOther request _, response =>

@@ -11,6 +11,7 @@ The canonical generic certificate is [`GenericRecursiveResumptionCert`](https://
 |---|---|---|
 | Definition IV.1, recursive local certificate | Lean checked counterpart | [`GenericRecursiveResumptionCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumptionCert#doc) |
 | recursive preservation/progress | Lean checked source-language component | [`languageRecursiveStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageRecursiveStructurePreservation#doc) |
+| finite-to-recursive operational inclusion | Lean checked | [`LanguageStep.toRecursive`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.toRecursive#doc) |
 | derived/deep coincidence | Lean checked semantically by shallow reinstallation functional | [`RecursiveResumptionSystem.functional`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.RecursiveResumptionSystem.functional#doc) |
 | exhaustive-interface elimination | Lean checked source-boundary theorem under exhaustiveness | [`exhaustive_no_escaping_selected_request`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageAffineHandler.exhaustive_no_escaping_selected_request#doc) |
 | recursive adequacy transport | Lean checked | [`GenericRecursiveResumptionCert.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumptionCert.main#doc) |
@@ -20,6 +21,12 @@ The canonical generic certificate is [`GenericRecursiveResumptionCert`](https://
 
 **Conditional paper theorem.**  This page records exactly what must be added
 to `ShallowCert` and what is then preserved.
+
+The source boundary is literal in Lean. Chapters I–III quantify over
+`FinLanguageComp`; Chapter IV quantifies over `RecLanguageComp`. The inclusion
+commutes with renaming and substitution and simulates every finite reduction
+by one recursive reduction. Adding recursion therefore does not retroactively
+put a fixed point into the finite language.
 
 ## 1. Definition IV.1 `[C4-CERT.1.1]` — layered recursive certificates [[Lean: counterpart]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumptionCert#doc)
 
@@ -108,6 +115,12 @@ supplies the corresponding reflection map.
 The model, TT, closure and observation records are genuine additional
 hypotheses, but they are not needed for one-step recursive safety. They cannot
 be reconstructed from the finite `ShallowCert` or from monad laws.
+
+For the recursive Writer completion, result typing is factored through
+[`LanguageRecursiveBoundaryTypingCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveBoundaryTypingCert#doc).
+It asks exactly for type preservation at a visible base response and at a
+matched free request; internal steps use ordinary preservation. This is an
+explicit premise, not an implicit reuse of the finite request theorem.
 
 ## 2. Recursive safety
 

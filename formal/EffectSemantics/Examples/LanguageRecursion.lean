@@ -21,18 +21,18 @@ def loopLanguage : EffectLanguage := star (principal [loopAtom])
 
 /-- Under `[argument, self]`, perform the free operation and then call self.
 The response introduced by `letE` shifts self to de Bruijn index two. -/
-def effectfulLoopBody : LanguageComp :=
+def effectfulLoopBody : RecLanguageComp :=
   .letE (.freeOp 0 0 .unit) (.app (.var 2) .unit)
 
 def effectfulLoopBodyTyping :
-    HasLanguageComp unitFreeLanguageSignature
+    HasLanguageComp (mode := .recursive) unitFreeLanguageSignature
       [.unit, .arr .unit loopLanguage .unit]
       effectfulLoopBody .unit loopLanguage := by
-  have request : HasLanguageComp unitFreeLanguageSignature
+  have request : HasLanguageComp (mode := .recursive) unitFreeLanguageSignature
       [.unit, .arr .unit loopLanguage .unit]
       (.freeOp 0 0 .unit) .unit (principal [loopAtom]) :=
     .freeOp unitFreeLanguageSignature_lookup .unit
-  have recurse : HasLanguageComp unitFreeLanguageSignature
+  have recurse : HasLanguageComp (mode := .recursive) unitFreeLanguageSignature
       [.unit, .unit, .arr .unit loopLanguage .unit]
       (.app (.var 2) .unit) .unit loopLanguage :=
     .app (.var rfl) .unit
@@ -41,18 +41,18 @@ def effectfulLoopBodyTyping :
       change EffectLanguage.seq (principal [loopAtom]) loopLanguage ≤ loopLanguage
       exact EffectLanguage.seq_star_le_star _)
 
-def effectfulLoop : LanguageVal :=
-  .fixLam .unit loopLanguage effectfulLoopBody
+def effectfulLoop : RecLanguageVal :=
+  .fixLam .recursive .unit loopLanguage effectfulLoopBody
 
 def effectfulLoopTyping :
-    HasLanguageVal unitFreeLanguageSignature [] effectfulLoop
+    HasLanguageVal (mode := .recursive) unitFreeLanguageSignature [] effectfulLoop
       (.arr .unit loopLanguage .unit) :=
-  .fixLam effectfulLoopBodyTyping
+  .fixLam .recursive effectfulLoopBodyTyping
 
-def runEffectfulLoop : LanguageComp := .app effectfulLoop .unit
+def runEffectfulLoop : RecLanguageComp := .app effectfulLoop .unit
 
 def runEffectfulLoopTyping :
-    HasLanguageComp unitFreeLanguageSignature [] runEffectfulLoop
+    HasLanguageComp (mode := .recursive) unitFreeLanguageSignature [] runEffectfulLoop
       .unit loopLanguage :=
   .app effectfulLoopTyping .unit
 
@@ -64,33 +64,33 @@ def runEffectfulLoop_unfolds :
 /-- The actual recursive beta step, not only its abstract effect skeleton,
 preserves the regular latent grade. -/
 def runEffectfulLoop_unfoldedTyping :
-    HasLanguageComp unitFreeLanguageSignature []
+    HasLanguageComp (mode := .recursive) unitFreeLanguageSignature []
       (effectfulLoopBody.subst2 .unit effectfulLoop) .unit loopLanguage :=
   runEffectfulLoop_unfolds.preserve runEffectfulLoopTyping
 
 /-- A conditional recursive body.  The false branch returns immediately and
 the true branch performs one request and recurs; union gives it a natural
 conditional may-effect without forcing both branches to an exact word. -/
-def conditionalLoopBody : LanguageComp :=
+def conditionalLoopBody : RecLanguageComp :=
   .ite (.var 0)
     (.letE (.freeOp 0 0 .unit) (.app (.var 2) (.var 1)))
     (.ret .unit)
 
 def conditionalLoopBodyTyping :
-    HasLanguageComp unitFreeLanguageSignature
+    HasLanguageComp (mode := .recursive) unitFreeLanguageSignature
       [.bool, .arr .bool loopLanguage .unit]
       conditionalLoopBody .unit loopLanguage := by
-  have thenTyping : HasLanguageComp unitFreeLanguageSignature
+  have thenTyping : HasLanguageComp (mode := .recursive) unitFreeLanguageSignature
       [.bool, .arr .bool loopLanguage .unit]
       (.letE (.freeOp 0 0 .unit) (.app (.var 2) (.var 1)))
       .unit loopLanguage := by
     -- The loop body only uses its argument structurally; changing Unit to
     -- Bool therefore leaves the same de Bruijn derivation.
-    have request : HasLanguageComp unitFreeLanguageSignature
+    have request : HasLanguageComp (mode := .recursive) unitFreeLanguageSignature
         [.bool, .arr .bool loopLanguage .unit]
         (.freeOp 0 0 .unit) .unit (principal [loopAtom]) :=
       .freeOp unitFreeLanguageSignature_lookup .unit
-    have recurse : HasLanguageComp unitFreeLanguageSignature
+    have recurse : HasLanguageComp (mode := .recursive) unitFreeLanguageSignature
         [.unit, .bool, .arr .bool loopLanguage .unit]
         (.app (.var 2) (.var 1)) .unit loopLanguage :=
       .app (.var rfl) (.var rfl)

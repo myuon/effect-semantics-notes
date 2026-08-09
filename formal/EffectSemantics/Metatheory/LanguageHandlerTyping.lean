@@ -19,7 +19,7 @@ def HasLanguageEvalContext.renamePreserved
 
 structure TypedLanguageAffineClause (sig : LanguageSignature)
     (ctx : LanguageContext) (interface operation : Nat)
-    (clause : LanguageComp) (clauseEffect : EffectLanguage) where
+    (clause : FinLanguageComp) (clauseEffect : EffectLanguage) where
   parameterTy : LanguageTy
   responseTy : LanguageTy
   signatureLookup : sig.free interface operation =
