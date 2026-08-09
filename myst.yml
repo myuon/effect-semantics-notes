@@ -28,6 +28,7 @@ project:
         - file: lean-api-reference.md
         - file: language-graded-main-theorem-v6.md
         - file: generic-free-extension-theorem-v1.md
+        - file: generic-recursive-resumption-theorem-v1.md
         - file: effect-language-repair-v5.md
         - file: graded-tt-lifting-v5.md
         - file: adequacy-pole-construction-v5.md

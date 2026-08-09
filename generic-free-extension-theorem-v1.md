@@ -170,18 +170,15 @@ instantiates the generic adequacy certificate, and Lean proves that its fold
 is extensionally equal to the pre-existing `WriterTree.runClosed`:
 [`genericWriterRunClosed_writerToGeneric`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericWriterRunClosed_writerToGeneric#doc).
 
-## 7. What remains
+## 7. Recursive continuation of this theorem
 
-This theorem closes the finite algebraic-signature layer.  It does not yet
-derive an operation signature from an opaque monad automatically.  Such a
-derivation needs additional traversable/container structure or a distributive
-law and should be a separate theorem.
+The base-independent recursive resumption syntax and least-fixed-point
+transport have now been formalized. See the
+[generic recursive resumption theorem](generic-recursive-resumption-theorem-v1.md).
+Writer, Exception, and State instantiate its observer obligations. State uses
+an honest state-transformer outcome and joins the finite witnesses from both
+`get` response branches.
 
-The next formal steps are:
-
-1. choose and fix a base-independent recursive resumption syntax, then
-   transport the generic finite certificate and TT layer into the existing
-   least-fixed-point completion theorem;
-2. instantiate the observation obligations for State and Exception;
-3. state precisely which non-algebraic base monads admit the required
-   one-layer presentation.
+What still cannot be obtained from this finite theorem is an operation
+signature extracted automatically from an opaque monad. Such an extraction
+needs additional traversable/container structure or a distributive law.

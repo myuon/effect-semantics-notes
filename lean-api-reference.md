@@ -37,6 +37,24 @@ solely because a related result appears here.
 
 ## Recursive completion and derived deep handling
 
+### Generic resumption construction
+
+| Mathematical result | Checked Lean declaration |
+|---|---|
+| Observer-local conditions imply functional continuity | [`RecursiveObserverContinuity.functionalContinuous`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.RecursiveObserverContinuity.functionalContinuous#doc) |
+| Fuel evaluator agrees with finite Kleene iteration | [`genericRunFuel_eq_iterate`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericRunFuel_eq_iterate#doc) |
+| Unfold, leastness, adequacy and recursive pole | [`GenericRecursiveResumptionCert.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumptionCert.main#doc) |
+| Outcome morphism lifting | [`GenericRecursiveMorphismCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveMorphismCert.lift#doc) |
+| Admissible relation lifting | [`GenericRecursiveRelationCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveRelationCert.lift#doc) |
+| Observation-sensitive outcome TT lifting | [`GenericRecursiveOutcomeTTCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveOutcomeTTCert.lift#doc) |
+| Recursive old-language conservativity | [`GenericRecursiveResumptionCert.oldLanguageConservative`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumptionCert.oldLanguageConservative#doc) |
+| Writer concrete limit result and pole | [`GenericRecursiveWriter.example_limit_true`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveWriter.example_limit_true#doc) |
+| Exception limit adequacy | [`GenericRecursiveException.limit_adequacy`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveException.limit_adequacy#doc) |
+| State transformer example | [`GenericRecursiveState.toggle_from_false`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveState.toggle_from_false#doc) |
+| State recursive limit adequacy | [`GenericRecursiveState.limit_adequacy`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveState.limit_adequacy#doc) |
+
+### Existing source-language instance
+
 | Mathematical result | Checked Lean declaration |
 |---|---|
 | Continuity of the one-layer deep-Writer functional | [`languageDeepWriterFunctional_continuous`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageDeepWriterFunctional_continuous#doc) |

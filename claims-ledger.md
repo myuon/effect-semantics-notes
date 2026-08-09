@@ -401,6 +401,12 @@
 | C-389 | Established in Lean | heterogeneous observation familyからorthogonalityとTT relationを定義でき、returnと各base/free operation layerがTTを保存すれば、free-extensionのstructural relationは二つのtarget fold間のTT relationへ持ち上がる | operation interpretationごとのTT保存; 観測関係は別途与える | operational adequacy、reflection、full abstractionはTT包含だけからは導かれない |
 | C-390 | Established in Lean | denotational algebraからoperational outcome algebraへの観測morphismがpure、bind、全base/free operation解釈と可換すれば、全有限free-extension treeで観測等式が成り立ち、old-language embeddingにも制限できる。Writer outcome instanceのfoldは既存`WriterTree.runClosed`と一致する | 両modelが同じtyped signaturesを解釈すること; operation interpretationの局所可換性 | 一般source languageとのoperational correspondence、再帰resumption、State/Exception観測instanceは別途必要 |
 
+| C-391 | Established in Lean | typed base/free signatureの有限treeを一層ずつ露出するrecursive resumptionで、observerの単調性とsupremumの有限witness性からshallow handler再設置functionalのω連続性が導かれる | flat partial outcome; exposed layerは有限 | productive infinite traceは対象外 |
+| C-392 | Main generic recursive theorem established in Lean | one-layerの連続性、finite-run/iterate対応、pole保存からleast fixed pointのunfold、最小性、limit adequacy、recursive poleが導かれる | conclusion-as-premiseなし; admissible flat pole | full abstractionとinfinite observationは別certificate |
+| C-393 | Established in Lean | one-layerで可換なoutcome morphismと、bottomを含みone-layer保存されるadmissible binary relationはそれぞれrecursive least fixed pointへ持ち上がる。有限layerで得たobservation-sensitive outcome TT relationのpointwise simulationは自動的にadmissibleで、one-layer TT保存からrecursive TT relationが導かれる | synchronized flat-chain completion; finite TT relationはone-layerで与える | TT reflection/completenessは結論に含まない |
+| C-394 | Established in Lean | 全recursive layerが`BaseOnly`ならshallow処理はone-layer functionalを変えず、handled/unhandled least fixed pointは一致する | stateごとの`BaseOnly` witness | free requestの可能性があるprogramには適用できない |
+| C-395 | Established in Lean | Writerは連続性、finite/limit adequacy、free requestからrecursive resumeを経て`tell`する具体結果、非自明poleまで、Exceptionは連続性とlimit adequacyまでinstance化された。Stateはinitial storeを隠さなstate-transformer observer、`get/put`例、両`get`分岐のwitnessをmaximum indexで統合する連続性、limit adequacyが形式化された | State outcomeは`Bool → Option (A × Bool)` | productive infinite state observationsはflat domainの範囲外 |
+
 ## 証明完了の基準
 
 各 claim は最低限、次を持って初めて **Derived** とする。

@@ -13,7 +13,7 @@ generic construction.
 inductive WriterBaseOp where
   | tell (message : Val)
 
-def writerBaseSignature : OperationSignature where
+abbrev writerBaseSignature : OperationSignature where
   Op := WriterBaseOp
   Response := fun _ => Unit
 
@@ -92,7 +92,7 @@ inductive StateBaseOp where
   | get
   | put (state : Bool)
 
-def stateBaseSignature : OperationSignature where
+abbrev stateBaseSignature : OperationSignature where
   Op := StateBaseOp
   Response
     | .get => Bool
@@ -101,7 +101,7 @@ def stateBaseSignature : OperationSignature where
 inductive ExceptionBaseOp where
   | raise (error : Val)
 
-def exceptionBaseSignature : OperationSignature where
+abbrev exceptionBaseSignature : OperationSignature where
   Op := ExceptionBaseOp
   Response
     | .raise _ => Empty

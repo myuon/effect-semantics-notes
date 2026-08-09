@@ -438,5 +438,19 @@ theorem Rel.shallow
           subst rightResponse
           exact continuations rfl
 
+/-- Shallow handling is literally the identity on an old-language tree. -/
+theorem BaseOnly.shallow_eq
+    {base free : OperationSignature} {α : Type}
+    {tree : FreeExtension base free α}
+    (old : BaseOnly tree) (handler : AffineHandler base free) :
+    shallow handler tree = tree := by
+  induction old with
+  | ret => rfl
+  | baseOp operation continuation children ih =>
+      simp only [shallow]
+      congr
+      funext response
+      exact ih response
+
 end FreeExtension
 end EffectSemantics
