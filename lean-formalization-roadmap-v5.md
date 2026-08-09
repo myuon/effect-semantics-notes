@@ -514,16 +514,20 @@ effect annotations can state:
 Further work separates into genuine extensions that are not definitionally
 determined by the current calculus:
 
-1. **Full effectful recursion syntax.**  The conservative language-valued
-   regular closure, old-grade embedding, and general least solution for
-   branching/multiple-self effect equations are now fixed.  Source arrows,
-   contexts, substitutions, recursion, preservation and progress have been
-   reindexed in a conservative parallel calculus.  Typed request
-   decomposition, shallow residual grading, and handler-step preservation are
-   now transported, including forwarding resumes and complete closed handler
-   progress.  The next untransported layer is the language-indexed
-   denotational/logical-relation account and its agreement with this source
-   machine.
+The language-indexed finite denotational layer is now closed.  Closed source
+computations produce response-typed Writer/free trees; source `let` is tree
+`bind`, declared effect languages bound the generated tree, and finite Writer
+runs are equivalent to tree observations.  Direct shallow interpretation
+forwards unrelated and missing requests until the first selected match, then
+runs the clause and the bare captured continuation.  It preserves structural
+relations and their TT closure, and the matching source reduct denotes exactly
+the same clause/continuation bind (`C-375`--`C-379`).
+
+1. **Recursive language-grade adequacy.**  Full effectful recursion syntax,
+   regular least grades, finite source/tree production, shallow commutation,
+   logical relations and TT lifting are now connected.  The remaining step is
+   to transport the completed stable-observation/Kleene layer to
+   language-valued grades.
 2. **Productive infinite observations.**  Replace the partial finite-boundary
    model by coinductive traces if infinite Writer output or transient State
    behavior must be observable.

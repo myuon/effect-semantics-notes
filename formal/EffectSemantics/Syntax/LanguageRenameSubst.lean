@@ -81,6 +81,100 @@ def LanguageComp.subst2 (argument self : LanguageVal) (body : LanguageComp) :
     LanguageComp :=
   body.subst (fun | 0 => argument | 1 => self | index + 2 => .var index)
 
+mutual
+  theorem LanguageVal.subst_rename_cancel
+      (rename : Nat → Nat) (subst : Nat → LanguageVal)
+      (cancel : ∀ index, subst (rename index) = .var index)
+      (term : LanguageVal) :
+      (term.rename rename).subst subst = term := by
+    cases term with
+    | var index => exact cancel index
+    | unit => rfl
+    | bool flag => rfl
+    | pair left right =>
+        simp [LanguageVal.rename, LanguageVal.subst,
+          LanguageVal.subst_rename_cancel rename subst cancel left,
+          LanguageVal.subst_rename_cancel rename subst cancel right]
+    | inl inner rightTy =>
+        simp [LanguageVal.rename, LanguageVal.subst,
+          LanguageVal.subst_rename_cancel rename subst cancel inner]
+    | inr leftTy inner =>
+        simp [LanguageVal.rename, LanguageVal.subst,
+          LanguageVal.subst_rename_cancel rename subst cancel inner]
+    | lam domain latent body =>
+        simp only [LanguageVal.rename, LanguageVal.subst]
+        congr
+        exact LanguageComp.subst_rename_cancel
+          (liftLanguageRen rename) (liftLanguageSubst subst)
+          (fun index => by
+            cases index <;>
+              simp [liftLanguageRen, liftLanguageSubst,
+                LanguageVal.rename, cancel]) body
+    | fixLam domain latent body =>
+        simp only [LanguageVal.rename, LanguageVal.subst]
+        congr
+        exact LanguageComp.subst_rename_cancel
+          (liftLanguageRen (liftLanguageRen rename))
+          (liftLanguageSubst (liftLanguageSubst subst))
+          (fun index => by
+            cases index with
+            | zero => rfl
+            | succ index =>
+                cases index <;>
+                  simp [liftLanguageRen, liftLanguageSubst,
+                    LanguageVal.rename, cancel]) body
+
+  theorem LanguageComp.subst_rename_cancel
+      (rename : Nat → Nat) (subst : Nat → LanguageVal)
+      (cancel : ∀ index, subst (rename index) = .var index)
+      (term : LanguageComp) :
+      (term.rename rename).subst subst = term := by
+    cases term with
+    | ret result =>
+        simp [LanguageComp.rename, LanguageComp.subst,
+          LanguageVal.subst_rename_cancel rename subst cancel]
+    | letE bound body =>
+        simp only [LanguageComp.rename, LanguageComp.subst]
+        congr
+        · exact LanguageComp.subst_rename_cancel rename subst cancel bound
+        · exact LanguageComp.subst_rename_cancel
+            (liftLanguageRen rename) (liftLanguageSubst subst)
+            (fun index => by
+              cases index <;>
+                simp [liftLanguageRen, liftLanguageSubst,
+                  LanguageVal.rename, cancel]) body
+    | app function argument =>
+        simp [LanguageComp.rename, LanguageComp.subst,
+          LanguageVal.subst_rename_cancel rename subst cancel]
+    | ite condition thenBranch elseBranch =>
+        simp [LanguageComp.rename, LanguageComp.subst,
+          LanguageVal.subst_rename_cancel rename subst cancel,
+          LanguageComp.subst_rename_cancel rename subst cancel thenBranch,
+          LanguageComp.subst_rename_cancel rename subst cancel elseBranch]
+    | case scrutinee leftBranch rightBranch =>
+        simp only [LanguageComp.rename, LanguageComp.subst]
+        congr
+        · exact LanguageVal.subst_rename_cancel rename subst cancel scrutinee
+        · exact LanguageComp.subst_rename_cancel
+            (liftLanguageRen rename) (liftLanguageSubst subst)
+            (fun index => by
+              cases index <;>
+                simp [liftLanguageRen, liftLanguageSubst,
+                  LanguageVal.rename, cancel]) leftBranch
+        · exact LanguageComp.subst_rename_cancel
+            (liftLanguageRen rename) (liftLanguageSubst subst)
+            (fun index => by
+              cases index <;>
+                simp [liftLanguageRen, liftLanguageSubst,
+                  LanguageVal.rename, cancel]) rightBranch
+    | baseOp operation parameter =>
+        simp [LanguageComp.rename, LanguageComp.subst,
+          LanguageVal.subst_rename_cancel rename subst cancel]
+    | freeOp interface operation parameter =>
+        simp [LanguageComp.rename, LanguageComp.subst,
+          LanguageVal.subst_rename_cancel rename subst cancel]
+end
+
 def LanguageRenPreserves (source target : LanguageContext)
     (rename : Nat → Nat) : Prop :=
   ∀ ⦃index ty⦄, LanguageContext.lookup source index = some ty →

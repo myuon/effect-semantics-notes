@@ -141,6 +141,24 @@ An independent head-shape index is unnecessary on the main line. The typed free 
 
 Choose between $X+\mathsf{Op}_\Delta(K)$ and $K+\mathsf{Op}_\Delta(K)$ by reconstructing unit and bind for alternating words. Then formulate handler lifting through an outer base segment.
 
+## 2026-08-09 — Language-graded finite structure theorem
+
+### Established in Lean
+
+- response-typed Writer/free tree semantics and graded bind;
+- source `let`/tree `bind` commutation and finite Writer adequacy;
+- direct first-matching shallow semantics with forwarding;
+- structural relation and TT-lifting preservation;
+- source `answerWith`/semantic matching commutation, including opened
+  continuation substitution;
+- `LanguageFiniteStructureCert`, uniformly for every fixed signature.
+
+### Remaining boundary
+
+The finite theorem uses partial finite production for recursive programs.
+Recursive language-valued adequacy requires transporting the existing stable
+finite-observation/Kleene completion layer.
+
 ## 2026-08-04 — Notation separation
 
 The symbol $H_\Delta$ had been overloaded for both an operation-shape functor and a shallow handler. These are distinct. We now write

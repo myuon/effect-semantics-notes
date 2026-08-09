@@ -34,6 +34,30 @@ def LanguageEvalContext.rename (rename : Nat → Nat)
     (context : LanguageEvalContext) : LanguageEvalContext :=
   context.map (LanguageFrame.rename rename)
 
+theorem LanguageEvalContext.plug_subst_rename_cancel
+    (context : LanguageEvalContext) (rename : Nat → Nat)
+    (subst : Nat → LanguageVal)
+    (cancel : ∀ index, subst (rename index) = .var index)
+    {transformed original : LanguageComp}
+    (hole : transformed.subst subst = original) :
+    (LanguageEvalContext.plug (LanguageEvalContext.rename rename context)
+      transformed).subst subst = LanguageEvalContext.plug context original := by
+  induction context generalizing transformed original with
+  | nil => exact hole
+  | cons frame rest ih =>
+      cases frame with
+      | letE body =>
+          apply ih
+          simp only [LanguageFrame.rename,
+            LanguageFrame.plug, LanguageComp.subst]
+          congr
+          exact LanguageComp.subst_rename_cancel
+            (liftLanguageRen rename) (liftLanguageSubst subst)
+            (fun index => by
+              cases index <;>
+                simp [liftLanguageRen, liftLanguageSubst,
+                  LanguageVal.rename, cancel]) body
+
 structure LanguageFreeRequest where
   interface : Nat
   operation : Nat
@@ -53,6 +77,15 @@ def LanguageFreeRequest.resume (request : LanguageFreeRequest)
     (response : LanguageVal) : LanguageComp :=
   LanguageEvalContext.plug request.context (.ret response)
 
+@[simp] theorem LanguageFreeRequest.openResume_subst0
+    (request : LanguageFreeRequest) (response : LanguageVal) :
+    request.openResume.subst0 response = request.resume response := by
+  apply LanguageEvalContext.plug_subst_rename_cancel request.context (· + 1)
+    (fun | 0 => response | index + 1 => .var index)
+  · intro index
+    rfl
+  · rfl
+
 def LanguageFreeRequest.outerLet (request : LanguageFreeRequest)
     (body : LanguageComp) : LanguageFreeRequest :=
   { request with context := request.context ++ [.letE body] }
@@ -61,6 +94,15 @@ def LanguageFreeRequest.outerLet (request : LanguageFreeRequest)
     (request : LanguageFreeRequest) (body : LanguageComp) :
     (request.outerLet body).source = .letE request.source body := by
   unfold LanguageFreeRequest.outerLet LanguageFreeRequest.source
+  rw [LanguageEvalContext.plug_append]
+  rfl
+
+@[simp] theorem LanguageFreeRequest.outerLet_resume
+    (request : LanguageFreeRequest) (body : LanguageComp)
+    (response : LanguageVal) :
+    (request.outerLet body).resume response =
+      .letE (request.resume response) body := by
+  unfold LanguageFreeRequest.outerLet LanguageFreeRequest.resume
   rw [LanguageEvalContext.plug_append]
   rfl
 
@@ -85,6 +127,15 @@ def LanguageBaseRequest.outerLet (request : LanguageBaseRequest)
     (request : LanguageBaseRequest) (body : LanguageComp) :
     (request.outerLet body).source = .letE request.source body := by
   unfold LanguageBaseRequest.outerLet LanguageBaseRequest.source
+  rw [LanguageEvalContext.plug_append]
+  rfl
+
+@[simp] theorem LanguageBaseRequest.outerLet_resume
+    (request : LanguageBaseRequest) (body : LanguageComp)
+    (response : LanguageVal) :
+    (request.outerLet body).resume response =
+      .letE (request.resume response) body := by
+  unfold LanguageBaseRequest.outerLet LanguageBaseRequest.resume
   rw [LanguageEvalContext.plug_append]
   rfl
 
