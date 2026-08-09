@@ -125,4 +125,14 @@ mutual
         HasLanguageComp sig ctx term ty upper
 end
 
+/-- Paper-style notation for the value-typing judgment.  The signature remains
+explicit because different developments may use different primitive
+signatures in the same Lean scope. -/
+notation:50 ctx " ⊢[" sig "] " value " :ᵥ " ty =>
+  HasLanguageVal sig ctx value ty
+
+/-- Paper-style notation for the computation-typing judgment. -/
+notation:50 ctx " ⊢[" sig "] " term " : " ty " ! " effect =>
+  HasLanguageComp sig ctx term ty effect
+
 end EffectSemantics
