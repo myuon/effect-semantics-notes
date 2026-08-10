@@ -174,7 +174,7 @@ that the whole `let` produces `tree.bind continuation`. This is
 `ProducesLanguageWriterTree.letE`. The displayed categorical equality is its
 paper presentation for a total model satisfying the same bind law.
 
-### Theorem I.9 `[C1-CERT.4.2]` — internal reduction soundness [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.internalStepInvariant#doc)
+### Theorem I.8 `[C1-CERT.4.2]` — internal reduction soundness [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.internalStepInvariant#doc)
 
 If $M\to M'$, then
 
