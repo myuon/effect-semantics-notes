@@ -128,11 +128,11 @@ end
 /-- Paper-style notation for the value-typing judgment.  The signature remains
 explicit because different developments may use different primitive
 signatures in the same Lean scope. -/
-notation:50 ctx " ⊢[" sig "] " value " :ᵥ " ty =>
+notation:50 ctx:51 " ⊢[" sig "] " value:51 " :ᵥ " ty:51 =>
   HasLanguageVal sig ctx value ty
 
 /-- Paper-style notation for the computation-typing judgment. -/
-notation:50 ctx " ⊢[" sig "] " term " : " ty " ! " effect =>
+notation:50 ctx:51 " ⊢[" sig "] " term:51 " : " ty:max " ! " effect:51 =>
   HasLanguageComp sig ctx term ty effect
 
 end EffectSemantics

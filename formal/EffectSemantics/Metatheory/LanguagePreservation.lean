@@ -5,12 +5,12 @@ namespace EffectSemantics
 open EffectLanguage
 
 structure LanguageReturnView
-    (typing : HasLanguageComp sig ctx (.ret value) ty effect) where
-  valueTyping : HasLanguageVal sig ctx value ty
+    (typing : ctx ⊢[sig] .ret value : ty ! effect) where
+  valueTyping : ctx ⊢[sig] value :ᵥ ty
   pureBelow : principal 1 ≤ effect
 
 def HasLanguageComp.returnView
-    (typing : HasLanguageComp sig ctx (.ret value) ty effect) :
+    (typing : ctx ⊢[sig] .ret value : ty ! effect) :
     LanguageReturnView typing := by
   cases typing with
   | ret valueTyping => exact ⟨valueTyping, EffectLanguage.le_refl _⟩
@@ -22,8 +22,8 @@ def HasLanguageComp.returnView
 language-valued may-effect bound. -/
 def LanguageStep.preserve
     (step : LanguageStep term term')
-    (typing : HasLanguageComp sig ctx term ty effect) :
-    HasLanguageComp sig ctx term' ty effect := by
+    (typing : ctx ⊢[sig] term : ty ! effect) :
+    ctx ⊢[sig] term' : ty ! effect := by
   cases typing with
   | ret valueTyping => cases step
   | baseOp lookup parameterTyping => cases step
