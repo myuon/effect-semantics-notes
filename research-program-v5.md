@@ -150,19 +150,17 @@ Chapter IV is deliberately a second theorem: recursion invalidates finite
 normalization and requires domain-theoretic structure that is not part of the
 free-extension functor itself.
 
-The source of this functor is not the category of all graded monads.  Its
-objects are the [extensible semantic packages](package-categories-v5.md) that
-also supply indexed initial algebras and a coherent
-[base action](base-action-law-v5.md).  This restriction is substantive:
-graded monad laws alone do not determine how an opaque old computation acts
-on a newly extended carrier.
+The source of this functor is the category of graded monads for which the
+required [strong graded FreeT](graded-freet-existence-v1.md) exists. This is a
+substantive restriction, discharged in standard Set-based examples by
+accessibility or a concrete FreeT construction. The action is derived from
+FreeT fold/unfold and base multiplication.
 
 This restriction begins only at semantic composition. The
 [assumption dependency audit](assumption-dependency-audit-v5.md) shows that
 operation syntax, type safety, request decomposition and old operational
-conservativity survive before any `baseAct` is chosen; indexed initiality then
-supplies the carrier and constructors; `baseAct` is first used to interpret
-general sequencing.
+conservativity do not depend on FreeT existence. The FreeT premise first
+enters when interpreting the extended language compositionally.
 
 At each extension boundary we separately test:
 
@@ -188,10 +186,11 @@ The certificate names abbreviate formally declared conditions, not unspecified
 bundles of “good properties.”  The cumulative theorem is read in three stages.
 
 1. A split `BaseCert` containing operational $S$, denotational $T$, and their
-   comparison, together with indexed initial algebras and coherent
-   `baseAct`, yields `FreeCert` and the lifted $\widehat T\to\widehat S$
-   comparison. Finite/separated observations are needed only for a subsequent
-   TT reflection theorem.
+   comparison, together with the strong graded FreeT objects
+   $\widehat S=\operatorname{FreeT}_\Sigma(S)$ and
+   $\widehat T=\operatorname{FreeT}_\Sigma(T)$, yields `FreeCert` and the
+   lifted $\widehat T\to\widehat S$ comparison. Finite/separated observations
+   are needed only for a subsequent TT reflection theorem.
 2. `FreeCert`, a closed graded TT pole and either `AffineCert` or
    `HandlerCert` yield `ShallowCert`.
 3. `ShallowCert` and the appropriate *component* of `RecBaseCert` yield the

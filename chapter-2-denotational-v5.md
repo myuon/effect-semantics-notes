@@ -117,12 +117,12 @@ It is defined by the initial-algebra recursion:
 - use base graded bind through the outer $T$;
 - preserve each free operation and compose into every response continuation.
 
-The graded unit and associativity laws follow from initiality together with a
-coherent `baseAct` and the base graded monad laws.  The action may be supplied
-directly or obtained from the
-[root-exposure construction](base-action-construction-v5.md).  The
-construction is strong when $T$ is strong, the action respects strength and
-the polynomial initial algebras are stable under the required products.
+The graded unit and associativity laws follow from FreeT initiality and the
+base graded monad laws. The action is derived as
+$\mathsf{roll}\circ\mu^T\circ T(\mathsf{out})$. Sufficient conditions for the
+strong construction are listed in
+[FreeT existence](graded-freet-existence-v1.md); root exposure is only an
+alternative implementation route for an external-root carrier.
 
 ## 5. Base embedding and conservativity diagram
 
@@ -213,8 +213,7 @@ direct calculations without adding any generic abort marker.
 
 The free extension requires more than the bare monad laws only where stated:
 
-- the indexed layer endofunctors $\mathcal H_A$ must have initial algebras in
-  $\mathcal C^{\widehat E}$;
+- the strong graded FreeT parameterized initial algebras must exist;
 - base strength is needed for open CBV terms;
 - coherent base weakening must extend to $\widehat E$;
 - the chosen observation must be enlarged to distinguish an exposed free

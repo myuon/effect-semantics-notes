@@ -92,7 +92,8 @@ comparison, not the definition of operational effects.
 
 ## 4. Free extension
 
-Adjoin the same first-order free signature $\Sigma$ to both models:
+Assume the same strong graded FreeT construction exists for both models and
+adjoin the first-order signature $\Sigma$:
 
 $$
 \widehat S=\mathsf F_\Sigma(S),
@@ -100,8 +101,8 @@ $$
 \widehat T=\mathsf F_\Sigma(T).
 $$
 
-If the required indexed initial algebras and coherent base actions exist, the
-base comparison lifts to
+The base actions are derived from the two FreeT fold/unfold equations. The
+base comparison lifts by parameterized initiality to
 
 $$
 \widehat q:
@@ -119,6 +120,8 @@ Compatible graded logical relations lift in parallel. In Lean the ungraded
 finite core is [`GenericExtensionAlgebra.ModelComparisonCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparisonCert#doc),
 with the lifting theorem
 [`ModelComparisonCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparisonCert.lift#doc).
+General categorical sufficient conditions are stated in
+[FreeT existence](graded-freet-existence-v1.md).
 
 ## 5. Shallow handling and recursion
 

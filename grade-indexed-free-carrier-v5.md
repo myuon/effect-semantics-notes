@@ -136,10 +136,15 @@ The familiar constructors are derived as follows.
 Thus optional requests such as $1\le\Delta$ require no special return node:
 return at grade $1$ is transported to grade $\Delta$ by weakening.
 
-## 4. Bind
+## 4. Bind in the external-root representation
 
-Indexed initiality alone does not flatten an arbitrary old computation whose
-result is already an extended computation.  Require a coherent base action
+The canonical FreeT presentation derives flattening by
+$\mathsf{roll}\circ\mu^T\circ T(\mathsf{out})$; see
+[FreeT existence](graded-freet-existence-v1.md). In the alternative
+presentation used on this page, the root grade has been moved outside $T$.
+Indexed initiality alone then does not flatten an arbitrary old computation
+whose result is already extended, so this representation must construct a
+coherent base action
 
 $$
 \mathsf{baseAct}_{b,d,A}:
@@ -185,21 +190,24 @@ constructed from a graded theory sum, or derived from the
 [root-exposure sufficient condition](base-action-construction-v5.md).  A
 strict independence countermodel has not yet been established.
 
-## 5. Corrected existence premise
+## 5. Alternative implementation premise
 
-The premise used by `Free-Transport` is therefore not merely
+To implement the main theorem through this external-root carrier, it is not
+enough that
 
 $$
 \forall e,A.\ \mu X.\,T_e(A+\Sigma X)\text{ exists}.
 $$
 
-It is:
+One must show:
 
 > For every $A$, the indexed layer endofunctor $\mathcal H_A$ exists, respects
 > weakening, and has an initial algebra in $\mathcal C^{\widehat E}$ stable
 > under the products used by strength; moreover the carrier has a coherent
 > base action `(Base-Action)`.
 
+The main theorem itself instead assumes `StrongGradedFreeT`, with standard
+sufficient conditions listed in [FreeT existence](graded-freet-existence-v1.md).
 In $\mathbf{Set}$ with small signatures and the concrete Writer, State,
 Exception and finite-subdistribution layers, this is obtained by the ordinary
 inductive tree construction and the corresponding base bind.  In a general

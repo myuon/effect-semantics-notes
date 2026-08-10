@@ -2,10 +2,10 @@
 
 ## Status
 
-**Minimal additional structure isolated.**  The indexed free carrier becomes a
-graded monad only when the old base computation can be composed in front of an
-already extended computation.  This page specifies that structure and its
-laws.
+**Derived FreeT structure and alternative implementation boundary.** For the
+standard FreeT assumed by the main theorem, the action is derived from
+fold/unfold and base multiplication. This page records its laws and explains
+what an alternative indexed representation must implement.
 
 ## 1. Definition
 
@@ -39,6 +39,16 @@ $$
 
 The comparison theorem later requires the lifted map
 $\widehat q:\widehat T\to\widehat S$ to commute with these two actions.
+
+For the standard FreeT equation from
+[FreeT existence](graded-freet-existence-v1.md), it is canonically
+
+$$
+\mathsf{act}^{T,\Sigma}
+=\mathsf{roll}\circ\mu^T\circ T(\mathsf{out}).
+$$
+
+Accordingly `act` is not an independent premise of the main theorem.
 
 It must satisfy the following conditions.
 
@@ -171,9 +181,11 @@ trees by probabilistic bind.  Finite-sum associativity proves `Act-Mult`.
 
 ## 7. Boundary
 
-The present proof does not derive `baseAct` from graded monad laws and indexed
-initial algebras alone.  A general construction additionally needs a way to
-expose or distribute the opaque $T_b$ layer across the indexed carrier root.
+The standard FreeT route derives `baseAct` directly. If one instead begins
+with the older carrier whose root grade is externalized as a coproduct, graded
+monad laws and indexed initial algebras alone do not derive it. That
+representation additionally needs a way to expose or distribute the opaque
+$T_b$ layer across the indexed carrier root.
 The [root-exposure theorem](base-action-construction-v5.md) gives one
 sufficient condition.  Whether there is a model with all the stated indexed
 initial algebras but no coherent base action is retained as an open

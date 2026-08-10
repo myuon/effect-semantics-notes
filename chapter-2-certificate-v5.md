@@ -109,10 +109,9 @@ $\square$
 
 ### Theorem II.6 `[C2-CERT.4.1]` — free-extension algebra [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericFreeExtensionStructurePreservation#doc)
 
-Assume that $T$ is a strong graded monad, $\Sigma$ is a first-order
-polynomial signature, and the indexed layer construction has both its initial
-algebras and the coherent base action described in
-[Grade-indexed free carrier](grade-indexed-free-carrier-v5.md).  Then
+Assume that the strong graded free monad transformer
+$\widehat T=\operatorname{FreeT}_\Sigma(T)$ exists in the sense of
+[FreeT existence](graded-freet-existence-v1.md). Then
 
 $$
 \mathsf{StrongGradedMonad}(\mathsf F_\Sigma(T),\widehat E)
@@ -123,8 +122,10 @@ $$
 
 ### Proof sketch
 
-Initiality defines bind as the unique algebra morphism extending a return
-substitution.  The left unit, right unit and associativity equations are proved
+The FreeT fold/unfold equation derives the base action as
+$\mathsf{roll}\circ\mu^T\circ T(\mathsf{out})$. Initiality defines bind as
+the unique algebra morphism extending a return substitution. The left unit,
+right unit and associativity equations are proved
 by showing both sides are algebra morphisms with the same action on returns,
 base structure and free generators.  Uniqueness makes them equal.  Strength
 and weakening are lifted by the same recursion and inherit coherence from
@@ -160,9 +161,8 @@ Assume
 
 $$
 \mathsf{BaseCert}(L_B,E_B,S,T,q)
-\land\mathsf{CarrierCert}(\mathsf F_\Sigma(S))
-\land\mathsf{CarrierCert}(\mathsf F_\Sigma(T))
-\land\mathsf{ActMorphism}(q).
+\land\mathsf{StrongGradedFreeT}(S,\Sigma,\widehat S)
+\land\mathsf{StrongGradedFreeT}(T,\Sigma,\widehat T).
 $$
 
 Then $q$ lifts uniquely to
@@ -213,7 +213,8 @@ $$
 
 has a **structural lifting** $\mathsf{Str}_\Sigma(R)$ through returns, related
 base layers and free nodes. The relator is applied to the recursively generated
-payload relation and must commute with the two `baseAct` maps. The free-node
+payload relation. Compatibility with the two derived `baseAct` maps then
+follows from the FreeT fold equation. The free-node
 clause relates equal operation tags, related parameters and pointwise-related
 continuations. This is distinct from the observational graded TT-lifting used
 for adequacy.
@@ -401,53 +402,44 @@ where $o$ ranges over separated returns, base outcomes and free requests.
 
 Assume the following premises, each only where cited below.
 
-1. $\mathsf{BaseSafetyCert}(L_B,E_B,\mathcal K)$;
-2. $\mathsf{BaseModelCert}(L_B,E_B,T)$;
-3. $\mathsf{BaseAdequacyCert}
-   (L_B,\mathcal K,T,\mathsf{obs}_B,\mathsf{observe}_T)$;
-4. $\Sigma$ is a first-order polynomial signature disjoint from the base
+1. $\mathsf{BaseCert}(L_B,E_B,S,T,q)$;
+2. $\Sigma$ is a first-order polynomial signature disjoint from the base
    signature;
-5. for every $A$, the indexed layer functor $\mathcal H_A$ from
-   [the grade-indexed construction](grade-indexed-free-carrier-v5.md) has a
-   finite/well-founded initial algebra in $\mathcal C^{\widehat E}$, stable
-   under the products required by strength, and its carrier has the coherent
-   base action
-   $T_b(\widehat T_dA)\to\widehat T_{b\cdot d}A$, where
-   $\widehat T=\mathsf F_\Sigma(T)$;
-6. the extended effect preorder cannot erase a visible $\Sigma$ factor;
-7. $\mathsf{FiniteResponseCert}(\mathcal K)$ holds;
-8. the extended observation separates returns, base outcomes and free
-   requests.
+3. $\mathsf{StrongGradedFreeT}(T,\Sigma,\widehat T)$ and
+   $\mathsf{StrongGradedFreeT}(S,\Sigma,\widehat S)$ hold; sufficient
+   accessible and concrete conditions are listed in
+   [FreeT existence](graded-freet-existence-v1.md);
+4. the extended effect preorder cannot erase a visible $\Sigma$ factor;
+5. any optional finite TT observation theorem supplies its own branching,
+   separation, and pole-closure hypotheses.
 
 Then the following conclusions hold in order.
 
-1. Premises 1 and 4 give
-   $\mathsf{OpFreeCert}(L_B+\Sigma)$ without using premises 2, 3 and 5--8.
-2. The same typing argument gives $\mathsf{EffectSafetyCert}$ without
-   no-erasure. Adding premise 6 gives the stronger `EmptyFreeCert` corollary.
-3. Premises 2 and 4 and the initial-algebra part of premise 5 give
-   $\mathsf{CarrierCert}(T,\Sigma,\mathsf F)$.
-4. Adding the base-action part of premise 5 gives
-   $\mathsf{MonadExtCert}(T,\mathsf F,\mathsf{act})$.
-5. Compatible morphisms and graded relators respectively give
-   $\mathsf{FunctorCert}$ and $\mathsf{RelCert}$; neither conclusion uses
-   base adequacy, finite responses or constructor separation.
-6. Finally, premises 1--5, 7 and 8 give
-   $\mathsf{FiniteAdequacyCert}$.
+1. Premises 1 and 2 give $\mathsf{OpFreeCert}(L_B+\Sigma)$ independently of
+   the semantic FreeT premise.
+2. The same typing argument gives $\mathsf{EffectSafetyCert}$; adding premise
+   4 gives the stronger `EmptyFreeCert` corollary.
+3. Premise 3 gives both extended strong graded monads, their base embeddings,
+   free generators, and the derived actions.
+4. The base comparison $q$ lifts functorially to
+   $\widehat q:\widehat T\Rightarrow\widehat S$.
+5. Compatible graded relators lift in parallel.
+6. Adding premise 5 yields the selected finite TT/fundamental and observation
+   conclusions.
 
 Consequently all premises together yield
 
 $$
 \mathsf{FreeCert}
-(L_B+\Sigma,\widehat E,\mathcal K,\mathsf F_\Sigma(T))
+(L_B+\Sigma,\widehat E,\widehat S,\widehat T,\widehat q)
 $$
 
 holds.
 
 The two linked Lean theorems check the source-language and ungraded generic
-structural layers exactly. The additional indexed Lambek-isomorphism and
-coherent base-action premises in the displayed theorem are explicit paper
-hypotheses; no unchecked bridge equating the two carriers is claimed.
+structural layers exactly. The strong graded FreeT existence theorem remains a
+paper-level premise; no unchecked bridge equating the Lean finite tree carrier
+with the general categorical construction is claimed.
 
 ### Boundary
 

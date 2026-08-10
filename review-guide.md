@@ -78,6 +78,11 @@ Read in this order:
 
 ## Chapter II — free operations
 
+The canonical semantic premise is now documented in
+[Existence of the graded free monad transformer](graded-freet-existence-v1.md).
+The grade-indexed carrier and root-exposure pages are alternative
+implementation routes; `baseAct` is not an independent main-theorem premise.
+
 Read concrete programs before the carrier construction:
 
 1. [Writer/State/Exception programs with free requests](chapter-2-operational-examples-v5.md)
