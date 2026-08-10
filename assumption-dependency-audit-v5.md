@@ -22,33 +22,36 @@ and response kernel, but no denotational initial algebra.
 Typing and residual-context factorization give `EffectSafetyCert`. The
 separate `EmptyFreeCert` additionally assumes no-erasure.
 
-### C — indexed carrier
+### C — graded FreeT existence
 
-`CarrierCert` consists of the indexed initial algebras
+`FreeTExistenceCert` supplies the parameterized initial algebras
 
 $$
-\alpha_A:\mathcal H_A(\mathsf F A)\cong\mathsf F A,
+\widehat T=\operatorname{FreeT}_\Sigma(T),
+\qquad
+\widehat S=\operatorname{FreeT}_\Sigma(S),
 $$
 
-their return/base/free constructors and coherent weakening. It does not yet
-assert a bind on $\mathsf F$.
+including the strength and coherent weakening required by the graded theorem.
+Accessible sufficient conditions are isolated in
+[FreeT existence](graded-freet-existence-v1.md).
 
 ### M — monadic composition
 
-`MonadExtCert` adds a coherent
+`MonadExtCert` is now derived from the standard FreeT equation. In particular,
 
 $$
-\mathsf{baseAct}_{b,d}:T_b(\mathsf F_dA)\to\mathsf F_{bd}A.
+\mathsf{act}=\mathsf{roll}\circ\mu^T\circ T(\mathsf{out}).
 $$
 
-Indexed recursion then defines graded bind, strength and the monadic base
-embedding.
+Initial-algebra recursion defines graded bind and the monadic base embedding.
+`M` remains a proof stratum, but is not a separate top-level hypothesis.
 
 ### F — morphism lifting
 
-`FunctorCert` requires compatible layer maps and `Act-Morphism`. It upgrades
-the carrier fold $\mathsf F(q)$ to a strong graded monad morphism and proves
-identity and composition.
+`FunctorCert` lifts a base monad morphism through the two FreeT initial
+algebras. `Act-Morphism` follows from preservation of base multiplication and
+the derived-action formula. Identity and composition follow from uniqueness.
 
 ### R — relation lifting
 
@@ -107,10 +110,10 @@ For the fixed Chapter-I language and first-order interface $\Delta$:
 
 1. `BaseSafetyCert + OpExt` preserves operational safety and old-language
    operational behavior.
-2. Adding `CarrierCert` gives a coherent indexed semantic carrier with old
-   and new generators.
-3. Adding `MonadExtCert` makes that carrier a strong graded monad and makes
-   the base embedding monadic.
+2. Adding `FreeTExistenceCert` gives the two extended strong graded monads,
+   old embeddings and new generators.
+3. The FreeT fold/unfold equation derives `MonadExtCert`, including the base
+   action and graded bind; it is not an extra existence premise.
 4. Adding `FunctorCert` lifts compatible base morphisms functorially.
 5. Adding a graded base relator with `Rel-Act`, together with
    `RelCert + FiniteTTCert`, transports the finite fundamental lemma and
@@ -120,8 +123,8 @@ For the fixed Chapter-I language and first-order interface $\Delta$:
 :::
 
 **Proof.** Each item is respectively Chapter II operational induction,
-indexed initiality, the `baseAct` recursion and laws, initial-algebra
-uniqueness plus `Act-Morphism`, structural/TT induction, and the four-case
+FreeT initiality, derived-action recursion and laws, initial-algebra
+uniqueness, structural/TT induction, and the four-case
 shallow-handler induction. The dependency table records that no later premise
 is used in an earlier proof. $\square$
 
@@ -134,17 +137,18 @@ extended naturally?”
    law with the denotational monad is needed. No-erasure is used only for the
    additional corollary that a $\Sigma$-free bound cannot expose a $\Sigma$
    request.
-2. **As an indexed semantic datatype: yes**, whenever the layer initial
-   algebras exist.
-3. **As a compositional graded effect semantics: conditionally**, exactly
-   when a coherent base action is available, directly or by a sufficient
-   construction such as root exposure.
+2. **As a standard graded FreeT: yes under the stated existence package**, for
+   example locally presentable/accessibility hypotheses plus compatible
+   strength.
+3. **As an alternative external-root representation: conditionally**, when
+   that representation also constructs the canonical action, directly or by
+   a sufficient condition such as root exposure.
 
 Adequacy and handler compatibility are not additional miracles: after level
 3, they require an observation pole and clause compatibility. Thus the first
-genuine semantic obstruction is not the existence of free-operation nodes;
-it is composition of an opaque old computation with an extended
-continuation.
+genuine semantic obligation is existence of the strong graded FreeT. Once it
+exists, composition with an extended continuation is part of its derived
+structure.
 
 ## 5. Recursive refinement
 

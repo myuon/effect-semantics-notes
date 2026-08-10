@@ -12,9 +12,10 @@ structural relation compatibility and the same-carrier shallow laws in one
 declaration. At the abstract boundary,
 [`gradedFreeExtensionFunctor`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.gradedFreeExtensionFunctor#doc)
 checks the category and functor laws for chosen graded extensions whose arrows
-satisfy the explicit `Act-Morphism` square. The construction of each indexed
-initial algebra and its full monad/action certificate remains an object-side
-hypothesis in the arbitrary graded case. For the finite-tree model, existence
+satisfy the explicit `Act-Morphism` square. In the revised paper interface,
+these chosen extensions are supplied by `StrongGradedFreeT`, and action
+compatibility is derived; the Lean record retains the explicit square as a
+lower-level implementation certificate. For the finite-tree model, existence
 is now constructed by
 [`finiteTreeExtensiblePackage`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.finiteTreeExtensiblePackage#doc),
 with initiality and both action equations checked separately.
@@ -61,9 +62,8 @@ theorem about the resulting map.
 
 The [assumption dependency audit](assumption-dependency-audit-v5.md) splits
 this combined theorem into operational, carrier, monadic, functorial,
-relational, observational and handler strata. In particular, failure to
-construct `baseAct` blocks compositional graded bind, but not the operational
-extension or the existence of free-operation constructors.
+relational, observational and handler strata. The revised main premise is the
+existence of the two strong graded FreeT objects; their actions are derived.
 
 ## 1. Category of admissible base packages
 
@@ -72,19 +72,18 @@ model $S$, denotational graded model $T$, their comparison, and a first-order
 interface $\Delta$.
 Let $\mathbf{ExtBase}^{\mathrm{str}}_\Delta$ have:
 
-- objects $T$ for which
-  $\mathsf{BaseModelCert}(L_B,E_B,T)$ holds and the
-  indexed free layers admit initial algebras equipped with a coherent
-  $\mathsf{baseAct}$;
+- objects $T$ for which $\mathsf{BaseModelCert}(L_B,E_B,T)$ holds and
+  $\operatorname{FreeT}_\Delta(T)$ exists as a strong graded monad;
 - morphisms $q:T\Rightarrow U$ preserving graded return, bind, strength,
-  coherent weakening and primitive interpretations, whose induced
-  initial-algebra fold also commutes with $\mathsf{baseAct}$;
+  coherent weakening and primitive interpretations; their FreeT lifts
+  preserve the derived actions automatically;
 - identities and composition inherited from graded natural transformations.
 
 Let $\mathbf{Free}^{\mathrm{str}}_\Delta$ contain the corresponding finite free
-extensions carrying the carrier and monadic fields of `FreeCert`. We assume the required polynomial initial
-algebras and base actions exist and the extended preorder does not erase a
-visible $\Delta$ factor.  The full object and morphism definitions are in
+extensions carrying the FreeT fields of `FreeCert`. We assume the required
+strong graded FreeT objects exist and the extended preorder does not erase a
+visible $\Delta$ factor. Sufficient existence conditions are in
+[FreeT existence](graded-freet-existence-v1.md). The full object and morphism definitions are in
 [Categories of extensible semantic packages](package-categories-v5.md).
 
 ## 2. Object and morphism theorem

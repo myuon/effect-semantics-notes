@@ -96,24 +96,29 @@ $$
 Define
 
 $$
-\mathsf F_\Sigma(T)_dA
-:=(\mu\mathcal H_A)_d.
+\widehat T:=\mathsf F_\Sigma(T),
+\qquad
+\widehat T_dA=(\mu\mathcal H_A)_d.
 \tag{Indexed-Free}
 $$
+
+Throughout this chapter, $\widehat T=\mathsf F_\Sigma(T)$ denotes the
+extension of the base model $T$ by the new signature $\Sigma$. We avoid the
+bare symbol $\mathsf F$ when the underlying base model matters.
 
 The familiar constructors are derived as follows.
 
 1. **Return.** Choose $b=1$, use $1\le1$, and apply $\eta^T$:
 
    $$
-   A\to\mathsf F_1A.
+   A\to\widehat T_1A.
    $$
 
 2. **Base embedding.** For $m\in T_bA$, map its result into the return
    summand with $b\le b$:
 
    $$
-   j_b:T_bA\to\mathsf F_bA.
+   j_b:T_bA\to\widehat T_bA.
    $$
 
 3. **Free operation.** Choose the empty base prefix and
@@ -121,24 +126,29 @@ The familiar constructors are derived as follows.
 
    $$
    \mathsf{op}_{\Delta,i,e}:
-   P_i\times(R_i\to\mathsf F_eA)
-   \to\mathsf F_{\Delta\cdot e}A.
+   P_i\times(R_i\to\widehat T_eA)
+   \to\widehat T_{\Delta\cdot e}A.
    $$
 
 4. **Weakening.** Functoriality of the indexed family gives
-   $\mathsf F_eA\to\mathsf F_dA$ whenever $e\le d$.
+   $\widehat T_eA\to\widehat T_dA$ whenever $e\le d$.
 
 Thus optional requests such as $1\le\Delta$ require no special return node:
 return at grade $1$ is transported to grade $\Delta$ by weakening.
 
-## 4. Bind
+## 4. Bind in the external-root representation
 
-Indexed initiality alone does not flatten an arbitrary old computation whose
-result is already an extended computation.  Require a coherent base action
+The canonical FreeT presentation derives flattening by
+$\mathsf{roll}\circ\mu^T\circ T(\mathsf{out})$; see
+[FreeT existence](graded-freet-existence-v1.md). In the alternative
+presentation used on this page, the root grade has been moved outside $T$.
+Indexed initiality alone then does not flatten an arbitrary old computation
+whose result is already extended, so this representation must construct a
+coherent base action
 
 $$
 \mathsf{baseAct}_{b,d,A}:
-T_b(\mathsf F_dA)\to\mathsf F_{b\cdot d}A.
+T_b(\widehat T_dA)\to\widehat T_{b\cdot d}A.
 \tag{Base-Action}
 $$
 
@@ -147,12 +157,12 @@ $T$, commute with weakening, and distribute through return/free layers.  In
 transformer language this is the required distributive/flattening law between
 the old graded monad and the indexed free layer.
 
-Fix $k:A\to\mathsf F_fC$.  Indexed recursion together with `baseAct` defines,
+Fix $k:A\to\widehat T_fC$. Indexed recursion together with `baseAct` defines,
 simultaneously in $d$,
 
 $$
 (-)\mathbin{\gg=}k:
-\mathsf F_dA\to\mathsf F_{d\cdot f}C.
+\widehat T_dA\to\widehat T_{d\cdot f}C.
 $$
 
 On a returning base layer, map its values through $k$ and use `baseAct`.  On a request layer
@@ -180,21 +190,24 @@ constructed from a graded theory sum, or derived from the
 [root-exposure sufficient condition](base-action-construction-v5.md).  A
 strict independence countermodel has not yet been established.
 
-## 5. Corrected existence premise
+## 5. Alternative implementation premise
 
-The premise used by `Free-Transport` is therefore not merely
+To implement the main theorem through this external-root carrier, it is not
+enough that
 
 $$
 \forall e,A.\ \mu X.\,T_e(A+\Sigma X)\text{ exists}.
 $$
 
-It is:
+One must show:
 
 > For every $A$, the indexed layer endofunctor $\mathcal H_A$ exists, respects
 > weakening, and has an initial algebra in $\mathcal C^{\widehat E}$ stable
 > under the products used by strength; moreover the carrier has a coherent
 > base action `(Base-Action)`.
 
+The main theorem itself instead assumes `StrongGradedFreeT`, with standard
+sufficient conditions listed in [FreeT existence](graded-freet-existence-v1.md).
 In $\mathbf{Set}$ with small signatures and the concrete Writer, State,
 Exception and finite-subdistribution layers, this is obtained by the ordinary
 inductive tree construction and the corresponding base bind.  In a general

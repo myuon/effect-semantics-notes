@@ -133,13 +133,13 @@ $$
 
 前者はstandard shallow return clause、後者はlayer skip/tail preservationに対応する。元のtyping ruleとbindを再構成して決める。
 
-## Q-013: `baseAct` は独立な追加構造か
+## Q-013: external-root carrierはいつ標準FreeTを表示するか
 
-indexed initial algebraとgraded monad lawsだけから`baseAct`を得る一般証明は
-まだない。grade-root coproductを各$T_b$がcoherentにexposeできる場合には
-[root-exposure theorem](base-action-construction-v5.md)から構成でき、Writer、
-State、Exception、finite SubDistでは直接構成できる。
+主定理では[strong graded FreeTの存在](graded-freet-existence-v1.md)を仮定し、
+`baseAct`をそのfold/unfold構造から導出する。したがって標準FreeTについて
+`baseAct`を独立な追加構造とする問題は解消した。
 
-未解決なのは、必要なindexed initial algebrasは全て存在するがcoherentな
-`baseAct`が存在しない厳密な反例である。root-exposureの不成立だけでは直接構成の
-不存在を意味しないため、これを独立性証明として扱ってはならない。
+残る問題は、grade-root coproductを外側に出した別のindexed carrierが、いつ
+標準FreeTと同型になるかである。coherentなroot exposureはその十分条件を与えるが、
+State、Exception、finite SubDistなどでは一般に成り立たない。この失敗はFreeT
+そのものの不存在を意味せず、外部root表示が使えないことだけを意味する。

@@ -2,10 +2,10 @@
 
 ## Status
 
-**Sufficient theorem proved on paper; necessity remains open.**  The
-`baseAct` field need not always be supplied independently.  This page gives a
-checkable preservation condition under which it is induced by the indexed
-initial algebra and the old graded multiplication.
+**Alternative representation theorem.** The main development now assumes the
+standard graded FreeT, whose action is canonical. This page applies when a
+chosen implementation externalizes the root grade as a coproduct; it gives a
+sufficient condition for that representation to recover the same action.
 
 ## 1. Root exposure
 
@@ -51,14 +51,16 @@ are unchanged.
 Let
 
 $$
-\alpha_A:\mathcal H_A(\mathsf F A)\cong\mathsf F A
+\widehat T:=\mathsf F_\Sigma(T),
+\qquad
+\alpha_A:\mathcal H_A(\widehat T A)\cong\widehat T A
 $$
 
 be the indexed initial-algebra structure.  Define
 
 $$
 \begin{aligned}
-T_b(\mathsf F_dA)
+T_b(\widehat T_dA)
 &\xrightarrow{T_b(\alpha^{-1}_{A,d})}
 T_b\left(\coprod_cT_c(\mathsf{Step}(c,d))\right)\\
 &\xrightarrow{\chi}
@@ -68,7 +70,7 @@ T_b\left(\coprod_cT_c(\mathsf{Step}(c,d))\right)\\
 &\xrightarrow{\coprod_cT_{bc}(\lambda_{b,c,d})}
 \coprod_cT_{bc}(\mathsf{Step}(bc,bd))\\
 &\xrightarrow{\alpha_{A,bd}}
-\mathsf F_{bd}A.
+\widehat T_{bd}A.
 \end{aligned}
 \tag{Construct-Act}
 $$
@@ -89,7 +91,7 @@ canonical base embedding preserves return and bind.
 
 **Proof.** `Act-Unit` reduces to the unit coherence of $\chi$, the left-unit
 law of $T$, and $1c=c$.  For `Act-Mult`, expose the root grades of
-$T_bT_c(\mathsf F_dA)$ in the two possible orders.  Coherence of $\chi$ makes
+$T_bT_c(\widehat T_dA)$ in the two possible orders. Coherence of $\chi$ makes
 the exposure squares commute; associativity of $\mu^T$ identifies the maps
 into $T_{bce}$; and associativity of grade multiplication identifies their
 target indices.  Weakening and strength follow from the corresponding
@@ -116,13 +118,15 @@ $\mathbf{ExtBase}^{\mathrm{str}}_\Delta$.
 
 ## 5. What is and is not established
 
-The theorem proves a **sufficient** route to `baseAct`.  It does not prove
+The theorem proves a **sufficient** route to `baseAct` for the external-root
+representation. It does not prove
 that root exposure is necessary: Writer, State, Exception or another concrete
 carrier may admit a direct action even when a chosen categorical presentation
 does not preserve the displayed coproduct.
 
 Conversely, the present notes do not yet contain a model having all indexed
 initial algebras but admitting no coherent base action at all.  Therefore the
-strong independence claim is left open.  The safe main theorem either assumes
-`baseAct`, derives it by this theorem, or constructs it directly in the
-concrete instance.
+strong independence claim is left open. The main theorem assumes
+`StrongGradedFreeT`, which already includes the derived action. This theorem,
+or a direct concrete construction, may discharge that implementation
+obligation.

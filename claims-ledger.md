@@ -7,9 +7,13 @@
 | C-393 | Adopted; supersedes C-265, C-293, C-309, C-311 | Operational effects live in a dedicated graded monad $S_b$; Writer, State, and Exception are not represented as $\mathsf{Id}$ of a packed observation | [canonical architecture](operational-denotational-comparison-v1.md) | complete concrete split certificates in Lean |
 | C-394 | Lean-checked finite core | A base algebra morphism $q:T\Rightarrow S$ commuting with each one-layer interpretation lifts through the finite free extension | `GenericExtensionAlgebra.ModelComparisonCert.lift` | extend the grade-indexed wrapper |
 | C-395 | Main theorem expected to survive | Free extension, shallow handling, and recursive completion preserve the $T$--$S$ comparison under the same structural, clause-compatibility, and continuity premises; observation is only an optional later quotient/pole | C-394; existing recursive morphism/relation lifts | assemble Writer/State/Exception instances and run CI |
+| C-396 | Adopted main premise; supersedes C-298, C-305--C-308 as top-level assumptions | The finite theorem assumes the two strong graded FreeT objects $\widehat T=\operatorname{FreeT}_\Sigma(T)$ and $\widehat S=\operatorname{FreeT}_\Sigma(S)$; their base actions are derived by $\mathsf{roll}\circ\mu\circ T(\mathsf{out})$ | [FreeT existence](graded-freet-existence-v1.md) | mechanize the general graded wrapper |
+| C-397 | Standard sufficient existence theorem on paper | Locally presentable base category plus accessible base/signature functors and strength-stable parameterized initial algebras yield the required FreeT; Writer, Exception, State at a sufficiently large accessibility rank, finite powerset and finite-support SubDist satisfy the Set-level criterion | accessible initial-algebra theorem; small grades | add literature citations and a Lean finite-instance bridge |
+| C-398 | Alternative representation boundary | Root exposure is only sufficient for the carrier that externalizes its root grade; it is not required by standard FreeT and fails for ordinary State, Exception, and finite SubDist coproducts | C-396--C-397; base-action construction | retain as an implementation appendix |
 
-Rows using a response monad $\mathcal K$ below are retained as historical
-provenance. Where they conflict with C-393--C-395, the newer rows govern.
+Rows using a response monad $\mathcal K$ or a separately assumed `baseAct`
+below are retained as historical provenance. Where they conflict with
+C-393--C-398, the newer rows govern.
 
 主張には安定したIDを付ける。証明、反例、仮定変更はこのページから追跡する。
 

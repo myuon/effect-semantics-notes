@@ -45,6 +45,7 @@ project:
         - file: chapter-2-denotational-v5.md
         - file: chapter-2-certificate-v5.md
         - file: chapter-2-proof-details-v5.md
+        - file: graded-freet-existence-v1.md
         - file: grade-indexed-free-carrier-v5.md
         - file: base-action-law-v5.md
         - file: base-action-construction-v5.md
