@@ -72,7 +72,7 @@ $$
 FE-004 gives
 
 $$
-J_B(1)=I,
+J_B(1)=1_Q,
 $$
 
 $$
@@ -105,7 +105,7 @@ without changing the source term.
 
 ### Proof
 
-Induction on the typing derivation. Return uses $J(1)=I$, sequencing uses strong
+Induction on the typing derivation. Return uses $J(1)=1_Q$, sequencing uses strong
 monoidality $J(bc)=J(b)\otimes J(c)$, base primitives retain grade
 $J(|\beta|)$, and subeffecting uses monotonicity of $J$. Value, branch, and
 function rules are unchanged. $\square$

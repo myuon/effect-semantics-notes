@@ -2,9 +2,9 @@
 
 ## Base effects
 
-**Candidate.** Base effects は preordered monoid $(B,\cdot,I,\leq)$ とする。
+**Candidate.** Base effects は preordered monoid $(B,\cdot,1,\leq)$ とする。
 
-- $I$: pure effect
+- $1$: unit effect（何もeffectを追加しない上界）
 - $b\cdot c$: evaluation orderを保つ逐次合成
 - $b\leq c$: proof-irrelevant な subeffecting
 
@@ -16,14 +16,14 @@ preordered monoid $B$ を thin monoidal category とみなす。基礎圏
 $\mathcal C$ 上の base graded monad は lax monoidal functor
 
 $$
-T:(B,\cdot,I)\longrightarrow
+T:(B,\cdot,1)\longrightarrow
 ([\mathcal C,\mathcal C],\circ,\operatorname{Id}_{\mathcal C})
 $$
 
 とする。その lax monoidal structure を成分表示すると
 
 $$
-\eta_X:X\to T_I X,
+\eta_X:X\to T_1 X,
 \qquad
 \mu_{b,c,X}:T_bT_cX\to T_{b\cdot c}X
 $$

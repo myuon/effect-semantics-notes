@@ -90,7 +90,7 @@ $$
 Define
 
 $$
-I=\downarrow\{1\},
+1_Q=\downarrow\{1\},
 $$
 
 $$
@@ -126,7 +126,7 @@ monotonicity gives $uv\preceq st$, hence $m\in\downarrow(ST)$. $\square$
 
 ### Theorem FE-003 — Quantale theorem
 
-$(Q,\otimes,I,\subseteq)$ is a unital quantale.
+$(Q,\otimes,1_Q,\subseteq)$ is a unital quantale.
 
 ### Proof
 
@@ -168,7 +168,7 @@ $$
 $J$ is strong monoidal and monotone:
 
 $$
-J(1)=I,
+J(1)=1_Q,
 \qquad
 J(mn)=J(m)\otimes J(n),
 $$
@@ -397,7 +397,7 @@ $$
 Return and bind restrict by FE-008:
 
 $$
-\eta:X\to\widehat T_IX,
+\eta:X\to\widehat T_{1_Q}X,
 $$
 
 $$

@@ -134,7 +134,7 @@ $$
 be the downward-closed subsets of $M$. Define
 
 $$
-I=\downarrow\{1\},
+1_Q=\downarrow\{1\},
 $$
 
 $$
@@ -147,7 +147,7 @@ and joins by union.
 
 ### Theorem GB-001
 
-$(Q,\otimes,I,\subseteq)$ is a unital quantale.
+$(Q,\otimes,1_Q,\subseteq)$ is a unital quantale.
 
 ### Proof
 

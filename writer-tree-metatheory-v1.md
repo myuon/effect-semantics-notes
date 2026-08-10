@@ -30,7 +30,7 @@ The ordinary rules become:
 
 $$
 \frac{\Gamma\vdash V:A}
-{\Gamma\vdash\mathsf{return}\;V:A!I},
+{\Gamma\vdash\mathsf{return}\;V:A!1},
 $$
 
 $$
@@ -221,7 +221,7 @@ $$
 
 Induction on the typing derivation.
 
-- Return follows from $\mathsf{Tr}(\mathsf{ret}(x))=I$.
+- Return follows from $\mathsf{Tr}(\mathsf{ret}(x))=1$.
 - Let uses `WT-001`, the trace-of-bind lemma.
 - `tell` has the single trace $\mathbf w\in J(w)$.
 - A free operation has the single trace $\Delta\in J(\Delta)$.

@@ -92,7 +92,7 @@ For every base, calculate at least these programs:
 This is the control instance.  The base effect algebra is trivial:
 
 $$
-B=\{I\}.
+B=\{1\}.
 $$
 
 There is no interaction with old effects, so failures here belong to the new

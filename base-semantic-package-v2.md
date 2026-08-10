@@ -32,7 +32,7 @@ The first instance remains the recursion-free [Base calculus v1](base-calculus-v
 The weakest initial candidate is a preordered monoid
 
 $$
-(E,\otimes,I,\leq).
+(E,\otimes,1,\leq).
 $$
 
 It supports pure computation, sequencing, and subeffecting.  Additional optional capabilities are:

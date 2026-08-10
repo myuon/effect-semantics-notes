@@ -153,7 +153,7 @@ Using explicit nodes avoids hiding the captured continuation in the metatheory.
 
 ## 5. First effect annotation candidate
 
-Let $E$ be an effect algebra with sequential product $\cdot$, pure effect $I$, and preorder $\leq$. Use judgments
+Let $E$ be an effect algebra with sequential product $\cdot$, unit effect $1$, and preorder $\leq$. Use judgments
 
 $$
 \Gamma\vdash M:A\;!\;e.
@@ -163,7 +163,7 @@ The unsurprising rules are:
 
 $$
 \frac{\Gamma\vdash V:A}
-{\Gamma\vdash\mathsf{return}\;V:A!I}
+{\Gamma\vdash\mathsf{return}\;V:A!1}
 $$
 
 $$

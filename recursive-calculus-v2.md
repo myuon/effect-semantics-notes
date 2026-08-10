@@ -141,7 +141,7 @@ An arbitrary old base effect algebra may need one.
 If one unfolding has old grade $e$, recursive execution may produce
 
 $$
-I\sqcup e\sqcup e^2\sqcup\cdots.
+1\sqcup e\sqcup e^2\sqcup\cdots.
 $$
 
 A combined effect system must therefore choose one of:

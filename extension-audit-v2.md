@@ -77,7 +77,7 @@ A formal counterexample should use two computations with the same input grade bu
 
 ## Candidate remedies to compare
 
-1. **Base-pure clause restriction:** $k=I$.
+1. **Base-pure clause restriction:** $k=1$.
 2. **Coarse top:** weaken the result to $\top$; safe but usually uninformative.
 3. **Commutative idempotent base:** repeated insertion collapses to $b\sqcup k$.
 4. **Iteration:** use $k^*$, still requiring a law for insertion relative to $b$.
