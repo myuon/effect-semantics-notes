@@ -67,8 +67,9 @@ extension or the existence of free-operation constructors.
 
 ## 1. Category of admissible base packages
 
-Fix a base syntax $L_B$, ordered effect algebra $E_B$, response monad
-$\mathcal K$, observation interface, and a first-order interface $\Delta$.
+Fix a base syntax $L_B$, ordered effect algebra $E_B$, operational graded
+model $S$, denotational graded model $T$, their comparison, and a first-order
+interface $\Delta$.
 Let $\mathbf{ExtBase}^{\mathrm{str}}_\Delta$ have:
 
 - objects $T$ for which
@@ -338,30 +339,25 @@ distinguishes returns, terminal base outcomes and free requests.
 :label: thm-fundamental-adequacy-transport-v5
 
 Every well-typed recursion-free extended term is related to its denotation by
-the graded TT relation.
-Consequently, for every closed ground term $M$,
+the graded TT relation. Before applying any ground observation, the lifted
+comparison gives
 
 $$
-\mathsf{run}_{\mathcal K,\Delta}(M)
-=
-\mathsf{observe}_{\Delta}(\llbracket M\rrbracket).
+\llbracket M\rrbracket_{\widehat S}
+=\widehat q(\llbracket M\rrbracket_{\widehat T}).
 \tag{Adequacy-Transport}
 $$
 
-The equality is preserved after applying an $R$-compatible shallow handler.
+The equality/relation is preserved by an $R$-compatible shallow handler. Any
+chosen ground observation may then be applied to both sides.
 :::
 
 **Proof.**  The typing induction uses the graded TT laws, structural lifting
 for free operations and TT-clause compatibility for the handler form.
-Reflection is
-an induction over the finite operational/free tree.  Base segments use
-`BaseAdequacyCert`; free boundaries use constructor separation and pointwise
-continuation reflection.  Branches are combined by the response monad
-$\mathcal K$. $\square$
-
-For $\mathcal K=\mathsf{Id}$ this is ordinary single-result adequacy.  For
-$\mathcal K=\mathcal P$ it compares sets of outcomes, and for
-$\mathcal K=\mathsf{SubDist}$ it compares outcome probabilities.
+Reflection is an induction over the finite operational/free tree. Base
+segments use `ModelComparisonCert`; free boundaries use the lifted morphism or
+relation pointwise on continuations. Constructor separation is needed only
+when a later observation theorem reflects tree shape. $\square$
 
 ## 8. Exact answer and boundary
 

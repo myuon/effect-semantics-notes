@@ -127,27 +127,29 @@ $$
 General application is elaborated before evaluation, so the core transition
 system needs no additional administrative application contexts.
 
-The context and the next redex/request are unique, but a base request may have
-more than one response.  A base package therefore supplies a response monad
-$\mathcal K$ and
+The context and the next redex/request are unique.  The base package supplies
+a dedicated operational graded monad $S_b$ and an interpretation
 
 $$
-\mathsf{resp}_\beta:P_\beta
-\to\mathcal K(R_\beta+\mathsf{Out}_\beta).
+\beta^S:P_\beta\to S_{|\beta|}R_\beta.
 $$
 
-$\mathcal K=\mathsf{Id}$ gives deterministic primitives,
-$\mathcal K=\mathcal P$ gives nondeterministic choice, and
-$\mathcal K=\mathsf{SubDist}$ gives probabilistic choice.  The induced machine
-step is a kernel
+Return, sequencing and weakening are interpreted by the graded-monad
+structure of $S$. Thus Writer uses an operational Writer carrier, State an
+operational state transformer, Exception an operational exception carrier,
+and probabilistic choice a subdistribution carrier. None of these effects is
+first packed into an observation object and then wrapped in $\mathsf{Id}$.
+
+The induced machine evaluator has the form
 
 $$
-\mathsf{step}_B:\mathsf{Conf}
-\to\mathcal K(\mathsf{Conf}+\mathsf{Out}_B).
+\mathsf{run}_S(M)\in S_b\llbracket A\rrbracket
 $$
 
-For the recursion-free chapters we require every branch in the support of this
-kernel to be well founded.  We do not require the response itself to be unique.
+for a closed $M:A!b$. Internal language reduction remains deterministic; any
+branching belonging to an effect lives inside $S$. For the recursion-free
+chapters the selected operational algebra must make this evaluator total on
+`FinLanguageComp`.
 
 ## 4. Meaning of an effect annotation
 
@@ -177,16 +179,18 @@ declared upper bound.
 
 A base instance supplies:
 
-- the syntax, unique CBV decomposition, and response monad $\mathcal K$;
-- typed response maps $\mathsf{resp}_\beta$ and their induced kernel;
+- the syntax and unique CBV decomposition;
+- an operational strong graded monad $S_b$ and typed primitive maps $\beta^S$;
 - the ordered upper-bound algebra $B$;
 - effect soundness of its primitive machine rules;
 - substitution, preservation and effect-aware progress;
 - the separate grammar `FinLanguageComp`, closed under substitution and
   reduction, plus branchwise normalization for that fragment in Chapters I–III;
-- an observation function $\mathsf{obs}_B$;
-- optionally a graded monad $T_b$ and an adequacy certificate relating
-  denotation to $\mathsf{obs}_B$.
+- a denotational strong graded monad $T_b$ and typed primitive maps $\beta^T$;
+- a graded monad morphism $q:T\Rightarrow S$, or a graded logical relation,
+  commuting with each primitive interpretation;
+- optionally, a ground observation/pole used only after the $T$--$S$
+  comparison when contextual or TT adequacy is required.
 
 Writer, State and Exception will serve as concrete instances.  Their grades
 and observations may differ; the generic theorem uses only the package laws.
@@ -212,12 +216,11 @@ Before adding operations we must prove or assume, per base instance:
 1. substitution;
 2. preservation;
 3. unique evaluation-context/request decomposition;
-4. structural closure of `FinLanguageComp` and recursion-free branchwise
-   normalization for that fragment, yielding a well-defined outcome object
-   in $\mathcal K(\mathsf{Obs}_B)$;
+4. structural closure of `FinLanguageComp` and recursion-free normalization
+   sufficient to define $\mathsf{run}_S(M)$ in the operational model;
 5. effect soundness: runtime steps never perform an effect excluded by the
    declared bound;
-6. the selected denotational adequacy statement.
+6. the selected denotational--operational comparison theorem.
 
 These obligations are developed in order in:
 

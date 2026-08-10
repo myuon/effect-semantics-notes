@@ -343,9 +343,9 @@ not a unique returned Boolean.
 
 ## 7. Operational conclusions
 
-Writer, State and Exception have singleton/Dirac responses.  `randomBool` has a
-genuine probabilistic response.  In every instance the next evaluation
-position is unique.  In the recursion-free calculus every branch in the
-response support reaches a classified terminal observation, yielding a
-well-defined object of $\mathcal K(\mathsf{Obs}_B)$ rather than necessarily one
-observation.  These facts become fields of the Chapter-I certificate.
+Writer, State, Exception, and probability use their own operational monads.
+In every instance the next evaluation position is unique. In the
+recursion-free calculus evaluation yields a well-defined element of the
+chosen $S_bA$; nondeterminism or probability, when present, is structure of
+$S$ rather than ambiguity in evaluation-context decomposition. These facts
+become fields of the Chapter-I certificate.

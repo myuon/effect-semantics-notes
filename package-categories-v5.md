@@ -28,8 +28,8 @@ Fix:
 1. a recursion-free base syntax and machine $L_B$;
 2. a base signature $\Sigma_B$;
 3. an ordered base effect monoid $E_B$ and its extension $\widehat E$;
-4. a finite-response monad $\mathcal K$;
-5. ground observation objects and an operational run map;
+4. an operational graded model $S$;
+5. optionally, ground observation objects used after model comparison;
 6. a new first-order interface $\Delta$.
 
 Fixing these data ensures that two semantic models interpret the same types,

@@ -144,17 +144,16 @@ standard.  Subeffecting does not change the term. $\square$
 :::{prf:conjecture} `[C1-PROOF.4.2]` Recursion-free normalization [Formalization boundary]
 :label: thm-i-normalization-detail-v5
 
-Every branch of a closed typed Chapter-I computation
-$M:\mathsf{FinLanguageComp}$ reaches a classified base
-observation, so $\mathsf{run}_{\mathcal K}(M)\in\mathcal K(\mathsf{Obs}_B)$ is
-well defined.
+Every closed typed Chapter-I computation $M:A!b$ in
+`FinLanguageComp` has a well-defined operational interpretation
+$\mathsf{run}_S(M)\in S_b\llbracket A\rrbracket$.
 :::
 
 **Proof.** Apply the fundamental lemma to the empty substitution.  Each branch
 is covered by computation reducibility.  Unique decomposition fixes the next
 evaluation position; the typed response map supplies the possibly many
 successors at a primitive request.  Branchwise well-foundedness therefore
-defines the $\mathcal K$-structured result. $\square$
+defines the $S$-structured result. $\square$
 
 The fragment boundary and its structural closure are kernel-checked. This
 outline is not yet a kernel-checked normalization proof: it still requires the

@@ -111,19 +111,21 @@ Conditionals and cases use coproduct elimination after both branches have been
 weakened to their declared common upper bound.  Subeffecting is
 interpreted by $\tau$.
 
-## 3. Observation interface
+## 3. Comparison with the operational model
 
-To state adequacy, the package chooses observations
+The operational semantics is interpreted in its own strong graded monad
+$S_b$. The primary adequacy interface is a graded monad morphism
 
-$$
-\mathsf{observe}_{b,A}:T_bA\to\mathsf{Obs}_B(A).
-$$
+$$q_{b,A}:T_bA\to S_bA$$
 
-The observation is instance-specific and may itself carry branching structure.
-Writer observes a value and log, State a value and final store, Exception a
-value or error, and probabilistic choice a subdistribution of outcomes.  There
-is no generic trace projection.  Effect safety and observational adequacy are
-separate certificate fields.
+commuting with return, sequencing, strength, weakening, and every base
+primitive. It follows compositionally that
+
+$$\mathsf{run}_S(M)=q(\llbracket M\rrbracket_T).$$
+
+An instance-specific observation may be applied to $S_bA$ afterwards—for
+example, to state contextual equivalence or a TT pole—but observation is not a
+third monad into which Writer, State, or Exception behavior is encoded.
 
 ## 4. Upper-bound Writer model
 
@@ -144,10 +146,11 @@ $$
 $$
 
 Weakening $b\preceq c$ retains the same pair and changes only its static
-membership proof.  Observation forgets that proof:
+membership proof. The operational Writer model uses the same runtime data;
+the comparison forgets only that proof:
 
 $$
-\mathsf{observe}_{b,A}(w,a)=(w,a).
+q_{b,A}(w,a)=(w,a).
 $$
 
 If a coarser Writer effect system remembers only whether writing may occur,
@@ -265,9 +268,7 @@ subdistribution.
 ## 8. Model boundary
 
 Writer can reflect its upper bound directly in the carrier, while State and
-Exception can use phantom grade indices.  Therefore the generic theorem must
-not require a denotation to reveal which effects occurred.  It requires only a
-coherent strong graded interpretation and a separately stated adequacy theorem.
-The generic interface does not require the operational response monad
-$\mathcal K$ to be `Id`; it requires the selected denotational observation to
-agree with the $\mathcal K$-structured operational outcome.
+Exception can use phantom grade indices. Therefore the generic theorem must
+not require a denotation to reveal which effects occurred. It requires
+coherent operational and denotational graded models and a separately stated
+morphism or logical relation between them.

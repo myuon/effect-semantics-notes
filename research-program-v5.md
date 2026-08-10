@@ -187,9 +187,11 @@ the explicit certificate exported by Chapter $n$.
 The certificate names abbreviate formally declared conditions, not unspecified
 bundles of “good properties.”  The cumulative theorem is read in three stages.
 
-1. A `BaseCert`, an indexed initial algebra with coherent `baseAct`, a
-   finite-response $\mathcal K$, no-erasure and separated observations yield
-   `FreeCert`.
+1. A split `BaseCert` containing operational $S$, denotational $T$, and their
+   comparison, together with indexed initial algebras and coherent
+   `baseAct`, yields `FreeCert` and the lifted $\widehat T\to\widehat S$
+   comparison. Finite/separated observations are needed only for a subsequent
+   TT reflection theorem.
 2. `FreeCert`, a closed graded TT pole and either `AffineCert` or
    `HandlerCert` yield `ShallowCert`.
 3. `ShallowCert` and the appropriate *component* of `RecBaseCert` yield the
