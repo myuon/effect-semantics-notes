@@ -132,7 +132,7 @@ notation:50 ctx:51 " ⊢[" sig "] " value:51 " :ᵥ " ty:51 =>
   HasLanguageVal sig ctx value ty
 
 /-- Paper-style notation for the computation-typing judgment. -/
-notation:50 ctx:51 " ⊢[" sig "] " term:51 " : " ty:51 " ! " effect:51 =>
+notation:50 ctx:51 " ⊢[" sig "] " term:51 " : " ty:max " ! " effect:51 =>
   HasLanguageComp sig ctx term ty effect
 
 end EffectSemantics
