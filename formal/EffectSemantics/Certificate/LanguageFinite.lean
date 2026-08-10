@@ -19,14 +19,14 @@ structure LanguageCoreCert (sig : LanguageSignature) where
     LanguageSubstPreserves sig source target subst →
     target ⊢[sig] term.subst subst : ty ! effect
   preservation : ∀ {term next : FinLanguageComp} {ctx resultTy effect},
-    LanguageStep term next → ctx ⊢[sig] term : resultTy ! effect →
+    term ⟶ next → ctx ⊢[sig] term : resultTy ! effect →
       ctx ⊢[sig] next : resultTy ! effect
   progress : ∀ {term : FinLanguageComp} {resultTy effect},
     [] ⊢[sig] term : resultTy ! effect → LanguageProgress term
   progressClassUnique : ∀ {term : FinLanguageComp}
       (first second : LanguageProgress term), first.kind = second.kind
   reductUnique : ∀ {term left right : FinLanguageComp},
-    LanguageStep term left → LanguageStep term right → left = right
+    term ⟶ left → term ⟶ right → left = right
   canonicalBool : ∀ {value : FinLanguageVal}, [] ⊢[sig] value :ᵥ .bool →
     ∃ boolean, value = .bool boolean
   canonicalArrow : ∀ {value : FinLanguageVal} {domain latent codomain},
@@ -110,7 +110,7 @@ structure LanguageWriterCert (sig : LanguageSignature) where
       (tree.bind continuation)
   internalStepInvariant : ∀ {term next resultTy effect}
       {typing : [] ⊢[sig] term : resultTy ! effect},
-    (step : LanguageStep term next) →
+    (step : term ⟶ next) →
     ∀ {tree : LanguageWriterTree sig (LanguageClosedVal sig resultTy)},
       ProducesLanguageWriterTree sig (step.preserve typing) tree →
       ProducesLanguageWriterTree sig typing tree
@@ -176,7 +176,7 @@ structure LanguageFreeStageCert (sig : LanguageSignature) where
   effects : LanguageEffectCert
   writer : LanguageWriterCert sig
   preservation : ∀ {term next : FinLanguageComp} {ctx resultTy effect},
-    LanguageStep term next → ctx ⊢[sig] term : resultTy ! effect →
+    term ⟶ next → ctx ⊢[sig] term : resultTy ! effect →
       ctx ⊢[sig] next : resultTy ! effect
   progress : ∀ {term : FinLanguageComp} {resultTy effect},
     [] ⊢[sig] term : resultTy ! effect → LanguageProgress term
@@ -222,7 +222,7 @@ structure LanguageFiniteStructureCert (sig : LanguageSignature) where
   writer : LanguageWriterCert sig
   shallow : LanguageShallowCert sig
   preservation : ∀ {term next : FinLanguageComp} {ctx resultTy effect},
-    LanguageStep term next → ctx ⊢[sig] term : resultTy ! effect →
+    term ⟶ next → ctx ⊢[sig] term : resultTy ! effect →
       ctx ⊢[sig] next : resultTy ! effect
   progress : ∀ {term : FinLanguageComp} {resultTy effect},
     [] ⊢[sig] term : resultTy ! effect → LanguageProgress term

@@ -20,6 +20,9 @@ inductive LanguageStep {mode : RecMode} :
   | underLet : LanguageStep bound bound' →
       LanguageStep (.letE bound body) (.letE bound' body)
 
+/-- Internal one-step reduction for the language calculus. -/
+infix:50 " ⟶ " => LanguageStep
+
 def LanguageComp.internalStep {mode} :
     LanguageComp mode → Option (LanguageComp mode)
   | .ret _ => none
@@ -40,7 +43,7 @@ def LanguageComp.internalStep {mode} :
   | .freeOp _ _ _ => none
 
 theorem LanguageStep.to_internalStep
-    (step : LanguageStep term next) : term.internalStep = some next := by
+    (step : term ⟶ next) : term.internalStep = some next := by
   induction step with
   | letReturn => rfl
   | beta => rfl
@@ -53,7 +56,7 @@ theorem LanguageStep.to_internalStep
       cases inner <;> simp [LanguageComp.internalStep] at ih ⊢ <;> assumption
 
 theorem LanguageStep.deterministic
-    (first : LanguageStep term left) (second : LanguageStep term right) :
+    (first : term ⟶ left) (second : term ⟶ right) :
     left = right := by
   have firstEq := first.to_internalStep
   have secondEq := second.to_internalStep

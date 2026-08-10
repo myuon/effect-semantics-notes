@@ -69,6 +69,7 @@ Read in this order:
 | ordered may-effect languages | Lean checked | [`EffectLanguage`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.EffectLanguage#doc) |
 | value/computation typing | Lean checked | [`HasLanguageVal`, `HasLanguageComp`](https://myuon.github.io/effect-semantics-notes/lean/EffectSemantics/Syntax/LanguageCalculus.html) |
 | CBV internal reduction | Lean checked | [`LanguageStep`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep#doc) |
+| Evaluation-context presentation of CBV reduction | Lean checked; equivalent to finite `LanguageStep` | [`languageContextStep_iff_languageStep`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageContextStep_iff_languageStep#doc) |
 | recursion-free fragment and step closure | Lean checked | [`LanguageComp.NoFix`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageComp.NoFix#doc), [`LanguageStep.preserve_noFix`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve_noFix#doc) |
 | preservation | Lean checked | [`LanguageStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc) |
 | closed progress | Lean checked | [`HasLanguageComp.progressClosed`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed#doc) |

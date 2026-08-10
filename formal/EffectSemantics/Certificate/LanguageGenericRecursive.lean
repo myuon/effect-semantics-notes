@@ -15,7 +15,7 @@ theorem and the separate morphism and logical-relation lifting principles.
 structure LanguageSourceStructureCert (sig : LanguageSignature) where
   effects : LanguageEffectCert
   preservation : ∀ {term next : RecLanguageComp} {ctx resultTy effect},
-    LanguageStep term next → HasLanguageComp sig ctx term resultTy effect →
+    term ⟶ next → HasLanguageComp sig ctx term resultTy effect →
       HasLanguageComp sig ctx next resultTy effect
   progress : ∀ {term : RecLanguageComp} {resultTy effect},
     HasLanguageComp sig [] term resultTy effect → LanguageProgress term

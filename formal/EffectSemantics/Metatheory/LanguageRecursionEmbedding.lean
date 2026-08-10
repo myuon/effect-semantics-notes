@@ -97,8 +97,8 @@ theorem LanguageComp.toRecursive_subst0 (body : FinLanguageComp)
 
 /-- Every finite reduction is simulated by exactly one recursive reduction. -/
 def LanguageStep.toRecursive
-    (step : LanguageStep (term : FinLanguageComp) next) :
-    LanguageStep term.toRecursive next.toRecursive := by
+    (step : (term : FinLanguageComp) ⟶ next) :
+    term.toRecursive ⟶ next.toRecursive := by
   cases step with
   | letReturn => simpa [LanguageComp.toRecursive,
       LanguageComp.toRecursive_subst0] using

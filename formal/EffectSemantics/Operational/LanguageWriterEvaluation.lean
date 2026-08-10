@@ -66,7 +66,7 @@ inductive ProducesLanguageWriterTree (sig : LanguageSignature) :
   | returned (typing : HasLanguageComp sig [] (.ret value) resultTy effect) :
       ProducesLanguageWriterTree sig typing
         (.ret ⟨value, typing.returnView.valueTyping⟩)
-  | internal (step : LanguageStep term next)
+  | internal (step : term ⟶ next)
       (produces : ProducesLanguageWriterTree sig (step.preserve typing) tree) :
       ProducesLanguageWriterTree sig typing tree
   | rederive {typing₁ typing₂ : HasLanguageComp sig [] term resultTy effect}
@@ -118,7 +118,7 @@ available), so this is the precise counterpart of an equality of total
 denotations. -/
 noncomputable def ProducesLanguageWriterTree.internalStepInvariant
     {typing : HasLanguageComp sig [] term resultTy effect}
-    (step : LanguageStep term next)
+    (step : term ⟶ next)
     {tree : LanguageWriterTree sig (LanguageClosedVal sig resultTy)}
     (produces : ProducesLanguageWriterTree sig (step.preserve typing) tree) :
     ProducesLanguageWriterTree sig typing tree :=

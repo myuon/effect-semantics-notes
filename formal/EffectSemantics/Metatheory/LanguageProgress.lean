@@ -11,7 +11,7 @@ inductive LanguageBoundary {mode : RecMode} : LanguageComp mode → Type where
 
 inductive LanguageProgress {mode : RecMode} : LanguageComp mode → Type where
   | returned : LanguageProgress (.ret value)
-  | internal : LanguageStep term term' → LanguageProgress term
+  | internal : term ⟶ term' → LanguageProgress term
   | boundary : LanguageBoundary term → LanguageProgress term
 
 /-- The three progress classes are mutually exclusive.  This is the missing
@@ -22,7 +22,7 @@ theorem LanguageBoundary.not_return
   cases boundary
 
 theorem LanguageStep.not_boundary
-    (step : LanguageStep term next) : LanguageBoundary term → False := by
+    (step : term ⟶ next) : LanguageBoundary term → False := by
   intro boundary
   induction step with
   | letReturn =>

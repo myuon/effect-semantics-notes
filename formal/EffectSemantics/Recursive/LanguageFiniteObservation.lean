@@ -33,7 +33,7 @@ def LanguageComp.head : FinLanguageComp → LanguageHead
   | .freeOp interface operation parameter =>
       .free ⟨interface, operation, parameter, []⟩
 
-theorem LanguageStep.to_head (step : LanguageStep term next) :
+theorem LanguageStep.to_head (step : term ⟶ next) :
     term.head = .internal next := by
   induction step with
   | letReturn => rfl
@@ -123,7 +123,7 @@ mutual
 
   theorem LanguageComp.head_internal_sound
       {term next : FinLanguageComp}
-      (equal : term.head = .internal next) : Nonempty (LanguageStep term next) := by
+      (equal : term.head = .internal next) : Nonempty (term ⟶ next) := by
     cases term with
     | ret value => simp [LanguageComp.head] at equal
     | letE bound body =>
