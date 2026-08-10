@@ -12,11 +12,11 @@ inductive HasLanguageHandlerState
     (interface : Nat) (handler : LanguageAffineHandler)
     (replacement input : EffectLanguage) (resultTy : LanguageTy) :
     LanguageHandlerState → Type where
-  | shallow : HasLanguageComp sig ctx term resultTy input →
+  | shallow : ctx ⊢[sig] term : resultTy ! input →
       HasLanguageHandlerState sig ctx interface handler replacement input resultTy
         (.shallow interface handler term)
-  | core : HasLanguageComp sig ctx term resultTy
-      (handleWith interface replacement input) →
+  | core : ctx ⊢[sig] term : resultTy !
+      handleWith interface replacement input →
       HasLanguageHandlerState sig ctx interface handler replacement input resultTy
         (.core term)
 
@@ -47,8 +47,8 @@ well-typed response reinstalls the same shallow handler at the unchanged input
 grade. -/
 def HasLanguageHandlerState.resumeFree
     {request : LanguageFreeRequest}
-    (termTyping : HasLanguageComp sig ctx request.source resultTy input)
-    (responseTyping : HasLanguageVal sig ctx response
+    (termTyping : ctx ⊢[sig] request.source : resultTy ! input)
+    (responseTyping : ctx ⊢[sig] response :ᵥ
       termTyping.exposedFreeView.responseTy) :
     HasLanguageHandlerState sig ctx interface handler replacement input resultTy
       (.shallow interface handler (request.resume response)) :=
@@ -57,8 +57,8 @@ def HasLanguageHandlerState.resumeFree
 /-- The same preservation fact for an outward base-effect request. -/
 def HasLanguageHandlerState.resumeBase
     {request : LanguageBaseRequest}
-    (termTyping : HasLanguageComp sig ctx request.source resultTy input)
-    (responseTyping : HasLanguageVal sig ctx response
+    (termTyping : ctx ⊢[sig] request.source : resultTy ! input)
+    (responseTyping : ctx ⊢[sig] response :ᵥ
       termTyping.exposedBaseView.responseTy) :
     HasLanguageHandlerState sig ctx interface handler replacement input resultTy
       (.shallow interface handler (request.resume response)) :=

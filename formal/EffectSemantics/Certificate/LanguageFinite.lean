@@ -10,31 +10,31 @@ the syntactic obligations separate from Writer-specific observation. -/
 structure LanguageCoreCert (sig : LanguageSignature) where
   valueSubstitution : ∀ {source target} {value : FinLanguageVal} {ty}
       {subst : Nat → FinLanguageVal},
-    HasLanguageVal sig source value ty →
+    source ⊢[sig] value :ᵥ ty →
     LanguageSubstPreserves sig source target subst →
-    HasLanguageVal sig target (value.subst subst) ty
+    target ⊢[sig] value.subst subst :ᵥ ty
   computationSubstitution : ∀ {source target} {term : FinLanguageComp}
       {ty effect} {subst : Nat → FinLanguageVal},
-    HasLanguageComp sig source term ty effect →
+    source ⊢[sig] term : ty ! effect →
     LanguageSubstPreserves sig source target subst →
-    HasLanguageComp sig target (term.subst subst) ty effect
+    target ⊢[sig] term.subst subst : ty ! effect
   preservation : ∀ {term next : FinLanguageComp} {ctx resultTy effect},
-    LanguageStep term next → HasLanguageComp sig ctx term resultTy effect →
-      HasLanguageComp sig ctx next resultTy effect
+    LanguageStep term next → ctx ⊢[sig] term : resultTy ! effect →
+      ctx ⊢[sig] next : resultTy ! effect
   progress : ∀ {term : FinLanguageComp} {resultTy effect},
-    HasLanguageComp sig [] term resultTy effect → LanguageProgress term
+    [] ⊢[sig] term : resultTy ! effect → LanguageProgress term
   progressClassUnique : ∀ {term : FinLanguageComp}
       (first second : LanguageProgress term), first.kind = second.kind
   reductUnique : ∀ {term left right : FinLanguageComp},
     LanguageStep term left → LanguageStep term right → left = right
-  canonicalBool : ∀ {value : FinLanguageVal}, HasLanguageVal sig [] value .bool →
+  canonicalBool : ∀ {value : FinLanguageVal}, [] ⊢[sig] value :ᵥ .bool →
     ∃ boolean, value = .bool boolean
   canonicalArrow : ∀ {value : FinLanguageVal} {domain latent codomain},
-    HasLanguageVal sig [] value (.arr domain latent codomain) →
+    [] ⊢[sig] value :ᵥ .arr domain latent codomain →
     (∃ body, value = .lam domain latent body) ∨
       (∃ allowed body, value = .fixLam allowed domain latent body)
   canonicalSum : ∀ {value : FinLanguageVal} {leftTy rightTy},
-    HasLanguageVal sig [] value (.sum leftTy rightTy) →
+    [] ⊢[sig] value :ᵥ .sum leftTy rightTy →
     (∃ left, value = .inl left rightTy) ∨
       (∃ right, value = .inr leftTy right)
 
@@ -94,12 +94,12 @@ structure LanguageWriterCert (sig : LanguageSignature) where
     (∀ value, LanguageWriterTree.HasEffect (next value) second) →
     LanguageWriterTree.HasEffect (tree.bind next) (seq first second)
   gradeSound : ∀ {term resultTy effect}
-      {typing : HasLanguageComp sig [] term resultTy effect} {tree},
+      {typing : [] ⊢[sig] term : resultTy ! effect} {tree},
     ProducesLanguageWriterTree sig typing tree →
     LanguageWriterTree.HasEffect tree effect
   semanticSequencing : ∀ {bound boundTy boundEffect body resultTy bodyEffect}
-      {boundTyping : HasLanguageComp sig [] bound boundTy boundEffect}
-      {bodyTyping : HasLanguageComp sig (boundTy :: []) body resultTy bodyEffect}
+      {boundTyping : [] ⊢[sig] bound : boundTy ! boundEffect}
+      {bodyTyping : boundTy :: [] ⊢[sig] body : resultTy ! bodyEffect}
       {tree : LanguageWriterTree sig (LanguageClosedVal sig boundTy)}
       (_boundProduces : ProducesLanguageWriterTree sig boundTyping tree)
       (continuation : LanguageClosedVal sig boundTy →
@@ -109,13 +109,13 @@ structure LanguageWriterCert (sig : LanguageSignature) where
     ProducesLanguageWriterTree sig (.letE boundTyping bodyTyping)
       (tree.bind continuation)
   internalStepInvariant : ∀ {term next resultTy effect}
-      {typing : HasLanguageComp sig [] term resultTy effect},
+      {typing : [] ⊢[sig] term : resultTy ! effect},
     (step : LanguageStep term next) →
     ∀ {tree : LanguageWriterTree sig (LanguageClosedVal sig resultTy)},
       ProducesLanguageWriterTree sig (step.preserve typing) tree →
       ProducesLanguageWriterTree sig typing tree
   adequacy : ∀ {term resultTy effect}
-      {typing : HasLanguageComp sig [] term resultTy effect} {log value},
+      {typing : [] ⊢[sig] term : resultTy ! effect} {log value},
     Nonempty (LanguageWriterRuns sig typing log value) ↔
       Nonempty (Σ tree, ProducesLanguageWriterTree sig typing tree ×
         LanguageWriterTree.Observes tree log value)
@@ -176,10 +176,10 @@ structure LanguageFreeStageCert (sig : LanguageSignature) where
   effects : LanguageEffectCert
   writer : LanguageWriterCert sig
   preservation : ∀ {term next : FinLanguageComp} {ctx resultTy effect},
-    LanguageStep term next → HasLanguageComp sig ctx term resultTy effect →
-      HasLanguageComp sig ctx next resultTy effect
+    LanguageStep term next → ctx ⊢[sig] term : resultTy ! effect →
+      ctx ⊢[sig] next : resultTy ! effect
   progress : ∀ {term : FinLanguageComp} {resultTy effect},
-    HasLanguageComp sig [] term resultTy effect → LanguageProgress term
+    [] ⊢[sig] term : resultTy ! effect → LanguageProgress term
 
 noncomputable def languageFreeStagePreservation
     (sig : LanguageSignature) : LanguageFreeStageCert sig where
@@ -222,10 +222,10 @@ structure LanguageFiniteStructureCert (sig : LanguageSignature) where
   writer : LanguageWriterCert sig
   shallow : LanguageShallowCert sig
   preservation : ∀ {term next : FinLanguageComp} {ctx resultTy effect},
-    LanguageStep term next → HasLanguageComp sig ctx term resultTy effect →
-      HasLanguageComp sig ctx next resultTy effect
+    LanguageStep term next → ctx ⊢[sig] term : resultTy ! effect →
+      ctx ⊢[sig] next : resultTy ! effect
   progress : ∀ {term : FinLanguageComp} {resultTy effect},
-    HasLanguageComp sig [] term resultTy effect → LanguageProgress term
+    [] ⊢[sig] term : resultTy ! effect → LanguageProgress term
   handlerPreservation : ∀ {ctx interface handler replacement input resultTy state next},
     HasLanguageAffineHandler sig ctx interface handler replacement →
     LanguageShallowStep state next →

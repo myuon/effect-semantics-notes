@@ -4,9 +4,9 @@ namespace EffectSemantics
 
 mutual
   def HasLanguageVal.rename_preserved
-      (typing : HasLanguageVal sig source value ty)
+      (typing : source ⊢[sig] value :ᵥ ty)
       (preserves : LanguageRenPreserves source target rename) :
-      HasLanguageVal sig target (value.rename rename) ty := by
+      target ⊢[sig] value.rename rename :ᵥ ty := by
     cases typing with
     | var lookup => exact .var (preserves lookup)
     | unit => exact .unit
@@ -23,9 +23,9 @@ mutual
   termination_by (sizeOf value, sizeOf typing)
 
   def HasLanguageComp.rename_preserved
-      (typing : HasLanguageComp sig source term ty effect)
+      (typing : source ⊢[sig] term : ty ! effect)
       (preserves : LanguageRenPreserves source target rename) :
-      HasLanguageComp sig target (term.rename rename) ty effect := by
+      target ⊢[sig] term.rename rename : ty ! effect := by
     cases typing with
     | ret value => exact .ret (value.rename_preserved preserves)
     | letE bound body =>
@@ -68,9 +68,9 @@ def LanguageSubstPreserves.lift
 
 mutual
   def HasLanguageVal.subst_preserved
-      (typing : HasLanguageVal sig source value ty)
+      (typing : source ⊢[sig] value :ᵥ ty)
       (preserves : LanguageSubstPreserves sig source target subst) :
-      HasLanguageVal sig target (value.subst subst) ty := by
+      target ⊢[sig] value.subst subst :ᵥ ty := by
     cases typing with
     | var lookup => exact preserves lookup
     | unit => exact .unit
@@ -87,9 +87,9 @@ mutual
   termination_by (sizeOf value, sizeOf typing)
 
   def HasLanguageComp.subst_preserved
-      (typing : HasLanguageComp sig source term ty effect)
+      (typing : source ⊢[sig] term : ty ! effect)
       (preserves : LanguageSubstPreserves sig source target subst) :
-      HasLanguageComp sig target (term.subst subst) ty effect := by
+      target ⊢[sig] term.subst subst : ty ! effect := by
     cases typing with
     | ret value => exact .ret (value.subst_preserved preserves)
     | letE bound body =>
@@ -116,7 +116,7 @@ mutual
 end
 
 def languageSingleSubstPreserves
-    (typing : HasLanguageVal sig ctx value valueTy) :
+    (typing : ctx ⊢[sig] value :ᵥ valueTy) :
     LanguageSubstPreserves sig (valueTy :: ctx) ctx
       (fun | 0 => value | index + 1 => .var index) := by
   intro index found lookup
@@ -128,14 +128,14 @@ def languageSingleSubstPreserves
   | succ index => exact .var lookup
 
 def HasLanguageComp.subst0_preserved
-    (bodyTyping : HasLanguageComp sig (valueTy :: ctx) body bodyTy effect)
-    (valueTyping : HasLanguageVal sig ctx value valueTy) :
-    HasLanguageComp sig ctx (body.subst0 value) bodyTy effect :=
+    (bodyTyping : valueTy :: ctx ⊢[sig] body : bodyTy ! effect)
+    (valueTyping : ctx ⊢[sig] value :ᵥ valueTy) :
+    ctx ⊢[sig] body.subst0 value : bodyTy ! effect :=
   bodyTyping.subst_preserved (languageSingleSubstPreserves valueTyping)
 
 def languageDoubleSubstPreserves
-    (argumentTyping : HasLanguageVal sig ctx argument domain)
-    (selfTyping : HasLanguageVal sig ctx self (.arr domain latent codomain)) :
+    (argumentTyping : ctx ⊢[sig] argument :ᵥ domain)
+    (selfTyping : ctx ⊢[sig] self :ᵥ .arr domain latent codomain) :
     LanguageSubstPreserves sig
       (domain :: .arr domain latent codomain :: ctx) ctx
       (fun | 0 => argument | 1 => self | index + 2 => .var index) := by
@@ -155,11 +155,11 @@ def languageDoubleSubstPreserves
       | succ index => exact .var lookup
 
 def HasLanguageComp.subst2_preserved
-    (bodyTyping : HasLanguageComp sig
-      (domain :: .arr domain latent codomain :: ctx) body codomain latent)
-    (argumentTyping : HasLanguageVal sig ctx argument domain)
-    (selfTyping : HasLanguageVal sig ctx self (.arr domain latent codomain)) :
-    HasLanguageComp sig ctx (body.subst2 argument self) codomain latent :=
+    (bodyTyping : domain :: .arr domain latent codomain :: ctx ⊢[sig]
+      body : codomain ! latent)
+    (argumentTyping : ctx ⊢[sig] argument :ᵥ domain)
+    (selfTyping : ctx ⊢[sig] self :ᵥ .arr domain latent codomain) :
+    ctx ⊢[sig] body.subst2 argument self : codomain ! latent :=
   bodyTyping.subst_preserved
     (languageDoubleSubstPreserves argumentTyping selfTyping)
 

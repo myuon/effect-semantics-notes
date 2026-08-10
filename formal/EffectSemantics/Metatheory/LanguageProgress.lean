@@ -73,7 +73,7 @@ theorem LanguageProgress.kind_unique
 
 /-- Canonical forms for closed Boolean values. -/
 theorem HasLanguageVal.closed_bool_canonical
-    (typing : HasLanguageVal sig [] value .bool) :
+    (typing : [] ⊢[sig] value :ᵥ .bool) :
     ∃ boolean, value = .bool boolean := by
   cases typing with
   | var lookup => nomatch lookup
@@ -82,7 +82,7 @@ theorem HasLanguageVal.closed_bool_canonical
 /-- Canonical forms for closed function values, including recursive
 functions. -/
 theorem HasLanguageVal.closed_arr_canonical
-    (typing : HasLanguageVal sig [] value (.arr domain latent codomain)) :
+    (typing : [] ⊢[sig] value :ᵥ .arr domain latent codomain) :
     (∃ body, value = .lam domain latent body) ∨
       (∃ allowed body, value = .fixLam allowed domain latent body) := by
   cases typing with
@@ -92,7 +92,7 @@ theorem HasLanguageVal.closed_arr_canonical
 
 /-- Canonical forms for closed sum values. -/
 theorem HasLanguageVal.closed_sum_canonical
-    (typing : HasLanguageVal sig [] value (.sum leftTy rightTy)) :
+    (typing : [] ⊢[sig] value :ᵥ .sum leftTy rightTy) :
     (∃ left, value = .inl left rightTy) ∨
       (∃ right, value = .inr leftTy right) := by
   cases typing with
@@ -103,7 +103,7 @@ theorem HasLanguageVal.closed_sum_canonical
 /-- Closed, well-typed language-graded computations return, reduce, or expose
 one base/free boundary. -/
 def HasLanguageComp.progressClosed
-    (typing : HasLanguageComp sig [] term ty effect) :
+    (typing : [] ⊢[sig] term : ty ! effect) :
     LanguageProgress term :=
   match typing with
   | .subeffect inner _ => inner.progressClosed

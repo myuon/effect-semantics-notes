@@ -31,9 +31,9 @@ structure LanguageRecursiveStructureCert
     LanguageDeepWriterRuns selected handler term log value ↔
       languageDeepWriterSemantics selected handler term = some (log, value)
   fundamental : ∀ {term resultTy effect log value},
-    HasLanguageComp sig [] term resultTy effect →
+    [] ⊢[sig] term : resultTy ! effect →
     languageDeepWriterSemantics selected handler term = some (log, value) →
-    Nonempty (HasLanguageVal sig [] value resultTy)
+    Nonempty ([] ⊢[sig] value :ᵥ resultTy)
   poleAdmissible : ∀ (pole : RecLanguageComp →
       (List RecLanguageVal × RecLanguageVal) → Prop),
     FlatApproximation.Admissible (FlatApproximation.Satisfies pole)
@@ -41,8 +41,8 @@ structure LanguageRecursiveStructureCert
 def LanguageTypedWriterPole (sig : LanguageSignature) :
     RecLanguageComp → (List RecLanguageVal × RecLanguageVal) → Prop :=
   fun term outcome => ∀ (resultTy : LanguageTy) (effect : EffectLanguage),
-    HasLanguageComp sig [] term resultTy effect →
-      Nonempty (HasLanguageVal sig [] outcome.2 resultTy)
+    [] ⊢[sig] term : resultTy ! effect →
+      Nonempty ([] ⊢[sig] outcome.2 :ᵥ resultTy)
 
 theorem languageDeepWriterLayer_preserves_typedPole
     (boundaries : LanguageRecursiveBoundaryTypingCert sig selected handler replacement)
