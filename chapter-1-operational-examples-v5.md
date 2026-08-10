@@ -13,6 +13,13 @@ handlers or fixed points.
 
 ## 1. Evaluation contexts and internal reduction
 
+This chapter uses **contextual small-step semantics**. Evaluation contexts
+select the unique call-by-value computation position; they do not evaluate a
+term to its final answer in one judgment. A big-step judgment would instead
+have a shape such as $M\Downarrow V$ (or
+$\langle M,s\rangle\Downarrow\langle V,s'\rangle$) and recursively describe a
+whole run.
+
 The fine-grain core evaluates computation positions under sequencing:
 
 $$
@@ -30,10 +37,12 @@ M N  :=  let f <- M in let x <- N in f x
 Thus $M$ runs first, $N$ second, and only then does the latent effect of the
 function body occur.  Operational proofs reason about the elaborated core.
 
-The principal internal reductions are
+Separate the principal, context-free redex relation $\rightsquigarrow$ from
+the one-step relation $\longrightarrow$. The principal internal reductions
+are
 
 $$
-(\lambda x.M)V\longrightarrow M[V/x],
+(\lambda x.M)V\rightsquigarrow M[V/x],
 \tag{B-$\beta$}
 $$
 
@@ -59,22 +68,102 @@ $$
 
 $$
 \mathbf{let}\ x\leftarrow\mathsf{return}\,V\ \mathbf{in}\ N
-\longrightarrow N[V/x],
+\rightsquigarrow N[V/x],
 \tag{B-Let}
 $$
 
 $$
 \mathbf{if}\ \mathsf{true}\ \mathbf{then}\ M\ \mathbf{else}\ N
-\longrightarrow M,
+\rightsquigarrow M,
 $$
 
 $$
 \mathbf{if}\ \mathsf{false}\ \mathbf{then}\ M\ \mathbf{else}\ N
-\longrightarrow N,
+\rightsquigarrow N,
 $$
 
-with the analogous two rules for sum elimination.  Reduction is closed under
-$\mathcal E$.
+with the analogous two rules
+
+$$
+\mathbf{case}\ (\mathsf{inl}\,V)\ \mathbf{of}\
+  \mathsf{inl}\,x\Rightarrow M\mid\mathsf{inr}\,y\Rightarrow N
+\rightsquigarrow M[V/x],
+$$
+
+$$
+\mathbf{case}\ (\mathsf{inr}\,V)\ \mathbf{of}\
+  \mathsf{inl}\,x\Rightarrow M\mid\mathsf{inr}\,y\Rightarrow N
+\rightsquigarrow N[V/y].
+$$
+
+The evaluation-context closure is the single rule
+
+$$
+\frac{R\rightsquigarrow R'}
+     {\mathcal E[R]\longrightarrow\mathcal E[R']}.
+\tag{E-Step}
+$$
+
+Equivalently, $M\longrightarrow M'$ holds when there are
+$\mathcal E,R,R'$ such that
+
+$$
+M=\mathcal E[R],
+\qquad
+R\rightsquigarrow R',
+\qquad
+M'=\mathcal E[R'].
+$$
+
+For this grammar, `(E-Step)` can also be generated inductively from the root
+rules and
+
+$$
+\frac{M\longrightarrow M'}
+     {\mathbf{let}\ x\leftarrow M\ \mathbf{in}\ N
+      \longrightarrow
+      \mathbf{let}\ x\leftarrow M'\ \mathbf{in}\ N}.
+\tag{E-Let}
+$$
+
+This latter presentation is the one used by Lean. The inductive
+[`LanguageStep`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep#doc)
+contains constructors for the six root reductions above and
+[`LanguageStep.underLet`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.underLet#doc)
+for `(E-Let)`. It is therefore the context-closed one-step relation
+$\longrightarrow$, not just the principal relation $\rightsquigarrow$.
+The Lean notation `term ⟶ next` abbreviates `LanguageStep term next`; theorem
+and certificate statements use this notation while constructor and namespace
+names retain `LanguageStep`.
+`LanguageStep` is mode-polymorphic and also contains `fixBeta`; Chapter I uses
+the finite mode, whose syntax has no fixed-point constructor.
+
+Lean also defines an executable partial function
+[`LanguageComp.internalStep`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageComp.internalStep#doc).
+It searches exactly the same leftmost computation position. The theorem
+[`LanguageStep.to_internalStep`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.to_internalStep#doc)
+maps every relational step to the corresponding `some` result, and
+[`LanguageStep.deterministic`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.deterministic#doc)
+derives uniqueness from that function.
+
+For the smaller core syntax used by request decomposition, the same context is
+represented explicitly by [`Frame`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.Frame#doc),
+[`EvalContext`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.EvalContext#doc), and
+[`EvalContext.plug`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.EvalContext.plug#doc).
+The finite language syntax has its corresponding
+[`LanguageEvalContext`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageEvalContext#doc).
+On that syntax,
+[`LanguageRootStep`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRootStep#doc)
+formalizes $\rightsquigarrow$ and
+[`LanguageContextStep`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageContextStep#doc)
+formalizes `(E-Step)`. The two conversions
+[`LanguageContextStep.toLanguageStep`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageContextStep.toLanguageStep#doc)
+and
+[`LanguageStep.toLanguageContextStep`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.toLanguageContextStep#doc)
+establish both directions. Consequently
+[`languageContextStep_iff_languageStep`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageContextStep_iff_languageStep#doc)
+states that the explicit evaluation-context presentation and the inductive
+`LanguageStep` presentation define the same finite one-step relation.
 
 A base primitive does not reduce internally.  The exposed form is
 

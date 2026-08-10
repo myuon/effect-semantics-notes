@@ -21,7 +21,7 @@ def HasLanguageComp.returnView
 /-- Internal reduction preserves both the result type and the declared
 language-valued may-effect bound. -/
 def LanguageStep.preserve
-    (step : LanguageStep term term')
+    (step : term ⟶ term')
     (typing : ctx ⊢[sig] term : ty ! effect) :
     ctx ⊢[sig] term' : ty ! effect := by
   cases typing with

@@ -119,7 +119,7 @@ def RecLanguageComp.head : RecLanguageComp → RecLanguageHead
       .free ⟨interface, operation, parameter, []⟩
 
 theorem LanguageStep.to_recHead
-    (step : LanguageStep (mode := .recursive) term next) :
+    (step : term ⟶ next) :
     RecLanguageComp.head term = .internal next := by
   induction step with
   | letReturn | beta | fixBeta | ifTrue | ifFalse | caseInl | caseInr => rfl
@@ -199,7 +199,7 @@ mutual
 
   theorem RecLanguageComp.head_internal_sound
       {term next : RecLanguageComp} (equal : term.head = .internal next) :
-      Nonempty (LanguageStep term next) := by
+      Nonempty (term ⟶ next) := by
     cases term with
     | ret value => simp [RecLanguageComp.head] at equal
     | letE bound body =>

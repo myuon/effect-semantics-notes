@@ -57,7 +57,7 @@ def runEffectfulLoopTyping :
   .app effectfulLoopTyping .unit
 
 def runEffectfulLoop_unfolds :
-    LanguageStep runEffectfulLoop
+    runEffectfulLoop ⟶
       (effectfulLoopBody.subst2 .unit effectfulLoop) :=
   .fixBeta
 

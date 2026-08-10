@@ -233,7 +233,7 @@ inductive LanguageDeepWriterRuns (selected : Nat)
     (handler : LanguageAffineHandler .recursive) :
     RecLanguageComp → List RecLanguageVal → RecLanguageVal → Prop where
   | returned : LanguageDeepWriterRuns selected handler (.ret value) [] value
-  | internal : LanguageStep term next →
+  | internal : term ⟶ next →
       LanguageDeepWriterRuns selected handler next log value →
       LanguageDeepWriterRuns selected handler term log value
   | tell (request : RecLanguageBaseRequest) : term = request.source →

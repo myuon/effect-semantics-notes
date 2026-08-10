@@ -27,6 +27,87 @@ theorem LanguageEvalContext.plug_append
       simp only [List.cons_append, LanguageEvalContext.plug]
       exact ih (frame.plug term)
 
+@[simp] theorem LanguageEvalContext.plug_append_letE
+    (context : LanguageEvalContext) (term body : FinLanguageComp) :
+    LanguageEvalContext.plug (context ++ [.letE body]) term =
+      .letE (LanguageEvalContext.plug context term) body := by
+  rw [LanguageEvalContext.plug_append]
+  rfl
+
+/-- Principal internal reductions before closure under an evaluation context.
+This is the root-redex relation written as `↝` in Chapter I. -/
+inductive LanguageRootStep : FinLanguageComp → FinLanguageComp → Type where
+  | letReturn : LanguageRootStep (.letE (.ret value) body) (body.subst0 value)
+  | beta : LanguageRootStep (.app (.lam domain latent body) argument)
+      (body.subst0 argument)
+  | ifTrue : LanguageRootStep (.ite (.bool true) thenBranch elseBranch) thenBranch
+  | ifFalse : LanguageRootStep (.ite (.bool false) thenBranch elseBranch) elseBranch
+  | caseInl : LanguageRootStep
+      (.case (.inl value rightTy) leftBranch rightBranch)
+      (leftBranch.subst0 value)
+  | caseInr : LanguageRootStep
+      (.case (.inr leftTy value) leftBranch rightBranch)
+      (rightBranch.subst0 value)
+
+/-- One contextual small step: choose a principal redex and plug both sides
+into the same call-by-value evaluation context. -/
+inductive LanguageContextStep : FinLanguageComp → FinLanguageComp → Type where
+  | underContext (root : LanguageRootStep redex reduct)
+      (context : LanguageEvalContext) :
+      LanguageContextStep (context.plug redex) (context.plug reduct)
+
+def LanguageRootStep.toLanguageStep :
+    LanguageRootStep term next → term ⟶ next
+  | .letReturn => .letReturn
+  | .beta => .beta
+  | .ifTrue => .ifTrue
+  | .ifFalse => .ifFalse
+  | .caseInl => .caseInl
+  | .caseInr => .caseInr
+
+def LanguageStep.underLanguageContext
+    (step : term ⟶ next) :
+    (context : LanguageEvalContext) →
+      context.plug term ⟶ context.plug next
+  | [] => step
+  | .letE _ :: rest =>
+      LanguageStep.underLanguageContext (.underLet step) rest
+
+def LanguageContextStep.toLanguageStep :
+    LanguageContextStep term next → term ⟶ next
+  | .underContext root context =>
+      root.toLanguageStep.underLanguageContext context
+
+def LanguageStep.toLanguageContextStep :
+    (term ⟶ next) → LanguageContextStep term next
+  | .letReturn => .underContext .letReturn []
+  | .beta => .underContext .beta []
+  | .fixBeta => nomatch ‹FixAllowed .finite›
+  | .ifTrue => .underContext .ifTrue []
+  | .ifFalse => .underContext .ifFalse []
+  | .caseInl => .underContext .caseInl []
+  | .caseInr => .underContext .caseInr []
+  | .underLet (body := body) inner => by
+      cases inner.toLanguageContextStep with
+      | underContext root context =>
+          have lifted := LanguageContextStep.underContext root
+            (context ++ [.letE body])
+          rw [LanguageEvalContext.plug_append_letE,
+            LanguageEvalContext.plug_append_letE] at lifted
+          exact lifted
+
+/-- The explicit evaluation-context presentation and the inductive
+`LanguageStep` presentation define the same finite one-step relation. -/
+theorem languageContextStep_iff_languageStep
+    (term next : FinLanguageComp) :
+    Nonempty (LanguageContextStep term next) ↔
+      Nonempty (term ⟶ next) := by
+  constructor
+  · rintro ⟨step⟩
+    exact ⟨step.toLanguageStep⟩
+  · rintro ⟨step⟩
+    exact ⟨step.toLanguageContextStep⟩
+
 def LanguageFrame.rename (rename : Nat → Nat) : LanguageFrame → LanguageFrame
   | .letE body => .letE (body.rename (liftLanguageRen rename))
 

@@ -11,7 +11,7 @@ inductive LanguageWriterRuns (sig : LanguageSignature) :
     List FinLanguageVal → LanguageClosedVal sig resultTy → Type where
   | returned (typing : HasLanguageComp sig [] (.ret value) resultTy effect) :
       LanguageWriterRuns sig typing [] ⟨value, typing.returnView.valueTyping⟩
-  | internal (step : LanguageStep term next)
+  | internal (step : term ⟶ next)
       (runs : LanguageWriterRuns sig (step.preserve typing) log value) :
       LanguageWriterRuns sig typing log value
   | rederive {typing₁ typing₂ : HasLanguageComp sig [] term resultTy effect}

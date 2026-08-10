@@ -23,7 +23,7 @@ inductive LanguageHandlerState where
 
 inductive LanguageShallowStep :
     LanguageHandlerState → LanguageHandlerState → Type where
-  | internal : LanguageStep term next →
+  | internal : term ⟶ next →
       LanguageShallowStep (.shallow interface handler term)
         (.shallow interface handler next)
   | returned :
