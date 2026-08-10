@@ -9,13 +9,36 @@ laws.
 
 ## 1. Definition
 
-For every base grade $b$, extended grade $d$ and value object $A$, a base
-action is a natural map
+Fix a base model $T$ and a new operation signature $\Sigma$, and write its
+free extension as
 
 $$
-\mathsf{act}_{b,d,A}:
-T_b(\mathsf F_dA)\to\mathsf F_{b\cdot d}A.
+\widehat T:=\mathsf F_\Sigma(T).
 $$
+
+A base action for this particular extension is a natural map
+
+$$
+\mathsf{act}^{T,\Sigma}_{b,d,A}:
+T_b(\widehat T_dA)\to\widehat T_{b\cdot d}A.
+$$
+
+Thus the domain is a base-$T$ computation returning an already extended
+$\widehat T$ computation, and the codomain is one flattened extended
+computation. The shorter $\mathsf{act}$ notation below refers to this fixed
+pair $(T,\Sigma)$.
+
+On the operational side the same notation is used independently:
+
+$$
+\widehat S:=\mathsf F_\Sigma(S),
+\qquad
+\mathsf{act}^{S,\Sigma}_{b,d,A}:
+S_b(\widehat S_dA)\to\widehat S_{b\cdot d}A.
+$$
+
+The comparison theorem later requires the lifted map
+$\widehat q:\widehat T\to\widehat S$ to commute with these two actions.
 
 It must satisfy the following conditions.
 
@@ -44,11 +67,12 @@ It must satisfy the following conditions.
 5. **Free-node compatibility.** The action stays before a new free request; it
    does not commute the base segment past that request.
 
-These are the laws of a graded left $T$-module carried by $\mathsf F$.
+These are the laws of a graded left $T$-module carried by
+$\widehat T=\mathsf F_\Sigma(T)$.
 
 ## 2. Bind from the action
 
-For $m\in\mathsf F_dA$ and $k:A\to\mathsf F_fC$, recurse over the indexed
+For $m\in\widehat T_dA$ and $k:A\to\widehat T_fC$, recurse over the indexed
 free carrier.  A return is sent to $k(a)$.  For an outer base layer
 $u\in T_b(-)$, recursively transform its return/free alternatives and apply
 $\mathsf{act}_{b,-}$.  A free node is rebuilt with continuations
@@ -66,7 +90,7 @@ $$
 j_b(m)=\mathsf{act}_{b,1}(T_b(\mathsf{return})(m)).
 $$
 
-For every continuation $k:A\to\mathsf F_fC$,
+For every continuation $k:A\to\widehat T_fC$,
 
 $$
 j_b(m)\gg=k
@@ -79,19 +103,22 @@ and bind.
 
 ## 4. Morphism compatibility
 
-For a base morphism $q:T\Rightarrow U$, the lifted morphism exists only when
-the target/source actions commute:
+For a base morphism $q:T\Rightarrow U$, put
+$\widehat T=\mathsf F_\Sigma(T)$ and
+$\widehat U=\mathsf F_\Sigma(U)$. The lifted morphism
+$\widehat q:\widehat T\Rightarrow\widehat U$ exists only when the
+target/source actions commute:
 
 $$
-\mathsf F(q)_{b\cdot d}\circ\mathsf{act}^{T}_{b,d}
+\widehat q_{b\cdot d}\circ\mathsf{act}^{T,\Sigma}_{b,d}
 =
-\mathsf{act}^{U}_{b,d}\circ
-q_b(\mathsf F(q)_d).
+\mathsf{act}^{U,\Sigma}_{b,d}\circ
+q_b(\widehat q_d).
 \tag{Act-Morphism}
 $$
 
 This square is now part of “compatible morphism.”  Monad-morphism laws alone
-do not mention $\mathsf F$ and cannot imply it.
+do not mention the extensions $\widehat T,\widehat U$ and cannot imply it.
 
 ## 5. Ways to obtain the action
 
@@ -125,7 +152,7 @@ prefixing the first Writer segment.  The action laws are word associativity.
 Given
 
 $$
-u:S\to(\mathsf F_dA\times S),
+u:S\to(\widehat T_dA\times S),
 $$
 
 run $u$ at the current state, obtaining $(t,s')$, then run the first base
@@ -133,13 +160,13 @@ segment of $t$ from $s'$.  The action laws are ordinary State bind laws.
 
 ### Exception
 
-For $u\in\mathsf F_dA+\mathsf{Err}$, return the contained tree in the left
+For $u\in\widehat T_dA+\mathsf{Err}$, return the contained tree in the left
 case and the corresponding terminal base-error layer in the right case.
 Short-circuiting proves the action laws.
 
 ### Finite SubDist
 
-For $u\in\mathsf{FinSubDist}(\mathsf F_dA)$, flatten the finite mixture of
+For $u\in\mathsf{FinSubDist}(\widehat T_dA)$, flatten the finite mixture of
 trees by probabilistic bind.  Finite-sum associativity proves `Act-Mult`.
 
 ## 7. Boundary

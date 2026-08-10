@@ -51,14 +51,16 @@ are unchanged.
 Let
 
 $$
-\alpha_A:\mathcal H_A(\mathsf F A)\cong\mathsf F A
+\widehat T:=\mathsf F_\Sigma(T),
+\qquad
+\alpha_A:\mathcal H_A(\widehat T A)\cong\widehat T A
 $$
 
 be the indexed initial-algebra structure.  Define
 
 $$
 \begin{aligned}
-T_b(\mathsf F_dA)
+T_b(\widehat T_dA)
 &\xrightarrow{T_b(\alpha^{-1}_{A,d})}
 T_b\left(\coprod_cT_c(\mathsf{Step}(c,d))\right)\\
 &\xrightarrow{\chi}
@@ -68,7 +70,7 @@ T_b\left(\coprod_cT_c(\mathsf{Step}(c,d))\right)\\
 &\xrightarrow{\coprod_cT_{bc}(\lambda_{b,c,d})}
 \coprod_cT_{bc}(\mathsf{Step}(bc,bd))\\
 &\xrightarrow{\alpha_{A,bd}}
-\mathsf F_{bd}A.
+\widehat T_{bd}A.
 \end{aligned}
 \tag{Construct-Act}
 $$
@@ -89,7 +91,7 @@ canonical base embedding preserves return and bind.
 
 **Proof.** `Act-Unit` reduces to the unit coherence of $\chi$, the left-unit
 law of $T$, and $1c=c$.  For `Act-Mult`, expose the root grades of
-$T_bT_c(\mathsf F_dA)$ in the two possible orders.  Coherence of $\chi$ makes
+$T_bT_c(\widehat T_dA)$ in the two possible orders. Coherence of $\chi$ makes
 the exposure squares commute; associativity of $\mu^T$ identifies the maps
 into $T_{bce}$; and associativity of grade multiplication identifies their
 target indices.  Weakening and strength follow from the corresponding

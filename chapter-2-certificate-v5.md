@@ -267,10 +267,11 @@ informal labels.
 ### Definition II.2 `[C2-CERT.8.2]` — bundled `FreeCert` [Readable grade-indexed abstraction]
 
 For an extension $\widehat L=L_B+\Sigma$ with effect algebra $\widehat E$
-and carrier $\mathsf F=\mathsf F_\Sigma(T)$, we say that
+and denotational carrier
+$\widehat T:=\mathsf F_\Sigma(T)$, we say that
 
 $$
-\mathsf{FreeCert}(\widehat L,\widehat E,\mathcal K,\mathsf F)
+\mathsf{FreeCert}(\widehat L,\widehat E,\mathcal K,\widehat T)
 $$
 
 holds when the following conditions are satisfied.
@@ -317,26 +318,26 @@ $$
 Conditions (3) and (4) require the following operations and equations:
 
 $$
-\eta_A^{\mathsf F}:A\to\mathsf F_1A,
+\eta_A^{\widehat T}:A\to\widehat T_1A,
 \quad
-\mu_{e,f,A}^{\mathsf F}:\mathsf F_e\mathsf F_fA
-\to\mathsf F_{e\cdot f}A,
+\mu_{e,f,A}^{\widehat T}:\widehat T_e\widehat T_fA
+\to\widehat T_{e\cdot f}A,
 \quad
-j_{e,A}:T_eA\to\mathsf F_eA,
+j_{e,A}:T_eA\to\widehat T_eA,
 $$
 
 $$
-\mathsf{op}^{\mathsf F}_{\Delta,i,e}:
-P_i\times(R_i\to\mathsf F_eA)
-\to\mathsf F_{\Delta\cdot e}A,
+\mathsf{op}^{\widehat T}_{\Delta,i,e}:
+P_i\times(R_i\to\widehat T_eA)
+\to\widehat T_{\Delta\cdot e}A,
 \qquad
-\tau^{\mathsf F}_{e,f,A}:\mathsf F_eA\to\mathsf F_fA\ (e\leq f),
+\tau^{\widehat T}_{e,f,A}:\widehat T_eA\to\widehat T_fA\ (e\leq f),
 $$
 
 with the graded monad/strength/weakening equations and
 
 $$
-j\circ\eta^T=\eta^{\mathsf F},
+j\circ\eta^T=\eta^{\widehat T},
 \qquad
 j(m\mathbin{\gg=_T}f)
 =j(m)\mathbin{\gg=_{\mathsf F}}(j\circ f),
@@ -410,7 +411,9 @@ Assume the following premises, each only where cited below.
    [the grade-indexed construction](grade-indexed-free-carrier-v5.md) has a
    finite/well-founded initial algebra in $\mathcal C^{\widehat E}$, stable
    under the products required by strength, and its carrier has the coherent
-   base action $T_b(\mathsf F_dA)\to\mathsf F_{b\cdot d}A$;
+   base action
+   $T_b(\widehat T_dA)\to\widehat T_{b\cdot d}A$, where
+   $\widehat T=\mathsf F_\Sigma(T)$;
 6. the extended effect preorder cannot erase a visible $\Sigma$ factor;
 7. $\mathsf{FiniteResponseCert}(\mathcal K)$ holds;
 8. the extended observation separates returns, base outcomes and free
