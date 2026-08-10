@@ -101,7 +101,8 @@ $$
 \widehat T=\mathsf F_\Sigma(T).
 $$
 
-The base actions are derived from the two FreeT fold/unfold equations. The
+For canonical constructions, the base-action square is proved from the two
+chosen FreeT action constructions. The
 base comparison lifts by parameterized initiality to
 
 $$

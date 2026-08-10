@@ -122,8 +122,10 @@ $$
 
 ### Proof sketch
 
-The FreeT fold/unfold equation derives the base action as
-$\mathsf{roll}\circ\mu^T\circ T(\mathsf{out})$. Initiality defines bind as
+For the ordinary ungraded FreeT, fold/unfold derives the base action as
+$\mathsf{roll}\circ\mu^T\circ T(\mathsf{out})$. A
+`StrongGradedFreeT` package includes the corresponding typed action and its
+laws; establishing that package must construct them. Initiality defines bind as
 the unique algebra morphism extending a return substitution. The left unit,
 right unit and associativity equations are proved
 by showing both sides are algebra morphisms with the same action on returns,
@@ -213,8 +215,9 @@ $$
 
 has a **structural lifting** $\mathsf{Str}_\Sigma(R)$ through returns, related
 base layers and free nodes. The relator is applied to the recursively generated
-payload relation. Compatibility with the two derived `baseAct` maps then
-follows from the FreeT fold equation. The free-node
+payload relation. Closure under the two chosen `baseAct` maps is the
+`Rel-Act` premise; unlike the graph of a canonical morphism, it does not
+follow for an arbitrary relation merely from the FreeT fold equation. The free-node
 clause relates equal operation tags, related parameters and pointwise-related
 continuations. This is distinct from the observational graded TT-lifting used
 for adequacy.
@@ -406,8 +409,8 @@ Assume the following premises, each only where cited below.
 2. $\Sigma$ is a first-order polynomial signature disjoint from the base
    signature;
 3. $\mathsf{StrongGradedFreeT}(T,\Sigma,\widehat T)$ and
-   $\mathsf{StrongGradedFreeT}(S,\Sigma,\widehat S)$ hold; sufficient
-   accessible and concrete conditions are listed in
+   $\mathsf{StrongGradedFreeT}(S,\Sigma,\widehat S)$ hold; accessible
+   carrier conditions and concrete structural constructions are listed in
    [FreeT existence](graded-freet-existence-v1.md);
 4. the extended effect preorder cannot erase a visible $\Sigma$ factor;
 5. any optional finite TT observation theorem supplies its own branching,
@@ -420,7 +423,7 @@ Then the following conclusions hold in order.
 2. The same typing argument gives $\mathsf{EffectSafetyCert}$; adding premise
    4 gives the stronger `EmptyFreeCert` corollary.
 3. Premise 3 gives both extended strong graded monads, their base embeddings,
-   free generators, and the derived actions.
+   free generators, and the chosen coherent actions.
 4. The base comparison $q$ lifts functorially to
    $\widehat q:\widehat T\Rightarrow\widehat S$.
 5. Compatible graded relators lift in parallel.

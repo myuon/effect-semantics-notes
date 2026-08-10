@@ -13,9 +13,9 @@ declaration. At the abstract boundary,
 [`gradedFreeExtensionFunctor`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.gradedFreeExtensionFunctor#doc)
 checks the category and functor laws for chosen graded extensions whose arrows
 satisfy the explicit `Act-Morphism` square. In the revised paper interface,
-these chosen extensions are supplied by `StrongGradedFreeT`, and action
-compatibility is derived; the Lean record retains the explicit square as a
-lower-level implementation certificate. For the finite-tree model, existence
+these chosen extensions are supplied by `StrongGradedFreeT`. Canonical lifts
+prove action compatibility from their construction; the Lean record retains
+the explicit square as a lower-level implementation certificate. For the finite-tree model, existence
 is now constructed by
 [`finiteTreeExtensiblePackage`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.finiteTreeExtensiblePackage#doc),
 with initiality and both action equations checked separately.
@@ -63,7 +63,8 @@ theorem about the resulting map.
 The [assumption dependency audit](assumption-dependency-audit-v5.md) splits
 this combined theorem into operational, carrier, monadic, functorial,
 relational, observational and handler strata. The revised main premise is the
-existence of the two strong graded FreeT objects; their actions are derived.
+existence of the two strong graded FreeT packages, including their coherent
+actions.
 
 ## 1. Category of admissible base packages
 
@@ -75,8 +76,8 @@ Let $\mathbf{ExtBase}^{\mathrm{str}}_\Delta$ have:
 - objects $T$ for which $\mathsf{BaseModelCert}(L_B,E_B,T)$ holds and
   $\operatorname{FreeT}_\Delta(T)$ exists as a strong graded monad;
 - morphisms $q:T\Rightarrow U$ preserving graded return, bind, strength,
-  coherent weakening and primitive interpretations; their FreeT lifts
-  preserve the derived actions automatically;
+  coherent weakening and primitive interpretations; canonical FreeT lifts
+  must prove preservation of the chosen actions;
 - identities and composition inherited from graded natural transformations.
 
 Let $\mathbf{Free}^{\mathrm{str}}_\Delta$ contain the corresponding finite free

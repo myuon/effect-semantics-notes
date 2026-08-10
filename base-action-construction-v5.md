@@ -127,6 +127,6 @@ does not preserve the displayed coproduct.
 Conversely, the present notes do not yet contain a model having all indexed
 initial algebras but admitting no coherent base action at all.  Therefore the
 strong independence claim is left open. The main theorem assumes
-`StrongGradedFreeT`, which already includes the derived action. This theorem,
+`StrongGradedFreeT`, which already includes a chosen coherent action. This theorem,
 or a direct concrete construction, may discharge that implementation
 obligation.

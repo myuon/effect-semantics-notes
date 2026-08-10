@@ -81,7 +81,9 @@ Read in this order:
 The canonical semantic premise is now documented in
 [Existence of the graded free monad transformer](graded-freet-existence-v1.md).
 The grade-indexed carrier and root-exposure pages are alternative
-implementation routes; `baseAct` is not an independent main-theorem premise.
+implementation routes; `baseAct` is not a second independent main-theorem
+premise because it is a field of `StrongGradedFreeT`, but constructing it is a
+real object-side obligation.
 
 Read concrete programs before the carrier construction:
 
