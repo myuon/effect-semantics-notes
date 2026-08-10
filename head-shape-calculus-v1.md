@@ -221,7 +221,7 @@ $$
 
 $$
 \frac{\Gamma\vdash V:A}
-{\Gamma\vdash\mathsf{return}\;V:A!I\triangleright\{\checkmark\}}.
+{\Gamma\vdash\mathsf{return}\;V:A!1\triangleright\{\checkmark\}}.
 $$
 
 ### Operation

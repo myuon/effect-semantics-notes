@@ -63,7 +63,7 @@ $$
 M\longrightarrow^*\mathsf{return}\;\mathsf{true}
 $$
 
-with pure effect $1$.
+with unit effect $1$.
 
 ## 3. Example B — One operation request
 
@@ -328,4 +328,3 @@ No Writer request occurs. Hence the current annotation is an upper bound, not an
 | C: two writes | first contextual `tell` request | value `true`, log `["a","b"]` | $w\cdot w$ |
 | D: state flip | contextual `get` request | from `true`: value `true`, state `false` | $r\cdot w$ |
 | E: unreachable write | `return false` | empty Writer log | upper bound $w$ |
-

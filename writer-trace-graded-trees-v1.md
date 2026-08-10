@@ -108,7 +108,7 @@ $$
 Write $\downarrow S$ for downward closure. Define
 
 $$
-I=\{\epsilon\},
+1_Q=\{\epsilon\},
 $$
 
 $$
@@ -126,7 +126,7 @@ $$
 Ordered by inclusion, these grades form a unital quantale:
 
 - $\otimes$ is associative;
-- $I$ is its unit;
+- $1_Q$ is its unit;
 - arbitrary joins exist;
 - multiplication preserves joins in each argument.
 
@@ -140,7 +140,7 @@ Free-interface tokens embed as principal grades, but the coarse idempotent
 Writer grade requires a language embedding. Define
 
 $$
-J(1)=I,
+J(1)=1_Q,
 $$
 
 $$
@@ -255,7 +255,7 @@ $$
 
 Induction on $t$.
 
-- `ret`: the result is $f(x)$ and $I\otimes K=K$.
+- `ret`: the result is $f(x)$ and $1_Q\otimes K=K$.
 - `tell`: prepend $\mathbf w$ to every induction-hypothesis trace.
 - `op`: prepend the interface token and apply the induction hypothesis
   pointwise to every response continuation.

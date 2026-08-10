@@ -25,7 +25,7 @@
 Effect annotations は preordered monoid
 
 $$
-(E,\cdot,I,\leq)
+(E,\cdot,1,\leq)
 $$
 
 の元とする。
@@ -35,7 +35,7 @@ $$
 $$
 (e\cdot f)\cdot g=e\cdot(f\cdot g),
 \qquad
-I\cdot e=e=e\cdot I,
+1\cdot e=e=e\cdot 1,
 $$
 
 $$
@@ -138,7 +138,7 @@ $$
 
 $$
 \frac{\Gamma\vdash V:A}
-{\Gamma\vdash\mathsf{return}\;V:A!I}.
+{\Gamma\vdash\mathsf{return}\;V:A!1}.
 \tag{T-Return}
 $$
 

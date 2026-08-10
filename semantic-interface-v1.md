@@ -9,7 +9,7 @@
 基礎圏を $mathcal C$、effect algebra を preordered monoid
 
 $$
-(E,\cdot,I,\leq)
+(E,\cdot,1,\leq)
 $$
 
 とする。まず strong graded monad の族
@@ -21,7 +21,7 @@ $$
 を仮定する。構造写像は
 
 $$
-\eta_X:X\to T_I X,
+\eta_X:X\to T_1 X,
 $$
 
 $$

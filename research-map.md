@@ -89,7 +89,7 @@ flowchart LR
 
 ## 出発点
 
-ベース effect の添字を preordered monoid $(B,\cdot,I,\leq)$ とし、計算を graded monad で解釈する。
+ベース effect の添字を preordered monoid $(B,\cdot,1,\leq)$ とし、計算を graded monad で解釈する。
 
 $$
 S_b X \qquad T_b X \qquad (b\in B)
