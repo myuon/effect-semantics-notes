@@ -11,11 +11,12 @@
 |---|---|---|
 | Lemma I.1–I.2, substitution | Lean checked | [`HasLanguageComp.subst_preserved`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.subst_preserved#doc) |
 | Theorem I.3, preservation | Lean checked | [`LanguageStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc) |
-| Theorem I.4, decomposition/progress | Lean checked at closed progress; uniqueness is a paper strengthening | [`HasLanguageComp.progressClosed`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed#doc) |
-| Conjecture I.5, recursion-free normalization | Precisely scoped formalization boundary | `FinLanguageComp` excludes recursion by construction and is substitution/reduction closed; reducibility normalization remains future work |
-| Lemma I.6–Theorem I.7, semantic substitution/soundness | Lean checked for the relational Writer/free-tree semantics | [`letE`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.letE#doc), [`internalStepInvariant`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.internalStepInvariant#doc) |
-| Theorem I.8, effect upper-bound safety | Lean checked component | [`HasLanguageEffect.observationMember`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.TypedWriterTree.HasLanguageEffect.observationMember#doc) |
-| Definition I.1 and Theorem I.9, `BaseCert` | Paper certificate packaging | component theorems above |
+| Theorem I.4, effect-aware progress | Lean checked | [`HasLanguageComp.progressClosed`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed#doc), [`LanguageProgress.kind_unique`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageProgress.kind_unique#doc) |
+| Theorem I.5, deterministic internal reduction | Lean checked | [`LanguageStep.deterministic`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.deterministic#doc) |
+| Conjecture I.6, recursion-free normalization | Precisely scoped formalization boundary | `FinLanguageComp` excludes recursion by construction and is substitution/reduction closed; reducibility normalization remains future work |
+| Lemma I.7–Theorem I.8, semantic substitution/soundness | Lean checked for the relational Writer/free-tree semantics | [`letE`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.letE#doc), [`internalStepInvariant`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.internalStepInvariant#doc) |
+| Theorem I.9, effect upper-bound safety | Lean checked component | [`HasLanguageEffect.observationMember`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.TypedWriterTree.HasLanguageEffect.observationMember#doc) |
+| Definition I.1 and Boundary I.10, `BaseCert` | Paper certificate packaging | component theorems above |
 
 ## Status
 
@@ -81,19 +82,50 @@ The $\beta$ and `let-return` cases use Lemma I.2.  Branch rules retain the
 declared common effect.  Context closure uses associativity of graded
 sequencing.
 
-### Theorem I.4 `[C1-CERT.2.2]` — unique decomposition [[Lean: progress]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed#doc) [[Lean: exclusivity]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageProgress.kind_unique#doc) [[Lean: reduct uniqueness]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.deterministic#doc)
+### Theorem I.4 `[C1-CERT.2.2]` — effect-aware progress [[Lean: progress]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed#doc) [[Lean: exclusivity]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageProgress.kind_unique#doc)
 
-Every closed well-typed base computation has a unique evaluation-position
-decomposition as a return, an internal redex in its evaluation context, or an exposed base request
-$\mathcal E[\beta(V)]$.
+If
 
-This is the effect-aware progress theorem used by later chapters.  It does not
-call an exposed request “stuck,” and it does not assert that the request has a
-unique response.
+$$
+\vdash M:A!b,
+$$
+
+then exactly one of the following three alternatives holds:
+
+$$
+\begin{aligned}
+&\exists V.\ M=\mathsf{return}\,V,\\
+&\exists M'.\ M\longrightarrow M',\\
+&\exists \mathcal E,\beta,V.\ M=\mathcal E[\beta(V)].
+\end{aligned}
+\tag{I.4}
+$$
+
+Here $\mathcal E$ ranges over call-by-value evaluation contexts and $\beta$ is
+a base-language primitive.  Thus a closed well-typed computation has returned,
+can make an internal step, or has exposed one request to the base machine.
+These alternatives are mutually exclusive.  An exposed request is an
+operational boundary rather than a stuck term: the base machine may answer it
+and resume the computation.
+
+### Theorem I.5 `[C1-CERT.2.3]` — deterministic internal reduction [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.deterministic#doc)
+
+For all computations $M,M_1,M_2$,
+
+$$
+M\longrightarrow M_1\ \land\ M\longrightarrow M_2
+\quad\Longrightarrow\quad
+M_1=M_2.
+\tag{I.5}
+$$
+
+This concerns only the language's internal reduction relation.  It neither
+asserts that a base request has a unique response nor requires the response
+mechanism itself to be deterministic.
 
 ## 3. Termination
 
-### Conjecture I.5 `[C1-CERT.3.1]` — recursion-free machine normalization [Formalization boundary]
+### Conjecture I.6 `[C1-CERT.3.1]` — recursion-free machine normalization [Formalization boundary]
 
 Assume $M:\mathsf{FinLanguageComp}$, every element in the support of every base response
 is typed, and each recursion-free response branch is terminating. Then every
@@ -112,7 +144,7 @@ of the returned observation is asserted.
 Use the standard reducibility argument for fine-grain CBV STLC, quantified over
 every response in the support of $\mathsf{resp}_\beta$.  The primitive case is
 reducible by the base-package branch-termination assumption.  Function,
-product and sum cases are standard.  Unique decomposition identifies the
+product and sum cases are standard.  Theorem I.4 identifies the exposed
 request; Kleisli composition in $\mathcal K$ combines its possible responses.
 
 The recursion-free fragment is the separate Lean type
@@ -124,7 +156,7 @@ response-kernel package. The claim is deliberately absent from Chapter IV.
 
 ## 4. Denotational soundness
 
-### Lemma I.6 `[C1-CERT.4.1]` — semantic sequencing/substitution [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.letE#doc)
+### Lemma I.7 `[C1-CERT.4.1]` — semantic sequencing/substitution [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.letE#doc)
 
 For a computation $M$,
 
@@ -142,7 +174,7 @@ that the whole `let` produces `tree.bind continuation`. This is
 `ProducesLanguageWriterTree.letE`. The displayed categorical equality is its
 paper presentation for a total model satisfying the same bind law.
 
-### Theorem I.7 `[C1-CERT.4.2]` — internal reduction soundness [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.internalStepInvariant#doc)
+### Theorem I.8 `[C1-CERT.4.2]` — internal reduction soundness [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.internalStepInvariant#doc)
 
 If $M\to M'$, then
 
@@ -156,7 +188,7 @@ chosen denotation is total and functional; no termination is silently assumed.
 
 ## 5. Effect upper-bound safety
 
-### Theorem I.8 `[C1-CERT.5.1]` — effect upper-bound safety [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.effectSound#doc)
+### Theorem I.9 `[C1-CERT.5.1]` — effect upper-bound safety [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.effectSound#doc)
 
 If
 
@@ -169,7 +201,7 @@ ordered upper bound $b$ at its typed position.  Effects in $b$ need not execute.
 
 ### Proof idea
 
-Unique decomposition and residual-context typing show that an exposed
+Effect-aware progress and residual-context typing show that an exposed
 $\beta(V)$ occurs with primitive grade $|\beta|$ in the ordered position
 assigned by the surrounding `let` contexts.  Internal reduction preserves the
 declared bound.  Branch selection may remove potential effects but cannot add
@@ -397,7 +429,7 @@ $$
 \end{aligned}
 $$
 
-### Boundary I.9 `[C1-CERT.7.2]` — Base certificate extraction [Instance boundary]
+### Boundary I.10 `[C1-CERT.7.2]` — Base certificate extraction [Instance boundary]
 
 For each $X\in\{\mathsf{Writer},\mathsf{State},\mathsf{Exception}\}$, let
 $L_X,E_X,T^X,\mathsf{obs}_X$ be the syntax/machine, ordered algebra, model and
@@ -411,9 +443,9 @@ $$
 ### Proof
 
 The fields `subst`, `pres`, `uniquePos`, `respTy`, `branchNorm`, and `effsafe` follow from
-Theorems I.1–I.5 and I.8 after checking each primitive machine rule.  The
+Theorems I.1–I.6 and I.9 after checking each primitive machine rule.  The
 displayed Writer, State and Exception constructions supply
-$\eta,\mu,\mathsf{st},\tau,\beta^T$ and their laws.  Theorems I.6–I.7 supply
+$\eta,\mu,\mathsf{st},\tau,\beta^T$ and their laws.  Theorems I.7–I.8 supply
 `semsubst` and `redsnd`; the three instance proofs above supply `respSound` and
 `adequate`.
 No free-operation or handler property is used. $\square$

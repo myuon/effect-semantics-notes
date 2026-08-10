@@ -17,8 +17,8 @@ mutual
     | inl inner => exact .inl (inner.rename_preserved preserves)
     | inr inner => exact .inr (inner.rename_preserved preserves)
     | lam body => exact .lam (body.rename_preserved (preserves.lift _))
-    | fixLam recursive body =>
-        exact .fixLam recursive
+    | fixLam allowed body =>
+        exact .fixLam allowed
           (body.rename_preserved ((preserves.lift _).lift _))
   termination_by (sizeOf value, sizeOf typing)
 
@@ -81,8 +81,8 @@ mutual
     | inl inner => exact .inl (inner.subst_preserved preserves)
     | inr inner => exact .inr (inner.subst_preserved preserves)
     | lam body => exact .lam (body.subst_preserved (preserves.lift _))
-    | fixLam recursive body =>
-        exact .fixLam recursive
+    | fixLam allowed body =>
+        exact .fixLam allowed
           (body.subst_preserved ((preserves.lift _).lift _))
   termination_by (sizeOf value, sizeOf typing)
 
