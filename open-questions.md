@@ -135,11 +135,13 @@ $$
 
 ## Q-013: external-root carrierはいつ標準FreeTを表示するか
 
-主定理では[strong graded FreeTの存在](graded-freet-existence-v1.md)を仮定し、
-`baseAct`をそのfold/unfold構造から導出する。したがって標準FreeTについて
-`baseAct`を独立な追加構造とする問題は解消した。
+主定理では[strong graded FreeT package](graded-freet-existence-v1.md)を仮定し、
+そのfieldとしてcoherentな`baseAct`を要求する。ordinary ungraded FreeTでは
+fold/unfoldから導出できるが、graded版ではtypedな導出または別の直接構成が
+必要である。したがって`baseAct`は第二のtop-level premiseではない一方、
+packageを構成する際の実質的な証明義務として残る。
 
-残る問題は、grade-root coproductを外側に出した別のindexed carrierが、いつ
+特に残る問題は、grade-root coproductを外側に出した別のindexed carrierが、いつ
 標準FreeTと同型になるかである。coherentなroot exposureはその十分条件を与えるが、
 State、Exception、finite SubDistなどでは一般に成り立たない。この失敗はFreeT
 そのものの不存在を意味せず、外部root表示が使えないことだけを意味する。

@@ -138,9 +138,10 @@ return at grade $1$ is transported to grade $\Delta$ by weakening.
 
 ## 4. Bind in the external-root representation
 
-The canonical FreeT presentation derives flattening by
+The ordinary ungraded FreeT presentation derives flattening by
 $\mathsf{roll}\circ\mu^T\circ T(\mathsf{out})$; see
-[FreeT existence](graded-freet-existence-v1.md). In the alternative
+[FreeT existence](graded-freet-existence-v1.md). A graded presentation must
+prove the typed analogue as part of constructing `StrongGradedFreeT`. In the alternative
 presentation used on this page, the root grade has been moved outside $T$.
 Indexed initiality alone then does not flatten an arbitrary old computation
 whose result is already extended, so this representation must construct a

@@ -2,10 +2,12 @@
 
 ## Status
 
-**Derived FreeT structure and alternative implementation boundary.** For the
-standard FreeT assumed by the main theorem, the action is derived from
-fold/unfold and base multiplication. This page records its laws and explains
-what an alternative indexed representation must implement.
+**Strong-FreeT structure and implementation boundary.** The main theorem
+assumes a `StrongGradedFreeT` package, which includes a coherent base action.
+For the ordinary ungraded FreeT that action is derived from fold/unfold and
+base multiplication. A graded construction must either prove the analogous
+typed formula or supply the action by another construction. This page records
+the common laws.
 
 ## 1. Definition
 
@@ -40,7 +42,7 @@ $$
 The comparison theorem later requires the lifted map
 $\widehat q:\widehat T\to\widehat S$ to commute with these two actions.
 
-For the standard FreeT equation from
+For the ordinary ungraded FreeT equation from
 [FreeT existence](graded-freet-existence-v1.md), it is canonically
 
 $$
@@ -48,7 +50,9 @@ $$
 =\mathsf{roll}\circ\mu^T\circ T(\mathsf{out}).
 $$
 
-Accordingly `act` is not an independent premise of the main theorem.
+In the graded theorem, `act` is not a separate top-level premise because it is
+a field of `StrongGradedFreeT`; its construction is nevertheless an
+object-side proof obligation.
 
 It must satisfy the following conditions.
 
@@ -70,12 +74,33 @@ It must satisfy the following conditions.
    \tag{Act-Mult}
    $$
 
-3. **Weakening coherence.** Acting before or after any base/extended
-   weakening gives the same map into a common upper bound.
-4. **Strength coherence.** Acting on a computation paired with an untouched
-   value agrees with base strength followed by the extended strength.
-5. **Free-node compatibility.** The action stays before a new free request; it
-   does not commute the base segment past that request.
+3. **Weakening coherence.** For $b\le b'$ and $d\le d'$, writing both
+   weakening maps as $\tau$,
+
+   $$
+   \tau_{bd,b'd'}^{\widehat T}\circ\mathsf{act}_{b,d}
+   =
+   \mathsf{act}_{b',d'}\circ
+   T_{b'}(\tau_{d,d'}^{\widehat T})\circ
+   \tau^{T}_{b,b'}.
+   \tag{Act-Weaken}
+   $$
+
+4. **Strength coherence.** With right strength $\mathsf{st}$,
+
+   $$
+   \mathsf{st}^{\widehat T}\circ(\mathsf{act}_{b,d}\times\mathsf{id})
+   =
+   \mathsf{act}_{b,d}\circ
+   T_b(\mathsf{st}^{\widehat T})\circ\mathsf{st}^{T}.
+   \tag{Act-Strength}
+   $$
+
+Naturality in the value object is implicit in all four laws. Preservation of
+free generators is a condition on a chosen FreeT fold or morphism, not an
+additional equation of a bare $T$-module action. In a concrete tree
+presentation it says that prefixing an old base layer rebuilds the first free
+request without commuting that layer past the request.
 
 These are the laws of a graded left $T$-module carried by
 $\widehat T=\mathsf F_\Sigma(T)$.
@@ -116,7 +141,7 @@ and bind.
 For a base morphism $q:T\Rightarrow U$, put
 $\widehat T=\mathsf F_\Sigma(T)$ and
 $\widehat U=\mathsf F_\Sigma(U)$. The lifted morphism
-$\widehat q:\widehat T\Rightarrow\widehat U$ exists only when the
+$\widehat q:\widehat T\Rightarrow\widehat U$ is compatible when the
 target/source actions commute:
 
 $$
@@ -127,8 +152,10 @@ q_b(\widehat q_d).
 \tag{Act-Morphism}
 $$
 
-This square is now part of “compatible morphism.”  Monad-morphism laws alone
-do not mention the extensions $\widehat T,\widehat U$ and cannot imply it.
+For arbitrary chosen extensions this square is an explicit certificate. For
+a canonical FreeT lift it is a derived theorem once the construction of both
+actions and preservation of multiplication have been proved. Monad-morphism
+laws alone, without that chosen FreeT structure, do not state the square.
 
 ## 5. Ways to obtain the action
 
@@ -144,8 +171,8 @@ There are three valid routes.
    combined graded algebraic theory.  Its free model carries the old-theory
    action by construction.
 
-The main theorem assumes the action abstractly so it does not force all base
-effects to admit an algebraic presentation.
+The main theorem assumes `StrongGradedFreeT`, which packages the action but
+does not force one particular construction of it.
 
 ## 6. Concrete actions
 
@@ -181,7 +208,9 @@ trees by probabilistic bind.  Finite-sum associativity proves `Act-Mult`.
 
 ## 7. Boundary
 
-The standard FreeT route derives `baseAct` directly. If one instead begins
+The ordinary ungraded FreeT route derives `baseAct` directly. In the graded
+setting the corresponding typed construction is part of establishing
+`StrongGradedFreeT`. If one instead begins
 with the older carrier whose root grade is externalized as a coproduct, graded
 monad laws and indexed initial algebras alone do not derive it. That
 representation additionally needs a way to expose or distribute the opaque

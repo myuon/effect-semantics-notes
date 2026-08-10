@@ -38,20 +38,25 @@ Accessible sufficient conditions are isolated in
 
 ### M — monadic composition
 
-`MonadExtCert` is now derived from the standard FreeT equation. In particular,
+`MonadExtCert` is included in `StrongGradedFreeT`. For the ordinary ungraded
+FreeT its action is derived from the standard equation
 
 $$
 \mathsf{act}=\mathsf{roll}\circ\mu^T\circ T(\mathsf{out}).
 $$
 
-Initial-algebra recursion defines graded bind and the monadic base embedding.
-`M` remains a proof stratum, but is not a separate top-level hypothesis.
+The graded package must supply a typed construction and laws for this action;
+carrier initiality alone is insufficient. `M` remains a proof stratum, but is
+not a separate top-level hypothesis because it is bundled by
+`StrongGradedFreeT`.
 
 ### F — morphism lifting
 
 `FunctorCert` lifts a base monad morphism through the two FreeT initial
-algebras. `Act-Morphism` follows from preservation of base multiplication and
-the derived-action formula. Identity and composition follow from uniqueness.
+algebras. For canonical lifts, `Act-Morphism` follows from the chosen action
+construction and preservation of base multiplication. For arbitrary package
+arrows it is an explicit certificate. Identity and composition follow from
+uniqueness.
 
 ### R — relation lifting
 
@@ -123,7 +128,7 @@ For the fixed Chapter-I language and first-order interface $\Delta$:
 :::
 
 **Proof.** Each item is respectively Chapter II operational induction,
-FreeT initiality, derived-action recursion and laws, initial-algebra
+FreeT initiality, construction of the chosen action and its laws, initial-algebra
 uniqueness, structural/TT induction, and the four-case
 shallow-handler induction. The dependency table records that no later premise
 is used in an earlier proof. $\square$

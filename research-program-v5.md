@@ -152,9 +152,10 @@ free-extension functor itself.
 
 The source of this functor is the category of graded monads for which the
 required [strong graded FreeT](graded-freet-existence-v1.md) exists. This is a
-substantive restriction, discharged in standard Set-based examples by
-accessibility or a concrete FreeT construction. The action is derived from
-FreeT fold/unfold and base multiplication.
+substantive restriction. Accessibility discharges carrier existence in
+standard Set-based examples; a concrete graded construction must additionally
+supply bind, strength, weakening and the coherent base action. Ordinary
+ungraded FreeT derives that action from fold/unfold and base multiplication.
 
 This restriction begins only at semantic composition. The
 [assumption dependency audit](assumption-dependency-audit-v5.md) shows that

@@ -117,10 +117,11 @@ It is defined by the initial-algebra recursion:
 - use base graded bind through the outer $T$;
 - preserve each free operation and compose into every response continuation.
 
-The graded unit and associativity laws follow from FreeT initiality and the
-base graded monad laws. The action is derived as
-$\mathsf{roll}\circ\mu^T\circ T(\mathsf{out})$. Sufficient conditions for the
-strong construction are listed in
+The graded unit and associativity laws are fields of the chosen
+`StrongGradedFreeT` package. For ordinary ungraded FreeT the action is derived
+as $\mathsf{roll}\circ\mu^T\circ T(\mathsf{out})$; a graded construction must
+prove its typed analogue or supply the action directly. Carrier-existence
+conditions and structural implementation routes are listed in
 [FreeT existence](graded-freet-existence-v1.md); root exposure is only an
 alternative implementation route for an external-root carrier.
 

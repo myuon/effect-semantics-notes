@@ -2,8 +2,8 @@
 
 ## Status
 
-**Canonical assumption for the finite extension theorem.** The main theorem
-assumes the strong graded free monad transformers
+**Structural assumption for the finite extension theorem.** The main theorem
+assumes the strong graded free monad transformer packages
 
 $$
 \widehat T:=\operatorname{FreeT}_\Sigma(T),
@@ -11,10 +11,10 @@ $$
 \widehat S:=\operatorname{FreeT}_\Sigma(S)
 $$
 
-and their universal embeddings. This page records standard sufficient
-conditions for those objects to exist. The older indexed-carrier and
-`baseAct` presentation is retained as one implementation route, not as the
-primary theorem premise.
+and their universal embeddings, free generators and coherent base actions.
+This page separates carrier-existence conditions from the additional proof
+that those carriers support the required graded monad structure. The older
+indexed-carrier and `baseAct` presentation is one implementation route.
 
 ## 1. Standard FreeT equation
 
@@ -52,7 +52,7 @@ j
 \end{aligned}
 $$
 
-The base action is derived rather than assumed:
+The base action is canonically derived in this ungraded presentation:
 
 $$
 \boxed{
@@ -64,7 +64,9 @@ T(\widehat T A)\to\widehat T A.
 $$
 
 Initial-algebra recursion then defines bind. The monad laws follow from
-initiality and the monad laws of $T$.
+initiality and the monad laws of $T$. This displayed formula is not, by
+itself, a definition of the graded action below: its graded analogue must
+include the grade decomposition carried by the chosen indexed layer.
 
 ## 2. Accessible existence theorem
 
@@ -129,11 +131,18 @@ A convenient sufficient package is:
 7. the parameterized initial algebras support the required strength and
    coherent weakening.
 
-Under these conditions the indexed carriers exist. The canonical FreeT
-presentation must also retain enough of the root $T$ layer for
-`(FreeT-Act)` to be defined. If one instead externalizes the root grade as a
-coproduct, a separately proved action or a root-exposure condition may be
-needed; that is an implementation detail of the alternative representation.
+Under these conditions the indexed carriers exist. Carrier existence alone
+does not yet produce a `StrongGradedFreeT`. One must additionally construct
+graded return, bind, strength, weakening, the universal embedding and free
+generators, and a coherent action
+
+$$
+T_b(\widehat T_dA)\longrightarrow\widehat T_{b\cdot d}A.
+$$
+
+A graded fold/unfold presentation may derive this action by a typed analogue
+of `(FreeT-Act)`. If the root grade is externalized as a coproduct, a direct
+action or a root-exposure condition may instead be needed.
 
 ## 5. Concrete instances in Set
 
@@ -146,7 +155,8 @@ needed; that is an implementation detail of the alternative representation.
 | finite-support SubDist | finitary | exists |
 | full powerset $\mathcal P$ | not accessible | not covered |
 
-For these standard FreeT instances, `(FreeT-Act)` specializes to:
+For concrete Set-level graded tree constructions, the required action
+specializes to:
 
 - Writer: concatenate the outer log with the first inner log;
 - State: pass the outer final store to the inner computation;
@@ -172,9 +182,10 @@ $$
 $$
 
 The lift is the identity on returns and free generators and applies $q$ to
-base layers. It preserves identities and composition. Compatibility with the
-derived actions follows from `(FreeT-Act)`, naturality of $q$, and preservation
-of multiplication.
+base layers. It preserves identities and composition. For canonical lifts,
+compatibility with the chosen actions is proved from their construction,
+naturality of $q$, and preservation of multiplication. For arbitrary chosen
+extensions it remains the explicit `Act-Morphism` certificate.
 
 ## 7. Main-theorem boundary
 
@@ -186,7 +197,8 @@ $$
 \mathsf{StrongGradedFreeT}(S,\Sigma,\widehat S).
 $$
 
-This assumption may be discharged by the accessible-existence package above,
-by a concrete construction, or by the older indexed-carrier plus coherent
-action route. The theorem no longer exposes `baseAct` as an independent
-top-level premise.
+Accessibility discharges the carrier-existence part of this assumption. The
+remaining graded-monad and action fields must be discharged by a concrete
+construction, a typed graded fold/unfold theorem, or the indexed-carrier plus
+coherent-action route. The theorem does not expose `baseAct` as a second
+top-level premise because it is already a field of `StrongGradedFreeT`.
