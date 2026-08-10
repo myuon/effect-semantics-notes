@@ -1,5 +1,16 @@
 # Claims ledger
 
+## 2026-08 operational-model correction
+
+| id | status | claim | dependencies | next action |
+|---|---|---|---|---|
+| C-393 | Adopted; supersedes C-265, C-293, C-309, C-311 | Operational effects live in a dedicated graded monad $S_b$; Writer, State, and Exception are not represented as $\mathsf{Id}$ of a packed observation | [canonical architecture](operational-denotational-comparison-v1.md) | complete concrete split certificates in Lean |
+| C-394 | Lean-checked finite core | A base algebra morphism $q:T\Rightarrow S$ commuting with each one-layer interpretation lifts through the finite free extension | `GenericExtensionAlgebra.ModelComparisonCert.lift` | extend the grade-indexed wrapper |
+| C-395 | Main theorem expected to survive | Free extension, shallow handling, and recursive completion preserve the $T$--$S$ comparison under the same structural, clause-compatibility, and continuity premises; observation is only an optional later quotient/pole | C-394; existing recursive morphism/relation lifts | assemble Writer/State/Exception instances and run CI |
+
+Rows using a response monad $\mathcal K$ below are retained as historical
+provenance. Where they conflict with C-393--C-395, the newer rows govern.
+
 主張には安定したIDを付ける。証明、反例、仮定変更はこのページから追跡する。
 
 | ID | Status | Claim | Dependencies | Next check |

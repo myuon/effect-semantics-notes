@@ -118,7 +118,7 @@ def genericExceptionExtensionCert :
     GenericFreeExtensionCert exceptionBaseSignature userOperationSignature :=
   genericFreeExtensionStructurePreservation _ _
 
-/-! ## Closed Writer observation as a generic target algebra -/
+/-! ## Dedicated operational Writer monad and model comparison -/
 
 abbrev WriterOutcome (α : Type) := Option (List Val × α)
 
@@ -238,18 +238,33 @@ def genericWriterObservationMorphism :
   preservesBase := fun _ _ => rfl
   preservesFree := fun _ _ => rfl
 
+/-- The canonical finite comparison from the structural/denotational tree
+model to the dedicated operational Writer monad.  In particular, the Writer
+effect is carried by `WriterOutcome`; it is not packed into an observation and
+then wrapped in `Id`. -/
+def genericWriterModelComparisonCert :
+    GenericExtensionAlgebra.ModelComparisonCert
+      (genericInitialAlgebra writerBaseSignature userOperationSignature)
+      writerOutcomeAlgebra where
+  comparison := genericWriterObservationMorphism
+
 def genericWriterAdequacyCert :
     GenericExtensionAlgebra.AdequacyCert
       (genericInitialAlgebra writerBaseSignature userOperationSignature)
       writerOutcomeAlgebra where
   observe := genericWriterObservationMorphism
 
+theorem genericWriter_finite_model_comparison
+    (tree : FreeExtension writerBaseSignature userOperationSignature α) :
+    genericWriterRunClosed tree = writerOutcomeAlgebra.fold tree := by
+  have compared := genericWriterModelComparisonCert.lift tree
+  rw [genericInitialAlgebra_fold] at compared
+  exact compared
+
 theorem genericWriter_finite_adequacy
     (tree : FreeExtension writerBaseSignature userOperationSignature α) :
     genericWriterRunClosed tree = writerOutcomeAlgebra.fold tree := by
-  have adequate := genericWriterAdequacyCert.lift tree
-  rw [genericInitialAlgebra_fold] at adequate
-  exact adequate
+  exact genericWriter_finite_model_comparison tree
 
 /-- The generic Writer observation is extensionally the existing concrete
 `WriterTree.runClosed`; this prevents the abstract adequacy theorem from being

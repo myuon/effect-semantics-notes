@@ -56,12 +56,13 @@ identity and composition.
 only `CarrierCert` and a base-layer relation. Closure under extended bind also
 requires `MonadExtCert` and compatibility of $R$ with the two base actions.
 
-### T — observation and adequacy
+### T — model comparison, observation, and adequacy
 
-`FiniteTTCert` adds $\mathsf{FiniteResponseCert}(\mathcal K)$, a well-founded operational
-response tree, the canonical separated observation algebra and closure of the
-base pole. The typing fundamental lemma also uses `MonadExtCert`, because
-source `let` is interpreted by extended bind.
+`ModelComparisonCert` first lifts the denotational-to-operational morphism (or
+relation) through the free carrier. `FiniteTTCert` is an optional later layer:
+it adds a well-founded operational tree, a separated observation algebra, and
+closure of the selected pole. The typing fundamental lemma also uses
+`MonadExtCert`, because source `let` is interpreted by extended bind.
 
 ### H — shallow handling
 

@@ -26,14 +26,15 @@ Let $W=\mathsf{Msg}^*$ and use the insertion preorder on words.  Put
 $$
 T_bA=\{(w,a)\mid w\preceq b\},
 \qquad
-\mathcal K=\mathsf{Id}.
+S_bA=\mathsf{Option}(W\times A).
 $$
 
 Return emits $\epsilon$, bind concatenates actual logs, and
 $\mathsf{tell}_a(*)$ denotes $([a],*)$.  Weakening preserves $(w,a)$ and only
 changes its proof that $w$ lies below the static bound.
 
-The Writer machine and denotation satisfy `BaseCert`:
+The Writer machine and the $T\to S$ comparison satisfy the split base
+certificates:
 
 1. unique CBV position and deterministic typed response are immediate;
 2. recursion-free normalization is the ordinary STLC reducibility argument;

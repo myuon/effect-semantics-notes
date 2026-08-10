@@ -99,7 +99,7 @@ Read concrete programs before the carrier construction:
 | finite morphism lifting | Lean checked | [`GenericExtensionAlgebra.Morphism.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.Morphism.lift#doc) |
 | finite relation lifting | Lean checked | [`GenericExtensionAlgebra.Relation.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.Relation.lift#doc) |
 | finite TT lifting | Lean checked | [`GenericExtensionAlgebra.TTLayerCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.TTLayerCert.lift#doc) |
-| finite adequacy transport | Lean checked | [`GenericExtensionAlgebra.AdequacyCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.AdequacyCert.lift#doc) |
+| finite operational/denotational comparison transport | Lean checked | [`GenericExtensionAlgebra.ModelComparisonCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparisonCert.lift#doc) |
 | Chapter-II source package | Lean checked | [`LanguageFreeStageCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFreeStageCert#doc) |
 
 The ordered grade-indexed carrier in the chapter notes is a stronger paper

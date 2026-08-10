@@ -290,13 +290,41 @@ theorem TTLayerCert.lift
       subst operations
       exact cert.preservesFree _ _ _ _ (fun response => ih rfl)
 
-/-- A non-circular finite adequacy certificate.  The operational observation
-is itself an algebra, and `observe` is required to commute only with return,
-bind, and each one-layer operation interpretation. -/
+/-- A comparison between a denotational model `T` and a dedicated operational
+model `S`.  Effects remain in the two carrier monads; `comparison` is not an
+extra response monad and does not encode effects in a separate observation
+object. -/
+structure ModelComparisonCert
+    (denotational : GenericExtensionAlgebra base free denotation)
+    (operational : GenericExtensionAlgebra base free operation) where
+  comparison : GenericExtensionAlgebra.Morphism denotational operational
+
+/-- A base comparison that commutes with every one-layer interpretation lifts
+through the complete finite free extension. -/
+theorem ModelComparisonCert.lift
+    {base free : OperationSignature}
+    {denotation operation : Type → Type}
+    {denotational : GenericExtensionAlgebra base free denotation}
+    {operational : GenericExtensionAlgebra base free operation}
+    (cert : ModelComparisonCert denotational operational)
+    (tree : FreeExtension base free α) :
+    cert.comparison.map
+        (denotational.fold (base := base) (free := free) tree) =
+      operational.fold (base := base) (free := free) tree :=
+  cert.comparison.lift tree
+
+/-- Compatibility name for the older observation-oriented presentation.
+New developments should use `ModelComparisonCert`: the target algebra is the
+operational monad `S`, not `Id` applied to a packed observation type. -/
 structure AdequacyCert
     (denotational : GenericExtensionAlgebra base free denotation)
     (operational : GenericExtensionAlgebra base free outcome) where
   observe : GenericExtensionAlgebra.Morphism denotational operational
+
+def AdequacyCert.toModelComparison
+    (cert : AdequacyCert denotational operational) :
+    ModelComparisonCert denotational operational where
+  comparison := cert.observe
 
 /-- Local observation laws imply adequacy for every finite computation in the
 extended language. -/
@@ -310,7 +338,7 @@ theorem AdequacyCert.lift
     cert.observe.map
         (denotational.fold (base := base) (free := free) tree) =
       operational.fold (base := base) (free := free) tree :=
-  cert.observe.lift tree
+  cert.toModelComparison.lift tree
 
 /-- The same adequacy equation specialized to an old-language computation.
 It shows that the generic theorem restricts to the base observation rather

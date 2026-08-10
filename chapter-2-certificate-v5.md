@@ -5,7 +5,7 @@
 The source-language Chapter-II boundary is now an exact Lean record,
 [`LanguageFreeStageCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFreeStageCert#doc), constructed by
 [`languageFreeStagePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageFreeStagePreservation#doc).
-The grade-independent semantic core is [`GenericFreeExtensionCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericFreeExtensionCert#doc), with morphism, relation and adequacy lifts checked separately. The stronger grade-indexed initial-algebra presentation below remains a readable abstraction, not an identification theorem between the two representations. [Full mapping](review-guide.md#chapter-ii-free-operations).
+The grade-independent semantic core is [`GenericFreeExtensionCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericFreeExtensionCert#doc), with morphism, relation and model-comparison lifts checked separately. The stronger grade-indexed initial-algebra presentation below remains a readable abstraction, not an identification theorem between the two representations. [Full mapping](review-guide.md#chapter-ii-free-operations).
 :::
 
 ### Numbered-statement inventory
@@ -17,7 +17,7 @@ The grade-independent semantic core is [`GenericFreeExtensionCert`](https://myuo
 | Theorem II.5, old-language operational conservativity | Lean checked component | [`Step.preservesBaseOnly`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.Step.preservesBaseOnly#doc) |
 | Theorem II.6, free-extension algebra | Lean checked | [`genericFreeExtensionStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericFreeExtensionStructurePreservation#doc) |
 | Theorem II.7, denotational conservativity | Lean checked | [`eraseFree_embedBase`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.eraseFree_embedBase#doc) |
-| Theorem II.8, finite adequacy lifting | Lean checked | [`GenericExtensionAlgebra.AdequacyCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.AdequacyCert.lift#doc) |
+| Theorem II.8, finite model-comparison lifting | Lean checked | [`GenericExtensionAlgebra.ModelComparisonCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparisonCert.lift#doc) |
 | Definition II.1–II.2 and Theorem II.9, `FreeCert` | readable grade-indexed abstraction; ungraded structural core Lean checked | [`GenericFreeExtensionCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericFreeExtensionCert#doc) |
 
 ## Status
@@ -69,7 +69,7 @@ Context preservation follows from ordered multiplication.
 A closed well-typed computation has exactly one selected evaluation form: it
 returns, has a uniquely located internal redex, exposes a uniquely located base
 request, or exposes a free request of the response type declared by its
-interface.  A base request may have several responses in $\mathcal K$; this
+interface. Effectful branching may live in the operational monad $S$; this
 does not create two evaluation positions.
 
 ### Proof
@@ -100,10 +100,10 @@ coincide with the Chapter-I ones.
 
 ### Proof
 
-Old syntax contains no `op` form.  Every internal rule and every base response
-kernel is literally reused, while the new free-request case is unreachable.
-Induction on the finite response tree gives equality of the structured
-observations in $\mathcal K$. $\square$
+Old syntax contains no `op` form. Every internal rule and every operational
+base interpretation is literally reused, while the new free-request case is
+unreachable. Induction on the finite operational tree gives equality in $S$.
+$\square$
 
 ## 4. Free-extension algebra
 
@@ -150,46 +150,37 @@ $\square$
 
 ## 6. Operational/denotational correspondence
 
-Extend the base observation domain with
+Extend both models by the same free signature:
+$\widehat S=\mathsf F_\Sigma(S)$ and
+$\widehat T=\mathsf F_\Sigma(T)$.
 
-$$
-\mathsf{freeReq}_{\Delta,i}(p,k).
-$$
-
-The observation records a free request extensionally through its typed
-response continuation.  For first-order ground examples this may be tested by
-supplying every possible finite response and comparing the resulting base
-observations.
-
-### Theorem II.8 `[C2-CERT.6.1]` — finite adequacy lifting [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.AdequacyCert.lift#doc)
+### Theorem II.8 `[C2-CERT.6.1]` — finite model-comparison lifting [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparisonCert.lift#doc)
 
 Assume
 
 $$
-\mathsf{BaseSafetyCert}(L_B,E_B,\mathcal K)
-\land\mathsf{BaseModelCert}(L_B,E_B,T)
-\land\mathsf{BaseAdequacyCert}
-(L_B,\mathcal K,T,\mathsf{obs}_B,\mathsf{observe}_T)
-\land\mathsf{FiniteResponseCert}(\mathcal K)
+\mathsf{BaseCert}(L_B,E_B,S,T,q)
+\land\mathsf{CarrierCert}(\mathsf F_\Sigma(S))
 \land\mathsf{CarrierCert}(\mathsf F_\Sigma(T))
-\land\mathsf{MonadExtCert}(\mathsf F_\Sigma(T),\mathsf{baseAct})
-\land\mathsf{WellFounded}(\mathsf F_\Sigma(T))
-\land\mathsf{ConstructorSeparated}(\mathsf{observe}_{\mathsf F}).
+\land\mathsf{ActMorphism}(q).
 $$
 
-Then for every closed recursion-free Chapter-II computation:
+Then $q$ lifts uniquely to
+$\widehat q:\widehat T\Rightarrow\widehat S$, and every closed
+recursion-free Chapter-II computation satisfies
 
-1. a return is reflected by the return branch of its denotation;
-2. a terminal base outcome is reflected by the outer base semantics;
-3. an exposed free request is reflected by the corresponding free node;
-4. related responses lead to related continuation observations.
+$$
+\widehat q(\llbracket M\rrbracket_{\widehat T})
+=\llbracket M\rrbracket_{\widehat S}.
+$$
 
 ### Proof sketch
 
-Induct on the finite operational/denotational operation tree.  Base segments use
-the Chapter-I certificate; the free case uses constructor separation and the
-induction hypothesis pointwise on responses.  Termination ensures that no
-coinductive argument is required. $\square$
+Induct on the finite operation tree. Base segments use primitive commutation;
+the free case maps the request and its continuations recursively. Initiality
+gives uniqueness. A subsequent observation/TT theorem may additionally use
+constructor separation and the induction hypothesis pointwise on responses.
+Termination ensures that no coinductive argument is required. $\square$
 
 The added carrier and monadic premises ensure that the denotation of every
 source `let` is actually defined. Initial algebras alone provide constructors

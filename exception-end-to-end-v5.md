@@ -17,12 +17,13 @@ Use
 
 $$
 T_bA=A+\mathsf{Err},
-\qquad\mathcal K=\mathsf{Id}.
+\qquad S_bA=\mathsf{Except}(\mathsf{Err},A).
 $$
 
-Bind propagates $\mathsf{inr}(e)$ without evaluating its continuation.
-Observation separates return from error.  The ordinary short-circuit
-equations establish `BaseCert`.
+Bind propagates an error without evaluating its continuation. The comparison
+identifies the two presentations of return and error. The ordinary
+short-circuit equations establish the operational, denotational, and
+comparison certificates.
 
 ## 2. Free `ask` and base action
 

@@ -127,25 +127,24 @@ mechanism itself to be deterministic.
 
 ### Conjecture I.6 `[C1-CERT.3.1]` — recursion-free machine normalization [Formalization boundary]
 
-Assume $M:\mathsf{FinLanguageComp}$, every element in the support of every base response
-is typed, and each recursion-free response branch is terminating. Then every
-closed well-typed Chapter-I program $M$ induces a well-defined outcome
+Assume $M:\mathsf{FinLanguageComp}$ and that the operational interpretations
+of the base primitives preserve typing and terminate on this fragment. Then
+every closed well-typed Chapter-I program $M:A!b$ induces a well-defined
+operational denotation
 
 $$
-\mathsf{run}_{\mathcal K}(M)
-\in\mathcal K(\mathsf{Obs}_B).
+\mathsf{run}_{S}(M)\in S_b\llbracket A\rrbracket.
 $$
 
-Every branch in its support is a classified final observation.  No uniqueness
-of the returned observation is asserted.
+This is a totality claim for the finite operational interpretation, not a
+claim that an effectful result contains a unique outcome.
 
 ### Proof sketch
 
-Use the standard reducibility argument for fine-grain CBV STLC, quantified over
-every response in the support of $\mathsf{resp}_\beta$.  The primitive case is
-reducible by the base-package branch-termination assumption.  Function,
-product and sum cases are standard.  Theorem I.4 identifies the exposed
-request; Kleisli composition in $\mathcal K$ combines its possible responses.
+Use the standard reducibility argument for fine-grain CBV STLC, with the
+primitive case discharged by the total operational algebra $\beta^S$.
+Function, product and sum cases are standard. Theorem I.4 identifies the
+exposed request; graded Kleisli composition in $S$ resumes its continuation.
 
 The recursion-free fragment is the separate Lean type
 [`FinLanguageComp`](https://myuon.github.io/effect-semantics-notes/lean/EffectSemantics/Syntax/LanguageCalculus.html).
@@ -211,22 +210,27 @@ checks that its external response rule implements only the declared primitive.
 This is a may-effect theorem.  It is intentionally one-way and introduces no
 runtime trace object.
 
-## 6. Adequacy schema
+## 6. Operational--denotational comparison
 
-Choose a ground operational outcome
-$\mathsf{run}_{\mathcal K}:M\mapsto\mathcal K(\mathsf{Obs}_B)$ and a
-denotational observation $\mathsf{observe}$.  The base package is adequate at
-ground type $G$ when
+Let $S_b$ be the operational graded monad and $T_b$ the denotational graded
+monad. A comparison certificate supplies a graded monad morphism
+
+$$q_{b,A}:T_bA\to S_bA$$
+
+that commutes with weakening, return, bind, strength, and every primitive:
+
+$$q(\beta^T(v))=\beta^S(v).$$
+
+The base adequacy statement is
 
 $$
-\mathsf{run}_{\mathcal K}(M)
-=\mathsf{observe}(\llbracket M\rrbracket)
+\mathsf{run}_{S}(M)=q(\llbracket M\rrbracket_T)
 $$
 
-for every closed $M:G!b$.  In the deterministic case this reduces to the old
-single-outcome equivalence.  One direction may be selected instead if the
-later application needs only soundness or reflection; the certificate records
-which.
+for every closed $M:A!b$. When equality is too strong, the package instead
+supplies a graded logical relation preserved by the same structure. A ground
+observation or TT pole may subsequently quotient or test both sides, but it is
+not the carrier of operational effects.
 
 ### Writer instance
 
@@ -292,63 +296,43 @@ below.
 
 ### Definition I.1 `[C1-CERT.7.1]` — split base certificates [Readable abstraction; mechanized core](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFiniteStructureCert#doc)
 
-For a base calculus $L_B$, ordered effect algebra
-$E_B=(B,1,\cdot,\leq)$ and response monad $\mathcal K$, define
-$\mathsf{BaseSafetyCert}(L_B,E_B,\mathcal K)$ by:
+For a base calculus $L_B$ and ordered effect algebra
+$E_B=(B,1,\cdot,\leq)$, use four independent records:
 
-1. **Operational metatheory.** Substitution and support-wise preservation hold,
-   and each closed term has one selected return/redex/request position.
-2. **Typed response structure.** Every primitive has a typed
-   $\mathcal K$-response; every supported recursion-free branch terminates; and
-   executed primitives are covered by the declared effect bound.
+1. $\mathsf{BaseSafetyCert}(L_B,E_B)$ contains substitution, preservation,
+   exclusive return/redex/request decomposition, deterministic internal
+   reduction, finite-fragment normalization, and effect-bound safety.
+2. $\mathsf{OperationalModelCert}(L_B,E_B,S)$ contains the operational strong
+   graded monad $S_b$, weakening, primitive interpretations $\beta^S$, and
+   agreement of its evaluator with the direct machine.
+3. $\mathsf{DenotationalModelCert}(L_B,E_B,T)$ contains the denotational
+   strong graded monad $T_b$, primitive interpretations $\beta^T$, semantic
+   substitution, and reduction soundness.
+4. $\mathsf{ModelComparisonCert}(S,T,q)$ contains a graded monad morphism
+   $q:T\Rightarrow S$ commuting with strength, weakening, and primitives (or
+   the corresponding graded logical relation).
 
-For a graded interpretation $T$, define
-$\mathsf{BaseModelCert}(L_B,E_B,T)$ by:
-
-1. **Graded semantic structure.** $T$ has return, multiplication, strength,
-   coherent weakening and interpretations of all base primitives, satisfying
-   the graded monad and weakening laws.
-2. **Semantic soundness.** Semantic substitution and internal-reduction
-   soundness hold.
-
-Finally,
-$\mathsf{BaseAdequacyCert}(L_B,\mathcal K,T,
-\mathsf{obs}_B,\mathsf{observe}_T)$ means that primitive responses agree with
-their denotational observations and closed ground operational and
-denotational observations agree in $\mathcal K$. Retain the bundled name as
+Retain the readable bundled name as
 
 $$
 \begin{aligned}
-&\mathsf{BaseCert}(L_B,E_B,\mathcal K,T,\mathsf{obs}_B)\\
+&\mathsf{BaseCert}(L_B,E_B,S,T,q)\\
 &\quad:\Longleftrightarrow
-\mathsf{BaseSafetyCert}(L_B,E_B,\mathcal K)
-\land\mathsf{BaseModelCert}(L_B,E_B,T)\\
-&\qquad\land
-\mathsf{BaseAdequacyCert}(L_B,\mathcal K,T,
-\mathsf{obs}_B,\mathsf{observe}_T).
+\mathsf{BaseSafetyCert}(L_B,E_B)
+\land\mathsf{OperationalModelCert}(L_B,E_B,S)\\
+&\qquad\land\mathsf{DenotationalModelCert}(L_B,E_B,T)
+\land\mathsf{ModelComparisonCert}(S,T,q).
 \end{aligned}
 \tag{Base-Split}
 $$
 
 End-to-end examples may use `BaseCert`; transport theorems cite only the
-component certificates they actually use.
+component certificates they actually use. Observation/pole data is a
+subsequent optional layer and is not one of the effect carriers.
 
-For the recursion-free adequacy theorem, define
-$\mathsf{FiniteResponseCert}(\mathcal K)$ by the following additional
-conditions.
-
-1. Every primitive response has finite support, and Kleisli composition of
-   finitely supported responses is again finitely supported.
-2. `map`, return and Kleisli composition satisfy the monad laws on these
-   supports.
-3. The return, terminal-base and free-request injections used by the
-   observation object remain pairwise disjoint after applying $\mathcal K$.
-4. Operation tags are reflected, and every response type quantified over by a
-   free-request observation is finite.
-
-This certificate is not part of `BaseModelCert`: it is needed only for the
-finite observation tree and its reflection theorem. `Id`, finite powerset and
-finitely supported subdistribution satisfy it for finite response types.
+If a later TT argument uses finite observations, its pole may separately
+require finite branching and constructor separation. Those hypotheses belong
+to the observation theorem, not to the operational-model certificate.
 
 The `BaseSafetyCert` fields are written formally as follows:
 
@@ -432,23 +416,28 @@ $$
 ### Boundary I.10 `[C1-CERT.7.2]` — Base certificate extraction [Instance boundary]
 
 For each $X\in\{\mathsf{Writer},\mathsf{State},\mathsf{Exception}\}$, let
-$L_X,E_X,T^X,\mathsf{obs}_X$ be the syntax/machine, ordered algebra, model and
-observation defined in this chapter, and let $\mathcal K_X$ be `Id`. Then
+$L_X,E_X,S^X,T^X,q^X$ be the syntax/machine, ordered algebra, operational
+model, denotational model, and comparison defined in this chapter. The desired
+instance statement is
 
 $$
 \forall X\in\{W,S,E\}.\quad
-\mathsf{BaseCert}(L_X,E_X,\mathcal K_X,T^X,\mathsf{obs}_X).
+\mathsf{BaseCert}(L_X,E_X,S^X,T^X,q^X).
 $$
 
 ### Proof
 
-The fields `subst`, `pres`, `uniquePos`, `respTy`, `branchNorm`, and `effsafe` follow from
-Theorems I.1–I.6 and I.9 after checking each primitive machine rule.  The
-displayed Writer, State and Exception constructions supply
-$\eta,\mu,\mathsf{st},\tau,\beta^T$ and their laws.  Theorems I.7–I.8 supply
-`semsubst` and `redsnd`; the three instance proofs above supply `respSound` and
-`adequate`.
-No free-operation or handler property is used. $\square$
+The fields `subst`, `pres`, `uniquePos`, `branchNorm`, and `effsafe` follow
+from Theorems I.1–I.6 and I.9 after checking each primitive machine rule. The
+Writer, State and Exception constructions must separately supply the graded
+structures of $S^X$ and $T^X$. Theorems I.7–I.8 supply `semsubst` and
+`redsnd`; primitive commutation plus induction on computations supplies the
+comparison theorem. No free-operation or handler property is used.
+
+The generic finite structure certificates below are mechanized. Fully
+assembling the revised `writerBaseCert`, `stateBaseCert`, and
+`exceptionBaseCert` records is an explicit Lean boundary; this paragraph is
+not treated as a proof of those declarations. $\square$
 
 The generic finite structures are kernel-checked by
 [`writerGenericExtensionCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.writerGenericExtensionCert#doc),
