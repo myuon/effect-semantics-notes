@@ -50,8 +50,8 @@ effect annotation は、runtimeで起きうるeffectsを順序を保って上か
 9. [Functorial extension theorem](functorial-extension-theorem-v5.md) と [package categories](package-categories-v5.md)
 
 各 chapter では **operational examples → syntax/typing → denotation →
-certificate → detailed proofs** の順に読む。旧 unordered 方針、探索メモ、
-旧版は目次の後半に分離してあり、現在の主定理の依存関係には入らない。
+certificate → detailed proofs** の順に読む。公開サイトとリポジトリには、
+現在の主定理の依存関係に入る現行資料だけを置く。
 
 ## ステータス記法
 
@@ -60,15 +60,6 @@ certificate → detailed proofs** の順に読む。旧 unordered 方針、探�
 - **Lean checked**: 表示した API 宣言がその主張を kernel-check している
 - **Paper abstraction**: 構成要素は形式化済みだが、その抽象的包装自体は紙上の記述
 - **Boundary / conjecture**: 現在の定理としては主張しない
-
-探索メモ内の旧ステータスは以下の意味を持つ。
-
-- **Established**: 定義または証明を手元で確認済み
-- **Derived**: 明示した仮定から紙上で導出済み
-- **Conjecture**: 成立を予想するが証明未了
-- **Candidate**: 複数案の一つで、採用未決定
-- **Question**: 問い自体が未整理
-- **Rejected**: 反例または目的との不一致により不採用
 
 「文献にある」と「この設定で証明できた」を混同しない。前者は Literature、後者は Claims ledger に記録する。
 

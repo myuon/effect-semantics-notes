@@ -1,8 +1,8 @@
 # Literature map
 
 このページでは文献を年代順ではなく、研究上の役割ごとに整理する。
-主定理との claim-by-claim 比較は
-[Main theorem v3: novelty audit](novelty-audit-main-theorem-v3.md) に移した。
+主定理との比較は、現行の [claims ledger](claims-ledger.md) と
+[review guide](review-guide.md) に集約する。
 
 ## Verified anchors for the current audit
 
@@ -25,11 +25,10 @@
 
 These anchors establish overlap; they do not establish that no closer result exists.
 
-For recursion and deep handlers, the detailed theorem-level comparison is in
-[Chapter II literature audit](recursive-deep-literature-audit-v4.md).  Its main
-anchors are Plotkin--Power's recursive algebraic-effect adequacy, the recursive
-section of Plotkin--Pretnar's handler semantics, Bauer--Pretnar's core Eff
-domain/adequacy theorem, and the complete-Elgot resumption transformer.
+For recursion and deep handlers, the main anchors are Plotkin--Power's
+recursive algebraic-effect adequacy, the recursive section of
+Plotkin--Pretnar's handler semantics, Bauer--Pretnar's core Eff domain/adequacy
+theorem, and the complete-Elgot resumption transformer.
 
 ## Free algebraic effects and handlers
 

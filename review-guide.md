@@ -170,14 +170,7 @@ The first three are the current formal core.  The functorial and categorical
 pages are **Paper abstractions** of the checked Type-level construction unless
 an individual statement links to a Lean declaration.
 
-## What is not on the canonical proof path
-
-- **Earlier unordered program:** retained for comparison, not an input to the
-  current ordered theorem.
-- **Supporting exploration:** records rejected designs, motivating examples,
-  and intermediate calculations.
-- **Archive:** superseded versions; never use them as the statement of the
-  current theorem.
-
-This separation lets a reviewer distinguish a live assumption from historical
-context without deleting the research history.
+Only pages on the canonical proof path and explicitly retained research
+context are published.  Superseded programs, intermediate explorations, and
+archived theorem versions remain recoverable from Git history rather than
+appearing alongside the current statements.
