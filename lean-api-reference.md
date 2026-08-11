@@ -16,7 +16,7 @@ solely because a related result appears here.
 | Preservation of internal CBV reduction | [`LanguageStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc) |
 | Closed typed progress | [`HasLanguageComp.progressClosed`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed#doc) |
 | Reducibility and finite-language strong normalization | [`HasLanguageComp.reducible`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.reducible#doc), [`HasLanguageComp.stronglyNormalizing`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.stronglyNormalizing#doc) |
-| Finite reduction to return or operation boundary | [`HasLanguageComp.normalizes`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.normalizes#doc) |
+| Finite internal reduction to return or operation boundary | [`HasLanguageComp.internallyNormalizesToBoundary`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.internallyNormalizesToBoundary#doc) |
 | Writer operational/tree adequacy | [`language_writer_operational_tree_adequacy`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.language_writer_operational_tree_adequacy#doc) |
 | Shallow map naturality, structural-relation lifting and TT preservation | [`languageShallowCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageShallowCert#doc) |
 | Bundled finite structure-preservation theorem | [`languageFiniteStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageFiniteStructurePreservation#doc) |
@@ -36,7 +36,7 @@ solely because a related result appears here.
 | Denotational-to-operational comparison lifts through finite free extension | [`GenericExtensionAlgebra.ModelComparisonCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparisonCert.lift#doc) |
 | Legacy observation-oriented compatibility API | [`GenericExtensionAlgebra.AdequacyCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.AdequacyCert.lift#doc) |
 | Existing Writer tree is recovered by round-trip | [`writerToGeneric_genericToWriter`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.writerToGeneric_genericToWriter#doc) |
-| Generic Writer observation agrees with existing `runClosed` | [`genericWriterRunClosed_writerToGeneric`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericWriterRunClosed_writerToGeneric#doc) |
+| Generic Writer operational interpretation agrees with existing `runClosed` | [`genericWriterOperationalInterpretation_writerToGeneric`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericWriterOperationalInterpretation_writerToGeneric#doc) |
 
 ## Recursive completion and derived deep handling
 

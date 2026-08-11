@@ -758,8 +758,10 @@ theorem HasLanguageComp.stronglyNormalizing
   simpa only [LanguageComp.subst_vars] using reducible.1
 
 /-- Every closed, well-typed finite computation reaches either a returned
-value or an exposed operation boundary after finitely many internal steps. -/
-theorem HasLanguageComp.normalizes
+value or an exposed operation boundary after finitely many internal steps.
+This is an internal-reduction theorem: it does not define an interpretation in
+an operational monad or execute the response associated with a boundary. -/
+theorem HasLanguageComp.internallyNormalizesToBoundary
     (typing : @HasLanguageComp sig .finite [] term ty effect) :
     ∃ normal, Nonempty (FinLanguageSteps term normal) ∧
       ((∃ value, normal = .ret value) ∨ Nonempty (LanguageBoundary normal)) := by

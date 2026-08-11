@@ -151,7 +151,7 @@ not change the term. $\square$
 Every closed typed Chapter-I computation $M:A!b$ in `FinLanguageComp` is
 strongly normalizing for internal reduction. Moreover, it reaches a return or
 an exposed operation boundary after finitely many internal steps
-[[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.normalizes#doc).
+[[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.internallyNormalizesToBoundary#doc).
 :::
 
 **Proof.** Apply the fundamental lemma to the empty substitution. Computation
@@ -161,10 +161,12 @@ successor until either a return or a boundary is exposed. $\square$
 
 The fragment boundary, structural closure, reducibility predicates,
 fundamental theorem, strong normalization, and terminal-form corollary are all
-kernel checked. To upgrade this internal result to totality of
-$\mathsf{run}_S$, one still needs a well-founded response-kernel premise: the
-language theorem intentionally treats primitive requests as terminal
-boundaries.
+kernel checked. To upgrade this internal result to totality of the direct
+evaluator $\mathsf{run}(M)$, one still needs a well-founded response-kernel
+premise: the language theorem intentionally treats primitive requests as
+terminal boundaries. The compositional operational interpretation
+$\llbracket M\rrbracket_S$ is separate, and machine soundness relates it to
+the direct evaluator.
 
 ## 5. Semantic soundness and effect safety
 

@@ -173,7 +173,7 @@ $\mathsf{Option}(\mathsf{List}(\mathsf{Val})\times A)$.  `tell` prefixes the
 log and an unhandled free operation produces no closed outcome.  This algebra
 instantiates the generic adequacy certificate, and Lean proves that its fold
 is extensionally equal to the pre-existing `WriterTree.runClosed`:
-[`genericWriterRunClosed_writerToGeneric`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericWriterRunClosed_writerToGeneric#doc).
+[`genericWriterOperationalInterpretation_writerToGeneric`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericWriterOperationalInterpretation_writerToGeneric#doc).
 
 ## 7. Recursive continuation of this theorem
 

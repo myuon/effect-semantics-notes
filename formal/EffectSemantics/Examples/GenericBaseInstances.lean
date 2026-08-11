@@ -208,7 +208,9 @@ def genericInitialAlgebra (base free : OperationSignature) :
   baseBind := fun _ _ _ => rfl
   freeBind := fun _ _ _ => rfl
 
-def genericWriterRunClosed
+/-- Compositional interpretation in the dedicated operational Writer monad.
+This is the Lean counterpart of `⟦-⟧_S`, not direct small-step execution. -/
+def genericWriterOperationalInterpretation
     (tree : FreeExtension writerBaseSignature userOperationSignature α) :
     WriterOutcome α := writerOutcomeAlgebra.fold tree
 
@@ -231,7 +233,7 @@ def genericWriterObservationMorphism :
     GenericExtensionAlgebra.Morphism
       (genericInitialAlgebra writerBaseSignature userOperationSignature)
       writerOutcomeAlgebra where
-  map := genericWriterRunClosed
+  map := genericWriterOperationalInterpretation
   pure := fun _ => rfl
   bind := fun tree next =>
     GenericExtensionAlgebra.fold_bind writerOutcomeAlgebra tree next
@@ -256,28 +258,29 @@ def genericWriterAdequacyCert :
 
 theorem genericWriter_finite_model_comparison
     (tree : FreeExtension writerBaseSignature userOperationSignature α) :
-    genericWriterRunClosed tree = writerOutcomeAlgebra.fold tree := by
+    genericWriterOperationalInterpretation tree = writerOutcomeAlgebra.fold tree := by
   have compared := genericWriterModelComparisonCert.lift tree
   rw [genericInitialAlgebra_fold] at compared
   exact compared
 
 theorem genericWriter_finite_adequacy
     (tree : FreeExtension writerBaseSignature userOperationSignature α) :
-    genericWriterRunClosed tree = writerOutcomeAlgebra.fold tree := by
+    genericWriterOperationalInterpretation tree = writerOutcomeAlgebra.fold tree := by
   exact genericWriter_finite_model_comparison tree
 
 /-- The generic Writer observation is extensionally the existing concrete
 `WriterTree.runClosed`; this prevents the abstract adequacy theorem from being
 a disconnected duplicate model. -/
-theorem genericWriterRunClosed_writerToGeneric (tree : WriterTree α) :
-    genericWriterRunClosed (writerToGeneric tree) = WriterTree.runClosed tree := by
+theorem genericWriterOperationalInterpretation_writerToGeneric (tree : WriterTree α) :
+    genericWriterOperationalInterpretation (writerToGeneric tree) =
+      WriterTree.runClosed tree := by
   induction tree with
   | ret value =>
       change WriterOutcome.pure value = some ([], value)
       rfl
   | tell message next ih =>
       change WriterOutcome.tell message
-          (genericWriterRunClosed (writerToGeneric next)) =
+          (genericWriterOperationalInterpretation (writerToGeneric next)) =
         (WriterTree.runClosed next).map
           (fun result => (message :: result.1, result.2))
       rw [ih]

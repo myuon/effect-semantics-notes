@@ -124,7 +124,11 @@ $$q_{b,A}:T_bA\to S_bA$$
 commuting with return, sequencing, strength, weakening, and every base
 primitive. It follows compositionally that
 
-$$\mathsf{run}_S(M)=q(\llbracket M\rrbracket_T).$$
+$$\llbracket M\rrbracket_S=q(\llbracket M\rrbracket_T).$$
+
+Direct machine execution is written separately as $\mathsf{run}(M)$. Its
+identification with $\llbracket M\rrbracket_S$ is the machine-soundness
+theorem, not the definition of the operational monad interpretation.
 
 An instance-specific observation may be applied to $S_bA$ afterwards—for
 example, to state contextual equivalence or a TT pole—but observation is not a

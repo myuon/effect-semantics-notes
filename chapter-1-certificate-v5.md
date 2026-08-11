@@ -13,7 +13,7 @@
 | Theorem I.3, preservation | Lean checked | [`LanguageStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc) |
 | Theorem I.4, effect-aware progress | Lean checked | [`HasLanguageComp.progressClosed_exactlyOne`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed_exactlyOne#doc) |
 | Theorem I.5, deterministic internal reduction | Lean checked | [`LanguageStep.deterministic`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.deterministic#doc) |
-| Theorem I.6, recursion-free internal normalization | Lean checked | [`HasLanguageComp.stronglyNormalizing`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.stronglyNormalizing#doc), [`HasLanguageComp.normalizes`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.normalizes#doc) |
+| Theorem I.6, recursion-free internal normalization | Lean checked | [`HasLanguageComp.stronglyNormalizing`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.stronglyNormalizing#doc), [`HasLanguageComp.internallyNormalizesToBoundary`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.internallyNormalizesToBoundary#doc) |
 | Lemma I.7–Theorem I.8, semantic substitution/soundness | Lean checked for the relational Writer/free-tree semantics | [`letE`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.letE#doc), [`internalStepInvariant`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.internalStepInvariant#doc) |
 | Theorem I.9, effect upper-bound safety | Lean checked component | [`HasLanguageEffect.observationMember`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.TypedWriterTree.HasLanguageEffect.observationMember#doc) |
 | Definition I.1 and Boundary I.10, `BaseCert` | Paper certificate packaging | component theorems above |
@@ -156,25 +156,26 @@ mechanism itself to be deterministic.
 
 ## 3. Termination
 
-### Theorem I.6 `[C1-CERT.3.1]` — recursion-free internal normalization [[Lean: strong normalization]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.stronglyNormalizing#doc) [[Lean: terminal form]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.normalizes#doc)
+### Theorem I.6 `[C1-CERT.3.1]` — recursion-free internal normalization [[Lean: strong normalization]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.stronglyNormalizing#doc) [[Lean: terminal form]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.internallyNormalizesToBoundary#doc)
 
 Every closed well-typed $M:\mathsf{FinLanguageComp}$ is strongly normalizing
 for internal reduction. Consequently there are a computation $N$ and a finite
 internal reduction $M\longrightarrow^*N$ such that $N$ returns a value or
 exposes an operation boundary.
 
-If, in addition, the operational interpretations of the base primitives
-preserve typing and terminate after every exposed request, repeated execution
-across those boundaries induces a well-defined operational denotation
+The operational monad interpretation is the separately defined compositional
+map
 
 $$
-\mathsf{run}_{S}(M)\in S_b\llbracket A\rrbracket.
+\llbracket M\rrbracket_S\in S_b\llbracket A\rrbracket.
 $$
 
-The Lean theorem establishes termination of the language's **internal**
-reduction. Totality of the complete primitive-response machine remains
-conditional on the response kernel; neither claim says that an effectful
-result has a unique outcome.
+If the primitive response machine also preserves typing and terminates after
+every exposed request, the direct evaluator $\mathsf{run}(M)$ is total. Its
+agreement with $\llbracket M\rrbracket_S$ is a separate machine-soundness
+claim. The Lean theorem here establishes only termination of the language's
+**internal** reduction; none of these claims says that an effectful result has
+a unique outcome.
 
 ### Proof sketch
 
@@ -264,13 +265,16 @@ $$q(\beta^T(v))=\beta^S(v).$$
 The base adequacy statement is
 
 $$
-\mathsf{run}_{S}(M)=q(\llbracket M\rrbracket_T)
+\llbracket M\rrbracket_S=q(\llbracket M\rrbracket_T)
 $$
 
 for every closed $M:A!b$. When equality is too strong, the package instead
 supplies a graded logical relation preserved by the same structure. A ground
 observation or TT pole may subsequently quotient or test both sides, but it is
 not the carrier of operational effects.
+
+Direct execution enters through the separate machine-soundness equation
+$\mathsf{run}(M)=\llbracket M\rrbracket_S$.
 
 ### Writer instance
 
@@ -315,8 +319,9 @@ For $\mathcal K=T=\mathsf{SubDist}$ and a fair primitive
 $\mathsf{randomBool}:1\to\mathsf{Bool}$,
 
 $$
-\mathsf{run}_{\mathsf{SubDist}}(M)(o)
-=\mathsf{observe}(\llbracket M\rrbracket)(o)
+\mathsf{run}(M)(o)
+=\llbracket M\rrbracket_{\mathsf{SubDist}}(o)
+=\mathsf{observe}(\llbracket M\rrbracket_T)(o)
 $$
 
 for every ground outcome $o$.  Thus preservation and adequacy survive, while

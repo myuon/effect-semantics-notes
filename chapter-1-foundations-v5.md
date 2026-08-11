@@ -142,16 +142,25 @@ operational state transformer, Exception an operational exception carrier,
 and probabilistic choice a subdistribution carrier. None of these effects is
 first packed into an observation object and then wrapped in $\mathsf{Id}$.
 
-The induced machine evaluator has the form
+The graded-monad structure and the primitive maps induce the compositional
+operational interpretation
 
 $$
-\mathsf{run}_S(M)\in S_b\llbracket A\rrbracket
+\llbracket M\rrbracket_S\in S_b\llbracket A\rrbracket
 $$
 
-for a closed $M:A!b$. Internal language reduction remains deterministic; any
-branching belonging to an effect lives inside $S$. For the recursion-free
-chapters the selected operational algebra must make this evaluator total on
-`FinLanguageComp`.
+for a closed $M:A!b$. This is defined compositionally from $S$; it is not the
+direct small-step evaluator. Write $\mathsf{run}(M)$ for direct machine
+execution. A separate machine-soundness theorem identifies the two:
+
+$$
+\mathsf{run}(M)=\llbracket M\rrbracket_S.
+$$
+
+Internal language reduction remains deterministic; any branching belonging
+to an effect lives inside $S$. Totality of the direct evaluator in the
+recursion-free chapters additionally requires the selected response machine
+to terminate after each exposed boundary.
 
 ## 4. Meaning of an effect annotation
 
@@ -237,8 +246,9 @@ Before adding operations we must prove or assume, per base instance:
 1. substitution;
 2. preservation;
 3. unique evaluation-context/request decomposition;
-4. structural closure of `FinLanguageComp` and recursion-free normalization
-   sufficient to define $\mathsf{run}_S(M)$ in the operational model;
+4. structural closure of `FinLanguageComp` and recursion-free internal
+   normalization; termination of the response machine when total direct
+   execution $\mathsf{run}(M)$ is claimed;
 5. effect soundness: runtime steps never perform an effect excluded by the
    declared bound;
 6. the selected denotational--operational comparison theorem.
