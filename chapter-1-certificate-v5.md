@@ -13,7 +13,7 @@
 | Theorem I.3, preservation | Lean checked | [`LanguageStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc) |
 | Theorem I.4, effect-aware progress | Lean checked | [`HasLanguageComp.progressClosed_exactlyOne`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed_exactlyOne#doc) |
 | Theorem I.5, deterministic internal reduction | Lean checked | [`LanguageStep.deterministic`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.deterministic#doc) |
-| Conjecture I.6, recursion-free normalization | Precisely scoped formalization boundary | `FinLanguageComp` excludes recursion by construction and is substitution/reduction closed; reducibility normalization remains future work |
+| Theorem I.6, recursion-free internal normalization | Lean checked | [`HasLanguageComp.stronglyNormalizing`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.stronglyNormalizing#doc), [`HasLanguageComp.normalizes`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.normalizes#doc) |
 | Lemma I.7–Theorem I.8, semantic substitution/soundness | Lean checked for the relational Writer/free-tree semantics | [`letE`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.letE#doc), [`internalStepInvariant`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.internalStepInvariant#doc) |
 | Theorem I.9, effect upper-bound safety | Lean checked component | [`HasLanguageEffect.observationMember`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.TypedWriterTree.HasLanguageEffect.observationMember#doc) |
 | Definition I.1 and Boundary I.10, `BaseCert` | Paper certificate packaging | component theorems above |
@@ -156,33 +156,42 @@ mechanism itself to be deterministic.
 
 ## 3. Termination
 
-### Conjecture I.6 `[C1-CERT.3.1]` — recursion-free machine normalization [Formalization boundary]
+### Theorem I.6 `[C1-CERT.3.1]` — recursion-free internal normalization [[Lean: strong normalization]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.stronglyNormalizing#doc) [[Lean: terminal form]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.normalizes#doc)
 
-Assume $M:\mathsf{FinLanguageComp}$ and that the operational interpretations
-of the base primitives preserve typing and terminate on this fragment. Then
-every closed well-typed Chapter-I program $M:A!b$ induces a well-defined
-operational denotation
+Every closed well-typed $M:\mathsf{FinLanguageComp}$ is strongly normalizing
+for internal reduction. Consequently there are a computation $N$ and a finite
+internal reduction $M\longrightarrow^*N$ such that $N$ returns a value or
+exposes an operation boundary.
+
+If, in addition, the operational interpretations of the base primitives
+preserve typing and terminate after every exposed request, repeated execution
+across those boundaries induces a well-defined operational denotation
 
 $$
 \mathsf{run}_{S}(M)\in S_b\llbracket A\rrbracket.
 $$
 
-This is a totality claim for the finite operational interpretation, not a
-claim that an effectful result contains a unique outcome.
+The Lean theorem establishes termination of the language's **internal**
+reduction. Totality of the complete primitive-response machine remains
+conditional on the response kernel; neither claim says that an effectful
+result has a unique outcome.
 
 ### Proof sketch
 
-Use the standard reducibility argument for fine-grain CBV STLC, with the
-primitive case discharged by the total operational algebra $\beta^S$.
-Function, product and sum cases are standard. Theorem I.4 identifies the
-exposed request; graded Kleisli composition in $S$ resumes its continuation.
+The mechanized proof defines reducible values by recursion on their type and
+reducible computations as strongly normalizing computations whose reachable
+returned values are reducible. The fundamental theorem is proved by induction
+on typing under a reducible closing substitution. The empty substitution gives
+strong normalization; induction over its accessibility proof, using Theorem
+I.4, gives the terminal-form corollary.
 
 The recursion-free fragment is the separate Lean type
 [`FinLanguageComp`](https://myuon.github.io/effect-semantics-notes/lean/EffectSemantics/Syntax/LanguageCalculus.html).
 It is closed by construction under renaming, substitution and internal
-reduction; `fixBeta` cannot be constructed. What remains unmechanized is the
-reducibility/strong-normalization argument and the explicit well-founded
-response-kernel package. The claim is deliberately absent from Chapter IV.
+reduction; `fixBeta` cannot be constructed. The reducibility development is
+Lean checked. What remains outside this theorem is an explicit well-founded
+response-kernel package connecting successive primitive requests. The claim
+is deliberately absent from Chapter IV.
 
 ## 4. Denotational soundness
 

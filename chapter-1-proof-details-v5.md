@@ -4,8 +4,8 @@
 :class: note
 This is a proof appendix, not an additional step in the main reading path.
 Use the [Chapter-I mapping](review-guide.md#chapter-i-fixed-base-language) to
-distinguish kernel-checked lemmas from recursion-free normalization arguments
-that remain paper proofs.
+distinguish kernel-checked internal normalization from the extra response-kernel
+assumptions needed for total primitive execution.
 :::
 
 ## 1. Preliminary lemmas
@@ -125,12 +125,13 @@ Restrict terms to the Lean type
 [`FinLanguageComp`](https://myuon.github.io/effect-semantics-notes/lean/EffectSemantics/Syntax/LanguageCalculus.html).
 The fragment is substitution-closed and step-closed by construction.
 Define reducible values $\mathcal V_A$ and computations $\mathcal C_A$ by
-type recursion.  A computation is in $\mathcal C_A$ when every branch in the
-support of the base response kernel reaches a classified observation, and a function value
-is in $\mathcal V_{A\xrightarrow{b}B}$ when it maps every $\mathcal V_A$ argument to
-$\mathcal C_B$.
+type recursion. A computation is in $\mathcal C_A$ when it is strongly
+normalizing for internal reduction and every reachable returned value belongs
+to $\mathcal V_A$. A function value is in
+$\mathcal V_{A\xrightarrow{b}B}$ when applying it to every $\mathcal V_A$
+argument yields a computation in $\mathcal C_B$.
 
-:::{prf:conjecture} `[C1-PROOF.4.1]` Fundamental reducibility lemma [Formalization boundary]
+:::{prf:theorem} `[C1-PROOF.4.1]` Fundamental reducibility lemma [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.reducible#doc)
 :label: lem-i-reducibility-v5
 
 If $\Gamma\vdash J$, every closing substitution mapping variables to
@@ -138,29 +139,32 @@ reducible values maps $J$ to the corresponding reducibility predicate.
 :::
 
 **Proof.** Induction on typing.  The function case extends the closing
-substitution with a reducible argument.  `let` first normalizes its left
+substitution with a reducible argument. `let` first normalizes its left
 computation; on return, substitution and the induction hypothesis apply to
-the body; a terminal base outcome remains terminal.  A primitive is reducible
-by the base-package termination hypothesis.  Products, sums and cases are
-standard.  Subeffecting does not change the term. $\square$
+the body. An exposed primitive has no internal successor and is therefore
+strongly normalizing. Products, sums and cases are standard. Subeffecting does
+not change the term. $\square$
 
-:::{prf:conjecture} `[C1-PROOF.4.2]` Recursion-free normalization [Formalization boundary]
+:::{prf:theorem} `[C1-PROOF.4.2]` Recursion-free internal normalization [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.stronglyNormalizing#doc)
 :label: thm-i-normalization-detail-v5
 
-Every closed typed Chapter-I computation $M:A!b$ in
-`FinLanguageComp` has a well-defined operational interpretation
-$\mathsf{run}_S(M)\in S_b\llbracket A\rrbracket$.
+Every closed typed Chapter-I computation $M:A!b$ in `FinLanguageComp` is
+strongly normalizing for internal reduction. Moreover, it reaches a return or
+an exposed operation boundary after finitely many internal steps
+[[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.normalizes#doc).
 :::
 
-**Proof.** Apply the fundamental lemma to the empty substitution.  Each branch
-is covered by computation reducibility.  Unique decomposition fixes the next
-evaluation position; the typed response map supplies the possibly many
-successors at a primitive request.  Branchwise well-foundedness therefore
-defines the $S$-structured result. $\square$
+**Proof.** Apply the fundamental lemma to the empty substitution. Computation
+reducibility supplies accessibility for the converse of internal reduction.
+Induction on accessibility and closed progress follows the unique internal
+successor until either a return or a boundary is exposed. $\square$
 
-The fragment boundary and its structural closure are kernel-checked. This
-outline is not yet a kernel-checked normalization proof: it still requires the
-logical-reducibility development and a well-founded response-kernel premise.
+The fragment boundary, structural closure, reducibility predicates,
+fundamental theorem, strong normalization, and terminal-form corollary are all
+kernel checked. To upgrade this internal result to totality of
+$\mathsf{run}_S$, one still needs a well-founded response-kernel premise: the
+language theorem intentionally treats primitive requests as terminal
+boundaries.
 
 ## 5. Semantic soundness and effect safety
 

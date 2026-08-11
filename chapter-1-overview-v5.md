@@ -32,7 +32,9 @@ Throughout this chapter:
 - internal evaluation is call-by-value small-step reduction;
 - a base request is an operational boundary, not a stuck term;
 - there are no free-operation nodes or handlers;
-- recursion-free normalization remains an explicit paper-level boundary;
+- recursion-free internal reduction is strongly normalizing in Lean;
+- total execution across primitive boundaries additionally assumes a terminating
+  response kernel;
 - Writer is the most complete mechanized operational/denotational instance,
   while State and Exception supply additional concrete base models.
 

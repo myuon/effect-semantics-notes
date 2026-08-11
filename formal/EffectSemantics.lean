@@ -73,6 +73,7 @@ import EffectSemantics.Metatheory.LanguageRecursionEmbedding
 import EffectSemantics.Examples.LanguageRecursion
 import EffectSemantics.Examples.EffectErasureCounterexample
 import EffectSemantics.Metatheory.LanguageProgress
+import EffectSemantics.Metatheory.LanguageNormalization
 import EffectSemantics.Metatheory.LanguageRequests
 import EffectSemantics.Operational.LanguageShallowHandler
 import EffectSemantics.Metatheory.LanguageHandlerTyping
