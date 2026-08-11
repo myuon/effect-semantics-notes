@@ -1,8 +1,8 @@
-# Chapter I.4 — exported base certificate
+# Chapter I.4 — exported base package
 
 :::{admonition} Lean correspondence — theorem bundle
 :class: tip
-**Lean checked components:** substitution and typing live in [`LanguageRenameSubst`](https://myuon.github.io/effect-semantics-notes/lean/EffectSemantics/Syntax/LanguageRenameSubst.html), preservation in [`LanguageStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc), progress in [`HasLanguageComp.progressClosed`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed#doc), and the exact mechanized bundle in [`LanguageFiniteStructureCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFiniteStructureCert#doc). The broader categorical `BaseCert` notation remains a readable abstraction. [Statement-by-statement map](review-guide.md#chapter-i-fixed-base-language).
+**Lean checked components:** substitution and typing live in [`LanguageRenameSubst`](https://myuon.github.io/effect-semantics-notes/lean/EffectSemantics/Syntax/LanguageRenameSubst.html), preservation in [`LanguageStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc), progress in [`HasLanguageComp.progressClosed`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed#doc), and the exact mechanized bundle in [`LanguageFiniteTheory`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFiniteTheory#doc). The broader categorical `BasePackage` notation remains a readable abstraction. [Statement-by-statement map](review-guide.md#chapter-i-fixed-base-language).
 :::
 
 ### Numbered-statement inventory
@@ -16,7 +16,7 @@
 | Theorem I.6, recursion-free internal normalization | Lean checked | [`HasLanguageComp.stronglyNormalizing`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.stronglyNormalizing#doc), [`HasLanguageComp.internallyNormalizesToBoundary`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.internallyNormalizesToBoundary#doc) |
 | Lemma I.7–Theorem I.8, semantic substitution/soundness | Lean checked for the relational Writer/free-tree semantics | [`letE`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.letE#doc), [`internalStepInvariant`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.internalStepInvariant#doc) |
 | Theorem I.9, effect upper-bound safety | Lean checked component | [`HasLanguageEffect.observationMember`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.TypedWriterTree.HasLanguageEffect.observationMember#doc) |
-| Definition I.1 and Boundary I.10, `BaseCert` | Finite model extraction Lean checked; typed graded assembly remains an instance boundary | [`writerFiniteBaseModelCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.writerFiniteBaseModelCert#doc), [`stateFiniteBaseModelCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.stateFiniteBaseModelCert#doc), [`exceptionFiniteBaseModelCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.exceptionFiniteBaseModelCert#doc) |
+| Definition I.1 and Boundary I.10, `BasePackage` | Finite model extraction Lean checked; typed graded assembly remains an instance boundary | [`writerFiniteBaseModel`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.writerFiniteBaseModel#doc), [`stateFiniteBaseModel`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.stateFiniteBaseModel#doc), [`exceptionFiniteBaseModel`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.exceptionFiniteBaseModel#doc) |
 
 ## Status
 
@@ -32,19 +32,19 @@ Chapter II receives four deliberately separate components:
 
 | component | responsibility |
 |---|---|
-| `BaseSafetyCert` | substitution, preservation, exclusive progress, determinism, normalization boundary, and effect safety |
-| `OperationalModelCert` | the graded operational monad $S$, primitive execution, and agreement with the direct machine |
-| `DenotationalModelCert` | the graded denotational monad $T$, primitive interpretation, substitution, and reduction soundness |
-| `ModelComparisonCert` | a morphism or logical relation comparing $T$ with $S$ |
+| `BaseSafety` | substitution, preservation, exclusive progress, determinism, normalization boundary, and effect safety |
+| `OperationalModel` | the graded operational monad $S$, primitive execution, and agreement with the direct machine |
+| `DenotationalModel` | the graded denotational monad $T$, primitive interpretation, substitution, and reduction soundness |
+| `ModelComparison` | a morphism or logical relation comparing $T$ with $S$ |
 
-Their readable conjunction is called `BaseCert`.  Keeping these components
+Their readable conjunction is called `BasePackage`.  Keeping these components
 separate prevents type safety, model construction, and adequacy from being
 silently conflated.  The remaining sections record the evidence for each
 field before giving the formal package in Section 7.
 
 ## 1. Syntactic substitution
 
-### Lemma I.1 `[C1-CERT.1.1]` — value substitution [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageVal.subst_preserved#doc)
+### Lemma I.1 `[C1-MAIN.1.1]` — value substitution [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageVal.subst_preserved#doc)
 
 If
 
@@ -60,7 +60,7 @@ $$
 \Gamma\vdash V[W/x]:B.
 $$
 
-### Lemma I.2 `[C1-CERT.1.2]` — computation substitution [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.subst_preserved#doc)
+### Lemma I.2 `[C1-MAIN.1.2]` — computation substitution [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.subst_preserved#doc)
 
 If
 
@@ -81,7 +81,7 @@ uses substitution only in its parameter; no continuation case exists.
 
 ## 2. Preservation and decomposition
 
-### Theorem I.3 `[C1-CERT.2.1]` — internal preservation [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc)
+### Theorem I.3 `[C1-MAIN.2.1]` — internal preservation [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc)
 
 If
 
@@ -101,7 +101,7 @@ The $\beta$ and `let-return` cases use Lemma I.2.  Branch rules retain the
 declared common effect.  Context closure uses associativity of graded
 sequencing.
 
-### Theorem I.4 `[C1-CERT.2.2]` — effect-aware progress [[Lean: exactly one]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed_exactlyOne#doc) [[Lean: expanded cases]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed_cases#doc)
+### Theorem I.4 `[C1-MAIN.2.2]` — effect-aware progress [[Lean: exactly one]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed_exactlyOne#doc) [[Lean: expanded cases]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed_cases#doc)
 
 If
 
@@ -139,7 +139,7 @@ Chapter I fragment, where no free operations occur, its `LanguageBoundary`
 case is precisely an evaluation context exposing a base primitive
 $\mathcal E[\beta(V)]$.
 
-### Theorem I.5 `[C1-CERT.2.3]` — deterministic internal reduction [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.deterministic#doc)
+### Theorem I.5 `[C1-MAIN.2.3]` — deterministic internal reduction [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.deterministic#doc)
 
 For all computations $M,M_1,M_2$,
 
@@ -156,7 +156,7 @@ mechanism itself to be deterministic.
 
 ## 3. Termination
 
-### Theorem I.6 `[C1-CERT.3.1]` — recursion-free internal normalization [[Lean: strong normalization]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.stronglyNormalizing#doc) [[Lean: terminal form]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.internallyNormalizesToBoundary#doc)
+### Theorem I.6 `[C1-MAIN.3.1]` — recursion-free internal normalization [[Lean: strong normalization]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.stronglyNormalizing#doc) [[Lean: terminal form]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.internallyNormalizesToBoundary#doc)
 
 Every closed well-typed $M:\mathsf{FinLanguageComp}$ is strongly normalizing
 for internal reduction. Consequently there are a computation $N$ and a finite
@@ -196,7 +196,7 @@ is deliberately absent from Chapter IV.
 
 ## 4. Denotational soundness
 
-### Lemma I.7 `[C1-CERT.4.1]` — semantic sequencing/substitution [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.letE#doc)
+### Lemma I.7 `[C1-MAIN.4.1]` — semantic sequencing/substitution [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.letE#doc)
 
 For a computation $M$,
 
@@ -214,7 +214,7 @@ that the whole `let` produces `tree.bind continuation`. This is
 `ProducesLanguageWriterTree.letE`. The displayed categorical equality is its
 paper presentation for a total model satisfying the same bind law.
 
-### Theorem I.8 `[C1-CERT.4.2]` — internal reduction soundness [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.internalStepInvariant#doc)
+### Theorem I.8 `[C1-MAIN.4.2]` — internal reduction soundness [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.internalStepInvariant#doc)
 
 If $M\to M'$, then
 
@@ -228,7 +228,7 @@ chosen denotation is total and functional; no termination is silently assumed.
 
 ## 5. Effect upper-bound safety
 
-### Theorem I.9 `[C1-CERT.5.1]` — effect upper-bound safety [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.effectSound#doc)
+### Theorem I.9 `[C1-MAIN.5.1]` — effect upper-bound safety [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.effectSound#doc)
 
 If
 
@@ -254,7 +254,7 @@ runtime trace object.
 ## 6. Operational--denotational comparison
 
 Let $S_b$ be the operational graded monad and $T_b$ the denotational graded
-monad. A comparison certificate supplies a graded monad morphism
+monad. A comparison package supplies a graded monad morphism
 
 $$q_{b,A}:T_bA\to S_bA$$
 
@@ -339,21 +339,21 @@ These declarations instantiate the concrete formal calculus; they do not by
 themselves mechanize the paper-level quantification over every base listed
 below.
 
-### Definition I.1 `[C1-CERT.7.1]` — split base certificates [Readable abstraction; mechanized core](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFiniteStructureCert#doc)
+### Definition I.1 `[C1-MAIN.7.1]` — split base packages [Readable abstraction; mechanized core](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFiniteTheory#doc)
 
 For a base calculus $L_B$ and ordered effect algebra
 $E_B=(B,1,\cdot,\leq)$, use four independent records:
 
-1. $\mathsf{BaseSafetyCert}(L_B,E_B)$ contains substitution, preservation,
+1. $\mathsf{BaseSafety}(L_B,E_B)$ contains substitution, preservation,
    exclusive return/redex/request decomposition, deterministic internal
    reduction, finite-fragment normalization, and effect-bound safety.
-2. $\mathsf{OperationalModelCert}(L_B,E_B,S)$ contains the operational strong
+2. $\mathsf{OperationalModel}(L_B,E_B,S)$ contains the operational strong
    graded monad $S_b$, weakening, primitive interpretations $\beta^S$, and
    agreement of its evaluator with the direct machine.
-3. $\mathsf{DenotationalModelCert}(L_B,E_B,T)$ contains the denotational
+3. $\mathsf{DenotationalModel}(L_B,E_B,T)$ contains the denotational
    strong graded monad $T_b$, primitive interpretations $\beta^T$, semantic
    substitution, and reduction soundness.
-4. $\mathsf{ModelComparisonCert}(S,T,q)$ contains a graded monad morphism
+4. $\mathsf{ModelComparison}(S,T,q)$ contains a graded monad morphism
    $q:T\Rightarrow S$ commuting with strength, weakening, and primitives (or
    the corresponding graded logical relation).
 
@@ -361,25 +361,25 @@ Retain the readable bundled name as
 
 $$
 \begin{aligned}
-&\mathsf{BaseCert}(L_B,E_B,S,T,q)\\
+&\mathsf{BasePackage}(L_B,E_B,S,T,q)\\
 &\quad:\Longleftrightarrow
-\mathsf{BaseSafetyCert}(L_B,E_B)
-\land\mathsf{OperationalModelCert}(L_B,E_B,S)\\
-&\qquad\land\mathsf{DenotationalModelCert}(L_B,E_B,T)
-\land\mathsf{ModelComparisonCert}(S,T,q).
+\mathsf{BaseSafety}(L_B,E_B)
+\land\mathsf{OperationalModel}(L_B,E_B,S)\\
+&\qquad\land\mathsf{DenotationalModel}(L_B,E_B,T)
+\land\mathsf{ModelComparison}(S,T,q).
 \end{aligned}
 \tag{Base-Split}
 $$
 
-End-to-end examples may use `BaseCert`; transport theorems cite only the
-component certificates they actually use. Observation/pole data is a
+End-to-end examples may use `BasePackage`; transport theorems cite only the
+component packages they actually use. Observation/pole data is a
 subsequent optional layer and is not one of the effect carriers.
 
 If a later TT argument uses finite observations, its pole may separately
 require finite branching and constructor separation. Those hypotheses belong
-to the observation theorem, not to the operational-model certificate.
+to the observation theorem, not to the operational-model package.
 
-The `BaseSafetyCert` fields are written formally as follows:
+The `BaseSafety` fields are written formally as follows:
 
 $$
 \begin{aligned}
@@ -410,7 +410,7 @@ $$
 $$
 
 $\dot\vee$ denotes mutually exclusive alternatives.
-`DenotationalModelCert` requires the following semantic data:
+`DenotationalModel` requires the following semantic data:
 
 $$
 \eta_A:A\to T_1A,
@@ -436,9 +436,9 @@ $$
 $$
 
 and compatibility of $\tau$ with $\eta,\mu,\mathsf{st}$ and every
-$\beta^T$. The remaining `DenotationalModelCert` fields are `semsubst` and
+$\beta^T$. The remaining `DenotationalModel` fields are `semsubst` and
 `redsnd`. If a later theorem chooses an observation object, the separate
-optional `ObservationAdequacyCert` supplies `respSound` and `adequate`:
+optional `ObservationAdequacyAssumptions` supplies `respSound` and `adequate`:
 
 $$
 \begin{aligned}
@@ -459,7 +459,7 @@ $$
 \end{aligned}
 $$
 
-### Boundary I.10 `[C1-CERT.7.2]` — Base certificate extraction [[Lean: Writer]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.writerFiniteBaseModelCert#doc) [[Lean: State]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.stateFiniteBaseModelCert#doc) [[Lean: Exception]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.exceptionFiniteBaseModelCert#doc)
+### Boundary I.10 `[C1-MAIN.7.2]` — Base package extraction [[Lean: Writer]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.writerFiniteBaseModel#doc) [[Lean: State]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.stateFiniteBaseModel#doc) [[Lean: Exception]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.exceptionFiniteBaseModel#doc)
 
 For each $X\in\{\mathsf{Writer},\mathsf{State},\mathsf{Exception}\}$, let
 $L_X,E_X,S^X,T^X,q^X$ be the syntax/machine, ordered algebra, operational
@@ -468,7 +468,7 @@ instance statement is
 
 $$
 \forall X\in\{W,S,E\}.\quad
-\mathsf{BaseCert}(L_X,E_X,S^X,T^X,q^X).
+\mathsf{BasePackage}(L_X,E_X,S^X,T^X,q^X).
 $$
 
 ### Proof
@@ -481,35 +481,35 @@ structures of $S^X$ and $T^X$. Theorems I.7–I.8 supply `semsubst` and
 comparison theorem. No free-operation or handler property is used.
 
 The finite semantic model records are now assembled for Writer, State, and
-Exception. Fully assembling the stronger typed **graded** `writerBaseCert`,
-`stateBaseCert`, and `exceptionBaseCert` records remains an explicit Lean
-boundary; the displayed `BaseCert` statement is not treated as a proof of
+Exception. Fully assembling the stronger typed **graded** `writerBasePackage`,
+`stateBasePackage`, and `exceptionBasePackage` records remains an explicit Lean
+boundary; the displayed `BasePackage` statement is not treated as a proof of
 those stronger declarations. $\square$
 
 The source-language component now includes substitution, preservation,
 progress, determinism, strong normalization, and finite arrival at return or
 boundary in
-[`LanguageCoreCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageCoreCert#doc).
+[`LanguageCoreMetatheory`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageCoreMetatheory#doc).
 
 The semantic extraction is split explicitly into
-[`OperationalModelCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.OperationalModelCert#doc),
-[`DenotationalModelCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.DenotationalModelCert#doc),
-[`ModelComparisonCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparisonCert#doc), and
-[`MachineSoundnessCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.MachineSoundnessCert#doc).
-For each of Writer, State, and Exception, `FiniteBaseModelCert` packages the
+[`OperationalModel`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.OperationalModel#doc),
+[`DenotationalModel`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.DenotationalModel#doc),
+[`ModelComparison`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparison#doc), and
+[`MachineSoundness`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.MachineSoundness#doc).
+For each of Writer, State, and Exception, `FiniteBaseModel` packages the
 initial response-tree denotation, the dedicated operational monad, their fold
 comparison, and agreement with the concrete `runClosed` evaluator.
 
 The generic finite extension structures are kernel-checked by
-[`genericWriterExtensionCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericWriterExtensionCert#doc),
-[`genericStateExtensionCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericStateExtensionCert#doc), and
-[`genericExceptionExtensionCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericExceptionExtensionCert#doc).
+[`genericWriterExtension`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericWriterExtension#doc),
+[`genericStateExtension`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericStateExtension#doc), and
+[`genericExceptionExtension`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericExceptionExtension#doc).
 
-The remaining instance boundary is narrower but real: `FiniteMonadCert` is an
+The remaining instance boundary is narrower but real: `MonadStructure` is an
 ordinary finite monad interface. A single dependent record connecting each
 generic operation signature to the typed `LanguageSignature`, its ordered
 grade, and graded weakening has not yet been assembled. Thus the displayed
-fully typed graded `BaseCert` is not claimed as a Lean declaration. Random/
+fully typed graded `BasePackage` is not claimed as a Lean declaration. Random/
 SubDist also remains a separate unformalized instance.
 
 ## 8. Boundary exported to Chapter II
@@ -517,7 +517,7 @@ SubDist also remains a separate unformalized instance.
 Complete derivations for the lemmas used above are given in
 [Chapter I — detailed proofs](chapter-1-proof-details-v5.md).
 
-`BaseCert` does not assert that every base has exact grades, that every
+`BasePackage` does not assert that every base has exact grades, that every
 denotation exposes a syntactic head event, or that base effects commute with
 future free operations.  Chapter II must add visible free-operation nodes
 without inspecting an opaque base computation and must prove conservativity

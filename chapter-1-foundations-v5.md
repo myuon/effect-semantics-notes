@@ -2,7 +2,7 @@
 
 :::{admonition} Lean correspondence — syntax and typing
 :class: tip
-**Lean checked.** This chapter uses [`FinLanguageVal` and `FinLanguageComp`](https://myuon.github.io/effect-semantics-notes/lean/EffectSemantics/Syntax/LanguageCalculus.html); Chapter IV separately uses `RecLanguageVal` and `RecLanguageComp`. Both instantiate one mode-indexed grammar, but `FixAllowed .finite` has no constructor, so finite terms cannot contain `fixLam`. The paper-level `BaseCert` is a readable packaging of checked component lemmas. [Full mapping](review-guide.md#chapter-i-fixed-base-language).
+**Lean checked.** This chapter uses [`FinLanguageVal` and `FinLanguageComp`](https://myuon.github.io/effect-semantics-notes/lean/EffectSemantics/Syntax/LanguageCalculus.html); Chapter IV separately uses `RecLanguageVal` and `RecLanguageComp`. Both instantiate one mode-indexed grammar, but `FixAllowed .finite` has no constructor, so finite terms cannot contain `fixLam`. The paper-level `BasePackage` is a readable packaging of checked component lemmas. [Full mapping](review-guide.md#chapter-i-fixed-base-language).
 :::
 
 ## Status
@@ -10,7 +10,7 @@
 **Foundational specification and safety interface.**  This page fixes the
 common language used by the machines on the previous page and identifies its
 type-safety results.  Full theorem statements are collected in the
-[exported certificate](chapter-1-certificate-v5.md); detailed derivations are
+[exported package](chapter-1-main-results-v5.md); detailed derivations are
 in [Appendix I-A](chapter-1-proof-details-v5.md).
 
 ## 1. Syntactic categories
@@ -261,4 +261,4 @@ The remaining semantic and packaging obligations are developed in:
 
 - [Concrete base machines](chapter-1-operational-examples-v5.md);
 - [Denotational models and operational comparison](chapter-1-denotational-v5.md);
-- [Exported base certificate](chapter-1-certificate-v5.md).
+- [Exported base package](chapter-1-main-results-v5.md).

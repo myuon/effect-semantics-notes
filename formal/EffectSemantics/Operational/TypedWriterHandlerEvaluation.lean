@@ -32,7 +32,7 @@ structure ModelsTypedWriterHandler (sig : Signature) (interface : Nat)
       semantics.clause interface operation lookup = none
 
 /-- Type-indexed direct evaluation of one shallow handler.  Output effects are
-carried by the produced tree; the source typing remains the input certificate. -/
+carried by the produced tree; the source typing remains the input package. -/
 inductive HandlesTypedWriterTree (sig : Signature) (interface : Nat)
     (handler : AffineHandler) :
     {term : Comp} → {resultTy : Ty} → {effect : Effect} →

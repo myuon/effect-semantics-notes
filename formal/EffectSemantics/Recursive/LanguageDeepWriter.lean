@@ -362,7 +362,7 @@ theorem language_deep_writer_semantic_adequacy :
 
 /-- Typing obligations at the two visible recursive boundaries.  Internal
 steps need no extra assumption: ordinary preservation already covers them. -/
-structure LanguageRecursiveBoundaryTypingCert (sig : LanguageSignature)
+structure LanguageRecursiveBoundaryTyping (sig : LanguageSignature)
     (selected : Nat) (handler : LanguageAffineHandler .recursive)
     (replacement : EffectLanguage) where
   baseResume : ∀ {request : RecLanguageBaseRequest} {resultTy effect},
@@ -380,7 +380,7 @@ structure LanguageRecursiveBoundaryTypingCert (sig : LanguageSignature)
 type.  The recursive proof uses ordinary preservation at internal steps and
 the already checked affine matching-reduct theorem. -/
 theorem LanguageDeepWriterRuns.result_typed
-    (boundaries : LanguageRecursiveBoundaryTypingCert sig selected handler replacement)
+    (boundaries : LanguageRecursiveBoundaryTyping sig selected handler replacement)
     (runs : LanguageDeepWriterRuns selected handler term log value)
     (typing : HasLanguageComp sig [] term resultTy effect) :
     Nonempty (HasLanguageVal sig [] value resultTy) := by
@@ -395,7 +395,7 @@ theorem LanguageDeepWriterRuns.result_typed
       exact ih (boundaries.matchedAnswer same found typing)
 
 theorem languageDeepWriterSemantics_result_typed
-    (boundaries : LanguageRecursiveBoundaryTypingCert sig selected handler replacement)
+    (boundaries : LanguageRecursiveBoundaryTyping sig selected handler replacement)
     (typing : HasLanguageComp sig [] term resultTy effect)
     (observed : languageDeepWriterSemantics selected handler term =
       some (log, value)) :

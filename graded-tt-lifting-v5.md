@@ -2,7 +2,7 @@
 
 :::{admonition} Formalization status
 :class: note
-Finite observation-indexed TT closure is **Lean checked** by [`GenericExtensionAlgebra.TTLayerCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.TTLayerCert.lift#doc); recursive pointwise outcome-TT closure is checked by [`GenericRecursiveOutcomeTTCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveOutcomeTTCert.lift#doc). Additional graded/categorical generality on this page is a **Paper abstraction**.
+Finite observation-indexed TT closure is **Lean checked** by [`GenericExtensionAlgebra.TTLayerAssumptions.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.TTLayerAssumptions.lift#doc); recursive pointwise outcome-TT closure is checked by [`GenericRecursiveOutcomeTT.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveOutcomeTT.lift#doc). Additional graded/categorical generality on this page is a **Paper abstraction**.
 :::
 
 ## Status
@@ -76,9 +76,9 @@ The product $e\cdot f$ is essential: it records the computation effect before
 the observation continuation effect.  Weakening coherence makes the
 definition invariant under a common larger upper bound.
 
-## 3. Definition — `TTCert`
+## 3. Definition — `TTClosure`
 
-We say that $\mathsf{TTCert}(S,T,\mathcal O)$ holds when:
+We say that $\mathsf{TTClosure}(S,T,\mathcal O)$ holds when:
 
 1. **Pole coherence.** $\mathcal O$ is stable under effect weakening and the
    response structure $\mathcal K$.
@@ -115,7 +115,7 @@ field and pole closure rather than assuming extended adequacy.
 :::{prf:theorem} Graded TT fundamental lemma
 :label: thm-graded-tt-fundamental-v5
 
-If `TTCert` holds and constants and algebraic primitives preserve their value
+If `TTClosure` holds and constants and algebraic primitives preserve their value
 relations, every well-typed base term maps related environments to related
 values or $V^{\top\top}_e$-related computations.
 :::
@@ -243,7 +243,7 @@ $$
 :::
 
 **Proof.**  Induction on the structural relation derivation.  Return uses the
-TT unit law, a base layer uses the base `TTCert`, and a free node uses pole
+TT unit law, a base layer uses the base `TTClosure`, and a free node uses pole
 closure plus the pointwise induction hypothesis. $\square$
 
 In general this is not equality.  TT-closure can relate computations that have
@@ -312,9 +312,9 @@ V^{\top\top}
 $$
 
 TT-lifting does not manufacture observational adequacy.
-`ObservationAdequacyCert` supplies the chosen base observation/reflection,
-while `OperationalModelCert`, `DenotationalModelCert`, and
-`ModelComparisonCert` supply semantic bind, primitives, and the $T\to S$
+`ObservationAdequacyAssumptions` supplies the chosen base observation/reflection,
+while `OperationalModel`, `DenotationalModel`, and
+`ModelComparison` supply semantic bind, primitives, and the $T\to S$
 comparison. TT-lifting propagates the chosen relation through types,
 sequencing, free operations and compatible handlers.
 

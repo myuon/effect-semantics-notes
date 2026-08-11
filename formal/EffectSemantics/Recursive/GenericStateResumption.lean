@@ -212,12 +212,12 @@ theorem functional_continuous
   (continuity (Result := Result)).functionalContinuous
     (Observer Result) system handler
 
-def cert
+def model
     (system : RecursiveResumptionSystem
       stateBaseSignature userOperationSignature State Result)
     (handler : FreeExtension.AffineHandler
       stateBaseSignature userOperationSignature) :
-    GenericRecursiveResumptionCert system (Observer Result) handler where
+    GenericRecursiveResumption system (Observer Result) handler where
   continuous := functional_continuous system handler
   Runs := GenericRuns system (Observer Result) handler
   finiteAdequacy := genericFiniteAdequacy system (Observer Result) handler
@@ -230,8 +230,8 @@ theorem limit_adequacy
     (handler : FreeExtension.AffineHandler
       stateBaseSignature userOperationSignature) :
     GenericRuns system (Observer Result) handler state outcome ↔
-      (cert system handler).semantics state = some outcome :=
-  (cert system handler).main.2.2.1
+      (model system handler).semantics state = some outcome :=
+  (model system handler).main.2.2.1
 
 /-- A finite program that reads the store, negates it, and returns the old
 store. -/

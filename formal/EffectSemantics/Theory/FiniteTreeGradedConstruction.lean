@@ -1,5 +1,5 @@
-import EffectSemantics.Certificate.GradedPackageFunctor
-import EffectSemantics.Certificate.GenericFreeExtension
+import EffectSemantics.Theory.GradedPackageFunctor
+import EffectSemantics.Theory.GenericFreeExtension
 
 namespace EffectSemantics
 
@@ -99,7 +99,7 @@ theorem FreeExtension.baseAct_mult
 
 /-- The two action equations used in the paper proof, now for the canonical
 finite-tree construction. -/
-structure FiniteTreeActionCert (base free : OperationSignature) : Prop where
+structure FiniteTreeActionLaws (base free : OperationSignature) : Prop where
   unit : ∀ {α} (tree : FreeExtension base free α),
     FreeExtension.baseAct
       (.ret tree : FreeExtension.BaseTree base (FreeExtension base free α)) = tree
@@ -114,8 +114,8 @@ structure FiniteTreeActionCert (base free : OperationSignature) : Prop where
     FreeExtension.baseAct (tree.bind id) =
       FreeExtension.baseAct (FreeExtension.map FreeExtension.baseAct tree)
 
-theorem finiteTreeActionCert (base free : OperationSignature) :
-    FiniteTreeActionCert base free where
+theorem finiteTreeActionLaws (base free : OperationSignature) :
+    FiniteTreeActionLaws base free where
   unit := FreeExtension.baseAct_ret
   natural := FreeExtension.baseAct_map
   multiplication := FreeExtension.baseAct_mult

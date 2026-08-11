@@ -260,7 +260,7 @@ first selected interface atom. Matching uses the bare continuation; all prior
 Writer and other-interface nodes are rebuilt recursively. -/
 noncomputable def ExactEffect.shallow
     (typing : ExactEffect tree effect)
-    (certificate : ExhaustiveEffect selected handler replacement) :
+    (package : ExhaustiveEffect selected handler replacement) :
     HasEffect (TypedWriterTree.shallow selected handler tree)
       (replaceFirst selected replacement effect) := by
   induction typing with
@@ -272,7 +272,7 @@ noncomputable def ExactEffect.shallow
         parameter
       by_cases same : interface = selected
       · subst selected
-        let witness := certificate.response operation lookup
+        let witness := package.response operation lookup
         rw [TypedWriterTree.shallow_match handler witness.found]
         simpa [replaceFirst] using
           (witness.typing parameter).bind (fun response =>

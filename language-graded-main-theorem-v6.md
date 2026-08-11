@@ -14,10 +14,10 @@ The previously missing base-independent finite construction is now stated in
 
 The generated Lean API reference contains the exact checked declarations:
 
-- [`LanguageRecursiveBaseCert.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveBaseCert.main#doc)
+- [`LanguageRecursiveModel.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveModel.main#doc)
 - [`languageRecursiveStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageRecursiveStructurePreservation#doc)
-- [`LanguageRecursiveMorphismCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveMorphismCert.lift#doc)
-- [`LanguageRecursiveRelationCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveRelationCert.lift#doc)
+- [`LanguageRecursiveMorphism.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveMorphism.lift#doc)
+- [`LanguageRecursiveRelation.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveRelation.lift#doc)
 
 ## 1. Fixed source language
 
@@ -53,7 +53,7 @@ shallow handlers preserves the following structures.
 8. A matching source reduct denotes clause execution followed by the bare
    captured continuation.  The handler is not reinstalled after the match.
 
-Lean packages these conclusions as `LanguageFiniteStructureCert`.
+Lean packages these conclusions as `LanguageFiniteTheory`.
 
 ## 3. Recursive completion and derived deep handling `[LG.3.1]` [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageRecursiveStructurePreservation#doc)
 
@@ -95,9 +95,9 @@ If $M:A\,!\,L$, every denoted finite result $v$ still has type $A$.
 Thus the shallow-handler typing theorem, recursive operational semantics,
 least-fixed-point denotation, adequacy, and ground fundamental property form
 one checked proof chain.  These conclusions are packaged as
-`LanguageRecursiveStructureCert`.
+`LanguageRecursiveTheory`.
 
-## 4. Abstract base theorem `[LG.4.1]` [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveBaseCert.main#doc)
+## 4. Abstract base theorem `[LG.4.1]` [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveModel.main#doc)
 
 The recursive proof does not intrinsically require Writer.  An arbitrary base
 instance supplies only:
@@ -114,12 +114,12 @@ The generic theorem derives, rather than assumes:
 - adequacy of the completed semantics $\mu F$;
 - admissibility and the recursive fundamental pole $P(\mu F)$.
 
-This non-circular premise record is `LanguageRecursiveBaseCert`; its theorem is
-`LanguageRecursiveBaseCert.main`.  The Writer model is separately shown to
+This non-circular premise record is `LanguageRecursiveModel`; its theorem is
+`LanguageRecursiveModel.main`.  The Writer model is separately shown to
 instantiate it using typed request decomposition and the Unit response law for
 Writer operation zero.
 
-## 5. Morphisms and logical relations `[LG.5.1]` [[Lean: morphism]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveMorphismCert.lift#doc) [[Lean: relation]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveRelationCert.lift#doc)
+## 5. Morphisms and logical relations `[LG.5.1]` [[Lean: morphism]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveMorphism.lift#doc) [[Lean: relation]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveRelation.lift#doc)
 
 Let $q:O_S\to O_T$ be a base outcome map.  If it commutes with one semantic
 layer, $q_\ast\circ F_S=F_T\circ q_\ast$, then it commutes with recursive
@@ -134,15 +134,15 @@ application of $(F_S,F_T)$ relates the two least fixed points.  Pointwise
 outcome simulations are proved admissible, so this applies to graph and
 logical-relation liftings.
 
-The local premises are recorded by `LanguageRecursiveMorphismCert` and
-`LanguageRecursiveRelationCert`; their `lift` theorems derive the completed
+The local premises are recorded by `LanguageRecursiveMorphism` and
+`LanguageRecursiveRelation`; their `lift` theorems derive the completed
 correspondences.  Morphism lifting and relation lifting are separate results,
 while a morphism graph can instantiate the relation theorem.
 
 ## 6. Concrete checks
 
 The unit free-operation signature and pure unit clause instantiate the full
-recursive certificate.  Lean checks both:
+recursive package.  Lean checks both:
 
 - a selected request handled to `Unit`; and
 - a recursive conditional program that takes an actual `fixBeta` step and

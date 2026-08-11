@@ -46,7 +46,7 @@ follows.
 
 An object is a strong $E_B$-graded model $T$ such that:
 
-1. $\mathsf{DenotationalModelCert}(L_B,E_B,T)$ holds;
+1. $\mathsf{DenotationalModel}(L_B,E_B,T)$ holds;
 2. $\operatorname{FreeT}_\Delta(T)$ exists as a strong graded monad with its
    universal base embedding, free generators and coherent base action;
 
@@ -60,7 +60,7 @@ $(\Sigma_B,\Delta)$, Lean constructs the old and extended models, their
 canonical embedding, and `baseAct` by recursively flattening an old tree whose
 leaves are extended computations. It then checks unit, multiplication and
 naturality of that action, plus uniqueness of the structural fold. See
-[`finiteTreeActionCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.finiteTreeActionCert#doc)
+[`finiteTreeActionLaws`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.finiteTreeActionLaws#doc)
 and
 [`StructuralMap.unique`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.StructuralMap.unique#doc).
 
@@ -93,8 +93,8 @@ under componentwise composition, so these data form a category.
 
 The observed subcategory
 $\mathbf{ExtBase}^{\mathrm{obs}}_{\Delta,\mathcal K}$ additionally requires
-`BaseSafetyCert`, `MachineSoundnessCert`, an optional
-`ObservationAdequacyCert`, a finite-response certificate for
+`BaseSafety`, `MachineSoundness`, an optional
+`ObservationAdequacyAssumptions`, a finite-response package for
 $\mathcal K$, the canonical separated pole, and observation preservation by
 morphisms. These fields are needed for adequacy transport, not for the free
 extension functor itself.
@@ -103,7 +103,7 @@ extension functor itself.
 
 Define $\mathbf{Free}^{\mathrm{str}}_\Delta$ to have:
 
-- objects $\operatorname{FreeT}_\Delta(T)$ carrying `FreeCert`;
+- objects $\operatorname{FreeT}_\Delta(T)$ carrying `FreeExtensionPackage`;
 - morphisms grade-indexed transformations preserving extended return, bind,
   strength, weakening, old base layers, new $\Delta$ generators and the
   canonical FreeT structure.

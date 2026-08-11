@@ -23,9 +23,9 @@ entries, in the [formalization gap audit](formalization-gap-audit.md).
 ### Stable statement identifiers
 
 Every definition, lemma, theorem, and corollary on the canonical proof path
-has a globally unique identifier such as `C2-CERT.6.1`.  The format is
-`NOTE.SECTION.STATEMENT`: `C1`--`C4` name the concrete chapters, `CERT` and
-`PROOF` distinguish certificate and detailed-proof notes, and `LG`, `GF`, and
+has a globally unique identifier such as `C2-MAIN.6.1`.  The format is
+`NOTE.SECTION.STATEMENT`: `C1`--`C4` name the concrete chapters, `MAIN` and
+`PROOF` distinguish main-result and detailed-proof notes, and `LG`, `GF`, and
 `GR` name the language-level, generic-finite, and generic-recursive theorem
 notes.  These identifiers are stable: later insertions do not renumber an
 existing statement.  Older labels such as “Theorem II.8” remain as readable
@@ -37,7 +37,7 @@ aliases.
 flowchart TD
   C1["Chapter I: run concrete base programs"] --> C1S["Fix base syntax, typing, and semantics"]
   C1S --> C2["Chapter II: add free operations and calculate examples"]
-  C2 --> C2S["Extract the finite free-extension certificate"]
+  C2 --> C2S["Extract the finite free-extension package"]
   C2S --> C3["Chapter III: calculate shallow handlers"]
   C3 --> C3S["Prove shallow naturality, relations, and adequacy"]
   C3S --> C4["Chapter IV: add fixpoint and derive deep handling"]
@@ -59,7 +59,7 @@ Read in this order:
 2. [Concrete base machines](chapter-1-operational-examples-v5.md)
 3. [Core calculus and type safety](chapter-1-foundations-v5.md)
 4. [Denotational models and operational comparison](chapter-1-denotational-v5.md)
-5. [Exported base certificate](chapter-1-certificate-v5.md)
+5. [Exported base package](chapter-1-main-results-v5.md)
 6. [Appendix I-A: detailed proofs](chapter-1-proof-details-v5.md)
 
 ### Definition and theorem correspondence
@@ -76,10 +76,10 @@ Read in this order:
 | preservation | Lean checked | [`LanguageStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc) |
 | closed progress | Lean checked | [`HasLanguageComp.progressClosed`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed#doc) |
 | recursion-free internal normalization | Lean checked | [`HasLanguageComp.stronglyNormalizing`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.stronglyNormalizing#doc), [`HasLanguageComp.internallyNormalizesToBoundary`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.internallyNormalizesToBoundary#doc) |
-| Writer/State/Exception finite model extraction | Lean checked; typed graded signature bridge remains | [`writerFiniteBaseModelCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.writerFiniteBaseModelCert#doc), [`stateFiniteBaseModelCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.stateFiniteBaseModelCert#doc), [`exceptionFiniteBaseModelCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.exceptionFiniteBaseModelCert#doc) |
+| Writer/State/Exception finite model extraction | Lean checked; typed graded signature bridge remains | [`writerFiniteBaseModel`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.writerFiniteBaseModel#doc), [`stateFiniteBaseModel`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.stateFiniteBaseModel#doc), [`exceptionFiniteBaseModel`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.exceptionFiniteBaseModel#doc) |
 | Writer operational/tree adequacy | Lean checked | [`language_writer_operational_tree_adequacy`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.language_writer_operational_tree_adequacy#doc) |
-| source-language base package | Lean checked | [`LanguageCoreCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageCoreCert#doc), [`LanguageWriterCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageWriterCert#doc) |
-| categorical `BaseCert` presentation | Readable abstraction | exact instance boundary is stated in [certificate assumptions](chapter-1-certificate-v5.md) |
+| source-language base package | Lean checked | [`LanguageCoreMetatheory`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageCoreMetatheory#doc), [`LanguageWriterSemantics`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageWriterSemantics#doc) |
+| categorical `BasePackage` presentation | Readable abstraction | exact instance boundary is stated in [package assumptions](chapter-1-main-results-v5.md) |
 
 ## Chapter II — free operations
 
@@ -97,7 +97,7 @@ graded theorem:
 2. [Added syntax and ordered effects](chapter-2-free-operations-v5.md)
 3. [Writer end-to-end instance](writer-end-to-end-v5.md), [State](state-end-to-end-v5.md), [Exception](exception-end-to-end-v5.md)
 4. [Finite denotation](chapter-2-denotational-v5.md)
-5. [Free certificate](chapter-2-certificate-v5.md)
+5. [Free package](chapter-2-main-results-v5.md)
 6. [Detailed proof appendix](chapter-2-proof-details-v5.md)
 
 | note object | status | Lean declaration |
@@ -114,9 +114,9 @@ graded theorem:
 | target-algebra fold | Lean checked | [`GenericExtensionAlgebra.fold_bind`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.fold_bind#doc) |
 | finite morphism lifting | Lean checked | [`GenericExtensionAlgebra.Morphism.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.Morphism.lift#doc) |
 | finite relation lifting | Lean checked | [`GenericExtensionAlgebra.Relation.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.Relation.lift#doc) |
-| finite TT lifting | Lean checked | [`GenericExtensionAlgebra.TTLayerCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.TTLayerCert.lift#doc) |
-| finite operational/denotational comparison transport | Lean checked | [`GenericExtensionAlgebra.ModelComparisonCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparisonCert.lift#doc) |
-| Chapter-II source package | Lean checked | [`LanguageFreeStageCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFreeStageCert#doc) |
+| finite TT lifting | Lean checked | [`GenericExtensionAlgebra.TTLayerAssumptions.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.TTLayerAssumptions.lift#doc) |
+| finite operational/denotational comparison transport | Lean checked | [`GenericExtensionAlgebra.ModelComparison.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparison.lift#doc) |
+| Chapter-II source package | Lean checked | [`LanguageFreeStage`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFreeStage#doc) |
 
 The ordered grade-indexed carrier in the chapter notes is a stronger paper
 presentation. Lean now connects the source-specific finite tree to the generic
@@ -128,7 +128,7 @@ $F_eA$. The latter still requires the `StrongGradedFreeT` hypothesis.
 1. [Concrete reductions](chapter-3-operational-examples-v5.md)
 2. [Handler syntax and direct rules](chapter-3-shallow-handlers-v5.md)
 3. [Denotational shallow handling](chapter-3-denotational-v5.md)
-4. [Shallow certificate](chapter-3-certificate-v5.md)
+4. [Shallow package](chapter-3-main-results-v5.md)
 5. [Detailed proof appendix](chapter-3-proof-details-v5.md)
 
 | note object | status | Lean declaration |
@@ -137,9 +137,9 @@ $F_eA$. The latter still requires the `StrongGradedFreeT` hypothesis.
 | forwarding shallow transformation | Lean checked | [`FreeExtension.shallow`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.shallow#doc) |
 | matching and forwarding equations | Lean checked | [`shallow_match`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.shallow_match#doc), [`shallow_forward`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.shallow_forward#doc) |
 | map naturality | Lean checked | [`shallow_map`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.shallow_map#doc) |
-| Chapter-III source package | Lean checked | [`LanguageHandlerStageCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageHandlerStageCert#doc) |
+| Chapter-III source package | Lean checked | [`LanguageHandlerStage`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageHandlerStage#doc) |
 | structural relation preservation | Lean checked | [`Rel.shallow`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.Rel.shallow#doc) |
-| source-language shallow certificate | Lean checked | [`languageShallowCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageShallowCert#doc) |
+| source-language shallow package | Lean checked | [`languageShallowMetatheory`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageShallowMetatheory#doc) |
 | finite structure-preservation bundle | Lean checked | [`languageFiniteStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageFiniteStructurePreservation#doc) |
 
 ## Chapter IV — recursion and derived deep handling
@@ -147,7 +147,7 @@ $F_eA$. The latter still requires the `StrongGradedFreeT` hypothesis.
 1. [Recursive programs](chapter-4-operational-examples-v5.md)
 2. [Fixpoint and the derived handler](chapter-4-fixpoint-derived-deep-v5.md)
 3. [Least-fixed-point denotation](chapter-4-denotational-v5.md)
-4. [Recursive certificate](chapter-4-certificate-v5.md)
+4. [Recursive package](chapter-4-main-results-v5.md)
 5. [Detailed proof appendix](chapter-4-proof-details-v5.md)
 
 | note object | status | Lean declaration |
@@ -156,11 +156,11 @@ $F_eA$. The latter still requires the `StrongGradedFreeT` hypothesis.
 | derived-deep one-layer functional | Lean checked | [`RecursiveResumptionSystem.functional`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.RecursiveResumptionSystem.functional#doc) |
 | fuel evaluator / finite iteration | Lean checked | [`genericRunFuel_eq_iterate`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericRunFuel_eq_iterate#doc) |
 | observer continuity obligations | Lean checked | [`RecursiveObserverContinuity`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.RecursiveObserverContinuity#doc) |
-| LFP unfold, leastness, adequacy, pole | Lean checked | [`GenericRecursiveResumptionCert.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumptionCert.main#doc) |
-| recursive morphism lifting | Lean checked | [`GenericRecursiveMorphismCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveMorphismCert.lift#doc) |
-| recursive relation lifting | Lean checked | [`GenericRecursiveRelationCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveRelationCert.lift#doc) |
-| recursive outcome-TT lifting | Lean checked | [`GenericRecursiveOutcomeTTCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveOutcomeTTCert.lift#doc) |
-| old-language conservativity | Lean checked | [`oldLanguageConservative`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumptionCert.oldLanguageConservative#doc) |
+| LFP unfold, leastness, adequacy, pole | Lean checked | [`GenericRecursiveResumption.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumption.main#doc) |
+| recursive morphism lifting | Lean checked | [`GenericRecursiveMorphism.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveMorphism.lift#doc) |
+| recursive relation lifting | Lean checked | [`GenericRecursiveRelation.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveRelation.lift#doc) |
+| recursive outcome-TT lifting | Lean checked | [`GenericRecursiveOutcomeTT.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveOutcomeTT.lift#doc) |
+| old-language conservativity | Lean checked | [`oldLanguageConservative`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumption.oldLanguageConservative#doc) |
 | Writer concrete fixed-point result | Lean checked | [`example_limit_true`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveWriter.example_limit_true#doc) |
 | State limit adequacy | Lean checked | [`GenericRecursiveState.limit_adequacy`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveState.limit_adequacy#doc) |
 | Exception limit adequacy | Lean checked | [`GenericRecursiveException.limit_adequacy`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveException.limit_adequacy#doc) |

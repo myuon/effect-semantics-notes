@@ -212,4 +212,4 @@ The full Chapter-III cycle is developed in:
 
 - [Direct shallow semantics and programs](chapter-3-operational-examples-v5.md);
 - [Denotational shallow handling](chapter-3-denotational-v5.md);
-- [Proofs and `ShallowCert`](chapter-3-certificate-v5.md).
+- [Proofs and `ShallowHandlerPackage`](chapter-3-main-results-v5.md).

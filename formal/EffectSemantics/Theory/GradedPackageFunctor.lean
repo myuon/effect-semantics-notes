@@ -20,7 +20,7 @@ structure GradeAlgebra where
   leTrans : le first second → le second third → le first third
 
 /-- The operations of a strong graded model.  The laws involving grade
-associativity and units belong to the object certificate; the functor proof
+associativity and units belong to the object package; the functor proof
 below only needs the grade-preserving functor laws recorded here. -/
 structure GradedMonadModel (grades : GradeAlgebra) where
   T : grades.Grade → Type → Type

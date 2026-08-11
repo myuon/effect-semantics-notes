@@ -5,8 +5,8 @@ namespace EffectSemantics
 
 open TypedWriterTree
 
-/-- Concrete algebra certificate extracted from proved declarations. -/
-structure EffectLanguageCert where
+/-- Laws of the ordered effect language used by the concrete model. -/
+structure EffectLanguageLaws where
   seqAssociative : ∀ first second third,
     EffectLanguage.seq (EffectLanguage.seq first second) third =
       EffectLanguage.seq first (EffectLanguage.seq second third)
@@ -22,15 +22,15 @@ structure EffectLanguageCert where
     EffectLanguage.handle selected replacement lower ≤
       EffectLanguage.handle selected replacement upper
 
-theorem effectLanguageCert : EffectLanguageCert where
+theorem effectLanguageLaws : EffectLanguageLaws where
   seqAssociative := EffectLanguage.seq_assoc
   leftUnit := EffectLanguage.seq_one_left
   rightUnit := EffectLanguage.seq_one_right
   principalMultiplication := EffectLanguage.principal_seq
   handlerMonotone := EffectLanguage.handle_mono
 
-/-- Concrete monad/functor/graded-bind certificate for response-typed trees. -/
-structure TypedWriterMonadCert (sig : Signature) where
+/-- Monad, functor, and graded-bind laws for response-typed trees. -/
+structure TypedWriterMonadLaws (sig : Signature) where
   bindRightUnit : ∀ {α : Type} (tree : TypedWriterTree sig α),
     tree.bind TypedWriterTree.ret = tree
   bindAssociative : ∀ {α β γ : Type} (tree : TypedWriterTree sig α)
@@ -51,15 +51,15 @@ structure TypedWriterMonadCert (sig : Signature) where
     HasLanguageEffect (tree.bind next)
       (EffectLanguage.seq language nextLanguage)
 
-noncomputable def typedWriterMonadCert (sig : Signature) :
-    TypedWriterMonadCert sig where
+noncomputable def typedWriterMonadLaws (sig : Signature) :
+    TypedWriterMonadLaws sig where
   bindRightUnit := TypedWriterTree.bind_ret
   bindAssociative := TypedWriterTree.bind_assoc
   mapIdentity := TypedWriterTree.map_id
   mapComposition := TypedWriterTree.map_comp
   languageBind := HasLanguageEffect.bind
 
-structure TypedWriterAdequacyCert (sig : Signature) where
+structure TypedWriterAdequacy (sig : Signature) where
   operationalTree : ∀ {term resultTy effect}
       {typing : HasComp sig [] term resultTy effect}
       {log value},
@@ -71,26 +71,26 @@ structure TypedWriterAdequacyCert (sig : Signature) where
       {tree} (_produces : ProducesTypedWriterTree sig typing tree),
     TypedWriterTree.HasEffect tree effect
 
-noncomputable def typedWriterAdequacyCert (sig : Signature) :
-    TypedWriterAdequacyCert sig where
+noncomputable def typedWriterAdequacy (sig : Signature) :
+    TypedWriterAdequacy sig where
   operationalTree := typed_writer_operational_tree_adequacy
   gradeSound := ProducesTypedWriterTree.effectSound
 
-structure TypedFiniteWriterCert (sig : Signature) where
-  monad : TypedWriterMonadCert sig
-  adequacy : TypedWriterAdequacyCert sig
-  effects : EffectLanguageCert
+structure TypedWriterModel (sig : Signature) where
+  monad : TypedWriterMonadLaws sig
+  adequacy : TypedWriterAdequacy sig
+  effects : EffectLanguageLaws
 
-noncomputable def typedFiniteWriterCert (sig : Signature) :
-    TypedFiniteWriterCert sig where
-  monad := typedWriterMonadCert sig
-  adequacy := typedWriterAdequacyCert sig
-  effects := effectLanguageCert
+noncomputable def typedWriterModel (sig : Signature) :
+    TypedWriterModel sig where
+  monad := typedWriterMonadLaws sig
+  adequacy := typedWriterAdequacy sig
+  effects := effectLanguageLaws
 
-/-- Concrete finite shallow certificate.  Exhaustive clause grading is the
+/-- Concrete finite shallow-handler model. Exhaustive clause grading is the
 only supplied local premise; structural, graph, TT and exact-grade transport
 are filled by checked generic proofs. -/
-structure TypedFiniteShallowCert (sig : Signature) (selected : Nat)
+structure TypedShallowModel (sig : Signature) (selected : Nat)
     (handler : TypedWriterTree.AffineSemantics sig) (replacement : Effect) where
   exhaustiveEffect : TypedWriterTree.ExhaustiveEffect selected handler replacement
   mapNatural : ∀ {α β : Type} (function : α → β)
@@ -114,11 +114,11 @@ structure TypedFiniteShallowCert (sig : Signature) (selected : Nat)
     TypedWriterTree.HasEffect (TypedWriterTree.shallow selected handler tree)
       (TypedWriterTree.replaceFirst selected replacement effect)
 
-noncomputable def typedFiniteShallowCert
+noncomputable def typedShallowModel
     {sig : Signature} {selected : Nat}
     {handler : TypedWriterTree.AffineSemantics sig} {replacement : Effect}
     (exhaustive : TypedWriterTree.ExhaustiveEffect selected handler replacement) :
-    TypedFiniteShallowCert sig selected handler replacement where
+    TypedShallowModel sig selected handler replacement where
   exhaustiveEffect := exhaustive
   mapNatural := TypedWriterTree.shallow_map
   relationPreserved := fun related => related.shallow selected handler

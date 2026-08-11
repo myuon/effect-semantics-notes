@@ -225,12 +225,12 @@ theorem finite_adequacy
   · exact ⟨fuel, (runsFuel_iff system handler).mp observed⟩
   · exact ⟨fuel, (runsFuel_iff system handler).mpr observed⟩
 
-def cert
+def model
     (system : RecursiveResumptionSystem
       writerBaseSignature userOperationSignature State Result)
     (handler : FreeExtension.AffineHandler
       writerBaseSignature userOperationSignature) :
-    GenericRecursiveResumptionCert system (Observer Result) handler where
+    GenericRecursiveResumption system (Observer Result) handler where
   continuous := functional_continuous system handler
   Runs := Runs system handler
   finiteAdequacy := finite_adequacy system handler
@@ -243,8 +243,8 @@ theorem limit_adequacy
     (handler : FreeExtension.AffineHandler
       writerBaseSignature userOperationSignature) :
     Runs system handler state outcome ↔
-      (cert system handler).semantics state = some outcome :=
-  (cert system handler).main.2.2.1
+      (model system handler).semantics state = some outcome :=
+  (model system handler).main.2.2.1
 
 /-! ## A complete derived-deep Writer example -/
 
@@ -290,7 +290,7 @@ theorem example_layer_preserves_pole (approximation) :
         RecursiveResumptionSystem.leafObservation] at observed
       exact satisfies false outcome observed
 
-def exampleCert : GenericRecursiveResumptionCert
+def exampleModel : GenericRecursiveResumption
     exampleSystem (Observer Unit) exampleHandler where
   continuous := functional_continuous exampleSystem exampleHandler
   Runs := Runs exampleSystem exampleHandler
@@ -299,12 +299,12 @@ def exampleCert : GenericRecursiveResumptionCert
   layerPreservesPole := example_layer_preserves_pole
 
 theorem example_limit_true :
-    exampleCert.semantics true = some ([.unit], ()) :=
-  FlatApproximation.lfp_of_iterate exampleCert.continuous example_iterate_true
+    exampleModel.semantics true = some ([.unit], ()) :=
+  FlatApproximation.lfp_of_iterate exampleModel.continuous example_iterate_true
 
 theorem example_recursive_pole :
-    FlatApproximation.Satisfies examplePole exampleCert.semantics :=
-  exampleCert.main.2.2.2
+    FlatApproximation.Satisfies examplePole exampleModel.semantics :=
+  exampleModel.main.2.2.2
 
 end GenericRecursiveWriter
 end EffectSemantics

@@ -12,17 +12,17 @@ solely because a related result appears here.
 
 | Mathematical result | Checked Lean declaration |
 |---|---|
-| Ordered effect-language laws and monotone handling | [`languageEffectCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageEffectCert#doc) |
+| Ordered effect-language laws and monotone handling | [`languageEffectLaws`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageEffectLaws#doc) |
 | Preservation of internal CBV reduction | [`LanguageStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc) |
 | Closed typed progress | [`HasLanguageComp.progressClosed`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed#doc) |
 | Reducibility and finite-language strong normalization | [`HasLanguageComp.reducible`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.reducible#doc), [`HasLanguageComp.stronglyNormalizing`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.stronglyNormalizing#doc) |
 | Finite internal reduction to return or operation boundary | [`HasLanguageComp.internallyNormalizesToBoundary`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.internallyNormalizesToBoundary#doc) |
 | General computation-application elaboration and typing | [`LanguageComp.elaborateApplication`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageComp.elaborateApplication#doc), [`HasLanguageComp.elaborateApplication`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.elaborateApplication#doc) |
-| Writer finite base-model extraction | [`writerFiniteBaseModelCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.writerFiniteBaseModelCert#doc) |
-| State finite base-model extraction | [`stateFiniteBaseModelCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.stateFiniteBaseModelCert#doc) |
-| Exception finite base-model extraction | [`exceptionFiniteBaseModelCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.exceptionFiniteBaseModelCert#doc) |
+| Writer finite base-model extraction | [`writerFiniteBaseModel`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.writerFiniteBaseModel#doc) |
+| State finite base-model extraction | [`stateFiniteBaseModel`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.stateFiniteBaseModel#doc) |
+| Exception finite base-model extraction | [`exceptionFiniteBaseModel`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.exceptionFiniteBaseModel#doc) |
 | Writer operational/tree adequacy | [`language_writer_operational_tree_adequacy`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.language_writer_operational_tree_adequacy#doc) |
-| Shallow map naturality, structural-relation lifting and TT preservation | [`languageShallowCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageShallowCert#doc) |
+| Shallow map naturality, structural-relation lifting and TT preservation | [`languageShallowMetatheory`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageShallowMetatheory#doc) |
 | Bundled finite structure-preservation theorem | [`languageFiniteStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageFiniteStructurePreservation#doc) |
 
 ## Generic finite free extension
@@ -39,9 +39,9 @@ solely because a related result appears here.
 | Algebra folds preserve bind | [`GenericExtensionAlgebra.fold_bind`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.fold_bind#doc) |
 | Monad morphisms lift through the free extension | [`GenericExtensionAlgebra.Morphism.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.Morphism.lift#doc) |
 | Logical relations lift through the free extension | [`GenericExtensionAlgebra.Relation.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.Relation.lift#doc) |
-| Observation-indexed TT-lifting contains structural tree relations | [`GenericExtensionAlgebra.TTLayerCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.TTLayerCert.lift#doc) |
-| Denotational-to-operational comparison lifts through finite free extension | [`GenericExtensionAlgebra.ModelComparisonCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparisonCert.lift#doc) |
-| Legacy observation-oriented compatibility API | [`GenericExtensionAlgebra.AdequacyCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.AdequacyCert.lift#doc) |
+| Observation-indexed TT-lifting contains structural tree relations | [`GenericExtensionAlgebra.TTLayerAssumptions.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.TTLayerAssumptions.lift#doc) |
+| Denotational-to-operational comparison lifts through finite free extension | [`GenericExtensionAlgebra.ModelComparison.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparison.lift#doc) |
+| Legacy observation-oriented compatibility API | [`GenericExtensionAlgebra.AdequacyAssumptions.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.AdequacyAssumptions.lift#doc) |
 | Existing Writer tree is recovered by round-trip | [`writerToGeneric_genericToWriter`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.writerToGeneric_genericToWriter#doc) |
 | Generic Writer operational interpretation agrees with existing `runClosed` | [`genericWriterOperationalInterpretation_writerToGeneric`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericWriterOperationalInterpretation_writerToGeneric#doc) |
 
@@ -53,11 +53,11 @@ solely because a related result appears here.
 |---|---|
 | Observer-local conditions imply functional continuity | [`RecursiveObserverContinuity.functionalContinuous`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.RecursiveObserverContinuity.functionalContinuous#doc) |
 | Fuel evaluator agrees with finite Kleene iteration | [`genericRunFuel_eq_iterate`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericRunFuel_eq_iterate#doc) |
-| Unfold, leastness, adequacy and recursive pole | [`GenericRecursiveResumptionCert.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumptionCert.main#doc) |
-| Outcome morphism lifting | [`GenericRecursiveMorphismCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveMorphismCert.lift#doc) |
-| Admissible relation lifting | [`GenericRecursiveRelationCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveRelationCert.lift#doc) |
-| Observation-sensitive outcome TT lifting | [`GenericRecursiveOutcomeTTCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveOutcomeTTCert.lift#doc) |
-| Recursive old-language conservativity | [`GenericRecursiveResumptionCert.oldLanguageConservative`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumptionCert.oldLanguageConservative#doc) |
+| Unfold, leastness, adequacy and recursive pole | [`GenericRecursiveResumption.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumption.main#doc) |
+| Outcome morphism lifting | [`GenericRecursiveMorphism.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveMorphism.lift#doc) |
+| Admissible relation lifting | [`GenericRecursiveRelation.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveRelation.lift#doc) |
+| Observation-sensitive outcome TT lifting | [`GenericRecursiveOutcomeTT.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveOutcomeTT.lift#doc) |
+| Recursive old-language conservativity | [`GenericRecursiveResumption.oldLanguageConservative`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumption.oldLanguageConservative#doc) |
 | Writer concrete limit result and pole | [`GenericRecursiveWriter.example_limit_true`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveWriter.example_limit_true#doc) |
 | Exception limit adequacy | [`GenericRecursiveException.limit_adequacy`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveException.limit_adequacy#doc) |
 | State transformer example | [`GenericRecursiveState.toggle_from_false`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveState.toggle_from_false#doc) |
@@ -78,9 +78,9 @@ solely because a related result appears here.
 
 | Mathematical result | Checked Lean declaration |
 |---|---|
-| Abstract recursive structure preservation from local base obligations | [`LanguageRecursiveBaseCert.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveBaseCert.main#doc) |
-| Outcome-morphism lifting through recursive completion | [`LanguageRecursiveMorphismCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveMorphismCert.lift#doc) |
-| Logical-relation lifting through recursive completion | [`LanguageRecursiveRelationCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveRelationCert.lift#doc) |
+| Abstract recursive structure preservation from local base obligations | [`LanguageRecursiveModel.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveModel.main#doc) |
+| Outcome-morphism lifting through recursive completion | [`LanguageRecursiveMorphism.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveMorphism.lift#doc) |
+| Logical-relation lifting through recursive completion | [`LanguageRecursiveRelation.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveRelation.lift#doc) |
 
 ## Ordered-subeffecting repair
 

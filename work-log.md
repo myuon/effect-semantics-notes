@@ -151,7 +151,7 @@ Choose between $X+\mathsf{Op}_\Delta(K)$ and $K+\mathsf{Op}_\Delta(K)$ by recons
 - structural relation and TT-lifting preservation;
 - source `answerWith`/semantic matching commutation, including opened
   continuation substitution;
-- `LanguageFiniteStructureCert`, uniformly for every fixed signature.
+- `LanguageFiniteTheory`, uniformly for every fixed signature.
 
 ### Remaining boundary
 
@@ -168,7 +168,7 @@ finite-observation/Kleene completion layer.
 - derived deep Writer handler as the least fixed point of repeated shallow
   handling;
 - operational/denotational adequacy and result typing;
-- non-circular abstract `LanguageRecursiveBaseCert.main`;
+- non-circular abstract `LanguageRecursiveModel.main`;
 - recursive morphism and binary logical-relation lifting;
 - concrete Writer instantiation and recursive `fixBeta` example.
 

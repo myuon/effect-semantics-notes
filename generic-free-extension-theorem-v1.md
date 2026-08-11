@@ -129,22 +129,22 @@ for every finite extended tree.  This is
 The morphism and logical-relation theorems are therefore distinct, as required
 by the research question.
 
-### Observation-indexed TT-lifting `[GF.5.2]` [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.TTLayerCert.lift#doc)
+### Observation-indexed TT-lifting `[GF.5.2]` [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.TTLayerAssumptions.lift#doc)
 
 The formalization also keeps structural relation lifting distinct from
 observational closure.  Given a heterogeneous observation family, Lean defines
 orthogonal continuation pairs and the induced biorthogonal relation
 $V^{\top\top}$.  Return values enter this relation from orthogonality alone.
-The remaining local certificate asks separately that every base and free
+The remaining local package asks separately that every base and free
 operation interpretation preserve $V^{\top\top}$.
 
 Under precisely those local conditions, every structurally related pair of
 free-extension trees has TT-related folds.  See
-[`GenericExtensionAlgebra.TTLayerCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.TTLayerCert.lift#doc).
+[`GenericExtensionAlgebra.TTLayerAssumptions.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.TTLayerAssumptions.lift#doc).
 Thus the formal theorem does not silently infer adequacy from a structural
 relation: the observation-sensitive premise remains visible.
 
-### Finite model-comparison transport `[GF.5.3]` [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparisonCert.lift#doc)
+### Finite model-comparison transport `[GF.5.3]` [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparison.lift#doc)
 
 An operational model is presented as a second algebra for the same base/free
 signatures. A comparison map from the denotational algebra must
@@ -158,7 +158,7 @@ $$
 
 for every finite extended computation, including the restriction to embedded
 old-language trees.  See
-[`GenericExtensionAlgebra.ModelComparisonCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparisonCert.lift#doc).
+[`GenericExtensionAlgebra.ModelComparison.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparison.lift#doc).
 
 ## 6. Concrete bases
 
@@ -166,12 +166,12 @@ Writer is proved isomorphic to the generic construction: translations in both
 directions are inverse and the forward translation preserves `bind`.  State
 uses typed operations `get : Bool` and `put(b) : Unit`; Exception uses
 `raise(e) : Empty`, making its non-resumability explicit.  All three receive
-the same generic finite certificate.
+the same generic finite package.
 
 For Writer, the operational target is the partial outcome
 $\mathsf{Option}(\mathsf{List}(\mathsf{Val})\times A)$.  `tell` prefixes the
 log and an unhandled free operation produces no closed outcome.  This algebra
-instantiates the generic adequacy certificate, and Lean proves that its fold
+instantiates the generic adequacy package, and Lean proves that its fold
 is extensionally equal to the pre-existing `WriterTree.runClosed`:
 [`genericWriterOperationalInterpretation_writerToGeneric`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericWriterOperationalInterpretation_writerToGeneric#doc).
 

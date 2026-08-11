@@ -48,7 +48,7 @@ hypothesis replaces each recursively wrapped continuation by
 $g=\mathcal D_h^n(\bot)$.  This is exactly
 $\mathcal D_h^{n+1}(\bot)$. $\square$
 
-Continuity and the `RecModelCert` source-fixpoint agreement now give
+Continuity and the `RecursiveModel` source-fixpoint agreement now give
 
 $$
 \llbracket\mathsf{loop}\rrbracket
@@ -75,7 +75,7 @@ unfoldings and is therefore a prefix of some approximant.  Hence it has $P$.
 This proves operational deep elimination without assuming termination.
 Admissibility gives the parallel denotational statement at the supremum.
 
-## 4. Recursive logical relation `[C4-PROOF.4.1]` [[Lean: generic relation lift]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveRelationCert.lift#doc)
+## 4. Recursive logical relation `[C4-PROOF.4.1]` [[Lean: generic relation lift]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveRelation.lift#doc)
 
 Take the Chapter-III relation and require admissibility: it contains bottom
 and is closed under suprema of increasing chains.  The fundamental lemma is a
@@ -86,7 +86,7 @@ $F^n(\bot)$, and admissibility relates their suprema.  The derived handler case
 uses the approximation lemma and Chapter-III handler compatibility at every
 stage.  Applying the observation-reflection field proves finite-boundary
 adequacy.  Bottom or productive-trace reflection follows only if it is a field
-of `RecBaseCert`.
+of `RecBasePackage`.
 
 ## 5. Ordered iteration bound `[C4-PROOF.5.1]` [[Lean: star closure]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.EffectLanguage.star_least_fixed_characterization#doc) [[Lean: handler closure]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.EffectLanguage.handled_star_le#doc)
 
@@ -108,14 +108,14 @@ $(b\cdot e'\cdot e)^*$.  The effect-safety interpretation concerns finite
 execution prefixes, so this uniform bound covers the recursive computation.
 No equality or exact multiplicity follows.
 
-## 6. Assembly of the layered certificates `[C4-PROOF.6.1]` [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageRecursiveStructurePreservation#doc)
+## 6. Assembly of the layered packages `[C4-PROOF.6.1]` [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageRecursiveStructurePreservation#doc)
 
-One-step safety supplies `RecursiveSafetyCert`; the
+One-step safety supplies `RecursiveSafety`; the
 source/semantic approximation lemma supplies definability and the deep
-equations in `DerivedDeepCert`; the invariant separately supplies
-`DeepElimCert`; the admissible logical relation supplies
-`RecursiveHandlerRelCert` and declared-level adequacy; and the iteration
-induction supplies `RecursiveEffectCert`. Old terms contain neither recursion
+equations in `DerivedDeepPackage`; the invariant separately supplies
+`DeepElimination`; the admissible logical relation supplies
+`RecursiveHandlerRelation` and declared-level adequacy; and the iteration
+induction supplies `RecursiveEffectLaws`. Old terms contain neither recursion
 nor derived-handler expansion, so Chapter-III conservativity remains literal.
 Every stronger observation remains explicitly conditional.
 
@@ -137,6 +137,6 @@ $$
 
 exposes an $j$ request.  Since $j\in I_\Delta$, this is also an escaping
 $\Delta$ request at interface granularity.  Thus partial derived-deep
-definability does not imply `DeepElimCert`.  This is a direct countermodel to
+definability does not imply `DeepElimination`.  This is a direct countermodel to
 dropping exhaustiveness from the elimination theorem, rather than merely a
 gap in its proof. $\square$

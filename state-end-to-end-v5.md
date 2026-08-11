@@ -1,4 +1,4 @@
-# State end-to-end certificate instance
+# State end-to-end package instance
 
 :::{admonition} Lean correspondence — State
 :class: tip
@@ -95,7 +95,7 @@ $$
 
 Return, `get`, `put` and free-node closure are pointwise in the initial state.
 Bind closure uses the intermediate state produced by the related first
-computations.  Weakening changes no state transformer.  Hence `TTCert` and the
+computations.  Weakening changes no state transformer.  Hence `TTClosure` and the
 structural-to-TT inclusion hold without any Writer-specific invariant.
 
 ## 5. Shallow handler
@@ -119,4 +119,4 @@ At initial state `true`, operational and denotational execution both return
 `true` with final state `false`.  `TTClause` follows by applying pointwise
 related continuations to the same response at the same request-time state.
 
-Thus the complete recursion-free certificate chain holds for State.
+Thus the complete recursion-free package chain holds for State.

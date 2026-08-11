@@ -221,7 +221,7 @@ $$
 $$
 
 These four proofs establish the corresponding fields of the split
-`BaseSafetyCert`, `OperationalModelCert`, `DenotationalModelCert`, and
-`ModelComparisonCert`. Their ground observation corollaries inhabit the
-optional `ObservationAdequacyCert`; determinism is an instance property, not
+`BaseSafety`, `OperationalModel`, `DenotationalModel`, and
+`ModelComparison`. Their ground observation corollaries inhabit the
+optional `ObservationAdequacyAssumptions`; determinism is an instance property, not
 an observation premise.

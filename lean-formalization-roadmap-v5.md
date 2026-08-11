@@ -82,8 +82,8 @@ adequacy or transport unchecked.
 
 ### B. Formalize after the recursion-free chain closes
 
-1. the abstract `BaseSafetyCert`, `CarrierCert`, `MonadExtCert`, `FunctorCert`,
-   `RelCert`, `FiniteTTCert` and shallow certificate records;
+1. the abstract `BaseSafety`, `CarrierStructure`, `MonadExtensionLaws`, `FunctorialityLaws`,
+   `RelationLaws`, `FiniteTTClosure` and shallow package records;
 2. the general indexed initial-algebra/free-carrier construction;
 3. TT-lifting and the finite fundamental lemma;
 4. State and Exception instances as independence checks;
@@ -142,7 +142,7 @@ assumptions as Lean axioms and then “proving” the theorem by projection.
 | M4 — Writer free trees | graded `pure`/`bind` laws; weakening laws; semantic substitution; one-step soundness | M1–M3 |
 | M5 — finite adequacy | behavior-tree correspondence; handler commutation; ground return/log/request reflection | M4 |
 | M6 — morphisms and relations | lifted map identity/composition; monad-morphism laws; structural relation bind; graph lemma | M4 |
-| M7 — certificate extraction | concrete Writer proofs instantiate the finite certificate records without extra axioms | M1–M6 |
+| M7 — package extraction | concrete Writer proofs instantiate the finite package records without extra axioms | M1–M6 |
 | M8 — second base models | State and Exception instantiate M1–M7; shared proofs are refactored, model-specific proofs remain local | M7 |
 | M9 — recursion/deep control | recursive one-step safety; finite approximant equations; partial-deep regression; exhaustive finite-prefix elimination | M3, M7 |
 | M10 — recursive adequacy | chosen pointed-domain model; admissible TT relation; fixed-point fundamental lemma; declared-level reflection | M5, M9 |
@@ -182,7 +182,7 @@ EffectSemantics/
     WriterAdequacy.lean
     MorphismLift.lean
     RelationLift.lean
-  Certificate/
+  Package/
     Base.lean
     Free.lean
     Shallow.lean
@@ -195,7 +195,7 @@ EffectSemantics/
 ```
 
 Each paper theorem should link to one public Lean declaration.  Helper lemmas
-may be internal, but certificate fields should not be populated by `axiom`,
+may be internal, but package fields should not be populated by `axiom`,
 `sorry` or an opaque assumption that restates the desired conclusion.
 
 ## 6. Proof order inside the first implementation slice
@@ -222,7 +222,7 @@ At the end of each milestone:
 
 - no `sorry`, undeclared axioms or theorem-shaped structure fields;
 - all examples reduce with `#reduce`/proved evaluation lemmas;
-- theorem assumptions match the certificate dependency table;
+- theorem assumptions match the package dependency table;
 - negative claims have an explicit typed counterexample;
 - CI runs `lake build` from a clean checkout.
 
@@ -383,7 +383,7 @@ the same generic completion while retaining genuinely different base
 interaction laws.
 
 Those three instances are now packaged by a single minimal
-`RecursiveBoundaryCert`.  Its fields are exactly a fuel observer, stability,
+`RecursiveBoundaryModel`.  Its fields are exactly a fuel observer, stability,
 a direct run relation and finite adequacy.  The completed limit, limit
 adequacy, uniqueness of operational outcomes and the equivalence between
 bottom and absence of every finite boundary are derived generically.  Writer,
@@ -393,18 +393,18 @@ paper-level `RecursiveBaseAdequacy` black box for the finite-boundary layer by
 an explicit checked interface.
 
 The optional discharge and transport layers are now records as well.
-`RecursiveDischargeCert` adds a good-term predicate and a free-interface
+`RecursiveDischarge` adds a good-term predicate and a free-interface
 projection; the three bases instantiate it from source typing, handler typing,
-exhaustiveness and only their own response laws.  `RecursiveMorphismCert`
+exhaustiveness and only their own response laws.  `RecursiveMorphism`
 lists source/target continuity and one-layer commutation.  Its relational
 counterpart lists both continuities, binary admissibility, bottom relatedness
 and one-layer preservation.  Fixed-point morphism/relation lifting is derived
-from these fields, so no conclusion is stored back as a certificate premise.
+from these fields, so no conclusion is stored back as a package premise.
 
 The graph/morphism coherence question is now checked.  Outcome mapping obeys
 identity and composition and preserves chain suprema.  Its graph is a binary
-admissible relation.  Every `RecursiveMorphismCert` therefore constructs a
-`RecursiveRelationCert` for that graph, whose fixed-point lifting is exactly
+admissible relation.  Every `RecursiveMorphism` therefore constructs a
+`RecursiveRelation` for that graph, whose fixed-point lifting is exactly
 the morphism fixed-point equation.  Morphism and graph-relation transport are
 not two unrelated assumptions in the recursive layer.
 
@@ -508,7 +508,7 @@ effect annotations can state:
 - recursive operational safety and pure divergence;
 - recursive Writer/State/Exception finite-boundary models, least-fixed-point
   infrastructure, adequacy, open fundamental relations and deep discharge;
-- generic recursive certificates and fixed-point morphism/relation transport;
+- generic recursive packages and fixed-point morphism/relation transport;
 - operational and finite Writer-denotational old-language conservativity.
 
 Further work separates into genuine extensions that are not definitionally
@@ -529,7 +529,7 @@ shallow matching induces an ω-continuous one-layer functional; its Kleene
 least fixed point satisfies unfold and leastness; operational deep runs are
 adequate; and the typed observation pole is preserved by fixed-point
 induction.  One-layer morphism commutation and admissible binary relations
-also lift to the completed fixed points.  `LanguageRecursiveBaseCert.main`
+also lift to the completed fixed points.  `LanguageRecursiveModel.main`
 isolates the three non-circular obligations required from another base
 (`C-380`--`C-387`).
 
@@ -542,10 +542,10 @@ isolates the three non-circular obligations required from another base
    behavior must be observable.
 3. **Arbitrary-category packaging.**  Select a category/domain library and
    formalize indexed initial algebras or bilimits.  The current theorems are
-   concrete `Type`/finite-observation results and explicit certificate
+   concrete `Type`/finite-observation results and explicit package
    transport, not a universe-polymorphic categorical construction.
 4. **Random.**  Choose a subprobability/valuation model before recursion; the
-   deterministic flat-boundary certificate intentionally does not claim this
+   deterministic flat-boundary package intentionally does not claim this
    instance.
 
 Items 1--4 require additional semantic or language-design input.  They must

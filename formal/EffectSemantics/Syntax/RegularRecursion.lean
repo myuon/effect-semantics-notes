@@ -1,4 +1,4 @@
-import EffectSemantics.Certificate.RegularRecursion
+import EffectSemantics.Theory.RegularRecursion
 
 namespace EffectSemantics
 

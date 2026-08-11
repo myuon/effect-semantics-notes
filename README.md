@@ -50,7 +50,7 @@ effect annotation は、runtimeで起きうるeffectsを順序を保って上か
 9. [Functorial extension theorem](functorial-extension-theorem-v5.md) と [package categories](package-categories-v5.md)
 
 各 chapter では **operational examples → syntax/typing → denotation →
-certificate → detailed proofs** の順に読む。公開サイトとリポジトリには、
+package → detailed proofs** の順に読む。公開サイトとリポジトリには、
 現在の主定理の依存関係に入る現行資料だけを置く。
 
 ## ステータス記法

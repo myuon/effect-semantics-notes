@@ -281,4 +281,4 @@ coherent operational and denotational graded models and a separately stated
 morphism or logical relation between them.
 
 The next page turns these requirements, together with the core type-safety
-results, into the [exported base certificate](chapter-1-certificate-v5.md).
+results, into the [exported base package](chapter-1-main-results-v5.md).

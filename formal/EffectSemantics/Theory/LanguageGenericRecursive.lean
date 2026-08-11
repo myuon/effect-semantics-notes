@@ -1,19 +1,19 @@
-import EffectSemantics.Certificate.LanguageFinite
+import EffectSemantics.Theory.LanguageFinite
 import EffectSemantics.Recursive.FlatApproximation
 import EffectSemantics.Recursive.FlatApproximationTransport
 
 namespace EffectSemantics
 
 /-!
-# Generic recursive language-extension certificate
+# Generic recursive language-extension package
 
 This module states the base-independent recursive structure-preservation
 theorem and the separate morphism and logical-relation lifting principles.
 -/
 
 /-- Base-independent syntax/effect part of the extension theorem. -/
-structure LanguageSourceStructureCert (sig : LanguageSignature) where
-  effects : LanguageEffectCert
+structure LanguageSourceTheory (sig : LanguageSignature) where
+  effects : LanguageEffectLaws
   preservation : ∀ {term next : RecLanguageComp} {ctx resultTy effect},
     term ⟶ next → HasLanguageComp sig ctx term resultTy effect →
       HasLanguageComp sig ctx next resultTy effect
@@ -32,9 +32,9 @@ structure LanguageSourceStructureCert (sig : LanguageSignature) where
       (.shallow interface handler term) →
     LanguageShallowProgress (.shallow interface handler term)
 
-def languageSourceStructureCert (sig : LanguageSignature) :
-    LanguageSourceStructureCert sig where
-  effects := languageEffectCert
+def languageSourceTheory (sig : LanguageSignature) :
+    LanguageSourceTheory sig where
+  effects := languageEffectLaws
   preservation := LanguageStep.preserve
   progress := HasLanguageComp.progressClosed
   handlerPreservation := fun handlerTyping step typing =>
@@ -44,9 +44,9 @@ def languageSourceStructureCert (sig : LanguageSignature) :
 /-- Non-circular conditions required from an arbitrary recursive base
 observation.  `finiteAdequacy` speaks only about finite functional iterates;
 the completed semantics and its fundamental property are derived below. -/
-structure LanguageRecursiveBaseCert (sig : LanguageSignature)
+structure LanguageRecursiveModel (sig : LanguageSignature)
     (Outcome : Type) where
-  source : LanguageSourceStructureCert sig
+  source : LanguageSourceTheory sig
   functional : FlatApproximation.Carrier RecLanguageComp Outcome →
     FlatApproximation.Carrier RecLanguageComp Outcome
   continuous : FlatApproximation.OmegaContinuous functional
@@ -58,16 +58,16 @@ structure LanguageRecursiveBaseCert (sig : LanguageSignature)
     FlatApproximation.Satisfies pole approximation →
     FlatApproximation.Satisfies pole (functional approximation)
 
-namespace LanguageRecursiveBaseCert
+namespace LanguageRecursiveModel
 
-noncomputable def semantics (cert : LanguageRecursiveBaseCert sig Outcome) :
+noncomputable def semantics (cert : LanguageRecursiveModel sig Outcome) :
     FlatApproximation.Carrier RecLanguageComp Outcome :=
   FlatApproximation.lfp cert.functional cert.continuous
 
 /-- Abstract recursive structure-preservation theorem.  Any base satisfying
 the local finite-iterate and one-layer pole obligations inherits a least
 fixed-point model, operational adequacy and the recursive fundamental pole. -/
-theorem main (cert : LanguageRecursiveBaseCert sig Outcome) :
+theorem main (cert : LanguageRecursiveModel sig Outcome) :
     (cert.functional cert.semantics = cert.semantics) ∧
     (∀ {candidate}, FlatApproximation.LE (cert.functional candidate) candidate →
       FlatApproximation.LE cert.semantics candidate) ∧
@@ -85,30 +85,30 @@ theorem main (cert : LanguageRecursiveBaseCert sig Outcome) :
       (FlatApproximation.Satisfies.bottom cert.pole)
     exact cert.layerPreservesPole
 
-end LanguageRecursiveBaseCert
+end LanguageRecursiveModel
 
 /-- Local commutation obligation for lifting a base outcome morphism through
 recursive completion. -/
-structure LanguageRecursiveMorphismCert
-    (source : LanguageRecursiveBaseCert sig Source)
-    (target : LanguageRecursiveBaseCert sig Target)
+structure LanguageRecursiveMorphism
+    (source : LanguageRecursiveModel sig Source)
+    (target : LanguageRecursiveModel sig Target)
     (transform : Source → Target) : Prop where
   oneLayer : ∀ approximation,
     FlatApproximation.mapOutcome transform
         (source.functional approximation) =
       target.functional (FlatApproximation.mapOutcome transform approximation)
 
-theorem LanguageRecursiveMorphismCert.lift
-    (cert : LanguageRecursiveMorphismCert source target transform) :
+theorem LanguageRecursiveMorphism.lift
+    (cert : LanguageRecursiveMorphism source target transform) :
     FlatApproximation.mapOutcome transform source.semantics = target.semantics :=
   FlatApproximation.lfp_mapOutcome source.continuous target.continuous
     cert.oneLayer
 
 /-- Local binary-relation obligations for lifting a logical relation through
 recursive completion. -/
-structure LanguageRecursiveRelationCert
-    (left : LanguageRecursiveBaseCert sig Left)
-    (right : LanguageRecursiveBaseCert sig Right)
+structure LanguageRecursiveRelation
+    (left : LanguageRecursiveModel sig Left)
+    (right : LanguageRecursiveModel sig Right)
     (relation : FlatApproximation.Carrier RecLanguageComp Left →
       FlatApproximation.Carrier RecLanguageComp Right → Prop) : Prop where
   admissible : FlatApproximation.BinaryAdmissible relation
@@ -117,8 +117,8 @@ structure LanguageRecursiveRelationCert
     relation leftApprox rightApprox →
     relation (left.functional leftApprox) (right.functional rightApprox)
 
-theorem LanguageRecursiveRelationCert.lift
-    (cert : LanguageRecursiveRelationCert left right relation) :
+theorem LanguageRecursiveRelation.lift
+    (cert : LanguageRecursiveRelation left right relation) :
     relation left.semantics right.semantics :=
   FlatApproximation.lfp_relation left.continuous right.continuous
     cert.admissible cert.bottom cert.oneLayer

@@ -1,8 +1,8 @@
-# Exception end-to-end certificate instance
+# Exception end-to-end package instance
 
 :::{admonition} Lean correspondence — Exception
 :class: tip
-**Lean checked:** the non-resumable typed signature [`exceptionBaseSignature`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.exceptionBaseSignature#doc), finite observer [`genericRecursiveExceptionObserver`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericRecursiveExceptionObserver#doc), continuity [`functional_continuous`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveException.functional_continuous#doc), and recursive [`limit_adequacy`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveException.limit_adequacy#doc). The fully ordered `TTCert` formulation below is a **Paper abstraction**.
+**Lean checked:** the non-resumable typed signature [`exceptionBaseSignature`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.exceptionBaseSignature#doc), finite observer [`genericRecursiveExceptionObserver`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericRecursiveExceptionObserver#doc), continuity [`functional_continuous`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveException.functional_continuous#doc), and recursive [`limit_adequacy`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveException.limit_adequacy#doc). The fully ordered `TTClosure` formulation below is a **Paper abstraction**.
 :::
 
 ## Status
@@ -23,7 +23,7 @@ $$
 Bind propagates an error without evaluating its continuation. The comparison
 identifies the two presentations of return and error. The ordinary
 short-circuit equations establish the operational, denotational, and
-comparison certificates.
+comparison packages.
 
 ## 2. Free `ask` and base action
 
@@ -73,7 +73,7 @@ $$
 \mathsf{inr}(e)\gg=k=\mathsf{inr}(e).
 $$
 
-This proves `TTCert`.  Constructor separation is particularly important here:
+This proves `TTClosure`.  Constructor separation is particularly important here:
 an error must not be identified with an unhandled free request.
 
 ## 5. Shallow handler
@@ -98,5 +98,5 @@ $$
 $$
 
 while an earlier `raise` may prevent the optional request from occurring at
-all.  Thus the complete recursion-free certificate chain also holds for
+all.  Thus the complete recursion-free package chain also holds for
 Exception.

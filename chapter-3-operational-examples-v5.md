@@ -8,7 +8,7 @@
 ## Status
 
 **Operational development.**  This page adds shallow handlers to the
-recursion-free language carrying `FreeCert`.
+recursion-free language carrying `FreeExtensionPackage`.
 
 ## 1. General handler syntax
 

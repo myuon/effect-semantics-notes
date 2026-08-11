@@ -73,16 +73,16 @@ separate syntax induction: no new rule has an old left-hand side.
 ## 4. Adequacy lifting
 
 Choose the operational/denotational observation pole supplied by the optional
-`ObservationAdequacyCert`; semantic bind and primitive compatibility come
-from `OperationalModelCert`, `DenotationalModelCert`, and
-`ModelComparisonCert`.
+`ObservationAdequacyAssumptions`; semantic bind and primitive compatibility come
+from `OperationalModel`, `DenotationalModel`, and
+`ModelComparison`.
 Its graded TT-lifting gives a base computation relation
 $V_A^{\top\top}$.  Structurally lift it to
 $\mathsf{Str}_\Delta(V_A^{\top\top})$ between closed computations and free
 denotations:
 
 - returns relate when their values do;
-- classified base outcomes relate by `ObservationAdequacyCert`;
+- classified base outcomes relate by `ObservationAdequacyAssumptions`;
 - free requests relate only when tags and parameters relate and, for every
   related response, their continuations are again in $R$.
 
@@ -110,7 +110,7 @@ the base case is exactly `Rel-Act`. The separate TT transport
 then proves
 $\mathsf{Str}_\Delta(V^{\top\top})\subseteq
 V^{\top_\Delta\top_\Delta}$ from pole closure.  Thus the relation components of
-`FreeCert` follow without identifying structural generation with
+`FreeExtensionPackage` follow without identifying structural generation with
 observational closure.
 
 :::{prf:theorem} `[C2-PROOF.5.1]` Graph lemma [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.Rel.graphMapSignature#doc)

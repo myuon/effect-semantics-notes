@@ -185,7 +185,7 @@ The lift is the identity on returns and free generators and applies $q$ to
 base layers. It preserves identities and composition. For canonical lifts,
 compatibility with the chosen actions is proved from their construction,
 naturality of $q$, and preservation of multiplication. For arbitrary chosen
-extensions it remains the explicit `Act-Morphism` certificate.
+extensions it remains the explicit `Act-Morphism` package.
 
 ## 7. Main-theorem boundary
 

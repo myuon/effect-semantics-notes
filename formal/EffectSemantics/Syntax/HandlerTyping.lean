@@ -27,7 +27,7 @@ structure TypedAffineClause (sig : Signature) (ctx : Context)
     some ⟨parameterTy, responseTy⟩
   bodyTyping : HasComp sig (parameterTy :: ctx) clause responseTy clauseEffect
 
-/-- The syntactic part of the affine handler certificate.  It deliberately
+/-- The syntactic part of the affine handler package.  It deliberately
 does not yet claim an output-grade transformation: that requires the ordered
 optionality and residual-context obligations isolated in Chapter III. -/
 structure HasAffineHandler (sig : Signature) (ctx : Context)

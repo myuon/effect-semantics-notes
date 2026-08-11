@@ -152,7 +152,7 @@ q_b(\widehat q_d).
 \tag{Act-Morphism}
 $$
 
-For arbitrary chosen extensions this square is an explicit certificate. For
+For arbitrary chosen extensions this square is an explicit package. For
 a canonical FreeT lift it is a derived theorem once the construction of both
 actions and preservation of multiplication have been proved. Monad-morphism
 laws alone, without that chosen FreeT structure, do not state the square.

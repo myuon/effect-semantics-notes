@@ -15,6 +15,22 @@ Build from this directory with:
 lake build
 ```
 
+## Naming convention
+
+Lean declarations are named for their mathematical role:
+
+- `Structure` contains operations together with their defining laws;
+- `Laws` contains equations or closure properties for an existing object;
+- `Assumptions` contains premises consumed by a theorem;
+- `Model`, `Metatheory`, and `Theory` bundle the corresponding semantic or
+  syntactic results;
+- `Package` is reserved for a genuine chapter-to-chapter interface combining
+  several different kinds of data.
+
+The former blanket `*Cert` suffix was removed because it did not distinguish
+ordinary definitions such as a monad structure from discharged proof
+obligations.
+
 ## Current boundary
 
 Implemented and kernel-checked:
@@ -35,7 +51,7 @@ Implemented and kernel-checked:
 - one-step preservation for every internal reduction rule;
 - typed evaluation contexts, plugging preservation and typed reconstruction of
   exposed free requests.
-- a bundled Type-level functorial free-extension certificate, including
+- a bundled Type-level functorial free-extension package, including
   identity/composition, bind naturality, exact graph lifting, structural
   relation closure, shallow compatibility, and finite adequacy transport;
 - converse plugging decomposition and reconstruction of typed residual
@@ -48,7 +64,7 @@ Implemented and kernel-checked:
 - a separate affine shallow-handler machine with matching, bare-continuation
   resumption, and transparent base/nonmatching forwarding;
 - partial handler lookup, an independent exhaustiveness predicate, local
-  clause-typing certificates and checked parameter instantiation;
+  clause-typing packages and checked parameter instantiation;
 - executable `tick`/`tock` witnesses showing that matching removes the pending
   handler while a missing same-interface clause forwards and reinstalls it.
 - renaming preservation for typed residual contexts, typed reconstruction of
@@ -83,10 +99,10 @@ Implemented and kernel-checked:
 - language-graded typed Writer/free trees with graded bind/map and observation
   membership;
 - concrete effect-algebra, typed Writer monad/adequacy and finite shallow
-  certificate records populated entirely by proved declarations.
+  package records populated entirely by proved declarations.
 - finite State and Exception tree models with monad laws, base traversal,
   structural relation bind/shallow preservation and executable observations;
-- common finite monad/relator/shallow-relator certificates instantiated by
+- common finite monad/relator/shallow-relator packages instantiated by
   Writer, State and Exception;
 - finite derived-deep approximants, composition, map/relation preservation,
   two-match convergence and the partial-handler non-elimination regression.
@@ -136,7 +152,7 @@ Implemented and kernel-checked:
 Typing derivations live in `Type` rather than `Prop`: this exposes the explicit
 subeffecting derivation tree needed by the terminating mutual transformation.
 The associated inhabitation proposition can later be proof-irrelevant even
-though the checked certificate is retained as data.
+though the checked package is retained as data.
 
 The outward-boundary observer is stable under increasing fuel.  The reusable
 finite-observation CPO infrastructure is polymorphic in its outcome: arbitrary
@@ -168,19 +184,19 @@ the two least fixed points.
   changes it at `put`, preserves it across free-handler matching, and exposes
   residual base/free boundaries with their state; its stable-limit adequacy,
   determinism and typed exhaustive discharge are checked.
-- `RecursiveBoundaryCert` isolates the common assumptions to a fuel observer,
+- `RecursiveBoundaryModel` isolates the common assumptions to a fuel observer,
   stability, a direct run relation and finite adequacy.  Generic completion,
   limit adequacy, run determinism and the bottom/no-boundary characterization
   are derived; Writer, State and Exception inhabit the record.
-- `RecursiveDischargeCert` makes the additional good-term and outward-interface
+- `RecursiveDischarge` makes the additional good-term and outward-interface
   conditions explicit and is instantiated from typedness, exhaustiveness and
   the Writer/State/Exception response laws.
-- `RecursiveMorphismCert` and `RecursiveRelationCert` expose continuity,
+- `RecursiveMorphism` and `RecursiveRelation` expose continuity,
   one-layer commutation/preservation, binary admissibility and bottom as
   separate fields; their fixed-point transport theorems are derived.
 - outcome mapping satisfies identity and composition, its graph relation is
-  binary admissible, and every recursive morphism certificate induces the
-  corresponding relation certificate; graph and morphism lifting agree at
+  binary admissible, and every recursive morphism package induces the
+  corresponding relation package; graph and morphism lifting agree at
   the least fixed point.
 - a concrete nonidentity instance erases Writer logs while retaining returned
   values; it commutes with one deep-handler unfolding, every finite

@@ -1,5 +1,5 @@
 import EffectSemantics.Examples.LanguageShallow
-import EffectSemantics.Certificate.LanguageRecursive
+import EffectSemantics.Theory.LanguageRecursive
 
 namespace EffectSemantics
 

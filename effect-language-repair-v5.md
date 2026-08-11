@@ -141,4 +141,4 @@ The sharp equation and the general subsumption theorem must be separated.
 
 The next formal task is to grade the typed free-tree carrier directly by these
 languages and prove that its bind and shallow fold instantiate the revised
-`HandlerTypingCert`.
+`HandlerTyping`.

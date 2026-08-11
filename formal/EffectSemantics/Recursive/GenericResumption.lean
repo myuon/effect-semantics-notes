@@ -180,10 +180,10 @@ theorem genericFiniteAdequacy
     rw [genericRunFuel_eq_iterate system observer handler]
     exact observed
 
-/-- Non-circular recursive certificate.  Finite-iterate adequacy and
+/-- Non-circular recursive package.  Finite-iterate adequacy and
 one-layer pole preservation are local obligations; the completed semantics,
 limit adequacy and recursive pole are derived. -/
-structure GenericRecursiveResumptionCert
+structure GenericRecursiveResumption
     (system : RecursiveResumptionSystem base free State Result)
     (observer : RecursiveFiniteObserver base free Result Outcome)
     (handler : FreeExtension.AffineHandler base free) where
@@ -199,14 +199,14 @@ structure GenericRecursiveResumptionCert
     FlatApproximation.Satisfies pole
       (system.functional observer handler approximation)
 
-namespace GenericRecursiveResumptionCert
+namespace GenericRecursiveResumption
 
 noncomputable def semantics
     {base free : OperationSignature} {State Result Outcome : Type}
     {system : RecursiveResumptionSystem base free State Result}
     {observer : RecursiveFiniteObserver base free Result Outcome}
     {handler : FreeExtension.AffineHandler base free}
-    (cert : GenericRecursiveResumptionCert system observer handler) :
+    (cert : GenericRecursiveResumption system observer handler) :
     FlatApproximation.Carrier State Outcome :=
   FlatApproximation.lfp (system.functional observer handler) cert.continuous
 
@@ -217,7 +217,7 @@ theorem main
     {system : RecursiveResumptionSystem base free State Result}
     {observer : RecursiveFiniteObserver base free Result Outcome}
     {handler : FreeExtension.AffineHandler base free}
-    (cert : GenericRecursiveResumptionCert system observer handler) :
+    (cert : GenericRecursiveResumption system observer handler) :
     (system.functional observer handler cert.semantics = cert.semantics) ∧
     (∀ {candidate},
       FlatApproximation.LE (system.functional observer handler candidate) candidate →
@@ -236,18 +236,18 @@ theorem main
       (FlatApproximation.Satisfies.bottom cert.pole)
     exact cert.layerPreservesPole
 
-end GenericRecursiveResumptionCert
+end GenericRecursiveResumption
 
 /-- Local one-layer commutation lifts an outcome morphism through the generic
 recursive completion. -/
-structure GenericRecursiveMorphismCert
+structure GenericRecursiveMorphism
     {base free : OperationSignature} {State Result SourceOutcome TargetOutcome : Type}
     {system : RecursiveResumptionSystem base free State Result}
     {sourceObserver : RecursiveFiniteObserver base free Result SourceOutcome}
     {targetObserver : RecursiveFiniteObserver base free Result TargetOutcome}
     {handler : FreeExtension.AffineHandler base free}
-    (source : GenericRecursiveResumptionCert system sourceObserver handler)
-    (target : GenericRecursiveResumptionCert system targetObserver handler)
+    (source : GenericRecursiveResumption system sourceObserver handler)
+    (target : GenericRecursiveResumption system targetObserver handler)
     (transform : SourceOutcome → TargetOutcome) where
   oneLayer : ∀ approximation,
     FlatApproximation.mapOutcome transform
@@ -255,29 +255,29 @@ structure GenericRecursiveMorphismCert
       system.functional targetObserver handler
         (FlatApproximation.mapOutcome transform approximation)
 
-theorem GenericRecursiveMorphismCert.lift
+theorem GenericRecursiveMorphism.lift
     {base free : OperationSignature} {State Result SourceOutcome TargetOutcome : Type}
     {system : RecursiveResumptionSystem base free State Result}
     {sourceObserver : RecursiveFiniteObserver base free Result SourceOutcome}
     {targetObserver : RecursiveFiniteObserver base free Result TargetOutcome}
     {handler : FreeExtension.AffineHandler base free}
-    {source : GenericRecursiveResumptionCert system sourceObserver handler}
-    {target : GenericRecursiveResumptionCert system targetObserver handler}
+    {source : GenericRecursiveResumption system sourceObserver handler}
+    {target : GenericRecursiveResumption system targetObserver handler}
     {transform : SourceOutcome → TargetOutcome}
-    (cert : GenericRecursiveMorphismCert source target transform) :
+    (cert : GenericRecursiveMorphism source target transform) :
     FlatApproximation.mapOutcome transform source.semantics = target.semantics :=
   FlatApproximation.lfp_mapOutcome source.continuous target.continuous cert.oneLayer
 
 /-- Admissible binary relations preserved by one layer lift to the two least
 fixed points. -/
-structure GenericRecursiveRelationCert
+structure GenericRecursiveRelation
     {base free : OperationSignature} {State Result LeftOutcome RightOutcome : Type}
     {system : RecursiveResumptionSystem base free State Result}
     {leftObserver : RecursiveFiniteObserver base free Result LeftOutcome}
     {rightObserver : RecursiveFiniteObserver base free Result RightOutcome}
     {handler : FreeExtension.AffineHandler base free}
-    (left : GenericRecursiveResumptionCert system leftObserver handler)
-    (right : GenericRecursiveResumptionCert system rightObserver handler)
+    (left : GenericRecursiveResumption system leftObserver handler)
+    (right : GenericRecursiveResumption system rightObserver handler)
     (relation : FlatApproximation.Carrier State LeftOutcome →
       FlatApproximation.Carrier State RightOutcome → Prop) where
   admissible : FlatApproximation.BinaryAdmissible relation
@@ -288,33 +288,33 @@ structure GenericRecursiveRelationCert
       (system.functional leftObserver handler leftApproximation)
       (system.functional rightObserver handler rightApproximation)
 
-theorem GenericRecursiveRelationCert.lift
+theorem GenericRecursiveRelation.lift
     {base free : OperationSignature} {State Result LeftOutcome RightOutcome : Type}
     {system : RecursiveResumptionSystem base free State Result}
     {leftObserver : RecursiveFiniteObserver base free Result LeftOutcome}
     {rightObserver : RecursiveFiniteObserver base free Result RightOutcome}
     {handler : FreeExtension.AffineHandler base free}
-    {left : GenericRecursiveResumptionCert system leftObserver handler}
-    {right : GenericRecursiveResumptionCert system rightObserver handler}
+    {left : GenericRecursiveResumption system leftObserver handler}
+    {right : GenericRecursiveResumption system rightObserver handler}
     {relation : FlatApproximation.Carrier State LeftOutcome →
       FlatApproximation.Carrier State RightOutcome → Prop}
-    (cert : GenericRecursiveRelationCert left right relation) :
+    (cert : GenericRecursiveRelation left right relation) :
     relation left.semantics right.semantics :=
   FlatApproximation.lfp_relation left.continuous right.continuous
     cert.admissible cert.bottom cert.oneLayer
 
 /-- Recursive closure of an observation-sensitive outcome relation.  In the
 intended use, `outcomeTT` is the finite TT relation obtained from
-`GenericExtensionAlgebra.TTLayerCert`; only its one-layer preservation remains
+`GenericExtensionAlgebra.TTLayerAssumptions`; only its one-layer preservation remains
 to be checked at the resumption boundary. -/
-structure GenericRecursiveOutcomeTTCert
+structure GenericRecursiveOutcomeTT
     {base free : OperationSignature} {State Result LeftOutcome RightOutcome : Type}
     {system : RecursiveResumptionSystem base free State Result}
     {leftObserver : RecursiveFiniteObserver base free Result LeftOutcome}
     {rightObserver : RecursiveFiniteObserver base free Result RightOutcome}
     {handler : FreeExtension.AffineHandler base free}
-    (left : GenericRecursiveResumptionCert system leftObserver handler)
-    (right : GenericRecursiveResumptionCert system rightObserver handler)
+    (left : GenericRecursiveResumption system leftObserver handler)
+    (right : GenericRecursiveResumption system rightObserver handler)
     (outcomeTT : LeftOutcome → RightOutcome → Prop) where
   oneLayer : ∀ {leftApproximation rightApproximation},
     FlatApproximation.OutcomeRel outcomeTT
@@ -323,18 +323,18 @@ structure GenericRecursiveOutcomeTTCert
       (system.functional leftObserver handler leftApproximation)
       (system.functional rightObserver handler rightApproximation)
 
-theorem GenericRecursiveOutcomeTTCert.lift
+theorem GenericRecursiveOutcomeTT.lift
     {base free : OperationSignature} {State Result LeftOutcome RightOutcome : Type}
     {system : RecursiveResumptionSystem base free State Result}
     {leftObserver : RecursiveFiniteObserver base free Result LeftOutcome}
     {rightObserver : RecursiveFiniteObserver base free Result RightOutcome}
     {handler : FreeExtension.AffineHandler base free}
-    {left : GenericRecursiveResumptionCert system leftObserver handler}
-    {right : GenericRecursiveResumptionCert system rightObserver handler}
+    {left : GenericRecursiveResumption system leftObserver handler}
+    {right : GenericRecursiveResumption system rightObserver handler}
     {outcomeTT : LeftOutcome → RightOutcome → Prop}
-    (cert : GenericRecursiveOutcomeTTCert left right outcomeTT) :
+    (cert : GenericRecursiveOutcomeTT left right outcomeTT) :
     FlatApproximation.OutcomeRel outcomeTT left.semantics right.semantics := by
-  apply GenericRecursiveRelationCert.lift
+  apply GenericRecursiveRelation.lift
     (left := left) (right := right)
     (relation := FlatApproximation.OutcomeRel outcomeTT)
   exact {
@@ -348,12 +348,12 @@ theorem GenericRecursiveOutcomeTTCert.lift
 /-- Recursive old-language conservativity: if no newly adjoined request can
 occur in any exposed layer, reinstalling the shallow handler changes neither
 the functional nor its least fixed point. -/
-theorem GenericRecursiveResumptionCert.oldLanguageConservative
+theorem GenericRecursiveResumption.oldLanguageConservative
     {base free : OperationSignature} {State Result Outcome : Type}
     {system : RecursiveResumptionSystem base free State Result}
     {observer : RecursiveFiniteObserver base free Result Outcome}
     {handler : FreeExtension.AffineHandler base free}
-    (cert : GenericRecursiveResumptionCert system observer handler)
+    (cert : GenericRecursiveResumption system observer handler)
     (old : ∀ state, FreeExtension.BaseOnly (system.step state)) :
     ∃ unhandledContinuous : FlatApproximation.OmegaContinuous
         (system.unhandledFunctional observer),

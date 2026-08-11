@@ -37,15 +37,15 @@ At minimum: substitution, preservation, effect-aware progress/decomposition,
 operational soundness, and the declared adequacy statement.  With recursion,
 normalization is replaced by an explicit partiality or fixed-point principle.
 
-### 6. Extract a structure-preservation certificate
+### 6. Extract a structure-preservation package
 
-Package exactly what the next chapter may reuse.  The certificate lists both
+Package exactly what the next chapter may reuse.  The package lists both
 positive fields and boundaries.  A later chapter proves a transformer
 
 $$
-\mathsf{Cert}_n(P)
+\mathsf{Package}_n(P)
 \longrightarrow
-\mathsf{Cert}_{n+1}(\mathsf{Ext}_{n+1}P),
+\mathsf{Package}_{n+1}(\mathsf{Ext}_{n+1}P),
 $$
 
 not an unqualified claim that “all good properties are preserved.”
@@ -54,9 +54,9 @@ not an unqualified claim that “all good properties are preserved.”
 
 ```{mermaid}
 flowchart LR
-  C1["Chapter I: BaseCert"] --> C2["Chapter II: FreeCert"]
-  C2 --> C3["Chapter III: ShallowCert"]
-  C3 --> C4["Chapter IV: RecursiveCert"]
+  C1["Chapter I: BasePackage"] --> C2["Chapter II: FreeExtensionPackage"]
+  C2 --> C3["Chapter III: ShallowHandlerPackage"]
+  C3 --> C4["Chapter IV: RecursivePackage"]
   C4 --> D["Derived deep-handler theorem"]
 ```
 

@@ -1,10 +1,10 @@
-# Chapter III — shallow-handler proofs and `ShallowCert`
+# Chapter III — shallow-handler proofs and `ShallowHandlerPackage`
 
-:::{admonition} Lean correspondence — `ShallowCert`
+:::{admonition} Lean correspondence — `ShallowHandlerPackage`
 :class: tip
 The source-language Chapter-III boundary is the exact Lean record
-[`LanguageHandlerStageCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageHandlerStageCert#doc), constructed by
-[`languageHandlerStagePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageHandlerStagePreservation#doc). Structural relation and TT preservation are bundled by [`languageShallowCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageShallowCert#doc). [Full mapping](review-guide.md#chapter-iii-shallow-handlers).
+[`LanguageHandlerStage`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageHandlerStage#doc), constructed by
+[`languageHandlerStagePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageHandlerStagePreservation#doc). Structural relation and TT preservation are bundled by [`languageShallowMetatheory`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageShallowMetatheory#doc). [Full mapping](review-guide.md#chapter-iii-shallow-handlers).
 :::
 
 ### Numbered-statement inventory
@@ -15,18 +15,18 @@ The source-language Chapter-III boundary is the exact Lean record
 | Theorem III.2, handler preservation | Lean checked in source-stage bundle | [`languageHandlerStagePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageHandlerStagePreservation#doc) |
 | Theorem III.3, affine effect transformation | Lean checked component | [`EffectLanguage.handleWith_mono`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.EffectLanguage.handleWith_mono#doc) |
 | Theorem III.4, operational/denotational commutation | Lean checked in source/tree bundle | [`languageFiniteStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageFiniteStructurePreservation#doc) |
-| Theorem III.5, adequacy preservation | Model-comparison component Lean checked; observation/handler theorem remains conditional | [`GenericExtensionAlgebra.ModelComparisonCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparisonCert.lift#doc) |
-| Definition III.1–III.3 and Theorem III.6 | readable decomposition with exact source-stage package | [`LanguageHandlerStageCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageHandlerStageCert#doc) |
+| Theorem III.5, adequacy preservation | Model-comparison component Lean checked; observation/handler theorem remains conditional | [`GenericExtensionAlgebra.ModelComparison.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparison.lift#doc) |
+| Definition III.1–III.3 and Theorem III.6 | readable decomposition with exact source-stage package | [`LanguageHandlerStage`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageHandlerStage#doc) |
 
 ## Status
 
 **Conditional paper theorem.**  The affine fragment has a derived effect
 transformer.  The general fragment is conditional on a supplied handler-effect
-certificate.
+package.
 
 ## 1. Typing preservation
 
-### Lemma III.1 `[C3-CERT.1.1]` — continuation typing [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFreeRequest.openResume_subst0#doc)
+### Lemma III.1 `[C3-MAIN.1.1]` — continuation typing [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFreeRequest.openResume_subst0#doc)
 
 If
 
@@ -45,13 +45,13 @@ $$
 The ordered input bound contains the primitive grade $\Delta$ before $e_k$,
 up to the declared weakening.
 
-### Theorem III.2 `[C3-CERT.1.2]` — handler preservation [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageHandlerStagePreservation#doc)
+### Theorem III.2 `[C3-MAIN.1.2]` — handler preservation [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageHandlerStagePreservation#doc)
 
 If
 
 $$
-\mathsf{OpFreeCert}(L_B+\Sigma)
-\land\mathsf{HandlerTypingCert}(\Delta,J,h,\Phi_h)
+\mathsf{OpFreeExtensionPackage}(L_B+\Sigma)
+\land\mathsf{HandlerTyping}(\Delta,J,h,\Phi_h)
 \land\Gamma\vdash M:A!e,
 $$
 
@@ -74,14 +74,14 @@ inside the scrutinee use Chapter-II preservation. $\square$
 
 ## 2. Affine effect theorem
 
-### Theorem III.3 `[C3-CERT.2.1]` — affine effect transformation [[Lean: anchored theorem]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.EffectLanguage.anchored_replacement_le_handleWith_of_bounds#doc) [[Lean: monotonicity]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.EffectLanguage.handleWith_mono#doc) [[Boundary: naive word transformer]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.TypedWriterTree.replaceFirst_not_monotone#doc)
+### Theorem III.3 `[C3-MAIN.2.1]` — affine effect transformation [[Lean: anchored theorem]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.EffectLanguage.anchored_replacement_le_handleWith_of_bounds#doc) [[Lean: monotonicity]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.EffectLanguage.handleWith_mono#doc) [[Boundary: naive word transformer]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.TypedWriterTree.replaceFirst_not_monotone#doc)
 
 If $b$ is $\Delta$-free and
 
 $$
-\mathsf{OpFreeCert}(L_B+\Sigma)
-\land\mathsf{EffectSafetyCert}(L_B+\Sigma,\widehat E)
-\land\mathsf{AffineCert}(\Delta,h,e')
+\mathsf{OpFreeExtensionPackage}(L_B+\Sigma)
+\land\mathsf{EffectSafety}(L_B+\Sigma,\widehat E)
+\land\mathsf{AffineHandlerLaws}(\Delta,h,e')
 \land\Gamma\vdash M:A!(b\cdot\Delta\cdot e),
 $$
 
@@ -114,15 +114,15 @@ monotone; that stronger formulation is therefore not claimed.
 
 ## 3. Operational/denotational commutation
 
-### Theorem III.4 `[C3-CERT.3.1]` — operational/denotational commutation [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageFiniteStructurePreservation#doc)
+### Theorem III.4 `[C3-MAIN.3.1]` — operational/denotational commutation [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageFiniteStructurePreservation#doc)
 
 If
 
 $$
-\mathsf{CarrierCert}(T,\Sigma,\mathsf F_\Sigma(T))
-\land\mathsf{MonadExtCert}(T,\mathsf F_\Sigma(T),\mathsf{act})
-\land\mathsf{DenotationalModelCert}(L_B,E_B,T)
-\land\mathsf{HandlerTypingCert}(\Delta,J,h,\Phi_h),
+\mathsf{CarrierStructure}(T,\Sigma,\mathsf F_\Sigma(T))
+\land\mathsf{MonadExtensionLaws}(T,\mathsf F_\Sigma(T),\mathsf{act})
+\land\mathsf{DenotationalModel}(L_B,E_B,T)
+\land\mathsf{HandlerTyping}(\Delta,J,h,\Phi_h),
 $$
 
 then, for every closed recursion-free handled computation,
@@ -137,7 +137,7 @@ $$
 
 ### Proof sketch
 
-Induct on the finite outer base/free structure supplied by `CarrierCert`.
+Induct on the finite outer base/free structure supplied by `CarrierStructure`.
 
 - return uses the return equation;
 - an internal/base step uses functoriality and Chapter-II soundness;
@@ -150,16 +150,16 @@ bare continuation.  This distinguishes shallow from deep handling.
 
 ## 4. Adequacy preservation
 
-### Theorem III.5 `[C3-CERT.4.1]` — adequacy preservation [[Lean: model-comparison component]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparisonCert.lift#doc)
+### Theorem III.5 `[C3-MAIN.4.1]` — adequacy preservation [[Lean: model-comparison component]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparison.lift#doc)
 
 Assume
 
 $$
 \begin{aligned}
-&\mathsf{FiniteAdequacyCert}(L_B+\Sigma,\mathcal K,\mathsf F_\Sigma(T))\\
-&\land\mathsf{HandlerTypingCert}(\Delta,J,h,\Phi_h)
-\land\mathsf{TTCert}(S,T,\mathcal O)
-\land\mathsf{HandlerTTCert}(h).
+&\mathsf{FiniteAdequacyAssumptions}(L_B+\Sigma,\mathcal K,\mathsf F_\Sigma(T))\\
+&\land\mathsf{HandlerTyping}(\Delta,J,h,\Phi_h)
+\land\mathsf{TTClosure}(S,T,\mathcal O)
+\land\mathsf{HandlerTTClosure}(h).
 \end{aligned}
 $$
 
@@ -180,7 +180,7 @@ requests agree with the structural shallow denotation.
 
 The linked Lean theorem checks the fold-naturality/model-comparison component.
 The observation-specific TT and handler conclusion remains conditional on the
-displayed `FiniteAdequacyCert`, `TTCert`, and `HandlerTTCert` premises.
+displayed `FiniteAdequacyAssumptions`, `TTClosure`, and `HandlerTTClosure` premises.
 
 ### Proof
 
@@ -204,13 +204,13 @@ return clause is identity on old programs.
 The mechanized finite bundle is
 [`languageFiniteStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageFiniteStructurePreservation#doc),
 with shallow naturality, structural-relation preservation and TT preservation
-collected in [`languageShallowCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageShallowCert#doc).
+collected in [`languageShallowMetatheory`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageShallowMetatheory#doc).
 
-### Definition III.1 `[C3-CERT.6.1]` — layered handler certificates [[Lean: exact source package]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageHandlerStageCert#doc)
+### Definition III.1 `[C3-MAIN.6.1]` — layered handler packages [[Lean: exact source package]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageHandlerStage#doc)
 
 Let $J\subseteq I_\Delta$ be the operations for which $h$ supplies clauses,
 and let $\Phi_h:\widehat E\to\widehat E$. We say that
-$\mathsf{HandlerTypingCert}(\Delta,J,h,\Phi_h)$ holds when:
+$\mathsf{HandlerTyping}(\Delta,J,h,\Phi_h)$ holds when:
 
 1. **Monotonicity.** $\Phi_h$ respects subeffecting.
 2. **Return typing.** The return clause has an effect below $\Phi_h(1)$.
@@ -226,19 +226,19 @@ interface.
 
 Separately:
 
-1. $\mathsf{HandlerStructuralCert}(h)$ says that return, handled clauses and
+1. $\mathsf{HandlerStructuralLaws}(h)$ says that return, handled clauses and
    forwarding preserve the structural relation.
-2. $\mathsf{HandlerTTCert}(h)$ says that return and handled clauses satisfy
+2. $\mathsf{HandlerTTClosure}(h)$ says that return and handled clauses satisfy
    `TTClause`, while forwarding preserves the extended pole.
-3. $\mathsf{EliminationCert}(\Delta,J,h,\Phi_h)$ requires $J=I_\Delta$ and
+3. $\mathsf{EliminationLaws}(\Delta,J,h,\Phi_h)$ requires $J=I_\Delta$ and
    proves that the selected interface occurrence is absent from the declared
    output position. At interface-level granularity this conclusion is not
    available for a genuinely partial $J$.
 
 The bundled name
-$\mathsf{HandlerCert}(\Delta,J,h,\Phi_h)$ abbreviates the conjunction of the
-typing, structural and TT certificates. It does **not** include
-`EliminationCert`.
+$\mathsf{HandlerPackage}(\Delta,J,h,\Phi_h)$ abbreviates the conjunction of the
+typing, structural and TT packages. It does **not** include
+`EliminationLaws`.
 
 ### Mechanized ordered-subsumption boundary
 
@@ -256,7 +256,7 @@ X\Delta\leq\Delta X\Delta,
 \mathsf{replaceFirst}_{\Delta,R}(\Delta X\Delta)=RX\Delta,
 $$
 
-while $XR\not\leq RX\Delta$. Thus `mono_h` is a genuine extra certificate
+while $XR\not\leq RX\Delta$. Thus `mono_h` is a genuine extra package
 condition and cannot be discharged by taking $\Phi_h$ to be naive
 first-occurrence replacement. Three sound continuations of the theorem are
 now distinguished:
@@ -310,10 +310,10 @@ h_S(p_S,k_S)\mathrel{V_C^{\top\top}}h_T(p_T,k_T).
 \end{aligned}
 $$
 
-### Definition III.2 `[C3-CERT.6.2]` — `AffineCert` [[Lean: source typing structure]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageAffineHandler#doc)
+### Definition III.2 `[C3-MAIN.6.2]` — `AffineHandlerLaws` [[Lean: source typing structure]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageAffineHandler#doc)
 
 The affine response fragment satisfies
-$\mathsf{AffineCert}(\Delta,h,e')$ when:
+$\mathsf{AffineHandlerLaws}(\Delta,h,e')$ when:
 
 1. $h$ has a clause for every operation in $\Delta$;
 2. its return clause is $H_{\mathsf{ret}}=\mathsf{return}\,x$;
@@ -330,26 +330,26 @@ $$
 \Phi_{\Delta,e'}(b\cdot\Delta\cdot e)=b\cdot e'\cdot e.
 $$
 
-Thus `AffineCert` includes
-$\mathsf{EliminationCert}(\Delta,I_\Delta,h,\Phi_{\Delta,e'})$. A partial
+Thus `AffineHandlerLaws` includes
+$\mathsf{EliminationLaws}(\Delta,I_\Delta,h,\Phi_{\Delta,e'})$. A partial
 affine family has the same clause calculation but not this interface-level
 elimination conclusion.
 
-### Definition III.3 `[C3-CERT.6.3]` — layered shallow certificates [[Lean: exact source package]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageHandlerStageCert#doc)
+### Definition III.3 `[C3-MAIN.6.3]` — layered shallow packages [[Lean: exact source package]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageHandlerStage#doc)
 
 Define:
 
-1. `ShallowSafetyCert` by preservation, progress and the return/match/forward
+1. `ShallowSafety` by preservation, progress and the return/match/forward
    operational boundary equations;
-2. `ShallowSemanticCert` by commutation of direct and structural handling;
-3. `ShallowRelCert` by preservation of the lifted structural and TT
+2. `ShallowSemantics` by commutation of direct and structural handling;
+3. `ShallowRelationLaws` by preservation of the lifted structural and TT
    relations;
-4. `ShallowAdequacyCert` by equality of handled operational and denotational
+4. `ShallowAdequacyAssumptions` by equality of handled operational and denotational
    observations;
-5. `ShallowElimCert` by `EliminationCert` and its sound ordered effect
+5. `ShallowElimination` by `EliminationLaws` and its sound ordered effect
    transformation.
 
-We say that $\mathsf{ShallowCert}(\Delta,h,\Phi_h)$ holds when:
+We say that $\mathsf{ShallowHandlerPackage}(\Delta,h,\Phi_h)$ holds when:
 
 1. **Safety.** Handler reduction has preservation and effect-aware progress.
 2. **Boundary equations.** Return, matching and forwarding satisfy their
@@ -361,7 +361,7 @@ We say that $\mathsf{ShallowCert}(\Delta,h,\Phi_h)$ holds when:
    unchanged and one shallow pass stops after its first match.
 
 The bundled name contains the first four layered records and conservativity.
-It contains `ShallowElimCert` only when explicitly stated; a partial handler
+It contains `ShallowElimination` only when explicitly stated; a partial handler
 can therefore have a complete safety/semantics/adequacy theorem without
 claiming removal of $\Delta$.
 
@@ -384,20 +384,20 @@ M\in L_B+\Sigma\Rightarrow
 \end{aligned}
 $$
 
-### Theorem III.6 `[C3-CERT.6.4]` — layered shallow certificates [[Lean: source theorem]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageHandlerStagePreservation#doc)
+### Theorem III.6 `[C3-MAIN.6.4]` — layered shallow packages [[Lean: source theorem]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageHandlerStagePreservation#doc)
 
 Let $J\subseteq I_\Delta$. Then:
 
-1. `OpFreeCert + HandlerTypingCert` yields `ShallowSafetyCert`.
-2. `CarrierCert + MonadExtCert + HandlerTypingCert` yields
-   `ShallowSemanticCert` by the four-constructor induction.
-3. Adding `RelCert + HandlerStructuralCert` yields `ShallowRelCert` for the
+1. `OpFreeExtensionPackage + HandlerTyping` yields `ShallowSafety`.
+2. `CarrierStructure + MonadExtensionLaws + HandlerTyping` yields
+   `ShallowSemantics` by the four-constructor induction.
+3. Adding `RelationLaws + HandlerStructuralLaws` yields `ShallowRelationLaws` for the
    structural lifting.
-4. Adding `FiniteAdequacyCert + TTCert + HandlerTTCert` yields
-   `ShallowAdequacyCert`.
-5. `EliminationCert` is not used in conclusions 1--4. If $J=I_\Delta$ and
-   `EliminationCert` holds, the corresponding `ShallowElimCert` is obtained.
-   In particular, exhaustive `AffineCert` yields
+4. Adding `FiniteAdequacyAssumptions + TTClosure + HandlerTTClosure` yields
+   `ShallowAdequacyAssumptions`.
+5. `EliminationLaws` is not used in conclusions 1--4. If $J=I_\Delta$ and
+   `EliminationLaws` holds, the corresponding `ShallowElimination` is obtained.
+   In particular, exhaustive `AffineHandlerLaws` yields
 
    $$
    b\Delta e\longmapsto be'e
@@ -405,7 +405,7 @@ Let $J\subseteq I_\Delta$. Then:
 
    on its declared anchored domain.
 
-The bundled `ShallowCert` follows from conclusions 1--4 and conservativity;
+The bundled `ShallowHandlerPackage` follows from conclusions 1--4 and conservativity;
 the elimination field is attached only under conclusion 5.
 
 ## 7. What is passed to Chapter IV
@@ -418,4 +418,4 @@ response-only sugar.  Nonmatching continuations already retain the shallow
 handler; it recursively wraps matching continuations to derive deep handling.
 It must add a recursion principle and
 prove the resulting recursive effect bound; neither follows from
-`ShallowCert` alone.
+`ShallowHandlerPackage` alone.

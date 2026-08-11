@@ -6,7 +6,7 @@ Chapter I establishes the **base case** used by every later extension.  It
 does not yet add user-defined operations, handlers, or general recursion.
 Instead, it fixes representative base machines, proves the common finite
 language metatheory, relates execution to concrete monadic models, and exports
-the certificate that Chapter II may assume.
+the package that Chapter II may assume.
 
 The chapter follows one proof pipeline:
 
@@ -16,7 +16,7 @@ concrete base machines
   → substitution / preservation / exact progress / determinism
   → operational and denotational graded models
   → model comparison
-  → exported base certificate
+  → exported base package
 ```
 
 Chapter I is therefore not the final extension theorem.  It supplies its
@@ -51,7 +51,7 @@ handlers, and Chapter IV adds recursion and derives deep handling.
 3. [Denotational models and operational comparison](chapter-1-denotational-v5.md)
    interprets the same calculus in graded monads and states the required
    comparison with execution.
-4. [Exported base certificate](chapter-1-certificate-v5.md) records the
+4. [Exported base package](chapter-1-main-results-v5.md) records the
    theorem statements and packages exactly what Chapter II may use.
 5. [Appendix I-A: detailed proofs](chapter-1-proof-details-v5.md) contains the
    longer derivations and marks the remaining formalization boundaries.
@@ -64,7 +64,7 @@ step in the Chapter I proof path.
 ## Chapter contract
 
 At the end of Chapter I, later chapters may use the following results, with
-the qualifications recorded in the certificate page:
+the qualifications recorded in the package page:
 
 | result | role | primary Lean correspondence |
 |---|---|---|
@@ -74,9 +74,9 @@ the qualifications recorded in the certificate page:
 | determinism | an internal reduct is unique | [`LanguageStep.deterministic`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.deterministic#doc) |
 | semantic soundness | internal steps preserve the selected semantics | [`internalStepInvariant`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.internalStepInvariant#doc) |
 | concrete adequacy | direct Writer execution agrees with its tree model | [`language_writer_operational_tree_adequacy`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.language_writer_operational_tree_adequacy#doc) |
-| finite structure package | checked finite source-language structure | [`LanguageFiniteStructureCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFiniteStructureCert#doc) |
+| finite structure package | checked finite source-language structure | [`LanguageFiniteTheory`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFiniteTheory#doc) |
 
-The readable paper-level name `BaseCert` additionally records the operational
+The readable paper-level name `BasePackage` additionally records the operational
 model, denotational model, and their comparison.  It must not be read as a
 claim that every concrete instance of that full record has already been
 assembled in Lean.

@@ -32,7 +32,7 @@ project:
         - file: chapter-1-operational-examples-v5.md
         - file: chapter-1-foundations-v5.md
         - file: chapter-1-denotational-v5.md
-        - file: chapter-1-certificate-v5.md
+        - file: chapter-1-main-results-v5.md
         - file: chapter-1-proof-details-v5.md
     - title: "Chapter II — concrete free operations"
       children:
@@ -43,7 +43,7 @@ project:
         - file: exception-end-to-end-v5.md
         - file: random-end-to-end-v5.md
         - file: chapter-2-denotational-v5.md
-        - file: chapter-2-certificate-v5.md
+        - file: chapter-2-main-results-v5.md
         - file: chapter-2-proof-details-v5.md
         - file: graded-freet-existence-v1.md
         - file: grade-indexed-free-carrier-v5.md
@@ -54,14 +54,14 @@ project:
         - file: chapter-3-operational-examples-v5.md
         - file: chapter-3-shallow-handlers-v5.md
         - file: chapter-3-denotational-v5.md
-        - file: chapter-3-certificate-v5.md
+        - file: chapter-3-main-results-v5.md
         - file: chapter-3-proof-details-v5.md
     - title: "Chapter IV — recursion and derived deep handling"
       children:
         - file: chapter-4-operational-examples-v5.md
         - file: chapter-4-fixpoint-derived-deep-v5.md
         - file: chapter-4-denotational-v5.md
-        - file: chapter-4-certificate-v5.md
+        - file: chapter-4-main-results-v5.md
         - file: chapter-4-proof-details-v5.md
         - file: recursive-tt-audit-v5.md
     - title: Abstract theorems after the examples

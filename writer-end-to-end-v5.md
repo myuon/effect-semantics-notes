@@ -1,8 +1,8 @@
-# Writer end-to-end certificate instance
+# Writer end-to-end package instance
 
 :::{admonition} Lean correspondence — Writer
 :class: tip
-**Lean checked:** generic/concrete tree round trips [`writerToGeneric_genericToWriter`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.writerToGeneric_genericToWriter#doc), finite operational-interpretation agreement [`genericWriterOperationalInterpretation_writerToGeneric`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericWriterOperationalInterpretation_writerToGeneric#doc), recursive limit adequacy [`GenericRecursiveWriter.limit_adequacy`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveWriter.limit_adequacy#doc), and the concrete derived-deep result [`example_limit_true`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveWriter.example_limit_true#doc). The grade-indexed `BaseCert→FreeCert→TTCert` presentation below is a **Paper abstraction** of these checked components.
+**Lean checked:** generic/concrete tree round trips [`writerToGeneric_genericToWriter`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.writerToGeneric_genericToWriter#doc), finite operational-interpretation agreement [`genericWriterOperationalInterpretation_writerToGeneric`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericWriterOperationalInterpretation_writerToGeneric#doc), recursive limit adequacy [`GenericRecursiveWriter.limit_adequacy`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveWriter.limit_adequacy#doc), and the concrete derived-deep result [`example_limit_true`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveWriter.example_limit_true#doc). The grade-indexed `BasePackage→FreeExtensionPackage→TTClosure` presentation below is a **Paper abstraction** of these checked components.
 :::
 
 ## Status
@@ -11,10 +11,10 @@
 chain
 
 $$
-\mathsf{BaseCert}
-\Longrightarrow\mathsf{FreeCert}
-\Longrightarrow\mathsf{TTCert}
-\Longrightarrow\mathsf{ShallowCert}
+\mathsf{BasePackage}
+\Longrightarrow\mathsf{FreeExtensionPackage}
+\Longrightarrow\mathsf{TTClosure}
+\Longrightarrow\mathsf{ShallowHandlerPackage}
 $$
 
 for ordered Writer effects and one free `ask` interface.
@@ -34,7 +34,7 @@ $\mathsf{tell}_a(*)$ denotes $([a],*)$.  Weakening preserves $(w,a)$ and only
 changes its proof that $w$ lies below the static bound.
 
 The Writer machine and the $T\to S$ comparison satisfy the split base
-certificates:
+packages:
 
 1. unique CBV position and deterministic typed response are immediate;
 2. recursion-free normalization is the ordinary STLC reducibility argument;
@@ -139,7 +139,7 @@ log.  It is closed under:
   Boolean continuations;
 - bind, by associativity of word concatenation.
 
-Hence the graded Writer `TTCert` follows.  The structural-to-TT inclusion is
+Hence the graded Writer `TTClosure` follows.  The structural-to-TT inclusion is
 an induction over finite Writer/free trees.  Constructor separation derives
 reflection; no extended adequacy premise is used.
 
@@ -152,7 +152,7 @@ return x        -> return x
 ask(p, k)       -> k true
 ```
 
-The response computation is pure, so $e'=1$.  `AffineCert` yields
+The response computation is pure, so $e'=1$.  `AffineHandlerLaws` yields
 
 $$
 [a]\cdot\Delta\cdot[b]
@@ -174,21 +174,21 @@ $$
 $$
 
 The operation clause is TT-compatible: pointwise-related continuations remain
-related when both are applied to `true`.  Thus `ShallowCert` follows.
+related when both are applied to `true`.  Thus `ShallowHandlerPackage` follows.
 
-## 6. Certificate audit
+## 6. Package audit
 
-| certificate condition | Writer witness |
+| package condition | Writer witness |
 |---|---|
-| `BaseCert` response structure | `Id`; deterministic `tell` |
+| `BasePackage` response structure | `Id`; deterministic `tell` |
 | branch normalization | recursion-free reducibility |
 | indexed initial algebra | finite Writer/free trees |
 | no-erasure | occurrence-preserving extended word preorder |
-| `FreeCert` conservativity | old terms contain no `ask` node |
+| `FreeExtensionPackage` conservativity | old terms contain no `ask` node |
 | structural graph law | induction over finite nodes |
 | canonical pole closure | log concatenation and constructor congruence |
-| `TTCert` | equality of Writer/free observations |
+| `TTClosure` | equality of Writer/free observations |
 | `TTClause` | apply related continuations to the same `true` |
-| `ShallowCert` adequacy | TT fundamental lemma plus constructor separation |
+| `ShallowHandlerPackage` adequacy | TT fundamental lemma plus constructor separation |
 
 This is the first complete instance of the recursion-free main theorem.

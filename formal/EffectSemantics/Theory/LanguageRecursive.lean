@@ -1,5 +1,5 @@
-import EffectSemantics.Certificate.LanguageFinite
-import EffectSemantics.Certificate.LanguageGenericRecursive
+import EffectSemantics.Theory.LanguageFinite
+import EffectSemantics.Theory.LanguageGenericRecursive
 import EffectSemantics.Recursive.LanguageDeepWriter
 
 namespace EffectSemantics
@@ -7,18 +7,18 @@ namespace EffectSemantics
 /-!
 # Recursive Writer instance
 
-This module discharges the generic recursive certificate for the ordered
+This module discharges the generic recursive package for the ordered
 language-graded Writer observation and proves the typed observation pole.
 -/
 
 /-- The recursive completion of the finite ordered-language theorem for the
 Writer base observation.  Its base-specific premises are isolated at the two
 visible recursive boundaries: the Writer response and a matched free request. -/
-structure LanguageRecursiveStructureCert
+structure LanguageRecursiveTheory
     (sig : LanguageSignature) (selected : Nat)
     (handler : LanguageAffineHandler .recursive) (replacement : EffectLanguage) where
-  finite : LanguageFiniteStructureCert sig
-  boundaries : LanguageRecursiveBoundaryTypingCert sig selected handler replacement
+  finite : LanguageFiniteTheory sig
+  boundaries : LanguageRecursiveBoundaryTyping sig selected handler replacement
   continuous : FlatApproximation.OmegaContinuous
     (languageDeepWriterFunctional selected handler)
   unfold : languageDeepWriterFunctional selected handler
@@ -45,7 +45,7 @@ def LanguageTypedWriterPole (sig : LanguageSignature) :
       Nonempty ([] ⊢[sig] outcome.2 :ᵥ resultTy)
 
 theorem languageDeepWriterLayer_preserves_typedPole
-    (boundaries : LanguageRecursiveBoundaryTypingCert sig selected handler replacement)
+    (boundaries : LanguageRecursiveBoundaryTyping sig selected handler replacement)
     (approximation : LanguageDeepWriterApproximation)
     (good : FlatApproximation.Satisfies (LanguageTypedWriterPole sig)
       approximation) :
@@ -93,10 +93,10 @@ theorem languageDeepWriterLayer_preserves_typedPole
       · simp [found, same] at observed
   | stuck => simp [found] at observed
 
-noncomputable def languageWriterRecursiveBaseCert
-    (boundaries : LanguageRecursiveBoundaryTypingCert sig selected handler replacement) :
-    LanguageRecursiveBaseCert sig (List RecLanguageVal × RecLanguageVal) where
-  source := languageSourceStructureCert sig
+noncomputable def languageWriterRecursiveModel
+    (boundaries : LanguageRecursiveBoundaryTyping sig selected handler replacement) :
+    LanguageRecursiveModel sig (List RecLanguageVal × RecLanguageVal) where
+  source := languageSourceTheory sig
   functional := languageDeepWriterFunctional selected handler
   continuous := languageDeepWriterFunctional_continuous selected handler
   Runs term outcome := LanguageDeepWriterRuns selected handler term outcome.1 outcome.2
@@ -124,8 +124,8 @@ handling supplies the one-layer functional; recursion supplies its least
 fixed point.  Adequacy and the ground fundamental property survive this
 completion. -/
 noncomputable def languageRecursiveStructurePreservation
-    (boundaries : LanguageRecursiveBoundaryTypingCert sig selected handler replacement) :
-    LanguageRecursiveStructureCert sig selected handler replacement where
+    (boundaries : LanguageRecursiveBoundaryTyping sig selected handler replacement) :
+    LanguageRecursiveTheory sig selected handler replacement where
   finite := languageFiniteStructurePreservation sig
   boundaries := boundaries
   continuous := languageDeepWriterFunctional_continuous selected handler

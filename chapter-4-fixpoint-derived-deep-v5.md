@@ -124,7 +124,7 @@ exception.  Elimination is a safety property, not a termination theorem.
 
 ## 6. Preservation theorem program
 
-Chapter IV asks which certificates from Chapters I–III lift through the fixed
+Chapter IV asks which packages from Chapters I–III lift through the fixed
 point:
 
 - type preservation and effect-aware progress;
@@ -157,4 +157,4 @@ The full Chapter-IV cycle is developed in:
 
 - [Operational rules and concrete programs](chapter-4-operational-examples-v5.md);
 - [Recursive denotational semantics](chapter-4-denotational-v5.md);
-- [Proofs and `DeepCert`](chapter-4-certificate-v5.md).
+- [Proofs and `DeepHandlerPackage`](chapter-4-main-results-v5.md).

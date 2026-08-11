@@ -1,26 +1,26 @@
-# Chapter IV — recursion certificate and derived-deep theorem
+# Chapter IV — recursion package and derived-deep theorem
 
-:::{admonition} Lean correspondence — recursive certificate
+:::{admonition} Lean correspondence — recursive package
 :class: tip
-The canonical generic certificate is [`GenericRecursiveResumptionCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumptionCert#doc), with main theorem [`main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumptionCert.main#doc). Morphism, relation, and TT conclusions have separate checked lifts; see the [Chapter-IV table](review-guide.md#chapter-iv-recursion-and-derived-deep-handling).
+The canonical generic package is [`GenericRecursiveResumption`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumption#doc), with main theorem [`main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumption.main#doc). Morphism, relation, and TT conclusions have separate checked lifts; see the [Chapter-IV table](review-guide.md#chapter-iv-recursion-and-derived-deep-handling).
 :::
 
 ### Numbered-statement inventory
 
 | statement | review status | correspondence |
 |---|---|---|
-| Definition IV.1, recursive local certificate | Lean checked counterpart | [`GenericRecursiveResumptionCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumptionCert#doc) |
+| Definition IV.1, recursive local package | Lean checked counterpart | [`GenericRecursiveResumption`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumption#doc) |
 | recursive preservation/progress | Lean checked source-language component | [`languageRecursiveStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageRecursiveStructurePreservation#doc) |
 | finite-to-recursive operational inclusion | Lean checked | [`LanguageStep.toRecursive`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.toRecursive#doc) |
 | derived/deep coincidence | Lean checked semantically by shallow reinstallation functional | [`RecursiveResumptionSystem.functional`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.RecursiveResumptionSystem.functional#doc) |
 | exhaustive-interface elimination | Lean checked source-boundary theorem under exhaustiveness | [`recLanguageHandlerExhaustive_no_escaping_selected_request`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.recLanguageHandlerExhaustive_no_escaping_selected_request#doc) |
-| recursive adequacy transport | Lean checked | [`GenericRecursiveResumptionCert.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumptionCert.main#doc) |
-| Definition IV.2 and layered theorem | readable decomposition with exact source and generic packages | [`LanguageRecursiveStructureCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveStructureCert#doc) |
+| recursive adequacy transport | Lean checked | [`GenericRecursiveResumption.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumption.main#doc) |
+| Definition IV.2 and layered theorem | readable decomposition with exact source and generic packages | [`LanguageRecursiveTheory`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveTheory#doc) |
 
 ## Status
 
 **Conditional paper theorem.**  This page records exactly what must be added
-to `ShallowCert` and what is then preserved.
+to `ShallowHandlerPackage` and what is then preserved.
 
 The source boundary is literal in Lean. Chapters I–III quantify over
 `FinLanguageComp`; Chapter IV quantifies over `RecLanguageComp`. The inclusion
@@ -28,27 +28,27 @@ commutes with renaming and substitution and simulates every finite reduction
 by one recursive reduction. Adding recursion therefore does not retroactively
 put a fixed point into the finite language.
 
-## 1. Definition IV.1 `[C4-CERT.1.1]` — layered recursive certificates [[Lean: counterpart]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumptionCert#doc)
+## 1. Definition IV.1 `[C4-MAIN.1.1]` — layered recursive packages [[Lean: counterpart]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumption#doc)
 
 For a recursive extension $L^{\mathsf{rec}}$ and recursive carrier $\mathsf R$,
 define the following records.
 
-1. $\mathsf{RecSafetyCert}(L^{\mathsf{rec}})$ contains recursive typing,
+1. $\mathsf{RecursiveSafety}(L^{\mathsf{rec}})$ contains recursive typing,
    unfolding preservation and support-wise one-step progress.
-2. $\mathsf{RecModelCert}(\mathsf R)$ contains pointed $\omega$-cpos,
+2. $\mathsf{RecursiveModel}(\mathsf R)$ contains pointed $\omega$-cpos,
    continuous semantic constructors, the recursive resumption solution,
    source/semantic fixpoint agreement and Kleene approximation.
-3. $\mathsf{RecTTCert}(\mathsf R,\mathcal O)$ contains a bottom-containing
+3. $\mathsf{RecursiveTTClosure}(\mathsf R,\mathcal O)$ contains a bottom-containing
    admissible pole, continuous TT operations and the fixed-point compatibility
    used by the recursive fundamental lemma.
-4. $\mathsf{EffectClosureCert}(K)$ contains the monotone iteration closure and
+4. $\mathsf{EffectClosure}(K)$ contains the monotone iteration closure and
    its unit/iteration inequalities.
-5. $\mathsf{RecObservationCert}(\ell)$ selects finite-boundary,
+5. $\mathsf{RecursiveObservation}(\ell)$ selects finite-boundary,
    termination/divergence or productive-infinite observation and supplies
    reflection exactly at that level.
 
 The bundled abbreviation
-$\mathsf{RecBaseCert}(L^{\mathsf{rec}},\mathsf R,K,\mathcal O,\ell)$ is the
+$\mathsf{RecBasePackage}(L^{\mathsf{rec}},\mathsf R,K,\mathcal O,\ell)$ is the
 conjunction of these five records. The following list expands their mathematical
 content; it is explanatory and does not merge them back into one indivisible
 premise.
@@ -63,7 +63,7 @@ premise.
    contains bottom and is closed under approximation suprema; bind and the
    TT operations are continuous; the recursive carrier satisfies the stated
    resumption equation.
-5. **Observation level and effect closure.** The certificate selects what is
+5. **Observation level and effect closure.** The package selects what is
    observed and supplies a monotone iteration closure $K$ for ordered effects.
 
 The principal typing, domain and admissibility fields are represented by
@@ -114,24 +114,24 @@ supplies the corresponding reflection map.
 
 The model, TT, closure and observation records are genuine additional
 hypotheses, but they are not needed for one-step recursive safety. They cannot
-be reconstructed from the finite `ShallowCert` or from monad laws.
+be reconstructed from the finite `ShallowHandlerPackage` or from monad laws.
 
 For the recursive Writer completion, result typing is factored through
-[`LanguageRecursiveBoundaryTypingCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveBoundaryTypingCert#doc).
+[`LanguageRecursiveBoundaryTyping`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveBoundaryTyping#doc).
 It asks exactly for type preservation at a visible base response and at a
 matched free request; internal steps use ordinary preservation. This is an
 explicit premise, not an implicit reuse of the finite request theorem.
 
 ## 2. Recursive safety
 
-:::{prf:theorem} `[C4-CERT.2.1]` Recursive preservation and progress [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageRecursiveStructurePreservation#doc)
+:::{prf:theorem} `[C4-MAIN.2.1]` Recursive preservation and progress [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageRecursiveStructurePreservation#doc)
 :label: thm-recursive-preservation-v5
 
 If
 
 $$
-\mathsf{ShallowSafetyCert}(\Delta,J,h,\Phi_h)
-\land\mathsf{RecSafetyCert}(L^{\mathsf{rec}}),
+\mathsf{ShallowSafety}(\Delta,J,h,\Phi_h)
+\land\mathsf{RecursiveSafety}(L^{\mathsf{rec}}),
 $$
 
 then
@@ -156,10 +156,10 @@ does not survive.
 
 ## 3. Derived/deep coincidence
 
-:::{prf:theorem} `[C4-CERT.3.1]` Derived source handler equals semantic deep handler [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.RecursiveResumptionSystem.functional#doc)
+:::{prf:theorem} `[C4-MAIN.3.1]` Derived source handler equals semantic deep handler [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.RecursiveResumptionSystem.functional#doc)
 :label: thm-derived-deep-coincidence-v5
 
-If $\mathsf{RecModelCert}(\mathsf R)$ holds, the Chapter-III shallow map and
+If $\mathsf{RecursiveModel}(\mathsf R)$ holds, the Chapter-III shallow map and
 the clause functional are continuous, then
 
 $$
@@ -180,7 +180,7 @@ identify their suprema. $\square$
 
 ## 4. Deep elimination
 
-:::{prf:theorem} `[C4-CERT.4.1]` Elimination of an exhaustive interface [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.recLanguageHandlerExhaustive_no_escaping_selected_request#doc)
+:::{prf:theorem} `[C4-MAIN.4.1]` Elimination of an exhaustive interface [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.recLanguageHandlerExhaustive_no_escaping_selected_request#doc)
 :label: thm-deep-elimination-v5
 
 If
@@ -215,7 +215,7 @@ also for every member of any finite execution prefix; termination is not used.
 
 ## 5. Adequacy
 
-:::{prf:theorem} `[C4-CERT.5.1]` Recursive adequacy transport [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumptionCert.main#doc)
+:::{prf:theorem} `[C4-MAIN.5.1]` Recursive adequacy transport [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumption.main#doc)
 :label: thm-recursive-adequacy-v5
 
 If
@@ -236,7 +236,7 @@ M\Downarrow_{\ell}o
 $$
 
 Here $\ell$ is exactly the observation level stored in
-`RecObservationCert`; no
+`RecursiveObservation`; no
 stronger divergence or productive-infinite conclusion is implicit.
 :::
 
@@ -265,30 +265,30 @@ or a least principal word is outside the basic theorem.
 ## 7. Chapter-IV structure-preservation theorem
 
 The abstract recursive implication is checked by
-[`LanguageRecursiveBaseCert.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveBaseCert.main#doc).
+[`LanguageRecursiveModel.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveModel.main#doc).
 Its concrete ordered-language Writer instance is
 [`languageRecursiveStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageRecursiveStructurePreservation#doc),
 and the completed adequacy theorem is
 [`language_deep_writer_semantic_adequacy`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.language_deep_writer_semantic_adequacy#doc).
 
-### Definition IV.2 `[C4-CERT.7.1]` — layered derived-deep certificates [[Lean: source package]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveStructureCert#doc)
+### Definition IV.2 `[C4-MAIN.7.1]` — layered derived-deep packages [[Lean: source package]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveTheory#doc)
 
 Define:
 
-1. `RecursiveSafetyCert` by recursive preservation/progress and old-language
+1. `RecursiveSafety` by recursive preservation/progress and old-language
    operational conservativity;
-2. `DerivedDeepCert` by source definability, the least-fixed-point equation
+2. `DerivedDeepPackage` by source definability, the least-fixed-point equation
    and the return/match/forward deep equations;
-3. `RecursiveHandlerRelCert` by admissible relation preservation through the
+3. `RecursiveHandlerRelation` by admissible relation preservation through the
    derived handler functional;
-4. `RecursiveAdequacyCert` by adequacy at the selected observation level;
-5. `DeepElimCert` by absence of escaping handled-interface requests on every
+4. `RecursiveAdequacyAssumptions` by adequacy at the selected observation level;
+5. `DeepElimination` by absence of escaping handled-interface requests on every
    finite prefix;
-6. `RecursiveEffectCert` by closure of transformed finite effects under $K$.
+6. `RecursiveEffectLaws` by closure of transformed finite effects under $K$.
 
-The bundled name $\mathsf{DeepCert}(\Delta,h,\Phi_h,K)$ contains the first
-four records and `RecursiveEffectCert`. `DeepElimCert` is attached only when
-the handler has `EliminationCert` and its clauses do not re-emit $\Delta$.
+The bundled name $\mathsf{DeepHandlerPackage}(\Delta,h,\Phi_h,K)$ contains the first
+four records and `RecursiveEffectLaws`. `DeepElimination` is attached only when
+the handler has `EliminationLaws` and its clauses do not re-emit $\Delta$.
 Thus a partial derived handler still has a deep semantics and adequacy theorem
 without a false interface-elimination claim.
 
@@ -303,7 +303,7 @@ Their contents are read separately as follows:
 4. **Declared adequacy.** Adequacy holds at the selected observation level.
 5. **Iteration bound.** Transformed recursive effects remain below the
    closure bound.
-6. **Optional interface elimination.** When `DeepElimCert` is separately
+6. **Optional interface elimination.** When `DeepElimination` is separately
    established, no finite outward observation exposes an unhandled $\Delta$
    request.
 
@@ -324,27 +324,27 @@ $$
 \end{aligned}
 $$
 
-:::{prf:theorem} `[C4-CERT.7.2]` Layered recursive derived-deep certificates [[Lean: source theorem]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageRecursiveStructurePreservation#doc)
-:label: thm-recursive-derived-deep-certificate-v5
+:::{prf:theorem} `[C4-MAIN.7.2]` Layered recursive derived-deep packages [[Lean: source theorem]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageRecursiveStructurePreservation#doc)
+:label: thm-recursive-derived-deep-package-v5
 
 The conclusions and their premises are separate implications:
 
-1. `ShallowSafetyCert + RecSafetyCert` implies `RecursiveSafetyCert`.
-2. `ShallowSemanticCert + RecModelCert`, together with continuity of the
-   handler functional, implies `DerivedDeepCert`.
-3. `ShallowRelCert + RecModelCert + RecTTCert`, together with continuity of
-   the related handler functionals, implies `RecursiveHandlerRelCert` by
+1. `ShallowSafety + RecursiveSafety` implies `RecursiveSafety`.
+2. `ShallowSemantics + RecursiveModel`, together with continuity of the
+   handler functional, implies `DerivedDeepPackage`.
+3. `ShallowRelationLaws + RecursiveModel + RecursiveTTClosure`, together with continuity of
+   the related handler functionals, implies `RecursiveHandlerRelation` by
    fixed-point induction.
-4. `ShallowAdequacyCert + RecModelCert + RecTTCert +`
-   $\mathsf{RecObservationCert}(\ell)$ implies `RecursiveAdequacyCert`
+4. `ShallowAdequacyAssumptions + RecursiveModel + RecursiveTTClosure +`
+   $\mathsf{RecursiveObservation}(\ell)$ implies `RecursiveAdequacyAssumptions`
    exactly at level $\ell$.
-5. `HandlerTypingCert + EffectClosureCert` and closure compatibility of
-   $\Phi_h$ imply `RecursiveEffectCert`.
-6. `ShallowSafetyCert + RecSafetyCert + EliminationCert`, outward
+5. `HandlerTyping + EffectClosure` and closure compatibility of
+   $\Phi_h$ imply `RecursiveEffectLaws`.
+6. `ShallowSafety + RecursiveSafety + EliminationLaws`, outward
    $\Delta$-free clauses and wrapped matching resumptions imply
-   `DeepElimCert`.
+   `DeepElimination`.
 
-Conclusions 1--5 give the non-eliminating `DeepCert`. Conclusion 6 may be
+Conclusions 1--5 give the non-eliminating `DeepHandlerPackage`. Conclusion 6 may be
 attached when its stronger premises hold.
 :::
 
@@ -357,4 +357,4 @@ argument are expanded in
 The theorem does not provide termination, exact effect counts, unrestricted
 multi-shot resource safety, commutation with old handlers, full abstraction,
 or productive traces in a bottom-only model.  These require separate
-certificates rather than stronger prose around “an arbitrary base effect.”
+packages rather than stronger prose around “an arbitrary base effect.”

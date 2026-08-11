@@ -7,7 +7,7 @@
 
 ## Status
 
-**Operational development over `ShallowCert`.**  Fixpoint is added to the
+**Operational development over `ShallowHandlerPackage`.**  Fixpoint is added to the
 computation language.  Deep handling remains derived syntax.
 
 ## 1. Recursive functions
@@ -145,7 +145,7 @@ so subsequent `Tick` requests are caught as well.
 A general clause may invoke its rehandled continuation twice.  For Writer or
 State this duplicates the tail and its base effects in model-specific order.
 The basic theorem permits this only through an explicit handler effect
-certificate.  Exact ordered grades require an affine/linear restriction or a
+package.  Exact ordered grades require an affine/linear restriction or a
 quantitative extension; they do not follow from recursion alone.
 
 ## 9. Partial deep handling does not eliminate an interface
@@ -198,9 +198,9 @@ recursive depth, while `tock` remains observable at every round.
 
 This example separates two claims:
 
-1. `DerivedDeepCert` is meaningful for a partial set $J$: fixpoint
+1. `DerivedDeepPackage` is meaningful for a partial set $J$: fixpoint
    reinstallation repeatedly catches every selected operation.
-2. `DeepElimCert(\Delta)` is false: since `tock` belongs to the same interface,
+2. `DeepElimination(\Delta)` is false: since `tock` belongs to the same interface,
    the interface-level grade $\Delta$ must remain in the outward upper bound.
 
 An operation-granular effect algebra could express elimination of `tick` while

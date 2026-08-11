@@ -2,7 +2,7 @@
 
 :::{admonition} Lean correspondence — recursive denotation
 :class: tip
-The one-layer functional is [`RecursiveResumptionSystem.functional`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.RecursiveResumptionSystem.functional#doc). Its least fixed point, unfold law, leastness, limit adequacy, and recursive pole are **Lean checked** by [`GenericRecursiveResumptionCert.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumptionCert.main#doc).
+The one-layer functional is [`RecursiveResumptionSystem.functional`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.RecursiveResumptionSystem.functional#doc). Its least fixed point, unfold law, leastness, limit adequacy, and recursive pole are **Lean checked** by [`GenericRecursiveResumption.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumption.main#doc).
 :::
 
 ## Status

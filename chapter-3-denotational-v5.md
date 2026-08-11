@@ -7,9 +7,9 @@
 
 ## Status
 
-**Semantic construction over `FreeCert`.**  The principal total theorem is for
+**Semantic construction over `FreeExtensionPackage`.**  The principal total theorem is for
 the affine response fragment.  General continuation-using clauses require an
-explicit effect-transformer certificate.
+explicit effect-transformer package.
 
 ## 1. Input structure
 
@@ -116,7 +116,7 @@ Soundness for a path that omits the optional request follows from
 $1\leq e'$.  The transformer is monotone wherever the extended preorder is
 compatible with the displayed replacement.
 
-## 5. General handler effect certificate
+## 5. General handler effect package
 
 For an unrestricted clause, the grades of the clause body and continuation
 type alone do not determine a precise output:
@@ -132,7 +132,7 @@ $$
 $$
 
 together with local proofs that every return, matching and forwarding equation
-lands below $\Phi_h(e)$.  The affine theorem constructs this certificate from
+lands below $\Phi_h(e)$.  The affine theorem constructs this package from
 $e'$; the general theorem consumes it as data.
 
 ## 6. Concrete semantic equations

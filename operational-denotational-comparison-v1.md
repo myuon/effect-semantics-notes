@@ -118,9 +118,9 @@ $$
 $$
 
 Compatible graded logical relations lift in parallel. In Lean the ungraded
-finite core is [`GenericExtensionAlgebra.ModelComparisonCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparisonCert#doc),
+finite core is [`GenericExtensionAlgebra.ModelComparison`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparison#doc),
 with the lifting theorem
-[`ModelComparisonCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparisonCert.lift#doc).
+[`ModelComparison.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparison.lift#doc).
 General categorical sufficient conditions are stated in
 [FreeT existence](graded-freet-existence-v1.md).
 
@@ -146,19 +146,19 @@ $$
 This is the recursive/derived-deep strengthening and is not assumed by the
 finite shallow theorem.
 
-## 6. Certificate split
+## 6. Package split
 
 The canonical records are conceptually:
 
-1. `BaseSafetyCert(L,B)` -- syntax, typing, preservation, progress, and effect
+1. `BaseSafety(L,B)` -- syntax, typing, preservation, progress, and effect
    bounds;
-2. `OperationalModelCert(L,B,S)` -- the operational graded monad and primitive
+2. `OperationalModel(L,B,S)` -- the operational graded monad and primitive
    interpretations;
-3. `DenotationalModelCert(L,B,T)` -- the denotational graded monad and
+3. `DenotationalModel(L,B,T)` -- the denotational graded monad and
    primitive interpretations;
-4. `ModelComparisonCert(S,T,q)` or its relational counterpart;
-5. `MachineSoundnessCert(L,S)` -- optional identification of direct execution
+4. `ModelComparison(S,T,q)` or its relational counterpart;
+5. `MachineSoundness(L,S)` -- optional identification of direct execution
    with the operational model.
 
-The old name `AdequacyCert` remains temporarily as a Lean compatibility API,
-but new statements use the comparison certificate explicitly.
+The old name `AdequacyAssumptions` remains temporarily as a Lean compatibility API,
+but new statements use the comparison package explicitly.

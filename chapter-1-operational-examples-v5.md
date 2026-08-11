@@ -137,7 +137,7 @@ contains constructors for the six root reductions above and
 for `(E-Let)`. It is therefore the context-closed one-step relation
 $\longrightarrow$, not just the principal relation $\rightsquigarrow$.
 The Lean notation `term ⟶ next` abbreviates `LanguageStep term next`; theorem
-and certificate statements use this notation while constructor and namespace
+and package statements use this notation while constructor and namespace
 names retain `LanguageStep`.
 `LanguageStep` is mode-polymorphic and also contains `fixBeta`; Chapter I uses
 the finite mode, whose syntax has no fixed-point constructor.
@@ -441,4 +441,4 @@ In every instance the next evaluation position is unique. In the
 recursion-free calculus evaluation yields a well-defined element of the
 chosen $S_bA$; nondeterminism or probability, when present, is structure of
 $S$ rather than ambiguity in evaluation-context decomposition. These facts
-become fields of the Chapter-I certificate.
+become fields of the Chapter-I package.

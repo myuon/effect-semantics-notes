@@ -1,8 +1,8 @@
-# Random/SubDist end-to-end certificate instance
+# Random/SubDist end-to-end package instance
 
 :::{admonition} Formalization status — Random
 :class: warning
-**Boundary / paper instance.** The generic framework permits nondeterministic base behavior only after choosing an observation domain and adequacy notion. Unlike Writer, State, and Exception, this page does not currently have a complete recursive Lean instance. Do not infer determinism or adequacy from `BaseCert` notation alone.
+**Boundary / paper instance.** The generic framework permits nondeterministic base behavior only after choosing an observation domain and adequacy notion. Unlike Writer, State, and Exception, this page does not currently have a complete recursive Lean instance. Do not infer determinism or adequacy from `BasePackage` notation alone.
 :::
 
 ## Status
@@ -45,7 +45,7 @@ $$
 =\llbracket M\rrbracket(o).
 $$
 
-Induction on the finite response tree establishes `BaseCert`.  Unique
+Induction on the finite response tree establishes `BasePackage`.  Unique
 evaluation position remains true; only the selected primitive response
 branches.
 
@@ -131,7 +131,7 @@ weights.  A genuinely heterogeneous probabilistic relation would instead
 need a coupling/relator premise.  Free-node closure is pointwise on the two Boolean responses.
 Weakening is again observationally inert.
 
-Thus the graded `TTCert` laws hold.  In particular, the fundamental lemma
+Thus the graded `TTClosure` laws hold.  In particular, the fundamental lemma
 concludes equality of complete subdistributions, not merely equality of their
 supports or expected return values.
 

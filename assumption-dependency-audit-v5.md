@@ -17,14 +17,14 @@ entire language extension.
 ### O — operational extension
 
 `OpExt` consists of the new operation syntax, typing rule, evaluation
-contexts and exposed-request boundary. It uses `BaseSafetyCert`
+contexts and exposed-request boundary. It uses `BaseSafety`
 and response kernel, but no denotational initial algebra.
-Typing and residual-context factorization give `EffectSafetyCert`. The
-separate `EmptyFreeCert` additionally assumes no-erasure.
+Typing and residual-context factorization give `EffectSafety`. The
+separate `NoErasureCondition` additionally assumes no-erasure.
 
 ### C — graded FreeT existence
 
-`FreeTExistenceCert` supplies the parameterized initial algebras
+`FreeTExistence` supplies the parameterized initial algebras
 
 $$
 \widehat T=\operatorname{FreeT}_\Sigma(T),
@@ -38,7 +38,7 @@ Accessible sufficient conditions are isolated in
 
 ### M — monadic composition
 
-`MonadExtCert` is included in `StrongGradedFreeT`. For the ordinary ungraded
+`MonadExtensionLaws` is included in `StrongGradedFreeT`. For the ordinary ungraded
 FreeT its action is derived from the standard equation
 
 $$
@@ -52,29 +52,29 @@ not a separate top-level hypothesis because it is bundled by
 
 ### F — morphism lifting
 
-`FunctorCert` lifts a base monad morphism through the two FreeT initial
+`FunctorialityLaws` lifts a base monad morphism through the two FreeT initial
 algebras. For canonical lifts, `Act-Morphism` follows from the chosen action
 construction and preservation of base multiplication. For arbitrary package
-arrows it is an explicit certificate. Identity and composition follow from
+arrows it is an explicit package. Identity and composition follow from
 uniqueness.
 
 ### R — relation lifting
 
-`RelCert` has two levels. Constructor-wise $\mathsf{Str}_\Delta(R)$ needs
-only `CarrierCert` and a base-layer relation. Closure under extended bind also
-requires `MonadExtCert` and compatibility of $R$ with the two base actions.
+`RelationLaws` has two levels. Constructor-wise $\mathsf{Str}_\Delta(R)$ needs
+only `CarrierStructure` and a base-layer relation. Closure under extended bind also
+requires `MonadExtensionLaws` and compatibility of $R$ with the two base actions.
 
 ### T — model comparison, observation, and adequacy
 
-`ModelComparisonCert` first lifts the denotational-to-operational morphism (or
-relation) through the free carrier. `FiniteTTCert` is an optional later layer:
+`ModelComparison` first lifts the denotational-to-operational morphism (or
+relation) through the free carrier. `FiniteTTClosure` is an optional later layer:
 it adds a well-founded operational tree, a separated observation algebra, and
 closure of the selected pole. The typing fundamental lemma also uses
-`MonadExtCert`, because source `let` is interpreted by extended bind.
+`MonadExtensionLaws`, because source `let` is interpreted by extended bind.
 
 ### H — shallow handling
 
-`ShallowExtCert` adds a handled-operation set $J$, a valid effect transformer
+`ShallowExtensionLaws` adds a handled-operation set $J$, a valid effect transformer
 and structural/TT clause compatibility. Its operational safety part depends
 only on `OpExt`; denotational commutation and handled adequacy depend on M, R
 and T. Exhaustiveness $J=I_\Delta$ is required only by interface-level
@@ -113,17 +113,17 @@ model; it is required for the original object-and-morphism transport claim.
 
 For the fixed Chapter-I language and first-order interface $\Delta$:
 
-1. `BaseSafetyCert + OpExt` preserves operational safety and old-language
+1. `BaseSafety + OpExt` preserves operational safety and old-language
    operational behavior.
-2. Adding `FreeTExistenceCert` gives the two extended strong graded monads,
+2. Adding `FreeTExistence` gives the two extended strong graded monads,
    old embeddings and new generators.
-3. The FreeT fold/unfold equation derives `MonadExtCert`, including the base
+3. The FreeT fold/unfold equation derives `MonadExtensionLaws`, including the base
    action and graded bind; it is not an extra existence premise.
-4. Adding `FunctorCert` lifts compatible base morphisms functorially.
+4. Adding `FunctorialityLaws` lifts compatible base morphisms functorially.
 5. Adding a graded base relator with `Rel-Act`, together with
-   `RelCert + FiniteTTCert`, transports the finite fundamental lemma and
+   `RelationLaws + FiniteTTClosure`, transports the finite fundamental lemma and
    adequacy.
-6. Adding `ShallowExtCert` transports the corresponding operational,
+6. Adding `ShallowExtensionLaws` transports the corresponding operational,
    denotational and observational handler properties.
 :::
 
@@ -182,7 +182,7 @@ keeps the handler installed, and resumed computations are handled again.
 | iteration-closed effect bound |  |  |  | ✓ |  |  |
 | outward elimination of $\Delta$ | ✓ |  |  |  |  | ✓ |
 
-Every row additionally inherits the matching finite Chapter-III certificate
+Every row additionally inherits the matching finite Chapter-III package
 (safety, semantics, relation, adequacy, or handler typing). The RM entries in
 the relation and adequacy rows supply the semantic fixed
 point and continuity; RT supplies admissible induction.  The elimination row

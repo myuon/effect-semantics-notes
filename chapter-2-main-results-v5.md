@@ -1,12 +1,12 @@
-# Chapter II — preservation proofs and `FreeCert`
+# Chapter II — preservation proofs and `FreeExtensionPackage`
 
-:::{admonition} Lean correspondence — `FreeCert`
+:::{admonition} Lean correspondence — `FreeExtensionPackage`
 :class: tip
 Read this page in three layers: typed source, finite semantic core, and the
 conditional general graded theorem. The source-language Chapter-II boundary is an exact Lean record,
-[`LanguageFreeStageCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFreeStageCert#doc), constructed by
+[`LanguageFreeStage`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFreeStage#doc), constructed by
 [`languageFreeStagePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageFreeStagePreservation#doc).
-The grade-independent semantic core is [`GenericFreeExtensionCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericFreeExtensionCert#doc), with morphism, relation and model-comparison lifts checked separately. `LanguageWriterTree.toFreeExtension` now connects the finite source tree to that generic core and preserves bind. The stronger grade-indexed initial-algebra presentation below remains a readable abstraction, not an identification theorem between the finite and graded representations. [Full mapping](review-guide.md#chapter-ii-free-operations).
+The grade-independent semantic core is [`FreeExtensionStructure`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtensionStructure#doc), with morphism, relation and model-comparison lifts checked separately. `LanguageWriterTree.toFreeExtension` now connects the finite source tree to that generic core and preserves bind. The stronger grade-indexed initial-algebra presentation below remains a readable abstraction, not an identification theorem between the finite and graded representations. [Full mapping](review-guide.md#chapter-ii-free-operations).
 :::
 
 ### Numbered-statement inventory
@@ -18,18 +18,18 @@ The grade-independent semantic core is [`GenericFreeExtensionCert`](https://myuo
 | Theorem II.5, old-language operational conservativity | Lean checked for current `LanguageComp` | [`FinLanguageSteps.baseOnly_boundary_is_base`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FinLanguageSteps.baseOnly_boundary_is_base#doc) |
 | Theorem II.6, free-extension algebra | Lean checked | [`genericFreeExtensionStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericFreeExtensionStructurePreservation#doc) |
 | Theorem II.7, finite denotational conservativity | Lean checked, with source-tree bridge | [`eraseFree_embedBase`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.eraseFree_embedBase#doc), [`toFreeExtension_bind`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageWriterTree.toFreeExtension_bind#doc) |
-| Theorem II.8, finite model-comparison lifting | Lean checked | [`GenericExtensionAlgebra.ModelComparisonCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparisonCert.lift#doc) |
-| Definition II.1–II.2 and Theorem II.9, `FreeCert` | readable grade-indexed abstraction; ungraded structural core Lean checked | [`GenericFreeExtensionCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericFreeExtensionCert#doc) |
+| Theorem II.8, finite model-comparison lifting | Lean checked | [`GenericExtensionAlgebra.ModelComparison.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparison.lift#doc) |
+| Definition II.1–II.2 and Theorem II.9, `FreeExtensionPackage` | readable grade-indexed abstraction; ungraded structural core Lean checked | [`FreeExtensionStructure`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtensionStructure#doc) |
 
 ## Status
 
 **Conditional paper theorem.**  This page proves the recursion-free free
-extension properties relative to the explicit `BaseCert` and initial-algebra
+extension properties relative to the explicit `BasePackage` and initial-algebra
 hypotheses.
 
 ## 1. Substitution and preservation
 
-### Lemma II.1 `[C2-CERT.1.1]` — substitution [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.subst_preserved#doc)
+### Lemma II.1 `[C2-MAIN.1.1]` — substitution [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.subst_preserved#doc)
 
 The Chapter-I value/computation substitution lemmas remain valid after adding
 free operations.
@@ -57,7 +57,7 @@ $$
 
 No continuation substitution case is needed in source syntax.
 
-### Theorem II.2 `[C2-CERT.1.2]` — internal preservation [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc)
+### Theorem II.2 `[C2-MAIN.1.2]` — internal preservation [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc)
 
 If $M:A!e$ and $M\to M'$, then $M':A!e$.  All principal reductions are old
 Chapter-I rules; the only new form is inert until captured by a future handler.
@@ -65,7 +65,7 @@ Context preservation follows from ordered multiplication.
 
 ## 2. Effect-aware progress
 
-### Theorem II.3 `[C2-CERT.2.1]` — extended decomposition [[Lean: exact four-way theorem]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed_fourWayExactlyOne#doc)
+### Theorem II.3 `[C2-MAIN.2.1]` — extended decomposition [[Lean: exact four-way theorem]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed_fourWayExactlyOne#doc)
 
 A closed well-typed computation has exactly one selected evaluation form: it
 returns, has a uniquely located internal redex, exposes a uniquely located base
@@ -79,7 +79,7 @@ Induction on syntax, reusing Chapter-I canonical forms.  The new operation case
 is immediate.  In a sequencing context, unique decomposition of the left term
 determines exactly one enclosing case. $\square$
 
-### Boundary II.4 `[C2-CERT.2.2]` — empty-free-effect safety [[Lean: counterexample]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.empty_free_effect_safety_counterexample#doc) [[Lean: repaired theorem]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.TypedLanguageFreeRequest.not_exposed_of_interface_absent#doc)
+### Boundary II.4 `[C2-MAIN.2.2]` — empty-free-effect safety [[Lean: counterexample]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.empty_free_effect_safety_counterexample#doc) [[Lean: repaired theorem]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.TypedLanguageFreeRequest.not_exposed_of_interface_absent#doc)
 
 The unconditional statement is false for the current effect algebra:
 sequential composition with `bottom` erases every prefix.  Lean checks a
@@ -94,7 +94,7 @@ $1\leq\Delta$ may terminate without exposing $\Delta$.
 
 ## 3. Old-language operational conservativity
 
-### Theorem II.5 `[C2-CERT.3.1]` — old-language operational conservativity [[Lean: one step]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preservesBaseOnly#doc) [[Lean: finite run]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FinLanguageSteps.baseOnly_boundary_is_base#doc)
+### Theorem II.5 `[C2-MAIN.3.1]` — old-language operational conservativity [[Lean: one step]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preservesBaseOnly#doc) [[Lean: finite run]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FinLanguageSteps.baseOnly_boundary_is_base#doc)
 
 For an old Chapter-I term, the Chapter-II transition relation and observations
 coincide with the Chapter-I ones.
@@ -111,7 +111,7 @@ $\square$
 
 ## 4. Free-extension algebra
 
-### Theorem II.6 `[C2-CERT.4.1]` — free-extension algebra [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericFreeExtensionStructurePreservation#doc)
+### Theorem II.6 `[C2-MAIN.4.1]` — free-extension algebra [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericFreeExtensionStructurePreservation#doc)
 
 Assume that the strong graded free monad transformer
 $\widehat T=\operatorname{FreeT}_\Sigma(T)$ exists in the sense of
@@ -139,7 +139,7 @@ $T$. $\square$
 
 ## 5. Denotational conservativity
 
-### Theorem II.7 `[C2-CERT.5.1]` — finite denotational conservativity [[Lean: base retraction]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.eraseFree_embedBase#doc) [[Lean: source-tree bridge]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageWriterTree.toFreeExtension_bind#doc)
+### Theorem II.7 `[C2-MAIN.5.1]` — finite denotational conservativity [[Lean: base retraction]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.eraseFree_embedBase#doc) [[Lean: source-tree bridge]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageWriterTree.toFreeExtension_bind#doc)
 
 For every old typed term,
 
@@ -161,12 +161,12 @@ Extend both models by the same free signature:
 $\widehat S=\mathsf F_\Sigma(S)$ and
 $\widehat T=\mathsf F_\Sigma(T)$.
 
-### Theorem II.8 `[C2-CERT.6.1]` — finite model-comparison lifting [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparisonCert.lift#doc)
+### Theorem II.8 `[C2-MAIN.6.1]` — finite model-comparison lifting [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparison.lift#doc)
 
 Assume
 
 $$
-\mathsf{BaseCert}(L_B,E_B,S,T,q)
+\mathsf{BasePackage}(L_B,E_B,S,T,q)
 \land\mathsf{StrongGradedFreeT}(S,\Sigma,\widehat S)
 \land\mathsf{StrongGradedFreeT}(T,\Sigma,\widehat T).
 $$
@@ -233,19 +233,19 @@ The current language-graded finite realization is checked by
 its operational/tree adequacy component is
 [`language_writer_operational_tree_adequacy`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.language_writer_operational_tree_adequacy#doc).
 
-### Definition II.1 `[C2-CERT.8.1]` — layered Chapter-II certificates [[Lean: source stage]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFreeStageCert#doc) [[Lean: semantic core]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericFreeExtensionCert#doc)
+### Definition II.1 `[C2-MAIN.8.1]` — layered Chapter-II packages [[Lean: source stage]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFreeStage#doc) [[Lean: semantic core]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtensionStructure#doc)
 
 For $\widehat L=L_B+\Sigma$, the paper proof is factored into the following
-eight certificate interfaces. These names describe the dependency boundary;
+eight package interfaces. These names describe the dependency boundary;
 they are not eight same-named Lean structures.
 
-1. $\mathsf{OpFreeCert}(\widehat L)$ contains extended substitution and
+1. $\mathsf{OpFreeExtensionPackage}(\widehat L)$ contains extended substitution and
    preservation, four-way return/redex/base/free-request decomposition, and
    literal old-language operational conservativity.
-2. $\mathsf{EffectSafetyCert}(\widehat L,\widehat E)$ contains the factorization
+2. $\mathsf{EffectSafety}(\widehat L,\widehat E)$ contains the factorization
    property `effsafe`: every exposed $\Delta$ request occurs at some typed
    position $p\Delta q\le e$. It does not require no-erasure.
-3. $\mathsf{EmptyFreeCert}(\widehat E)$ contains the no-erasure implication
+3. $\mathsf{NoErasureCondition}(\widehat E)$ contains the no-erasure implication
 
    $$
    \neg\mathsf{contains}_\Sigma(e)
@@ -254,36 +254,36 @@ they are not eight same-named Lean structures.
    \tag{No-Erase}
    $$
 
-4. $\mathsf{CarrierCert}(T,\Sigma,\mathsf F)$ contains the indexed Lambek
+4. $\mathsf{CarrierStructure}(T,\Sigma,\mathsf F)$ contains the indexed Lambek
    isomorphisms $\alpha_A:\mathcal H_A(\mathsf F A)\cong\mathsf F A$, their
    naturality in $A$, coherent weakening, and the return/base/free
    constructors.
-5. $\mathsf{MonadExtCert}(T,\mathsf F,\mathsf{act})$ contains `Act-Unit`,
+5. $\mathsf{MonadExtensionLaws}(T,\mathsf F,\mathsf{act})$ contains `Act-Unit`,
    `Act-Mult`, weakening, strength and free-node coherence, together with the
    induced graded monad laws and monadic base embedding.
-6. $\mathsf{FunctorCert}(\mathsf F)$ states that every structure- and
+6. $\mathsf{FunctorialityLaws}(\mathsf F)$ states that every structure- and
    action-compatible base morphism has a unique lifted strong graded monad
    morphism and that these lifts preserve identity and composition.
-7. $\mathsf{RelCert}(\mathsf F)$ takes a compatible graded relator as input,
+7. $\mathsf{RelationLaws}(\mathsf F)$ takes a compatible graded relator as input,
    includes `Rel-Act`, constructs $\mathsf{Str}_\Sigma$, and supplies bind
    closure and the graph law for graph-preserving relators.
-8. $\mathsf{FiniteAdequacyCert}(\widehat L,\mathcal K,\mathsf F)$ contains the
+8. $\mathsf{FiniteAdequacyAssumptions}(\widehat L,\mathcal K,\mathsf F)$ contains the
    canonical pole, pole closure, the finite fundamental lemma and equality of
    closed ground observations.
 
 Lean packages the checked finite portions differently: chiefly as
-`LanguageFreeStageCert`, `GenericFreeExtensionCert`, and the associated
-model-comparison certificates. The grade-indexed fields in items 4–8 remain
+`LanguageFreeStage`, `FreeExtensionStructure`, and the associated
+model-comparison packages. The grade-indexed fields in items 4–8 remain
 requirements of the paper `StrongGradedFreeT` presentation.
 
-### Definition II.2 `[C2-CERT.8.2]` — bundled `FreeCert` [Readable grade-indexed abstraction]
+### Definition II.2 `[C2-MAIN.8.2]` — bundled `FreeExtensionPackage` [Readable grade-indexed abstraction]
 
 For an extension $\widehat L=L_B+\Sigma$ with effect algebra $\widehat E$
 and denotational carrier
 $\widehat T:=\mathsf F_\Sigma(T)$, we say that
 
 $$
-\mathsf{FreeCert}(\widehat L,\widehat E,\mathcal K,\widehat T)
+\mathsf{FreeExtensionPackage}(\widehat L,\widehat E,\mathcal K,\widehat T)
 $$
 
 holds when the following conditions are satisfied.
@@ -302,7 +302,7 @@ holds when the following conditions are satisfied.
    graded TT relations transport through a closed pole.
 6. **Finite adequacy.** Closed ground observations agree in $\mathcal K$.
 
-At paper level, `FreeCert` abbreviates the conjunction of the eight interfaces
+At paper level, `FreeExtensionPackage` abbreviates the conjunction of the eight interfaces
 above. It is not currently a same-named Lean record; mechanized intermediate
 theorems use the smaller source and finite-semantic records just listed.
 
@@ -370,7 +370,7 @@ $$
  base layers, free nodes and bind},\\
 &\mathsf{Str}_\Sigma(\overline q)
  =\operatorname{Graph}(\mathsf F_\Sigma q),\\
-&\mathsf{TTCert}(T,U,\mathcal O)
+&\mathsf{TTClosure}(T,U,\mathcal O)
  \land\mathsf{PoleClosed}_\Sigma(\mathcal O^\Sigma)\\
 &\hspace{18mm}\Rightarrow
  \mathsf{Str}_\Sigma(V^{\top\top})
@@ -396,7 +396,7 @@ $$
 
 Thus `graphLaw` is an equality only for the least structural lifting.
 `ttTransport` maps it into the generally larger observational closure.  The
-grade-indexed pole and `TTCert` are defined in
+grade-indexed pole and `TTClosure` are defined in
 [Graded TT-lifting](graded-tt-lifting-v5.md).
 
 Condition (6), for every closed ground $M$, is
@@ -409,11 +409,11 @@ $$
 
 where $o$ ranges over separated returns, base outcomes and free requests.
 
-### Theorem II.9 `[C2-CERT.8.3]` — layered free-extension certificates [[Lean: source theorem]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageFreeStagePreservation#doc) [[Lean: generic theorem]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericFreeExtensionStructurePreservation#doc)
+### Theorem II.9 `[C2-MAIN.8.3]` — layered free-extension packages [[Lean: source theorem]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageFreeStagePreservation#doc) [[Lean: generic theorem]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericFreeExtensionStructurePreservation#doc)
 
 Assume the following premises, each only where cited below.
 
-1. $\mathsf{BaseCert}(L_B,E_B,S,T,q)$;
+1. $\mathsf{BasePackage}(L_B,E_B,S,T,q)$;
 2. $\Sigma$ is a first-order polynomial signature disjoint from the base
    signature;
 3. $\mathsf{StrongGradedFreeT}(T,\Sigma,\widehat T)$ and
@@ -426,10 +426,10 @@ Assume the following premises, each only where cited below.
 
 Then the following conclusions hold in order.
 
-1. Premises 1 and 2 give $\mathsf{OpFreeCert}(L_B+\Sigma)$ independently of
+1. Premises 1 and 2 give $\mathsf{OpFreeExtensionPackage}(L_B+\Sigma)$ independently of
    the semantic FreeT premise.
-2. The same typing argument gives $\mathsf{EffectSafetyCert}$; adding premise
-   4 gives the stronger `EmptyFreeCert` corollary.
+2. The same typing argument gives $\mathsf{EffectSafety}$; adding premise
+   4 gives the stronger `NoErasureCondition` corollary.
 3. Premise 3 gives both extended strong graded monads, their base embeddings,
    free generators, and the chosen coherent actions.
 4. The base comparison $q$ lifts functorially to
@@ -441,7 +441,7 @@ Then the following conclusions hold in order.
 Consequently all premises together yield
 
 $$
-\mathsf{FreeCert}
+\mathsf{FreeExtensionPackage}
 (L_B+\Sigma,\widehat E,\widehat S,\widehat T,\widehat q)
 $$
 
@@ -457,7 +457,7 @@ with the general categorical construction is claimed.
 The constructor inductions and initiality arguments are expanded in
 [Chapter II — detailed free-extension proofs](chapter-2-proof-details-v5.md).
 
-`FreeCert` does not yet define a handler, eliminate $\Delta$, support general
+`FreeExtensionPackage` does not yet define a handler, eliminate $\Delta$, support general
 recursion, or prove that an effect bound is exact.  Those are genuinely later
 chapters.  In particular, $1\leq\Delta$ intentionally permits a term annotated
 with $\Delta$ to return without performing it.

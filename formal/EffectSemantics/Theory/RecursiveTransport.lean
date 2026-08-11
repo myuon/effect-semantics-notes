@@ -5,7 +5,7 @@ namespace StableObservation
 
 /-- All data required to lift an outcome map through recursive least fixed
 points.  No monad or category-level law is hidden in the package. -/
-structure RecursiveMorphismCert
+structure RecursiveMorphism
     (sourceFunction : StableObservation Source → StableObservation Source)
     (targetFunction : StableObservation Target → StableObservation Target)
     (transform : Source → Target) : Prop where
@@ -15,15 +15,15 @@ structure RecursiveMorphismCert
     mapOutcome transform (sourceFunction observation) =
       targetFunction (mapOutcome transform observation)
 
-theorem RecursiveMorphismCert.lift
-    (cert : RecursiveMorphismCert sourceFunction targetFunction transform) :
+theorem RecursiveMorphism.lift
+    (cert : RecursiveMorphism sourceFunction targetFunction transform) :
     mapOutcome transform (lfp sourceFunction cert.sourceContinuous) =
       lfp targetFunction cert.targetContinuous :=
   mapOutcome_lfp transform cert.sourceContinuous cert.targetContinuous
     cert.commutes
 
 /-- All data required to lift a binary logical relation through recursion. -/
-structure RecursiveRelationCert
+structure RecursiveRelation
     (leftFunction : StableObservation Left → StableObservation Left)
     (rightFunction : StableObservation Right → StableObservation Right)
     (relation : StableObservation Left → StableObservation Right → Prop) : Prop where
@@ -34,18 +34,18 @@ structure RecursiveRelationCert
   oneLayer : ∀ left right, relation left right →
     relation (leftFunction left) (rightFunction right)
 
-theorem RecursiveRelationCert.lift
-    (cert : RecursiveRelationCert leftFunction rightFunction relation) :
+theorem RecursiveRelation.lift
+    (cert : RecursiveRelation leftFunction rightFunction relation) :
     relation (lfp leftFunction cert.leftContinuous)
       (lfp rightFunction cert.rightContinuous) :=
   lfp_related cert.leftContinuous cert.rightContinuous cert.admissible
     cert.bottomRelated cert.oneLayer
 
 /-- Graph relations are not a separate assumption: every recursive morphism
-certificate induces the corresponding recursive relation certificate. -/
-theorem RecursiveMorphismCert.graphRelation
-    (cert : RecursiveMorphismCert sourceFunction targetFunction transform) :
-    RecursiveRelationCert sourceFunction targetFunction (Graph transform) where
+package induces the corresponding recursive relation package. -/
+theorem RecursiveMorphism.graphRelation
+    (cert : RecursiveMorphism sourceFunction targetFunction transform) :
+    RecursiveRelation sourceFunction targetFunction (Graph transform) where
   leftContinuous := cert.sourceContinuous
   rightContinuous := cert.targetContinuous
   admissible := graph_admissible transform
@@ -55,8 +55,8 @@ theorem RecursiveMorphismCert.graphRelation
     unfold Graph at related ⊢
     rw [cert.commutes, related]
 
-theorem RecursiveMorphismCert.graph_lift_agrees
-    (cert : RecursiveMorphismCert sourceFunction targetFunction transform) :
+theorem RecursiveMorphism.graph_lift_agrees
+    (cert : RecursiveMorphism sourceFunction targetFunction transform) :
     Graph transform (lfp sourceFunction cert.sourceContinuous)
       (lfp targetFunction cert.targetContinuous) :=
   cert.graphRelation.lift

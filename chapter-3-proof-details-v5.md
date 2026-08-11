@@ -30,7 +30,7 @@ supplies the inequality to $d$. $\square$
 For `SH-Ret`, invert handler typing and apply value substitution to the return
 clause.  For `SH-Match`, the residual-context lemma types
 $k=\lambda r.\mathcal E[\mathsf{return}\,r]$; substitute both the operation
-parameter and $k$ into the selected clause.  Its local $\Phi_h$ certificate
+parameter and $k$ into the selected clause.  Its local $\Phi_h$ package
 places the result below the declared output.  For transparent forwarding,
 apply the structural induction hypothesis to the proper continuation subtree
 and rebuild precisely the same nonmatching tag.  A step inside the scrutinee
@@ -76,7 +76,7 @@ $J=I_\Delta$. $\square$
 
 Use the Chapter-II structural relation to follow the four free-carrier cases,
 and the extended graded TT relation to express observational compatibility.
-Return uses the TT-related return clauses; base layers use `TTCert`; match uses
+Return uses the TT-related return clauses; base layers use `TTClosure`; match uses
 `TTClause` with orthogonal captured continuations; forwarding uses pole closure
 and the pointwise induction hypothesis.  The structural-to-TT inclusion moves
 the constructor induction into the observational relation.  Induction on
@@ -87,5 +87,5 @@ No handler rule has a handler-free left-hand side, and the interpretation of
 old constructs is unchanged; syntactic and denotational induction therefore
 prove conservativity. Collecting residual typing, preservation, commutation,
 adequacy and the supplied $\Phi_h$ laws establishes the non-eliminating fields
-of `ShallowCert`. Interface elimination additionally uses $J=I_\Delta$ and
-`EliminationCert`.
+of `ShallowHandlerPackage`. Interface elimination additionally uses $J=I_\Delta$ and
+`EliminationLaws`.

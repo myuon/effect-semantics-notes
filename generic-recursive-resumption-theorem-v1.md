@@ -2,7 +2,7 @@
 
 :::{admonition} Canonical checked abstraction
 :class: tip
-Every generic conclusion on this page links to its checked declaration. The principal bundle is [`GenericRecursiveResumptionCert.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumptionCert.main#doc). Writer, State, and Exception are separate checked instances. Read the concrete Chapter-IV programs first; see the [dependency map](review-guide.md#chapter-iv-recursion-and-derived-deep-handling).
+Every generic conclusion on this page links to its checked declaration. The principal bundle is [`GenericRecursiveResumption.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumption.main#doc). Writer, State, and Exception are separate checked instances. Read the concrete Chapter-IV programs first; see the [dependency map](review-guide.md#chapter-iv-recursion-and-derived-deep-handling).
 :::
 
 ## Status
@@ -45,9 +45,9 @@ They form
 [`RecursiveObserverContinuity`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.RecursiveObserverContinuity#doc)
 and imply continuity of $\Phi_h$ without a Writer-specific assumption.
 
-## 3. Generic fixed-point theorem `[GR.3.1]` [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumptionCert.main#doc)
+## 3. Generic fixed-point theorem `[GR.3.1]` [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumption.main#doc)
 
-A recursive certificate also gives a finite-run relation and a one-layer
+A recursive package also gives a finite-run relation and a one-layer
 preserved predicate $P(x,o)$. Lean derives:
 
 $$\Phi_h(\mu\Phi_h)=\mu\Phi_h,$$
@@ -59,7 +59,7 @@ $$\mathsf{Runs}(x,o)\Longleftrightarrow(\mu\Phi_h)(x)=o,$$
 $$ (\mu\Phi_h)(x)=o\Longrightarrow P(x,o). $$
 
 The checked bundle is
-[`GenericRecursiveResumptionCert.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumptionCert.main#doc).
+[`GenericRecursiveResumption.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumption.main#doc).
 For the concrete instances, finite runs use the independent fuel evaluator
 [`genericRunFuel`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericRunFuel#doc),
 which executes one exposed tree and recursively evaluates leaves at smaller
@@ -67,29 +67,29 @@ fuel. Lean proves this evaluator equals the corresponding Kleene iterate.
 Adequacy concerns terminating finite observations. Productive infinite traces
 are bottom in this flat domain.
 
-## 4. Morphisms, relations, and TT `[GR.4.1]` [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveRelationCert.lift#doc)
+## 4. Morphisms, relations, and TT `[GR.4.1]` [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveRelation.lift#doc)
 
 These transports remain distinct:
 
 - a result map commuting with one layer commutes with the least fixed point:
-  [`GenericRecursiveMorphismCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveMorphismCert.lift#doc);
+  [`GenericRecursiveMorphism.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveMorphism.lift#doc);
 - an admissible binary relation containing bottom and preserved by one layer
   relates the two least fixed points:
-  [`GenericRecursiveRelationCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveRelationCert.lift#doc).
+  [`GenericRecursiveRelation.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveRelation.lift#doc).
 - specializing that admissible relation to a pointwise, observation-sensitive
   outcome TT relation gives
-  [`GenericRecursiveOutcomeTTCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveOutcomeTTCert.lift#doc).
+  [`GenericRecursiveOutcomeTT.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveOutcomeTT.lift#doc).
 
 The finite theorem supplies structural and TT closure inside each exposed
 tree; the recursive theorem supplies admissible fixed-point closure. It does
 not confuse morphisms with relations or structural closure with observational
 TT closure.
 
-## 5. Old-language conservativity `[GR.5.1]` [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumptionCert.oldLanguageConservative#doc)
+## 5. Old-language conservativity `[GR.5.1]` [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumption.oldLanguageConservative#doc)
 
 If each exposed tree is `BaseOnly`, shallow handling is the identity. Hence
 handled and unhandled functionals, and then their least fixed points, agree:
-[`GenericRecursiveResumptionCert.oldLanguageConservative`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumptionCert.oldLanguageConservative#doc).
+[`GenericRecursiveResumption.oldLanguageConservative`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumption.oldLanguageConservative#doc).
 
 ## 6. Concrete bases
 

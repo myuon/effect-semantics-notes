@@ -180,41 +180,41 @@ must not be silently imported from the finite chapters.
 The detailed development follows the [common chapter
 method](chapter-method-v5.md).  Each chapter runs syntax, operational
 semantics, concrete Writer/State/Exception calculations, denotation, local
-proofs and certificate extraction in that order.  Chapter $n+1$ receives only
-the explicit certificate exported by Chapter $n$.
+proofs and package extraction in that order.  Chapter $n+1$ receives only
+the explicit package exported by Chapter $n$.
 
-The certificate names abbreviate formally declared conditions, not unspecified
+The package names abbreviate formally declared conditions, not unspecified
 bundles of “good properties.”  The cumulative theorem is read in three stages.
 
-1. A split `BaseCert` containing operational $S$, denotational $T$, and their
+1. A split `BasePackage` containing operational $S$, denotational $T$, and their
    comparison, together with the strong graded FreeT objects
    $\widehat S=\operatorname{FreeT}_\Sigma(S)$ and
-   $\widehat T=\operatorname{FreeT}_\Sigma(T)$, yields `FreeCert` and the
+   $\widehat T=\operatorname{FreeT}_\Sigma(T)$, yields `FreeExtensionPackage` and the
    lifted $\widehat T\to\widehat S$ comparison. Finite/separated observations
    are needed only for a subsequent TT reflection theorem.
-2. `FreeCert`, a closed graded TT pole and either `AffineCert` or
-   `HandlerCert` yield `ShallowCert`.
-3. `ShallowCert` and the appropriate *component* of `RecBaseCert` yield the
+2. `FreeExtensionPackage`, a closed graded TT pole and either `AffineHandlerLaws` or
+   `HandlerPackage` yield `ShallowHandlerPackage`.
+3. `ShallowHandlerPackage` and the appropriate *component* of `RecBasePackage` yield the
    corresponding recursive conclusion: recursive safety, least-fixed-point
    definability, recursive relation preservation, adequacy at the declared
    observation level, or effect closure.  These conclusions form the
-   non-eliminating `DeepCert`.  Exhaustiveness and outwardly $\Delta$-free
-   clauses are additional premises only for `DeepElimCert`.
+   non-eliminating `DeepHandlerPackage`.  Exhaustiveness and outwardly $\Delta$-free
+   clauses are additional premises only for `DeepElimination`.
 
 In symbols, the conclusions are
 
 $$
-\mathsf{FreeCert},\qquad
-\mathsf{ShallowCert},\qquad
-\mathsf{DeepCert}
+\mathsf{FreeExtensionPackage},\qquad
+\mathsf{ShallowHandlerPackage},\qquad
+\mathsf{DeepHandlerPackage}
 \quad\text{and, under the stronger elimination premises,}\quad
-\mathsf{DeepElimCert},
+\mathsf{DeepElimination},
 $$
 
-but each is justified only by the numbered premises on its certificate page.
+but each is justified only by the numbered premises on its package page.
 
 Each conjunct, its quantified type, and its equations are written out in the
-certificate section of the corresponding chapter.  This cumulative display is
+package section of the corresponding chapter.  This cumulative display is
 an assembly theorem; the functorial theorem above is the sharper answer to the
 original object/morphism/relation-lifting question.
 

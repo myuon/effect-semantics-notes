@@ -1,4 +1,4 @@
-import EffectSemantics.Certificate.GenericFreeExtension
+import EffectSemantics.Theory.GenericFreeExtension
 
 namespace EffectSemantics
 
@@ -6,7 +6,7 @@ namespace EffectSemantics
 # Functorial finite free-effect extension
 
 This file packages the previously separate Type-level laws into a single
-checked certificate.  It is intentionally concrete: objects are typed
+checked package.  It is intentionally concrete: objects are typed
 operation signatures and arrows are response-preserving signature morphisms.
 The more general graded/categorical theorem in the notes additionally assumes
 the stated initial algebras and coherent base actions.
@@ -16,7 +16,7 @@ open FreeExtension
 
 /-- A pointwise presentation of the functor laws for the finite free carrier,
 together with its monadic and relational compatibility. -/
-structure FunctorialFreeExtensionCert where
+structure FunctorialFreeExtension where
   identity : ∀ {base free : OperationSignature} {α : Type}
       (tree : FreeExtension base free α),
     mapSignature (SignatureMorphism.id base) (SignatureMorphism.id free)
@@ -51,9 +51,9 @@ structure FunctorialFreeExtensionCert where
     Rel baseMap.graph freeMap.graph
         (fun left right => valueMap left = right) tree target ↔
       mapSignature baseMap freeMap valueMap tree = target
-  monad : ∀ base free, FiniteMonadCert (FreeExtension base free)
+  monad : ∀ base free, MonadStructure (FreeExtension base free)
   structuralRelator : ∀ base free,
-    FiniteRelatorCert (FreeExtension base free) (monad base free)
+    MonadRelator (FreeExtension base free) (monad base free)
   shallowValueNatural : ∀ {base free : OperationSignature} {α β : Type}
       (handler : FreeExtension.AffineHandler base free) (function : α → β)
       (tree : FreeExtension base free α),
@@ -71,7 +71,7 @@ structure FunctorialFreeExtensionCert where
 /-- The finite free-effect carrier is functorial on base/free signatures and
 values; its arrow action preserves bind, and structural graph lifting agrees
 exactly with that arrow action. -/
-def functorialFreeExtension : FunctorialFreeExtensionCert where
+def functorialFreeExtension : FunctorialFreeExtension where
   identity := mapSignature_id
   composition := mapSignature_comp
   bindNatural := fun baseMap freeMap valueMap tree next =>
@@ -79,8 +79,8 @@ def functorialFreeExtension : FunctorialFreeExtensionCert where
   graphExact := fun baseMap freeMap valueMap tree target =>
     Rel.graphMapSignature_iff (baseMap := baseMap) (freeMap := freeMap)
       (valueMap := valueMap) (tree := tree) (target := target)
-  monad := genericFreeMonadCert
-  structuralRelator := genericFreeRelatorCert
+  monad := genericFreeMonad
+  structuralRelator := genericFreeRelator
   shallowValueNatural := shallow_map
   shallowStructural := fun related handler => related.shallow handler
 
@@ -92,7 +92,7 @@ theorem functorialFreeExtension_adequacyTransport
     {denotation outcome : Type → Type}
     {denotational : GenericExtensionAlgebra base free denotation}
     {operational : GenericExtensionAlgebra base free outcome}
-    (cert : GenericExtensionAlgebra.AdequacyCert denotational operational)
+    (cert : GenericExtensionAlgebra.AdequacyAssumptions denotational operational)
     (tree : FreeExtension base free α) :
     cert.observe.map
         (denotational.fold (base := base) (free := free) tree) =

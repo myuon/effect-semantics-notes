@@ -1,4 +1,4 @@
-import EffectSemantics.Certificate.RecursiveModels
+import EffectSemantics.Theory.RecursiveModels
 
 namespace EffectSemantics
 

@@ -2,9 +2,9 @@ import EffectSemantics.Recursive.DeepStateBoundary
 
 namespace EffectSemantics
 
-/-- Minimal reusable certificate for a deterministic finite-boundary model of
+/-- Minimal reusable package for a deterministic finite-boundary model of
 the recursive calculus.  Completion and determinism are derived, not fields. -/
-structure RecursiveBoundaryCert (Outcome : Type) where
+structure RecursiveBoundaryModel (Outcome : Type) where
   observe : Nat → Comp → Option Outcome
   stable : ∀ {fuel term outcome}, observe fuel term = some outcome →
     observe (fuel + 1) term = some outcome
@@ -12,17 +12,17 @@ structure RecursiveBoundaryCert (Outcome : Type) where
   finiteAdequacy : ∀ {term outcome},
     Runs term outcome ↔ ∃ fuel, observe fuel term = some outcome
 
-namespace RecursiveBoundaryCert
+namespace RecursiveBoundaryModel
 
-def observation (cert : RecursiveBoundaryCert Outcome) (term : Comp) :
+def observation (cert : RecursiveBoundaryModel Outcome) (term : Comp) :
     StableObservation Outcome where
   observeAt fuel := cert.observe fuel term
   stable := cert.stable
 
-noncomputable def limit (cert : RecursiveBoundaryCert Outcome) (term : Comp) :
+noncomputable def limit (cert : RecursiveBoundaryModel Outcome) (term : Comp) :
     Option Outcome := (cert.observation term).limitOutcome
 
-theorem limit_adequacy (cert : RecursiveBoundaryCert Outcome) :
+theorem limit_adequacy (cert : RecursiveBoundaryModel Outcome) :
     cert.Runs term outcome ↔ cert.limit term = some outcome := by
   rw [cert.finiteAdequacy]
   constructor
@@ -31,7 +31,7 @@ theorem limit_adequacy (cert : RecursiveBoundaryCert Outcome) :
   · intro observed
     exact StableObservation.limitOutcome_some_witness _ observed
 
-theorem runs_deterministic (cert : RecursiveBoundaryCert Outcome)
+theorem runs_deterministic (cert : RecursiveBoundaryModel Outcome)
     (first : cert.Runs term left) (second : cert.Runs term right) :
     left = right := by
   have leftObserved := cert.limit_adequacy.mp first
@@ -39,7 +39,7 @@ theorem runs_deterministic (cert : RecursiveBoundaryCert Outcome)
   rw [leftObserved] at rightObserved
   exact Option.some.inj rightObserved
 
-theorem limit_none_iff (cert : RecursiveBoundaryCert Outcome) :
+theorem limit_none_iff (cert : RecursiveBoundaryModel Outcome) :
     cert.limit term = none ↔ ¬ ∃ outcome, cert.Runs term outcome := by
   constructor
   · intro absent ⟨outcome, runs⟩
@@ -52,17 +52,17 @@ theorem limit_none_iff (cert : RecursiveBoundaryCert Outcome) :
     | some outcome =>
         exact False.elim (noRun ⟨outcome, cert.limit_adequacy.mpr found⟩)
 
-end RecursiveBoundaryCert
+end RecursiveBoundaryModel
 
-def recursiveWriterBoundaryCert (interface : Nat) (handler : AffineHandler) :
-    RecursiveBoundaryCert DeepWriterBoundary where
+def recursiveWriterBoundaryModel (interface : Nat) (handler : AffineHandler) :
+    RecursiveBoundaryModel DeepWriterBoundary where
   observe fuel term := term.observeDeepWriterBoundary fuel interface handler
   stable := Comp.observeDeepWriterBoundary_succ_of_some
   Runs term boundary := DeepWriterBoundaryRuns interface handler term boundary
   finiteAdequacy := deep_writer_boundary_finite_adequacy
 
-def recursiveExceptionBoundaryCert (interface : Nat)
-    (handler : AffineHandler) : RecursiveBoundaryCert DeepExceptionBoundary where
+def recursiveExceptionBoundaryModel (interface : Nat)
+    (handler : AffineHandler) : RecursiveBoundaryModel DeepExceptionBoundary where
   observe fuel term := term.observeDeepExceptionBoundary fuel interface handler
   stable := Comp.observeDeepExceptionBoundary_succ_of_some
   Runs term boundary := DeepExceptionBoundaryRuns interface handler term boundary
@@ -73,8 +73,8 @@ def recursiveExceptionBoundaryCert (interface : Nat)
     · rintro ⟨fuel, observed⟩
       exact Comp.observeDeepExceptionBoundary_reflects observed
 
-def recursiveStateBoundaryCert (interface : Nat) (handler : AffineHandler)
-    (initialState : Bool) : RecursiveBoundaryCert DeepStateBoundary where
+def recursiveStateBoundaryModel (interface : Nat) (handler : AffineHandler)
+    (initialState : Bool) : RecursiveBoundaryModel DeepStateBoundary where
   observe fuel term :=
     term.observeDeepStateBoundary fuel interface handler initialState
   stable := Comp.observeDeepStateBoundary_succ_of_some
@@ -87,26 +87,26 @@ def recursiveStateBoundaryCert (interface : Nat) (handler : AffineHandler)
     · rintro ⟨fuel, observed⟩
       exact Comp.observeDeepStateBoundary_reflects observed
 
-theorem recursiveWriterBoundaryCert_limit_eq
+theorem recursiveWriterBoundaryModel_limit_eq
     (interface : Nat) (handler : AffineHandler) (term : Comp) :
-    (recursiveWriterBoundaryCert interface handler).limit term =
+    (recursiveWriterBoundaryModel interface handler).limit term =
       term.deepWriterBoundaryLimit interface handler := by
   rw [Comp.deepWriterBoundaryLimit_eq_generic]
   rfl
 
-theorem recursiveExceptionBoundaryCert_limit_eq
+theorem recursiveExceptionBoundaryModel_limit_eq
     (interface : Nat) (handler : AffineHandler) (term : Comp) :
-    (recursiveExceptionBoundaryCert interface handler).limit term =
+    (recursiveExceptionBoundaryModel interface handler).limit term =
       term.deepExceptionBoundaryLimit interface handler := rfl
 
-theorem recursiveStateBoundaryCert_limit_eq
+theorem recursiveStateBoundaryModel_limit_eq
     (interface : Nat) (handler : AffineHandler) (state : Bool) (term : Comp) :
-    (recursiveStateBoundaryCert interface handler state).limit term =
+    (recursiveStateBoundaryModel interface handler state).limit term =
       term.deepStateBoundaryLimit interface handler state := rfl
 
 /-- Optional refinement recording exactly the premises under which a selected
 interface cannot occur at an outward boundary. -/
-structure RecursiveDischargeCert (base : RecursiveBoundaryCert Outcome)
+structure RecursiveDischarge (base : RecursiveBoundaryModel Outcome)
     (selected : Nat) where
   freeInterface : Outcome → Option Nat
   Good : Comp → Prop
@@ -125,11 +125,11 @@ def DeepStateBoundary.freeInterface : DeepStateBoundary → Option Nat
   | .free request _ => some request.interface
   | _ => none
 
-def recursiveWriterDischargeCert
+def recursiveWriterDischarge
     (handlerTyping : HasAffineHandler sig [] interface handler clauseEffect)
     (exhaustive : handler.Exhaustive sig interface)
     (writerUnit : WriterResponseUnit sig) :
-    RecursiveDischargeCert (recursiveWriterBoundaryCert interface handler)
+    RecursiveDischarge (recursiveWriterBoundaryModel interface handler)
       interface where
   freeInterface := DeepWriterBoundary.freeInterface
   Good term := ∃ resultTy effect,
@@ -137,7 +137,7 @@ def recursiveWriterDischargeCert
   discharge := by
     intro term outcome good observed
     obtain ⟨resultTy, effect, ⟨typing⟩⟩ := good
-    rw [recursiveWriterBoundaryCert_limit_eq] at observed
+    rw [recursiveWriterBoundaryModel_limit_eq] at observed
     cases outcome with
     | returned => simp [DeepWriterBoundary.freeInterface]
     | base => simp [DeepWriterBoundary.freeInterface]
@@ -147,10 +147,10 @@ def recursiveWriterDischargeCert
         exact deepWriterBoundaryLimit_discharges typing handlerTyping exhaustive
           writerUnit observed
 
-def recursiveExceptionDischargeCert
+def recursiveExceptionDischarge
     (handlerTyping : HasAffineHandler sig [] interface handler clauseEffect)
     (exhaustive : handler.Exhaustive sig interface) :
-    RecursiveDischargeCert (recursiveExceptionBoundaryCert interface handler)
+    RecursiveDischarge (recursiveExceptionBoundaryModel interface handler)
       interface where
   freeInterface := DeepExceptionBoundary.freeInterface
   Good term := ∃ resultTy effect,
@@ -158,7 +158,7 @@ def recursiveExceptionDischargeCert
   discharge := by
     intro term outcome good observed
     obtain ⟨resultTy, effect, ⟨typing⟩⟩ := good
-    rw [recursiveExceptionBoundaryCert_limit_eq] at observed
+    rw [recursiveExceptionBoundaryModel_limit_eq] at observed
     cases outcome with
     | returned => simp [DeepExceptionBoundary.freeInterface]
     | raised => simp [DeepExceptionBoundary.freeInterface]
@@ -169,19 +169,19 @@ def recursiveExceptionDischargeCert
         exact deep_exception_boundary_limit_discharges typing handlerTyping
           exhaustive observed
 
-def recursiveStateDischargeCert
+def recursiveStateDischarge
     (handlerTyping : HasAffineHandler sig [] interface handler clauseEffect)
     (exhaustive : handler.Exhaustive sig interface)
     (stateLaws : StateResponseLaws sig) (state : Bool) :
-    RecursiveDischargeCert
-      (recursiveStateBoundaryCert interface handler state) interface where
+    RecursiveDischarge
+      (recursiveStateBoundaryModel interface handler state) interface where
   freeInterface := DeepStateBoundary.freeInterface
   Good term := ∃ resultTy effect,
     Nonempty (HasComp sig [] term resultTy effect)
   discharge := by
     intro term outcome good observed
     obtain ⟨resultTy, effect, ⟨typing⟩⟩ := good
-    rw [recursiveStateBoundaryCert_limit_eq] at observed
+    rw [recursiveStateBoundaryModel_limit_eq] at observed
     cases outcome with
     | returned => simp [DeepStateBoundary.freeInterface]
     | base => simp [DeepStateBoundary.freeInterface]
@@ -191,13 +191,13 @@ def recursiveStateDischargeCert
         exact deep_state_boundary_limit_discharges typing handlerTyping
           exhaustive stateLaws observed
 
-structure RecursiveFiniteExtensionCert (Outcome : Type) (selected : Nat) where
-  boundary : RecursiveBoundaryCert Outcome
-  discharge : RecursiveDischargeCert boundary selected
+structure RecursiveFiniteExtension (Outcome : Type) (selected : Nat) where
+  boundary : RecursiveBoundaryModel Outcome
+  discharge : RecursiveDischarge boundary selected
 
 /-- Finite-boundary recursive structure-preservation theorem. -/
-theorem RecursiveFiniteExtensionCert.main
-    (cert : RecursiveFiniteExtensionCert Outcome selected) :
+theorem RecursiveFiniteExtension.main
+    (cert : RecursiveFiniteExtension Outcome selected) :
     (cert.boundary.Runs term outcome ↔
       cert.boundary.limit term = some outcome) ∧
     (∀ {left right}, cert.boundary.Runs term left →
@@ -209,27 +209,27 @@ theorem RecursiveFiniteExtensionCert.main
     fun first second => cert.boundary.runs_deterministic first second,
     cert.discharge.discharge⟩
 
-def recursiveWriterExtensionCert
+def recursiveWriterExtension
     (handlerTyping : HasAffineHandler sig [] interface handler clauseEffect)
     (exhaustive : handler.Exhaustive sig interface)
     (writerUnit : WriterResponseUnit sig) :
-    RecursiveFiniteExtensionCert DeepWriterBoundary interface where
-  boundary := recursiveWriterBoundaryCert interface handler
-  discharge := recursiveWriterDischargeCert handlerTyping exhaustive writerUnit
+    RecursiveFiniteExtension DeepWriterBoundary interface where
+  boundary := recursiveWriterBoundaryModel interface handler
+  discharge := recursiveWriterDischarge handlerTyping exhaustive writerUnit
 
-def recursiveExceptionExtensionCert
+def recursiveExceptionExtension
     (handlerTyping : HasAffineHandler sig [] interface handler clauseEffect)
     (exhaustive : handler.Exhaustive sig interface) :
-    RecursiveFiniteExtensionCert DeepExceptionBoundary interface where
-  boundary := recursiveExceptionBoundaryCert interface handler
-  discharge := recursiveExceptionDischargeCert handlerTyping exhaustive
+    RecursiveFiniteExtension DeepExceptionBoundary interface where
+  boundary := recursiveExceptionBoundaryModel interface handler
+  discharge := recursiveExceptionDischarge handlerTyping exhaustive
 
-def recursiveStateExtensionCert
+def recursiveStateExtension
     (handlerTyping : HasAffineHandler sig [] interface handler clauseEffect)
     (exhaustive : handler.Exhaustive sig interface)
     (stateLaws : StateResponseLaws sig) (state : Bool) :
-    RecursiveFiniteExtensionCert DeepStateBoundary interface where
-  boundary := recursiveStateBoundaryCert interface handler state
-  discharge := recursiveStateDischargeCert handlerTyping exhaustive stateLaws state
+    RecursiveFiniteExtension DeepStateBoundary interface where
+  boundary := recursiveStateBoundaryModel interface handler state
+  discharge := recursiveStateDischarge handlerTyping exhaustive stateLaws state
 
 end EffectSemantics

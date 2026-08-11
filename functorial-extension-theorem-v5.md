@@ -4,7 +4,7 @@
 :class: note
 **Lean-checked concrete functor and graded package functor.** The
 Type-level finite carrier is now bundled by
-[`FunctorialFreeExtensionCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FunctorialFreeExtensionCert#doc),
+[`FunctorialFreeExtension`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FunctorialFreeExtension#doc),
 and instantiated by
 [`functorialFreeExtension`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.functorialFreeExtension#doc).
 This proves identity, composition, bind naturality, exact graph lifting,
@@ -15,7 +15,7 @@ checks the category and functor laws for chosen graded extensions whose arrows
 satisfy the explicit `Act-Morphism` square. In the revised paper interface,
 these chosen extensions are supplied by `StrongGradedFreeT`. Canonical lifts
 prove action compatibility from their construction; the Lean record retains
-the explicit square as a lower-level implementation certificate. For the finite-tree model, existence
+the explicit square as a lower-level implementation package. For the finite-tree model, existence
 is now constructed by
 [`finiteTreeExtensiblePackage`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.finiteTreeExtensiblePackage#doc),
 with initiality and both action equations checked separately.
@@ -26,11 +26,11 @@ with initiality and both action equations checked separately.
 | statement | Lean status | correspondence |
 |---|---|---|
 | `[FUN.2.1]` finite free-carrier functor | checked at Type/signature level | [`functorialFreeExtension`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.functorialFreeExtension#doc) |
-| `[FUN.2.2]` finite carrier/action existence | constructed for every pair of typed signatures over the one-point grade algebra | [`finiteTreeExtensiblePackage`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.finiteTreeExtensiblePackage#doc), [`StructuralMap.unique`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.StructuralMap.unique#doc), [`finiteTreeActionCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.finiteTreeActionCert#doc) |
+| `[FUN.2.2]` finite carrier/action existence | constructed for every pair of typed signatures over the one-point grade algebra | [`finiteTreeExtensiblePackage`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.finiteTreeExtensiblePackage#doc), [`StructuralMap.unique`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.StructuralMap.unique#doc), [`finiteTreeActionLaws`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.finiteTreeActionLaws#doc) |
 | `[PKG.4.1]` chosen graded-package functor | category, `Act-Morphism` closure and functor laws checked; object construction remains conditional | [`gradedFreeExtensionFunctor`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.gradedFreeExtensionFunctor#doc) |
 | `[FUN.3.1]` structural relation closure | checked | [`Rel.bind`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.Rel.bind#doc) |
 | `[FUN.4.1]` graph equality | checked in both directions | [`Rel.graphMapSignature_iff`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.Rel.graphMapSignature_iff#doc) |
-| `[FUN.5.1]` structural-to-TT inclusion | checked under layer certificate | [`TTLayerCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.TTLayerCert.lift#doc) |
+| `[FUN.5.1]` structural-to-TT inclusion | checked under layer package | [`TTLayerAssumptions.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.TTLayerAssumptions.lift#doc) |
 | `[FUN.6.1]` shallow compatibility | checked for one shared handler and for distinct value-compatible handlers; heterogeneous TT clauses remain conditional | [`shallow_map_compatible`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.shallow_map_compatible#doc), [`Rel.shallow`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.Rel.shallow#doc) |
 | `[FUN.7.1]` finite adequacy transport | checked as fold naturality; the typed-language fundamental lemma remains separate | [`functorialFreeExtension_adequacyTransport`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.functorialFreeExtension_adequacyTransport#doc) |
 
@@ -73,7 +73,7 @@ model $S$, denotational graded model $T$, their comparison, and a first-order
 interface $\Delta$.
 Let $\mathbf{ExtBase}^{\mathrm{str}}_\Delta$ have:
 
-- objects $T$ for which $\mathsf{DenotationalModelCert}(L_B,E_B,T)$ holds and
+- objects $T$ for which $\mathsf{DenotationalModel}(L_B,E_B,T)$ holds and
   $\operatorname{FreeT}_\Delta(T)$ exists as a strong graded monad;
 - morphisms $q:T\Rightarrow U$ preserving graded return, bind, strength,
   coherent weakening and primitive interpretations; canonical FreeT lifts
@@ -81,7 +81,7 @@ Let $\mathbf{ExtBase}^{\mathrm{str}}_\Delta$ have:
 - identities and composition inherited from graded natural transformations.
 
 Let $\mathbf{Free}^{\mathrm{str}}_\Delta$ contain the corresponding finite free
-extensions carrying the FreeT fields of `FreeCert`. We assume the required
+extensions carrying the FreeT fields of `FreeExtensionPackage`. We assume the required
 strong graded FreeT objects exist and the extended preorder does not erase a
 visible $\Delta$ factor. Sufficient existence conditions are in
 [FreeT existence](graded-freet-existence-v1.md). The full object and morphism definitions are in
@@ -160,8 +160,8 @@ them equal.  The remaining fields are exactly `Free-Transport` from Chapter
 II. $\square$
 
 Operational conservativity and effect safety are supplied separately by
-`BaseSafetyCert + OpExt`. Finite $\mathcal K$-adequacy is a corollary after
-restricting to the observed subcategory and adding `FiniteTTCert`; neither is
+`BaseSafety + OpExt`. Finite $\mathcal K$-adequacy is a corollary after
+restricting to the observed subcategory and adding `FiniteTTClosure`; neither is
 a field of the structural functor.
 
 Here $\mathcal H_A$ is the indexed base-prefix/free-request layer from the
@@ -255,10 +255,10 @@ is not asserted for the observational TT-closure introduced next.
 
 ## 5. Observational graded TT-lifting
 
-:::{prf:theorem} `[FUN.5.1]` Structural lifting is contained in TT lifting [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.TTLayerCert.lift#doc)
+:::{prf:theorem} `[FUN.5.1]` Structural lifting is contained in TT lifting [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.TTLayerAssumptions.lift#doc)
 :label: thm-structural-tt-v5
 
-Under `TTLayerCert`, every structurally related pair of finite free trees has
+Under `TTLayerAssumptions`, every structurally related pair of finite free trees has
 TT-related folds.
 :::
 
@@ -331,7 +331,7 @@ relation need not commute with $q$.
 
 ## 7. Fundamental lemma and adequacy transport
 
-Let a graded `TTCert` be generated from a base observation pole that reflects
+Let a graded `TTClosure` be generated from a base observation pole that reflects
 the selected ground $\mathcal K$-observation, and suppose the extended pole
 distinguishes returns, terminal base outcomes and free requests.
 
@@ -355,7 +355,7 @@ chosen ground observation may then be applied to both sides.
 **Proof.**  The typing induction uses the graded TT laws, structural lifting
 for free operations and TT-clause compatibility for the handler form.
 Reflection is an induction over the finite operational/free tree. Base
-segments use `ModelComparisonCert`; free boundaries use the lifted morphism or
+segments use `ModelComparison`; free boundaries use the lifted morphism or
 relation pointwise on continuations. Constructor separation is needed only
 when a later observation theorem reflects tree shape. $\square$
 
@@ -366,7 +366,7 @@ The original question now receives the following answer:
 > Free first-order operations form a functorial, structurally
 > relation-respecting and
 > adequacy-preserving extension of every base package satisfying the split
-> safety, model and adequacy certificates
+> safety, model and adequacy packages
 > and the finite initial-algebra hypotheses.  Compatible shallow handlers act
 > naturally on that extension.  These properties are transported, not
 > recreated, from the base structure.
@@ -383,9 +383,9 @@ recursion-free theorem, not part of functoriality for free operations alone.
 | conclusion | indispensable input | detailed source |
 |---|---|---|
 | object construction and monad laws | polynomial initial algebra, strong graded base | [Chapter II proofs](chapter-2-proof-details-v5.md) |
-| functor laws | initiality and compatible morphisms | [Chapter II certificate](chapter-2-certificate-v5.md) |
+| functor laws | initiality and compatible morphisms | [Chapter II package](chapter-2-main-results-v5.md) |
 | structural relation and graph lifting | compatible base relation, structural free carrier | [Chapter II proofs](chapter-2-proof-details-v5.md) |
-| observational relation | coherent pole and graded `TTCert` | [Graded TT-lifting](graded-tt-lifting-v5.md) |
+| observational relation | coherent pole and graded `TTClosure` | [Graded TT-lifting](graded-tt-lifting-v5.md) |
 | handler naturality | structural/TT-related clauses and effect transformer | [Chapter III proofs](chapter-3-proof-details-v5.md) |
-| adequacy transport | `BaseSafetyCert`, `OperationalModelCert`, `DenotationalModelCert`, `ModelComparisonCert`, optional `ObservationAdequacyCert`, graded `TTCert`, branchwise normalization, constructor separation | [Chapter I certificate](chapter-1-certificate-v5.md) |
-| recursive/deep extension | continuity, admissibility, fixpoint agreement | [Chapter IV certificate](chapter-4-certificate-v5.md) |
+| adequacy transport | `BaseSafety`, `OperationalModel`, `DenotationalModel`, `ModelComparison`, optional `ObservationAdequacyAssumptions`, graded `TTClosure`, branchwise normalization, constructor separation | [Chapter I package](chapter-1-main-results-v5.md) |
+| recursive/deep extension | continuity, admissibility, fixpoint agreement | [Chapter IV package](chapter-4-main-results-v5.md) |

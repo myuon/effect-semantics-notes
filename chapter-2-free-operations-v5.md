@@ -99,6 +99,6 @@ observation must be extended to represent unhandled free requests.
    for syntax, requests, and execution examples.
 2. [Denotational free extension](chapter-2-denotational-v5.md) for the finite
    core first and the graded generalization second.
-3. [Preservation proofs and certificates](chapter-2-certificate-v5.md) for the
+3. [Preservation proofs and packages](chapter-2-main-results-v5.md) for the
    numbered statements and exact formalization boundary.
 4. [Detailed proofs](chapter-2-proof-details-v5.md) for algebraic calculations.
