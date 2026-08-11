@@ -80,6 +80,10 @@ through base computation until it returns, aborts, or exposes a free request.
 
 ## 3. Extended decomposition theorem
 
+The exact four-way statement is Lean checked as
+[`HasLanguageComp.progressClosed_fourWayExactlyOne`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed_fourWayExactlyOne#doc),
+not merely inferred from the older three-way return/internal/boundary view.
+
 Every closed well-typed Chapter-II computation is uniquely one of:
 
 1. $\mathsf{return}\,V$;

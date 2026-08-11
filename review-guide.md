@@ -90,7 +90,8 @@ implementation routes; `baseAct` is not a second independent main-theorem
 premise because it is a field of `StrongGradedFreeT`, but constructing it is a
 real object-side obligation.
 
-Read concrete programs before the carrier construction:
+Read the chapter as typed source → finite semantic core → conditional
+graded theorem:
 
 1. [Writer/State/Exception programs with free requests](chapter-2-operational-examples-v5.md)
 2. [Added syntax and ordered effects](chapter-2-free-operations-v5.md)
@@ -101,7 +102,10 @@ Read concrete programs before the carrier construction:
 
 | note object | status | Lean declaration |
 |---|---|---|
+| exact return/internal/base/free progress | Lean checked | [`progressClosed_fourWayExactlyOne`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed_fourWayExactlyOne#doc) |
+| current-language old-fragment conservativity | Lean checked | [`LanguageStep.preservesBaseOnly`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preservesBaseOnly#doc), [`baseOnly_boundary_is_base`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FinLanguageSteps.baseOnly_boundary_is_base#doc) |
 | typed operation signature | Lean checked | [`OperationSignature`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.OperationSignature#doc) |
+| source Writer/free tree → generic free extension | Lean checked; bind preserving | [`LanguageWriterTree.toFreeExtension_bind`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageWriterTree.toFreeExtension_bind#doc) |
 | finite base/free carrier | Lean checked | [`FreeExtension`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension#doc) |
 | return and bind laws | Lean checked | [`FreeExtension.bind_ret`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.bind_ret#doc), [`FreeExtension.bind_assoc`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.bind_assoc#doc) |
 | old-base embedding and erasure | Lean checked | [`embedBase`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.embedBase#doc), [`eraseFree_embedBase`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.eraseFree_embedBase#doc) |
@@ -115,9 +119,9 @@ Read concrete programs before the carrier construction:
 | Chapter-II source package | Lean checked | [`LanguageFreeStageCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFreeStageCert#doc) |
 
 The ordered grade-indexed carrier in the chapter notes is a stronger paper
-presentation.  The fully mechanized theorem uses the ungraded typed tree plus
-the separately mechanized effect-language bounds; this distinction is marked
-as a **Paper abstraction** where it occurs.
+presentation. Lean now connects the source-specific finite tree to the generic
+finite free extension, but does not identify either with the graded family
+$F_eA$. The latter still requires the `StrongGradedFreeT` hypothesis.
 
 ## Chapter III — shallow handlers
 

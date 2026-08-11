@@ -2,7 +2,8 @@
 
 :::{admonition} Lean correspondence — finite denotation
 :class: tip
-**Lean checked.** The carrier and bind are [`FreeExtension`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension#doc); target interpretation is [`GenericExtensionAlgebra.fold`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.fold#doc), with bind preservation in [`fold_bind`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.fold_bind#doc). [Full mapping](review-guide.md#chapter-ii-free-operations).
+**Lean checked at the finite level.** The source-specific tree maps to the
+generic carrier by [`LanguageWriterTree.toFreeExtension`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageWriterTree.toFreeExtension#doc), preserving bind. The generic carrier is [`FreeExtension`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension#doc); target interpretation is [`GenericExtensionAlgebra.fold`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.fold#doc). The grade-indexed construction below is a separate conditional layer. [Full mapping](review-guide.md#chapter-ii-free-operations).
 :::
 
 ## Status
@@ -11,6 +12,11 @@
 operation layer over the Chapter-I base semantics.  The operation tree is a
 denotational structure, not the static effect annotation and not a runtime
 trace model.
+
+The page proceeds from the checked finite construction (Sections 1–2 and the
+finite parts of Sections 4–6) to the general ordered construction (Section 3
+onward). Statements about $\mathsf F_eA$, strength, weakening, and graded base
+action belong to the latter and require the `StrongGradedFreeT` hypothesis.
 
 ## 1. Signature functor
 
@@ -27,7 +33,7 @@ $$
 An element consists of an operation parameter and a continuation indexed by
 the operation's response type.
 
-## 2. Ungraded mnemonic
+## 2. Finite ungraded semantic core
 
 Suppressing grades temporarily, the standard finite free extension is
 mnemonically
@@ -50,7 +56,7 @@ solutions; no such assumption is needed here.
 
 This equation is not the formal grade-indexed carrier.
 
-## 3. Ordered grading
+## 3. General ordered grading (conditional)
 
 The formal carrier is an initial algebra in the indexed-family category
 $\mathcal C^{\widehat E}$.  Its layer functor records a base prefix $b$ and

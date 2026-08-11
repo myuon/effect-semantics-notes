@@ -2,21 +2,22 @@
 
 :::{admonition} Lean correspondence — `FreeCert`
 :class: tip
-The source-language Chapter-II boundary is now an exact Lean record,
+Read this page in three layers: typed source, finite semantic core, and the
+conditional general graded theorem. The source-language Chapter-II boundary is an exact Lean record,
 [`LanguageFreeStageCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFreeStageCert#doc), constructed by
 [`languageFreeStagePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageFreeStagePreservation#doc).
-The grade-independent semantic core is [`GenericFreeExtensionCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericFreeExtensionCert#doc), with morphism, relation and model-comparison lifts checked separately. The stronger grade-indexed initial-algebra presentation below remains a readable abstraction, not an identification theorem between the two representations. [Full mapping](review-guide.md#chapter-ii-free-operations).
+The grade-independent semantic core is [`GenericFreeExtensionCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericFreeExtensionCert#doc), with morphism, relation and model-comparison lifts checked separately. `LanguageWriterTree.toFreeExtension` now connects the finite source tree to that generic core and preserves bind. The stronger grade-indexed initial-algebra presentation below remains a readable abstraction, not an identification theorem between the finite and graded representations. [Full mapping](review-guide.md#chapter-ii-free-operations).
 :::
 
 ### Numbered-statement inventory
 
 | statement | review status | correspondence |
 |---|---|---|
-| Lemma II.1–Theorem II.3, substitution/preservation/progress | Lean checked components | [`LanguageStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc), [`HasLanguageComp.progressClosed`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed#doc) |
+| Lemma II.1–Theorem II.3, substitution/preservation/progress | Lean checked, including exact four-way statement | [`LanguageStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc), [`progressClosed_fourWayExactlyOne`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed_fourWayExactlyOne#doc) |
 | Boundary II.4, empty-free-effect safety | false without non-erasure; repaired theorem Lean checked | [`not_exposed_of_interface_absent`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.TypedLanguageFreeRequest.not_exposed_of_interface_absent#doc) |
-| Theorem II.5, old-language operational conservativity | Lean checked component | [`Step.preservesBaseOnly`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.Step.preservesBaseOnly#doc) |
+| Theorem II.5, old-language operational conservativity | Lean checked for current `LanguageComp` | [`FinLanguageSteps.baseOnly_boundary_is_base`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FinLanguageSteps.baseOnly_boundary_is_base#doc) |
 | Theorem II.6, free-extension algebra | Lean checked | [`genericFreeExtensionStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericFreeExtensionStructurePreservation#doc) |
-| Theorem II.7, denotational conservativity | Lean checked | [`eraseFree_embedBase`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.eraseFree_embedBase#doc) |
+| Theorem II.7, finite denotational conservativity | Lean checked, with source-tree bridge | [`eraseFree_embedBase`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.eraseFree_embedBase#doc), [`toFreeExtension_bind`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageWriterTree.toFreeExtension_bind#doc) |
 | Theorem II.8, finite model-comparison lifting | Lean checked | [`GenericExtensionAlgebra.ModelComparisonCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparisonCert.lift#doc) |
 | Definition II.1–II.2 and Theorem II.9, `FreeCert` | readable grade-indexed abstraction; ungraded structural core Lean checked | [`GenericFreeExtensionCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericFreeExtensionCert#doc) |
 
@@ -64,7 +65,7 @@ Context preservation follows from ordered multiplication.
 
 ## 2. Effect-aware progress
 
-### Theorem II.3 `[C2-CERT.2.1]` — extended decomposition [[Lean: closed progress]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed#doc)
+### Theorem II.3 `[C2-CERT.2.1]` — extended decomposition [[Lean: exact four-way theorem]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed_fourWayExactlyOne#doc)
 
 A closed well-typed computation has exactly one selected evaluation form: it
 returns, has a uniquely located internal redex, exposes a uniquely located base
@@ -93,16 +94,19 @@ $1\leq\Delta$ may terminate without exposing $\Delta$.
 
 ## 3. Old-language operational conservativity
 
-### Theorem II.5 `[C2-CERT.3.1]` — old-language operational conservativity [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.Step.preservesBaseOnly#doc)
+### Theorem II.5 `[C2-CERT.3.1]` — old-language operational conservativity [[Lean: one step]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preservesBaseOnly#doc) [[Lean: finite run]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FinLanguageSteps.baseOnly_boundary_is_base#doc)
 
 For an old Chapter-I term, the Chapter-II transition relation and observations
 coincide with the Chapter-I ones.
 
 ### Proof
 
-Old syntax contains no `op` form. Every internal rule and every operational
-base interpretation is literally reused, while the new free-request case is
-unreachable. Induction on the finite operational tree gives equality in $S$.
+Base-only syntax contains no `freeOp` form. Lean proves closure under renaming
+and substitution, then preservation by every `LanguageStep`. Induction over
+`FinLanguageSteps` shows that any boundary reached from such a term has kind
+`base`; hence the new free-request case is unreachable. Equality of a chosen
+base interpreter is a separate, model-specific consequence rather than part
+of this operational theorem.
 $\square$
 
 ## 4. Free-extension algebra
@@ -135,7 +139,7 @@ $T$. $\square$
 
 ## 5. Denotational conservativity
 
-### Theorem II.7 `[C2-CERT.5.1]` — denotational conservativity [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.eraseFree_embedBase#doc)
+### Theorem II.7 `[C2-CERT.5.1]` — finite denotational conservativity [[Lean: base retraction]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.eraseFree_embedBase#doc) [[Lean: source-tree bridge]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageWriterTree.toFreeExtension_bind#doc)
 
 For every old typed term,
 
@@ -231,7 +235,9 @@ its operational/tree adequacy component is
 
 ### Definition II.1 `[C2-CERT.8.1]` — layered Chapter-II certificates [[Lean: source stage]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFreeStageCert#doc) [[Lean: semantic core]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericFreeExtensionCert#doc)
 
-For $\widehat L=L_B+\Sigma$ define the following records.
+For $\widehat L=L_B+\Sigma$, the paper proof is factored into the following
+eight certificate interfaces. These names describe the dependency boundary;
+they are not eight same-named Lean structures.
 
 1. $\mathsf{OpFreeCert}(\widehat L)$ contains extended substitution and
    preservation, four-way return/redex/base/free-request decomposition, and
@@ -265,8 +271,10 @@ For $\widehat L=L_B+\Sigma$ define the following records.
    canonical pole, pole closure, the finite fundamental lemma and equality of
    closed ground observations.
 
-The record names used in the dependency audit are therefore definitions, not
-informal labels.
+Lean packages the checked finite portions differently: chiefly as
+`LanguageFreeStageCert`, `GenericFreeExtensionCert`, and the associated
+model-comparison certificates. The grade-indexed fields in items 4–8 remain
+requirements of the paper `StrongGradedFreeT` presentation.
 
 ### Definition II.2 `[C2-CERT.8.2]` — bundled `FreeCert` [Readable grade-indexed abstraction]
 
@@ -294,9 +302,9 @@ holds when the following conditions are satisfied.
    graded TT relations transport through a closed pole.
 6. **Finite adequacy.** Closed ground observations agree in $\mathcal K$.
 
-Equivalently, `FreeCert` is the conjunction of the eight records above. It is
-retained for the end-to-end theorem and concrete examples; intermediate
-theorems use the smallest appropriate record.
+At paper level, `FreeCert` abbreviates the conjunction of the eight interfaces
+above. It is not currently a same-named Lean record; mechanized intermediate
+theorems use the smaller source and finite-semantic records just listed.
 
 Conditions (1) and (2) are formally:
 

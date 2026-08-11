@@ -71,6 +71,70 @@ theorem LanguageProgress.kind_unique
       | internal secondStep => exact False.elim (secondStep.not_boundary firstRequest)
       | boundary _ => rfl
 
+/-- The two externally exposed boundary classes used by Chapter II. -/
+inductive LanguageBoundaryKind where
+  | base
+  | free
+  deriving DecidableEq
+
+def LanguageBoundary.kind : LanguageBoundary term → LanguageBoundaryKind
+  | .base => .base
+  | .free => .free
+  | .underLet inner => inner.kind
+
+theorem LanguageBoundary.kind_unique
+    (first second : LanguageBoundary term) : first.kind = second.kind := by
+  induction first with
+  | base => cases second <;> rfl
+  | free => cases second <;> rfl
+  | underLet _ ih =>
+      cases second with
+      | underLet inner => exact ih inner
+
+/-- The four-way progress classification stated in Chapter II. -/
+inductive LanguageDetailedProgressKind where
+  | returned
+  | internal
+  | base
+  | free
+  deriving DecidableEq
+
+def LanguageProgress.detailedKind (progress : LanguageProgress term) :
+    LanguageDetailedProgressKind :=
+  match progress with
+  | .returned => .returned
+  | .internal _ => .internal
+  | .boundary request =>
+    match request.kind with
+    | .base => .base
+    | .free => .free
+
+theorem LanguageProgress.detailedKind_unique
+    (first second : LanguageProgress term) :
+    first.detailedKind = second.detailedKind := by
+  cases first with
+  | returned =>
+      cases second with
+      | returned => rfl
+      | internal step => cases step
+      | boundary boundary => exact False.elim boundary.not_return
+  | internal firstStep =>
+      cases second with
+      | returned => cases firstStep
+      | internal _ => rfl
+      | boundary boundary => exact False.elim (firstStep.not_boundary boundary)
+  | boundary firstBoundary =>
+      cases second with
+      | returned => exact False.elim firstBoundary.not_return
+      | internal step => exact False.elim (step.not_boundary firstBoundary)
+      | boundary secondBoundary =>
+          have same := firstBoundary.kind_unique secondBoundary
+          simpa [LanguageProgress.detailedKind] using congrArg
+            (fun kind => match kind with
+              | .base => LanguageDetailedProgressKind.base
+              | .free => LanguageDetailedProgressKind.free)
+            same
+
 /-- Canonical forms for closed Boolean values. -/
 theorem HasLanguageVal.closed_bool_canonical
     (typing : [] ⊢[sig] value :ᵥ .bool) :
@@ -135,6 +199,80 @@ def HasLanguageComp.progressClosed
 def ExactlyOne (predicate : α → Prop) : Prop :=
   ∃ witness, predicate witness ∧
     ∀ other, predicate other → other = witness
+
+/-- The proposition represented by each of the four Chapter-II progress
+classes. -/
+def LanguageDetailedProgressCase {mode : RecMode} (term : LanguageComp mode) :
+    LanguageDetailedProgressKind → Prop
+  | .returned => ∃ value, term = .ret value
+  | .internal => ∃ next, Nonempty (term ⟶ next)
+  | .base => ∃ boundary : LanguageBoundary term, boundary.kind = .base
+  | .free => ∃ boundary : LanguageBoundary term, boundary.kind = .free
+
+theorem LanguageProgress.toDetailedCase (progress : LanguageProgress term) :
+    LanguageDetailedProgressCase term progress.detailedKind := by
+  cases progress with
+  | returned =>
+      change ∃ value, LanguageComp.ret _ = .ret value
+      exact ⟨_, rfl⟩
+  | internal step =>
+      simp only [LanguageProgress.detailedKind, LanguageDetailedProgressCase]
+      exact ⟨_, ⟨step⟩⟩
+  | boundary boundary =>
+      cases kindEq : boundary.kind with
+      | base =>
+          simp only [LanguageProgress.detailedKind, kindEq,
+            LanguageDetailedProgressCase]
+          exact ⟨boundary, kindEq⟩
+      | free =>
+          simp only [LanguageProgress.detailedKind, kindEq,
+            LanguageDetailedProgressCase]
+          exact ⟨boundary, kindEq⟩
+
+/-- The research-note Chapter-II statement directly: exactly one of return,
+internal reduction, exposed base request, or exposed free request applies. -/
+theorem HasLanguageComp.progressClosed_fourWayExactlyOne
+    (typing : [] ⊢[sig] term : ty ! effect) :
+    ExactlyOne (LanguageDetailedProgressCase term) := by
+  have progress := typing.progressClosed
+  refine ⟨progress.detailedKind, progress.toDetailedCase, ?_⟩
+  intro kind case
+  cases progress with
+  | returned =>
+      cases kind with
+      | returned => simp [LanguageProgress.detailedKind]
+      | internal => obtain ⟨_, ⟨step⟩⟩ := case; cases step
+      | base => obtain ⟨boundary, _⟩ := case; exact False.elim boundary.not_return
+      | free => obtain ⟨boundary, _⟩ := case; exact False.elim boundary.not_return
+  | internal progressStep =>
+      cases kind with
+      | returned => obtain ⟨_, same⟩ := case; subst term; cases progressStep
+      | internal => simp [LanguageProgress.detailedKind]
+      | base =>
+          obtain ⟨boundary, _⟩ := case
+          exact False.elim (progressStep.not_boundary boundary)
+      | free =>
+          obtain ⟨boundary, _⟩ := case
+          exact False.elim (progressStep.not_boundary boundary)
+  | boundary progressBoundary =>
+      cases kind with
+      | returned =>
+          obtain ⟨_, same⟩ := case
+          subst term
+          exact False.elim progressBoundary.not_return
+      | internal =>
+          obtain ⟨_, ⟨step⟩⟩ := case
+          exact False.elim (step.not_boundary progressBoundary)
+      | base =>
+          obtain ⟨boundary, boundaryKind⟩ := case
+          have progressKind : progressBoundary.kind = .base :=
+            (boundary.kind_unique progressBoundary).symm.trans boundaryKind
+          simp [LanguageProgress.detailedKind, progressKind]
+      | free =>
+          obtain ⟨boundary, boundaryKind⟩ := case
+          have progressKind : progressBoundary.kind = .free :=
+            (boundary.kind_unique progressBoundary).symm.trans boundaryKind
+          simp [LanguageProgress.detailedKind, progressKind]
 
 /-- The proposition represented by each of the three progress classes. -/
 def LanguageProgressCase {mode : RecMode} (term : LanguageComp mode) :

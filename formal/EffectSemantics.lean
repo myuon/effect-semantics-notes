@@ -74,6 +74,7 @@ import EffectSemantics.Examples.LanguageRecursion
 import EffectSemantics.Examples.EffectErasureCounterexample
 import EffectSemantics.Metatheory.LanguageProgress
 import EffectSemantics.Metatheory.LanguageNormalization
+import EffectSemantics.Metatheory.LanguageBaseConservativity
 import EffectSemantics.Metatheory.LanguageRequests
 import EffectSemantics.Metatheory.LanguageApplicationElaboration
 import EffectSemantics.Operational.LanguageShallowHandler
@@ -82,6 +83,7 @@ import EffectSemantics.Metatheory.LanguageHandlerPreservation
 import EffectSemantics.Examples.LanguageShallow
 import EffectSemantics.Metatheory.LanguageHandlerProgress
 import EffectSemantics.Denotational.LanguageWriterTree
+import EffectSemantics.Denotational.LanguageFreeExtensionBridge
 import EffectSemantics.Operational.LanguageWriterEvaluation
 import EffectSemantics.Operational.LanguageWriterAdequacy
 import EffectSemantics.Denotational.LanguageTypedShallow

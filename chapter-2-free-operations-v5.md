@@ -1,134 +1,104 @@
 # Chapter II — ordered free-operation extension
 
-:::{admonition} Formalization status
-:class: tip
-The typed finite carrier, monad laws, base embedding, morphisms, relations, TT lifting, and finite adequacy are **Lean checked**; see the [Chapter-II table](review-guide.md#chapter-ii-free-operations). The general paper theorem assumes the strong graded FreeT objects described in [FreeT existence](graded-freet-existence-v1.md). The stronger grade-indexed carrier notation in this chapter is a **Paper abstraction** layered over the separately mechanized ordered effect-language bounds.
-:::
+Chapter II asks what is preserved when typed, user-defined operations are
+adjoined to the finite language of Chapter I.  The answer is easiest to read
+when three levels are kept separate.
 
-## Status
+| level | object | role | Lean status |
+|---|---|---|---|
+| typed source | `LanguageComp`, `LanguageStep`, exposed base/free requests | substitution, preservation, four-way progress, old-language conservativity | checked |
+| finite semantic core | response trees and `FreeExtension` | bind, base embedding, structural folds and relations | checked |
+| general graded theorem | $F_eA$ over $widehat E=B*\mathcal D^*$ | strength, weakening, graded base action and transport | conditional paper theorem |
 
-**Working extension specification.**  This chapter adds user-defined
-operations but no handlers and no recursion.
+The finite source tree now has an explicit Lean translation into the generic
+free extension, preserving bind.  This closes the finite-level representation
+gap; it does **not** identify the finite ungraded tree with the general
+grade-indexed carrier.
 
-## 1. Interfaces and terms
+## 1. Typed source extension
 
-Let $\mathcal D$ be a set of nominal interfaces.  Each interface has a typed
-signature
+For each nominal interface $\Delta$, let
 
 $$
-\Sigma(\Delta)=
-\{\mathsf{op}_{\Delta,i}:P_i\to R_i\}_{i\in I_\Delta}.
+\Sigma(\Delta)=\{\mathsf{op}_{\Delta,i}:P_i\to R_i\}_{i\in I_\Delta}.
 $$
 
-Source operations are ordinary computations of their response type:
+An operation is a computation of its response type:
 
 $$
 \frac{\Gamma\vdash V:P_i}
      {\Gamma\vdash\mathsf{op}_{\Delta,i}(V):R_i!\Delta}.
 $$
 
-There is no continuation in this syntax.  When an operation becomes exposed,
-its continuation is the surrounding CBV evaluation context.
+The source term carries no continuation.  At runtime an evaluation context
+turns $E[\mathsf{op}_{\Delta,i}(V)]$ into an exposed request whose resumption
+is $r\mapsto E[\mathsf{return}\,r]$.  See [direct semantics and concrete
+programs](chapter-2-operational-examples-v5.md).
 
-## 2. Extended ordered effects
+For a closed well-typed term, exactly one of four cases holds: return,
+internal reduction, exposed base request, or exposed free request.  Lean states
+this directly as
+[`HasLanguageComp.progressClosed_fourWayExactlyOne`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed_fourWayExactlyOne#doc).
+Moreover, internal reduction preserves the base-only fragment, and every
+eventual boundary of such a term is a base boundary; see
+[`FinLanguageSteps.baseOnly_boundary_is_base`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FinLanguageSteps.baseOnly_boundary_is_base#doc).
 
-The extended effect monoid is the free product
+## 2. Finite semantic core
 
-$$
-\widehat E=B*\mathcal D^*.
-$$
-
-Its reduced expressions alternate between non-unit base segments and free
-interface symbols.  They are static bounds, not runtime traces.  No exchange
-law is assumed:
-
-$$
-b\cdot\Delta\neq\Delta\cdot b.
-$$
-
-Equip $\widehat E$ with the least compatible preorder extending the base
-preorder and the adopted optionality laws
+The recursion-free semantics uses response-typed trees
 
 $$
-1\leq\Delta
-\qquad(\Delta\in\mathcal D).
+t ::= \mathsf{ret}(a)
+\mid \mathsf{base}_\beta(p,r\mapsto t_r)
+\mid \mathsf{free}_{\Delta,i}(p,r\mapsto t_r).
 $$
 
-Consequently $b\cdot e\leq b\cdot\Delta\cdot e$: a computation that does not
-perform $\Delta$ may be given a bound that says $\Delta$ might occur there.
-Conditionals are typed by weakening both branches to a chosen common upper
-bound.  No effect-level sum or trace-language union is added to the core.
+The concrete Writer/free source semantics uses `LanguageWriterTree`; the
+signature-generic algebra uses `FreeExtension`.  The map
+[`LanguageWriterTree.toFreeExtension`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageWriterTree.toFreeExtension#doc)
+retains typed free requests and maps Writer messages to base nodes.  Its bind
+law is checked by
+[`toFreeExtension_bind`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageWriterTree.toFreeExtension_bind#doc).
 
-## 3. Operational exposure
+This is the level at which Lean proves the monad laws, base embedding and
+retraction, structural relator, shallow-handler naturality, and generic folds.
+See [denotational free extension](chapter-2-denotational-v5.md).
 
-Evaluation follows the base CBV rules until it reaches
+## 3. General ordered theorem
 
-$$
-E[\mathsf{op}_{\Delta,i}(V)].
-$$
-
-Without a handler this is a suspended free request with parameter $V$ and
-metatheoretic continuation
-
-$$
-k=\lambda r.E[\mathsf{return}\,r].
-$$
-
-The syntax did not pass $k$ to the operation; the machine reconstructs it from
-the evaluation context.
-
-## 4. Finite operation trees
-
-For recursion-free proofs, use well-founded trees
+The paper theorem uses the ordered effect monoid
 
 $$
-\begin{aligned}
-t::={}&\mathsf{ret}(a)\\
-&\mid\mathsf{base}_\beta(p,r\mapsto t_r)\\
-&\mid\mathsf{free}_{\Delta,i}(p,r\mapsto t_r).
-\end{aligned}
+\widehat E=B*\mathcal D^*,
 $$
 
-Return and substitution give the tree family its free-monad structure.  The
-tree records algebraic operation/continuation structure for denotational
-purposes; it is not the static effect annotation.  A fold maps base nodes into
-the selected base semantics while leaving free nodes visible.
+with no exchange law between base segments and interface symbols.  Its carrier
+$F_eA$ is stronger than the finite tree: it must provide graded bind, strength,
+coherent weakening, and a compatible base action.  Existence of this package
+is therefore an explicit hypothesis, documented in
+[FreeT existence](graded-freet-existence-v1.md), rather than something inferred
+from the ungraded datatype.
 
-## 5. First extension theorem target
+## 4. What the chapter proves
 
-For every recursion-free base package satisfying Chapter I, adding $\Sigma$
-should preserve:
+At the source and finite-semantic levels Lean checks:
 
-- unique evaluation-position decomposition into return, an internal redex,
-  a base request, or an exposed free request; primitive responses may still
-  branch through $\mathcal K$;
-- substitution, preservation and effect-aware progress;
-- old-syntax operational and observational conservativity;
-- ordered upper-bound effect safety;
-- the monad/graded sequencing laws of the finite tree extension;
-- base morphisms by functorial lifting, compatible graded relators by the least
-  structural lifting, and observational relations by graded TT-lifting;
-- adequacy after choosing an observation for unhandled requests.
+- substitution and preservation;
+- the exact four-way closed progress theorem;
+- non-exposure of free requests from base-only source terms;
+- finite tree bind and the bridge to the generic free extension;
+- base embedding/retraction, folds, morphism lifts, and structural relations.
 
-The last item is conditional: a base observation that cannot represent a free
-request must be extended rather than silently reused.
+The fully grade-indexed extension theorem remains conditional on the strong
+graded FreeT package.  Adequacy is also observation-relative: a base
+observation must be extended to represent unhandled free requests.
 
-## 6. Concrete checkpoints
+## 5. Reading order
 
-The theorem will first be calculated for:
-
-- **Writer:** possible writes occur before or after free requests as reflected
-  by the noncommutative bound;
-- **State:** ordered reads/writes determine which parameters reach later
-  requests;
-- **Exception:** an earlier base exception can prevent a later free request
-  from being exposed.
-
-These examples test that the static order constrains possible execution while
-remaining an upper approximation.
-
-The full Chapter-II cycle is developed in:
-
-- [Direct semantics and concrete programs](chapter-2-operational-examples-v5.md);
-- [Denotational free extension](chapter-2-denotational-v5.md);
-- [Preservation proofs and `FreeCert`](chapter-2-certificate-v5.md).
+1. [Direct semantics and concrete programs](chapter-2-operational-examples-v5.md)
+   for syntax, requests, and execution examples.
+2. [Denotational free extension](chapter-2-denotational-v5.md) for the finite
+   core first and the graded generalization second.
+3. [Preservation proofs and certificates](chapter-2-certificate-v5.md) for the
+   numbered statements and exact formalization boundary.
+4. [Detailed proofs](chapter-2-proof-details-v5.md) for algebraic calculations.
