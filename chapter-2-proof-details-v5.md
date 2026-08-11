@@ -72,16 +72,17 @@ separate syntax induction: no new rule has an old left-hand side.
 
 ## 4. Adequacy lifting
 
-Choose the operational/denotational observation pole supplied by
-`BaseAdequacyCert`; semantic bind and primitive compatibility come from
-`BaseModelCert`.
+Choose the operational/denotational observation pole supplied by the optional
+`ObservationAdequacyCert`; semantic bind and primitive compatibility come
+from `OperationalModelCert`, `DenotationalModelCert`, and
+`ModelComparisonCert`.
 Its graded TT-lifting gives a base computation relation
 $V_A^{\top\top}$.  Structurally lift it to
 $\mathsf{Str}_\Delta(V_A^{\top\top})$ between closed computations and free
 denotations:
 
 - returns relate when their values do;
-- classified base outcomes relate by `BaseAdequacyCert`;
+- classified base outcomes relate by `ObservationAdequacyCert`;
 - free requests relate only when tags and parameters relate and, for every
   related response, their continuations are again in $R$.
 

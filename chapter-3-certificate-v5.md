@@ -15,7 +15,7 @@ The source-language Chapter-III boundary is the exact Lean record
 | Theorem III.2, handler preservation | Lean checked in source-stage bundle | [`languageHandlerStagePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageHandlerStagePreservation#doc) |
 | Theorem III.3, affine effect transformation | Lean checked component | [`EffectLanguage.handleWith_mono`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.EffectLanguage.handleWith_mono#doc) |
 | Theorem III.4, operational/denotational commutation | Lean checked in source/tree bundle | [`languageFiniteStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageFiniteStructurePreservation#doc) |
-| Theorem III.5, adequacy preservation | Lean checked generic layer | [`GenericExtensionAlgebra.AdequacyCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.AdequacyCert.lift#doc) |
+| Theorem III.5, adequacy preservation | Model-comparison component Lean checked; observation/handler theorem remains conditional | [`GenericExtensionAlgebra.ModelComparisonCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparisonCert.lift#doc) |
 | Definition III.1–III.3 and Theorem III.6 | readable decomposition with exact source-stage package | [`LanguageHandlerStageCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageHandlerStageCert#doc) |
 
 ## Status
@@ -121,7 +121,7 @@ If
 $$
 \mathsf{CarrierCert}(T,\Sigma,\mathsf F_\Sigma(T))
 \land\mathsf{MonadExtCert}(T,\mathsf F_\Sigma(T),\mathsf{act})
-\land\mathsf{BaseModelCert}(L_B,E_B,T)
+\land\mathsf{DenotationalModelCert}(L_B,E_B,T)
 \land\mathsf{HandlerTypingCert}(\Delta,J,h,\Phi_h),
 $$
 
@@ -150,7 +150,7 @@ bare continuation.  This distinguishes shallow from deep handling.
 
 ## 4. Adequacy preservation
 
-### Theorem III.5 `[C3-CERT.4.1]` — adequacy preservation [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.AdequacyCert.lift#doc)
+### Theorem III.5 `[C3-CERT.4.1]` — adequacy preservation [[Lean: model-comparison component]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparisonCert.lift#doc)
 
 Assume
 
@@ -177,6 +177,10 @@ with the analogous value relation for return clauses.
 Then ground adequacy is preserved by the shallow handler:
 operational returns, base outcomes, matching replacements and forwarded
 requests agree with the structural shallow denotation.
+
+The linked Lean theorem checks the fold-naturality/model-comparison component.
+The observation-specific TT and handler conclusion remains conditional on the
+displayed `FiniteAdequacyCert`, `TTCert`, and `HandlerTTCert` premises.
 
 ### Proof
 

@@ -73,7 +73,7 @@ model $S$, denotational graded model $T$, their comparison, and a first-order
 interface $\Delta$.
 Let $\mathbf{ExtBase}^{\mathrm{str}}_\Delta$ have:
 
-- objects $T$ for which $\mathsf{BaseModelCert}(L_B,E_B,T)$ holds and
+- objects $T$ for which $\mathsf{DenotationalModelCert}(L_B,E_B,T)$ holds and
   $\operatorname{FreeT}_\Delta(T)$ exists as a strong graded monad;
 - morphisms $q:T\Rightarrow U$ preserving graded return, bind, strength,
   coherent weakening and primitive interpretations; canonical FreeT lifts
@@ -387,5 +387,5 @@ recursion-free theorem, not part of functoriality for free operations alone.
 | structural relation and graph lifting | compatible base relation, structural free carrier | [Chapter II proofs](chapter-2-proof-details-v5.md) |
 | observational relation | coherent pole and graded `TTCert` | [Graded TT-lifting](graded-tt-lifting-v5.md) |
 | handler naturality | structural/TT-related clauses and effect transformer | [Chapter III proofs](chapter-3-proof-details-v5.md) |
-| adequacy transport | `BaseSafetyCert`, `BaseModelCert`, `BaseAdequacyCert`, graded `TTCert`, branchwise normalization, constructor separation | [Chapter I certificate](chapter-1-certificate-v5.md) |
+| adequacy transport | `BaseSafetyCert`, `OperationalModelCert`, `DenotationalModelCert`, `ModelComparisonCert`, optional `ObservationAdequacyCert`, graded `TTCert`, branchwise normalization, constructor separation | [Chapter I certificate](chapter-1-certificate-v5.md) |
 | recursive/deep extension | continuity, admissibility, fixpoint agreement | [Chapter IV certificate](chapter-4-certificate-v5.md) |

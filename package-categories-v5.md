@@ -46,7 +46,7 @@ follows.
 
 An object is a strong $E_B$-graded model $T$ such that:
 
-1. $\mathsf{BaseModelCert}(L_B,E_B,T)$ holds;
+1. $\mathsf{DenotationalModelCert}(L_B,E_B,T)$ holds;
 2. $\operatorname{FreeT}_\Delta(T)$ exists as a strong graded monad with its
    universal base embedding, free generators and coherent base action;
 
@@ -93,7 +93,8 @@ under componentwise composition, so these data form a category.
 
 The observed subcategory
 $\mathbf{ExtBase}^{\mathrm{obs}}_{\Delta,\mathcal K}$ additionally requires
-`BaseSafetyCert`, `BaseAdequacyCert`, a finite-response certificate for
+`BaseSafetyCert`, `MachineSoundnessCert`, an optional
+`ObservationAdequacyCert`, a finite-response certificate for
 $\mathcal K$, the canonical separated pole, and observation preservation by
 morphisms. These fields are needed for adequacy transport, not for the free
 extension functor itself.

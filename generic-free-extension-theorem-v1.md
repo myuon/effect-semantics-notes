@@ -144,21 +144,21 @@ free-extension trees has TT-related folds.  See
 Thus the formal theorem does not silently infer adequacy from a structural
 relation: the observation-sensitive premise remains visible.
 
-### Finite adequacy transport `[GF.5.3]` [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.AdequacyCert.lift#doc)
+### Finite model-comparison transport `[GF.5.3]` [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparisonCert.lift#doc)
 
-An operational outcome model is presented as a second algebra for the same
-base/free signatures.  An observation map from the denotational algebra must
+An operational model is presented as a second algebra for the same base/free
+signatures. A comparison map from the denotational algebra must
 preserve `pure`, `bind`, and the interpretations of every base and free
 operation.  These are local one-layer equations, not a global adequacy
 assumption.  Lean then derives
 
 $$
-\mathsf{observe}(\mathsf{fold}_D(t))=\mathsf{fold}_O(t)
+q(\mathsf{fold}_D(t))=\mathsf{fold}_O(t)
 $$
 
 for every finite extended computation, including the restriction to embedded
 old-language trees.  See
-[`GenericExtensionAlgebra.AdequacyCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.AdequacyCert.lift#doc).
+[`GenericExtensionAlgebra.ModelComparisonCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparisonCert.lift#doc).
 
 ## 6. Concrete bases
 

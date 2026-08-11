@@ -409,8 +409,8 @@ $$
 \end{aligned}
 $$
 
-$\dot\vee$ denotes mutually exclusive alternatives.  `BaseModelCert` requires
-the following semantic data:
+$\dot\vee$ denotes mutually exclusive alternatives.
+`DenotationalModelCert` requires the following semantic data:
 
 $$
 \eta_A:A\to T_1A,
@@ -436,8 +436,9 @@ $$
 $$
 
 and compatibility of $\tau$ with $\eta,\mu,\mathsf{st}$ and every
-$\beta^T$. The remaining `BaseModelCert` fields are `semsubst` and `redsnd`;
-`respSound` and `adequate` belong to `BaseAdequacyCert`:
+$\beta^T$. The remaining `DenotationalModelCert` fields are `semsubst` and
+`redsnd`. If a later theorem chooses an observation object, the separate
+optional `ObservationAdequacyCert` supplies `respSound` and `adequate`:
 
 $$
 \begin{aligned}

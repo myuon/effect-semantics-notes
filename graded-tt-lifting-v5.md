@@ -311,9 +311,11 @@ V^{\top\top}
 \end{array}
 $$
 
-TT-lifting does not manufacture base adequacy. `BaseAdequacyCert` supplies the
-operational/denotational reflection, while `BaseModelCert` supplies semantic
-bind and primitives. TT-lifting propagates that relation through types,
+TT-lifting does not manufacture observational adequacy.
+`ObservationAdequacyCert` supplies the chosen base observation/reflection,
+while `OperationalModelCert`, `DenotationalModelCert`, and
+`ModelComparisonCert` supply semantic bind, primitives, and the $T\to S$
+comparison. TT-lifting propagates the chosen relation through types,
 sequencing, free operations and compatible handlers.
 
 ## 8. Recursion boundary

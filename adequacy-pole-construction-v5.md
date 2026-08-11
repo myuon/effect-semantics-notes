@@ -2,7 +2,7 @@
 
 :::{admonition} Lean correspondence
 :class: tip
-Finite adequacy transport is **Lean checked** by [`GenericExtensionAlgebra.AdequacyCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.AdequacyCert.lift#doc); recursive pole induction and limit adequacy are checked by [`GenericRecursiveResumptionCert.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumptionCert.main#doc). This page explains the non-circular proof architecture connecting them.
+Finite model-comparison transport is **Lean checked** by [`GenericExtensionAlgebra.ModelComparisonCert.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparisonCert.lift#doc); recursive pole induction and limit adequacy are checked by [`GenericRecursiveResumptionCert.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumptionCert.main#doc). Observation reflection additionally uses the explicitly chosen pole described below.
 :::
 
 ## Status
@@ -32,9 +32,9 @@ C\mathrel{\mathcal O^B_{e,A}}t
 $$
 
 This is a definition of a heterogeneous relation, not an adequacy assumption
-about all programs. `BaseAdequacyCert` proves that every closed base term is
-related to its denotation.  Primitive compatibility for the TT fundamental
-lemma follows from `respSound`.
+about all programs. The optional `ObservationAdequacyCert` proves that every
+closed base term is related to its denotation. Primitive compatibility for
+the TT fundamental lemma follows from its `respSound` field.
 
 ## 2. Extended observation object
 
@@ -127,14 +127,15 @@ and analogously for base outcomes and free requests.
 :::{prf:lemma} Extended pole closure
 :label: lem-extended-pole-closure-v5
 
-Assume `BaseSafetyCert`, `BaseModelCert`, `BaseAdequacyCert`,
+Assume `BaseSafetyCert`, `OperationalModelCert`, `DenotationalModelCert`,
+`ModelComparisonCert`, `ObservationAdequacyCert`,
 `FiniteResponseCert`, the existence/separation conditions for `Free-Obs`, and
 well-founded finite response trees. Then $\mathcal O^\Sigma$ is closed under
 return, base layers, free nodes, weakening and finite $\mathcal K$-branching.
 :::
 
 **Proof.** Return and free nodes follow by congruence of the corresponding
-constructors. Base layers use `BaseAdequacyCert.respSound` and its ground
+constructors. Base layers use `ObservationAdequacyCert.respSound` and its ground
 adequacy field.
 Weakening changes only the static membership proof and both observation maps
 erase it.  Branching uses the Kleisli laws of $\mathcal K$. $\square$
