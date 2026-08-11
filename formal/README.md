@@ -188,9 +188,9 @@ the two least fixed points.
   stability, a direct run relation and finite adequacy.  Generic completion,
   limit adequacy, run determinism and the bottom/no-boundary characterization
   are derived; Writer, State and Exception inhabit the record.
-- `RecursiveDischarge` makes the additional good-term and outward-interface
-  conditions explicit and is instantiated from typedness, exhaustiveness and
-  the Writer/State/Exception response laws.
+- `recursiveWriterDischarge`, `recursiveExceptionDischarge`, and
+  `recursiveStateDischarge` state the outward-interface results directly from
+  typedness, exhaustiveness and the base-specific response laws.
 - `RecursiveMorphism` and `RecursiveRelation` expose continuity,
   one-layer commutation/preservation, binary admissibility and bottom as
   separate fields; their fixed-point transport theorems are derived.

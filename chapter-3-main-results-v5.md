@@ -17,7 +17,7 @@ No stage record collects these results. [Full mapping](review-guide.md#chapter-i
 | Theorem III.2, handler preservation | Lean checked directly | [`LanguageShallowStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageShallowStep.preserve#doc) |
 | Theorem III.3, affine effect transformation | Lean checked component | [`EffectLanguage.handleWith_mono`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.EffectLanguage.handleWith_mono#doc) |
 | Theorem III.4, operational/denotational commutation | Lean checked directly | [`ProducesLanguageWriterTree.answerWith`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.answerWith#doc) |
-| Theorem III.5, adequacy preservation | Model-comparison component Lean checked; observation/handler theorem remains conditional | [`GenericExtensionAlgebra.ModelComparison.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparison.lift#doc) |
+| Theorem III.5, adequacy preservation | Model-comparison component Lean checked; observation/handler theorem remains conditional | [`GenericExtensionAlgebra.Morphism.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.Morphism.lift#doc) |
 | Definition III.1–III.3 and Theorem III.6 | readable paper decomposition; Lean components are separate | [`HasLanguageHandlerState.progressClosed`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageHandlerState.progressClosed#doc) |
 
 ## Status
@@ -152,7 +152,7 @@ bare continuation.  This distinguishes shallow from deep handling.
 
 ## 4. Adequacy preservation
 
-### Theorem III.5 `[C3-MAIN.4.1]` — adequacy preservation [[Lean: model-comparison component]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparison.lift#doc)
+### Theorem III.5 `[C3-MAIN.4.1]` — adequacy preservation [[Lean: model-comparison component]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.Morphism.lift#doc)
 
 Assume
 

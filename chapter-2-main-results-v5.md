@@ -22,7 +22,7 @@ remains a paper abstraction. [Full mapping](review-guide.md#chapter-ii-free-oper
 | Theorem II.5, old-language operational conservativity | Lean checked for current `LanguageComp` | [`FinLanguageSteps.baseOnly_boundary_is_base`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FinLanguageSteps.baseOnly_boundary_is_base#doc) |
 | Theorem II.6, free-extension algebra | Lean checked as separate laws | [`genericFreeMonad`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericFreeMonad#doc), [`embedBase_bind`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.embedBase_bind#doc), [`Rel.bind`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.Rel.bind#doc) |
 | Theorem II.7, finite denotational conservativity | Lean checked, with source-tree bridge | [`eraseFree_embedBase`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.eraseFree_embedBase#doc), [`toFreeExtension_bind`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageWriterTree.toFreeExtension_bind#doc) |
-| Theorem II.8, finite model-comparison lifting | Lean checked | [`GenericExtensionAlgebra.ModelComparison.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparison.lift#doc) |
+| Theorem II.8, finite model-comparison lifting | Lean checked | [`GenericExtensionAlgebra.Morphism.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.Morphism.lift#doc) |
 | Definition II.1–II.2 and Theorem II.9, `FreeExtensionPackage` | readable grade-indexed abstraction; finite components Lean checked separately | [`FreeExtension`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension#doc) |
 
 ## Status
@@ -165,7 +165,7 @@ Extend both models by the same free signature:
 $\widehat S=\mathsf F_\Sigma(S)$ and
 $\widehat T=\mathsf F_\Sigma(T)$.
 
-### Theorem II.8 `[C2-MAIN.6.1]` — finite model-comparison lifting [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparison.lift#doc)
+### Theorem II.8 `[C2-MAIN.6.1]` — finite model-comparison lifting [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.Morphism.lift#doc)
 
 Assume
 

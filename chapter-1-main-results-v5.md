@@ -494,7 +494,7 @@ boundary in
 The semantic extraction uses
 [`GenericExtensionAlgebra`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra#doc)
 for each denotational or operational interpretation and
-[`ModelComparison`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparison#doc)
+[`GenericExtensionAlgebra.Morphism`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.Morphism#doc)
 for a structure-preserving map between two such algebras. Writer, State, and
 Exception each have their own comparison value and a separate theorem agreeing
 with the concrete `runClosed` evaluator; no aggregate base-model record is

@@ -158,7 +158,7 @@ free-extension trees has TT-related folds.  See
 Thus the formal theorem does not silently infer adequacy from a structural
 relation: the observation-sensitive premise remains visible.
 
-### Finite model-comparison transport `[GF.5.3]` [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparison.lift#doc)
+### Finite model-comparison transport `[GF.5.3]` [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.Morphism.lift#doc)
 
 An operational model is presented as a second algebra for the same base/free
 signatures. A comparison map from the denotational algebra must
@@ -172,7 +172,7 @@ $$
 
 for every finite extended computation, including the restriction to embedded
 old-language trees.  See
-[`GenericExtensionAlgebra.ModelComparison.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparison.lift#doc).
+[`GenericExtensionAlgebra.Morphism.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.Morphism.lift#doc).
 
 ## 6. Concrete bases
 

@@ -2,7 +2,7 @@
 
 :::{admonition} Lean correspondence
 :class: tip
-Finite model-comparison transport is **Lean checked** by [`GenericExtensionAlgebra.ModelComparison.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparison.lift#doc); recursive pole induction and limit adequacy are checked by [`GenericRecursiveResumption.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumption.main#doc). Observation reflection additionally uses the explicitly chosen pole described below.
+Finite model-comparison transport is **Lean checked** by [`GenericExtensionAlgebra.Morphism.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.Morphism.lift#doc); recursive pole induction and limit adequacy are checked by [`GenericRecursiveResumption.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumption.main#doc). Observation reflection additionally uses the explicitly chosen pole described below.
 :::
 
 ## Status

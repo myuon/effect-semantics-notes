@@ -160,17 +160,6 @@ theorem Comp.observeDeepWriter_mono
       rw [Nat.add_succ]
       exact Comp.observeDeepWriter_succ_of_some ih
 
-structure DeepWriterPartialObservation (interface : Nat)
-    (handler : AffineHandler) where
-  observeAt : Nat → Option (List Val × Val)
-  stable : ∀ {fuel result}, observeAt fuel = some result →
-    observeAt (fuel + 1) = some result
-
-def Comp.deepWriterApprox (term : Comp) (interface : Nat)
-    (handler : AffineHandler) : DeepWriterPartialObservation interface handler where
-  observeAt fuel := term.observeDeepWriter fuel interface handler
-  stable := Comp.observeDeepWriter_succ_of_some
-
 /-- Direct terminating operational semantics of the recursively reinstalled
 handler. -/
 inductive DeepWriterRuns (interface : Nat) (handler : AffineHandler) :

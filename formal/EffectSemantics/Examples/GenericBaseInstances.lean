@@ -227,10 +227,10 @@ model to the dedicated operational Writer monad.  In particular, the Writer
 effect is carried by `WriterOutcome`; it is not packed into an observation and
 then wrapped in `Id`. -/
 def genericWriterModelComparison :
-    GenericExtensionAlgebra.ModelComparison
+    GenericExtensionAlgebra.Morphism
       (genericInitialAlgebra writerBaseSignature userOperationSignature)
-      writerOutcomeAlgebra where
-  comparison := genericWriterObservationMorphism
+      writerOutcomeAlgebra :=
+  genericWriterObservationMorphism
 
 theorem genericWriter_finite_model_comparison
     (tree : FreeExtension writerBaseSignature userOperationSignature α) :
@@ -340,10 +340,10 @@ theorem genericStateOperationalInterpretation_runClosed
   | freeOp => rfl
 
 def genericStateModelComparison :
-    GenericExtensionAlgebra.ModelComparison
+    GenericExtensionAlgebra.Morphism
       (genericInitialAlgebra stateBaseSignature userOperationSignature)
       stateOutcomeAlgebra :=
-  GenericExtensionAlgebra.initialModelComparison stateOutcomeAlgebra
+  GenericExtensionAlgebra.initialModelMorphism stateOutcomeAlgebra
 
 /-! ## Dedicated operational Exception monad and model comparison -/
 
@@ -403,9 +403,9 @@ theorem genericExceptionOperationalInterpretation_runClosed
   | freeOp => rfl
 
 def genericExceptionModelComparison :
-    GenericExtensionAlgebra.ModelComparison
+    GenericExtensionAlgebra.Morphism
       (genericInitialAlgebra exceptionBaseSignature userOperationSignature)
       exceptionOutcomeAlgebra :=
-  GenericExtensionAlgebra.initialModelComparison exceptionOutcomeAlgebra
+  GenericExtensionAlgebra.initialModelMorphism exceptionOutcomeAlgebra
 
 end EffectSemantics

@@ -392,10 +392,11 @@ limits are proved to coincide with the generic one.  This replaces the
 paper-level `RecursiveBaseAdequacy` black box for the finite-boundary layer by
 an explicit checked interface.
 
-The optional discharge and transport layers are now records as well.
-`RecursiveDischarge` adds a good-term predicate and a free-interface
-projection; the three bases instantiate it from source typing, handler typing,
-exhaustiveness and only their own response laws.  `RecursiveMorphism`
+The optional discharge layer is stated directly for each concrete base.
+`recursiveWriterDischarge`, `recursiveExceptionDischarge`, and
+`recursiveStateDischarge` derive outward-interface exclusion from source
+typing, handler typing, exhaustiveness and only their own response laws;
+there is no result record wrapping these theorems. `RecursiveMorphism`
 lists source/target continuity and one-layer commutation.  Its relational
 counterpart lists both continuities, binary admissibility, bottom relatedness
 and one-layer preservation.  Fixed-point morphism/relation lifting is derived

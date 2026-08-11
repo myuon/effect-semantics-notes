@@ -257,41 +257,16 @@ theorem TTLayerAssumptions.lift
       subst operations
       exact cert.preservesFree _ _ _ _ (fun response => ih rfl)
 
-/-- A comparison between a denotational model `T` and a dedicated operational
-model `S`.  Effects remain in the two carrier monads; `comparison` is not an
-extra response monad and does not encode effects in a separate observation
-object. -/
-structure ModelComparison
-    (denotational : GenericExtensionAlgebra base free denotation)
-    (operational : GenericExtensionAlgebra base free operation) where
-  comparison : GenericExtensionAlgebra.Morphism denotational operational
-
-/-- A base comparison that commutes with every one-layer interpretation lifts
-through the complete finite free extension. -/
-theorem ModelComparison.lift
-    {base free : OperationSignature}
-    {denotation operation : Type → Type}
-    {denotational : GenericExtensionAlgebra base free denotation}
-    {operational : GenericExtensionAlgebra base free operation}
-    (cert : ModelComparison denotational operational)
-    (tree : FreeExtension base free α) :
-    cert.comparison.map
-        (denotational.fold (base := base) (free := free) tree) =
-      operational.fold (base := base) (free := free) tree :=
-  cert.comparison.lift tree
-
 /-- Folding the initial response-tree model into an algebra is the canonical
 comparison with that model. -/
-def initialModelComparison
+def initialModelMorphism
     (operational : GenericExtensionAlgebra base free carrier) :
-    ModelComparison (genericInitialAlgebra base free) operational where
-  comparison := {
-    map := operational.fold
-    pure := fun _ => rfl
-    bind := fun tree next => operational.fold_bind tree next
-    preservesBase := fun _ _ => rfl
-    preservesFree := fun _ _ => rfl
-  }
+    Morphism (genericInitialAlgebra base free) operational where
+  map := operational.fold
+  pure := fun _ => rfl
+  bind := fun tree next => operational.fold_bind tree next
+  preservesBase := fun _ _ => rfl
+  preservesFree := fun _ _ => rfl
 
 end GenericExtensionAlgebra
 

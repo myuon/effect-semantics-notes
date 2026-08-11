@@ -32,7 +32,7 @@ with initiality and both action equations checked separately.
 | `[FUN.4.1]` graph equality | checked in both directions | [`Rel.graphMapSignature_iff`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.Rel.graphMapSignature_iff#doc) |
 | `[FUN.5.1]` structural-to-TT inclusion | checked under layer package | [`TTLayerAssumptions.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.TTLayerAssumptions.lift#doc) |
 | `[FUN.6.1]` shallow compatibility | checked for one shared handler and for distinct value-compatible handlers; heterogeneous TT clauses remain conditional | [`shallow_map_compatible`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.shallow_map_compatible#doc), [`Rel.shallow`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.Rel.shallow#doc) |
-| `[FUN.7.1]` finite model-comparison transport | checked as fold naturality; the typed-language fundamental lemma remains separate | [`ModelComparison.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparison.lift#doc) |
+| `[FUN.7.1]` finite model-comparison transport | checked as fold naturality; the typed-language fundamental lemma remains separate | [`Morphism.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.Morphism.lift#doc) |
 
 ## Status
 
@@ -335,7 +335,7 @@ Let a graded `TTClosure` be generated from a base observation pole that reflects
 the selected ground $\mathcal K$-observation, and suppose the extended pole
 distinguishes returns, terminal base outcomes and free requests.
 
-:::{prf:theorem} `[FUN.7.1]` Finite fundamental lemma and model-comparison transport [[Lean: fold transport]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparison.lift#doc)
+:::{prf:theorem} `[FUN.7.1]` Finite fundamental lemma and model-comparison transport [[Lean: fold transport]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.Morphism.lift#doc)
 :label: thm-fundamental-adequacy-transport-v5
 
 Every well-typed recursion-free extended term is related to its denotation by

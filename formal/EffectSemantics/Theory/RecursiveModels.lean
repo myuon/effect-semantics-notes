@@ -104,15 +104,6 @@ theorem recursiveStateBoundaryModel_limit_eq
     (recursiveStateBoundaryModel interface handler state).limit term =
       term.deepStateBoundaryLimit interface handler state := rfl
 
-/-- Optional refinement recording exactly the premises under which a selected
-interface cannot occur at an outward boundary. -/
-structure RecursiveDischarge (base : RecursiveBoundaryModel Outcome)
-    (selected : Nat) where
-  freeInterface : Outcome → Option Nat
-  Good : Comp → Prop
-  discharge : ∀ {term outcome}, Good term →
-    base.limit term = some outcome → freeInterface outcome ≠ some selected
-
 def DeepWriterBoundary.freeInterface : DeepWriterBoundary → Option Nat
   | .free _ request => some request.interface
   | _ => none
@@ -125,17 +116,16 @@ def DeepStateBoundary.freeInterface : DeepStateBoundary → Option Nat
   | .free request _ => some request.interface
   | _ => none
 
-def recursiveWriterDischarge
+/-- A well-typed computation cannot expose the handled Writer interface at
+its outward recursive boundary. -/
+theorem recursiveWriterDischarge
     (handlerTyping : HasAffineHandler sig [] interface handler clauseEffect)
     (exhaustive : handler.Exhaustive sig interface)
-    (writerUnit : WriterResponseUnit sig) :
-    RecursiveDischarge (recursiveWriterBoundaryModel interface handler)
-      interface where
-  freeInterface := DeepWriterBoundary.freeInterface
-  Good term := ∃ resultTy effect,
-    Nonempty (HasComp sig [] term resultTy effect)
-  discharge := by
-    intro term outcome good observed
+    (writerUnit : WriterResponseUnit sig)
+    (good : ∃ resultTy effect, Nonempty (HasComp sig [] term resultTy effect))
+    (observed : (recursiveWriterBoundaryModel interface handler).limit term =
+      some outcome) :
+    DeepWriterBoundary.freeInterface outcome ≠ some interface := by
     obtain ⟨resultTy, effect, ⟨typing⟩⟩ := good
     rw [recursiveWriterBoundaryModel_limit_eq] at observed
     cases outcome with
@@ -147,16 +137,15 @@ def recursiveWriterDischarge
         exact deepWriterBoundaryLimit_discharges typing handlerTyping exhaustive
           writerUnit observed
 
-def recursiveExceptionDischarge
+/-- A well-typed computation cannot expose the handled Exception interface at
+its outward recursive boundary. -/
+theorem recursiveExceptionDischarge
     (handlerTyping : HasAffineHandler sig [] interface handler clauseEffect)
-    (exhaustive : handler.Exhaustive sig interface) :
-    RecursiveDischarge (recursiveExceptionBoundaryModel interface handler)
-      interface where
-  freeInterface := DeepExceptionBoundary.freeInterface
-  Good term := ∃ resultTy effect,
-    Nonempty (HasComp sig [] term resultTy effect)
-  discharge := by
-    intro term outcome good observed
+    (exhaustive : handler.Exhaustive sig interface)
+    (good : ∃ resultTy effect, Nonempty (HasComp sig [] term resultTy effect))
+    (observed : (recursiveExceptionBoundaryModel interface handler).limit term =
+      some outcome) :
+    DeepExceptionBoundary.freeInterface outcome ≠ some interface := by
     obtain ⟨resultTy, effect, ⟨typing⟩⟩ := good
     rw [recursiveExceptionBoundaryModel_limit_eq] at observed
     cases outcome with
@@ -169,17 +158,16 @@ def recursiveExceptionDischarge
         exact deep_exception_boundary_limit_discharges typing handlerTyping
           exhaustive observed
 
-def recursiveStateDischarge
+/-- A well-typed computation cannot expose the handled State interface at its
+outward recursive boundary. -/
+theorem recursiveStateDischarge
     (handlerTyping : HasAffineHandler sig [] interface handler clauseEffect)
     (exhaustive : handler.Exhaustive sig interface)
-    (stateLaws : StateResponseLaws sig) (state : Bool) :
-    RecursiveDischarge
-      (recursiveStateBoundaryModel interface handler state) interface where
-  freeInterface := DeepStateBoundary.freeInterface
-  Good term := ∃ resultTy effect,
-    Nonempty (HasComp sig [] term resultTy effect)
-  discharge := by
-    intro term outcome good observed
+    (stateLaws : StateResponseLaws sig) (state : Bool)
+    (good : ∃ resultTy effect, Nonempty (HasComp sig [] term resultTy effect))
+    (observed : (recursiveStateBoundaryModel interface handler state).limit term =
+      some outcome) :
+    DeepStateBoundary.freeInterface outcome ≠ some interface := by
     obtain ⟨resultTy, effect, ⟨typing⟩⟩ := good
     rw [recursiveStateBoundaryModel_limit_eq] at observed
     cases outcome with

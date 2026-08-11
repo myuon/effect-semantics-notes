@@ -118,9 +118,9 @@ $$
 $$
 
 Compatible graded logical relations lift in parallel. In Lean the ungraded
-finite core is [`GenericExtensionAlgebra.ModelComparison`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparison#doc),
+finite core is [`GenericExtensionAlgebra.Morphism`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.Morphism#doc),
 with the lifting theorem
-[`ModelComparison.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparison.lift#doc).
+[`Morphism.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.Morphism.lift#doc).
 General categorical sufficient conditions are stated in
 [FreeT existence](graded-freet-existence-v1.md).
 
@@ -161,4 +161,6 @@ The canonical records are conceptually:
    with the operational model.
 
 The former `AdequacyAssumptions` compatibility wrapper has been removed; new
-Lean statements use `ModelComparison` explicitly.
+Lean statements use `GenericExtensionAlgebra.Morphism` directly; the
+paper-level name `ModelComparison` denotes the role played by that morphism,
+not an additional Lean wrapper.
