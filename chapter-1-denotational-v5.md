@@ -1,4 +1,4 @@
-# Chapter I — denotational semantics
+# Chapter I.3 — denotational models and operational comparison
 
 :::{admonition} Formalization status
 :class: tip
@@ -7,8 +7,11 @@ The concrete Writer/tree interpretation and its operational adequacy are **Lean 
 
 ## Status
 
-**Semantic specification with concrete instances.**  This page interprets only
-the fixed base calculus.
+**Semantic specification with concrete instances.**  This page interprets the
+fixed base calculus and states how each interpretation is compared with its
+direct machine.  The supporting [model-architecture note](operational-denotational-comparison-v1.md)
+explains the deliberate separation between the operational monad $S$ and the
+denotational monad $T$.
 
 ## 1. Generic graded interpretation
 
@@ -272,3 +275,6 @@ Exception can use phantom grade indices. Therefore the generic theorem must
 not require a denotation to reveal which effects occurred. It requires
 coherent operational and denotational graded models and a separately stated
 morphism or logical relation between them.
+
+The next page turns these requirements, together with the core type-safety
+results, into the [exported base certificate](chapter-1-certificate-v5.md).

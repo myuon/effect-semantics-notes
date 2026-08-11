@@ -1,8 +1,11 @@
-# Chapter I — detailed proofs
+# Appendix I-A — detailed Chapter I proofs
 
 :::{admonition} Review role
 :class: note
-This is a proof appendix. Use the [Chapter-I mapping](review-guide.md#chapter-i-fixed-base-language) to distinguish kernel-checked lemmas from recursion-free normalization arguments that remain paper proofs.
+This is a proof appendix, not an additional step in the main reading path.
+Use the [Chapter-I mapping](review-guide.md#chapter-i-fixed-base-language) to
+distinguish kernel-checked lemmas from recursion-free normalization arguments
+that remain paper proofs.
 :::
 
 ## 1. Preliminary lemmas

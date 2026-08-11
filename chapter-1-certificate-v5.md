@@ -1,4 +1,4 @@
-# Chapter I — metatheory and base certificate
+# Chapter I.4 — exported base certificate
 
 :::{admonition} Lean correspondence — theorem bundle
 :class: tip
@@ -11,7 +11,7 @@
 |---|---|---|
 | Lemma I.1–I.2, substitution | Lean checked | [`HasLanguageComp.subst_preserved`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.subst_preserved#doc) |
 | Theorem I.3, preservation | Lean checked | [`LanguageStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc) |
-| Theorem I.4, effect-aware progress | Lean checked | [`HasLanguageComp.progressClosed`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed#doc), [`LanguageProgress.kind_unique`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageProgress.kind_unique#doc) |
+| Theorem I.4, effect-aware progress | Lean checked | [`HasLanguageComp.progressClosed_exactlyOne`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed_exactlyOne#doc) |
 | Theorem I.5, deterministic internal reduction | Lean checked | [`LanguageStep.deterministic`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.deterministic#doc) |
 | Conjecture I.6, recursion-free normalization | Precisely scoped formalization boundary | `FinLanguageComp` excludes recursion by construction and is substitution/reduction closed; reducibility normalization remains future work |
 | Lemma I.7–Theorem I.8, semantic substitution/soundness | Lean checked for the relational Writer/free-tree semantics | [`letE`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.letE#doc), [`internalStepInvariant`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.internalStepInvariant#doc) |
@@ -20,8 +20,27 @@
 
 ## Status
 
-**Paper proof package.**  This page extracts exactly what Chapter II may assume
-when it adds free operations.
+**Paper proof package and Chapter-I export.**  Sections 1–6 collect the
+metatheoretic and semantic evidence established by the preceding pages.
+Sections 7–8 package exactly what Chapter II may assume when it adds free
+operations.  Readers interested only in the chapter interface may start at
+[the structure theorem](#the-chapter-i-structure-theorem).
+
+## What Chapter I exports
+
+Chapter II receives four deliberately separate components:
+
+| component | responsibility |
+|---|---|
+| `BaseSafetyCert` | substitution, preservation, exclusive progress, determinism, normalization boundary, and effect safety |
+| `OperationalModelCert` | the graded operational monad $S$, primitive execution, and agreement with the direct machine |
+| `DenotationalModelCert` | the graded denotational monad $T$, primitive interpretation, substitution, and reduction soundness |
+| `ModelComparisonCert` | a morphism or logical relation comparing $T$ with $S$ |
+
+Their readable conjunction is called `BaseCert`.  Keeping these components
+separate prevents type safety, model construction, and adequacy from being
+silently conflated.  The remaining sections record the evidence for each
+field before giving the formal package in Section 7.
 
 ## 1. Syntactic substitution
 

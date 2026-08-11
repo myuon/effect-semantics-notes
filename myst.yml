@@ -28,10 +28,10 @@ project:
         - file: chapter-method-v5.md
     - title: "Chapter I — concrete base language"
       children:
+        - file: chapter-1-overview-v5.md
         - file: chapter-1-operational-examples-v5.md
         - file: chapter-1-foundations-v5.md
         - file: chapter-1-denotational-v5.md
-        - file: operational-denotational-comparison-v1.md
         - file: chapter-1-certificate-v5.md
         - file: chapter-1-proof-details-v5.md
     - title: "Chapter II — concrete free operations"

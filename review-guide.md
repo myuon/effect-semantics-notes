@@ -55,11 +55,12 @@ Writer, State, or Exception.
 
 Read in this order:
 
-1. [Concrete base machines](chapter-1-operational-examples-v5.md)
-2. [Fixed syntax and typing](chapter-1-foundations-v5.md)
-3. [Denotational semantics](chapter-1-denotational-v5.md)
-4. [Base certificate](chapter-1-certificate-v5.md)
-5. [Detailed proof appendix](chapter-1-proof-details-v5.md)
+1. [Chapter overview and contract](chapter-1-overview-v5.md)
+2. [Concrete base machines](chapter-1-operational-examples-v5.md)
+3. [Core calculus and type safety](chapter-1-foundations-v5.md)
+4. [Denotational models and operational comparison](chapter-1-denotational-v5.md)
+5. [Exported base certificate](chapter-1-certificate-v5.md)
+6. [Appendix I-A: detailed proofs](chapter-1-proof-details-v5.md)
 
 ### Definition and theorem correspondence
 

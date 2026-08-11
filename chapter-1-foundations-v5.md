@@ -1,4 +1,4 @@
-# Chapter I — terminology and fixed base calculus
+# Chapter I.2 — core calculus and type safety
 
 :::{admonition} Lean correspondence — syntax and typing
 :class: tip
@@ -7,9 +7,11 @@
 
 ## Status
 
-**Foundational specification.**  No free operation, handler or fixed point is
-present in this chapter.  Later chapters must state explicitly which item from
-this specification they extend.
+**Foundational specification and safety interface.**  This page fixes the
+common language used by the machines on the previous page and identifies its
+type-safety results.  Full theorem statements are collected in the
+[exported certificate](chapter-1-certificate-v5.md); detailed derivations are
+in [Appendix I-A](chapter-1-proof-details-v5.md).
 
 ## 1. Syntactic categories
 
@@ -209,7 +211,26 @@ and observations may differ; the generic theorem uses only the package laws.
 - **adequacy:** equality or reflection between a specified denotational and
   operational observation, never an unqualified claim.
 
-## 7. Chapter-I obligations
+## 7. Core type-safety result
+
+For a closed well-typed computation, the common finite calculus satisfies:
+
+1. substitution preserves typing;
+2. an internal step preserves both result type and effect bound;
+3. exactly one of return, internal reduction, or an exposed base boundary
+   applies;
+4. internal reduction is deterministic.
+
+The direct Lean statement of the three-way progress theorem is
+[`HasLanguageComp.progressClosed_exactlyOne`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed_exactlyOne#doc).
+The evaluation-context presentation selects the same one-step relation as the
+inductive rules by
+[`languageContextStep_iff_languageStep`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageContextStep_iff_languageStep#doc).
+
+These are small-step results.  They do not assert that the whole computation
+terminates, nor do they choose an answer for a base request.
+
+## 8. Obligations needed for export
 
 Before adding operations we must prove or assume, per base instance:
 
@@ -222,8 +243,8 @@ Before adding operations we must prove or assume, per base instance:
    declared bound;
 6. the selected denotational--operational comparison theorem.
 
-These obligations are developed in order in:
+The remaining semantic and packaging obligations are developed in:
 
-- [Operational semantics and concrete machines](chapter-1-operational-examples-v5.md);
-- [Denotational semantics](chapter-1-denotational-v5.md);
-- [Metatheory and base certificate](chapter-1-certificate-v5.md).
+- [Concrete base machines](chapter-1-operational-examples-v5.md);
+- [Denotational models and operational comparison](chapter-1-denotational-v5.md);
+- [Exported base certificate](chapter-1-certificate-v5.md).

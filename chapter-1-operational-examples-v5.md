@@ -1,4 +1,4 @@
-# Chapter I — operational semantics and concrete machines
+# Chapter I.1 — concrete base machines
 
 :::{admonition} Lean correspondence — Chapter I
 :class: tip
@@ -7,9 +7,10 @@
 
 ## Status
 
-**Derived operational development.**  This page expands the syntax fixed in
-[Chapter I](chapter-1-foundations-v5.md).  There are still no free operations,
-handlers or fixed points.
+**Derived operational development.**  This page gives the concrete executions
+that motivate the common calculus fixed on the [next page](chapter-1-foundations-v5.md).
+There are still no free operations, handlers or fixed points.  See the
+[Chapter I overview](chapter-1-overview-v5.md) for the full proof path.
 
 ## 1. Evaluation contexts and internal reduction
 
