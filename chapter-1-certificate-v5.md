@@ -101,7 +101,7 @@ The $\beta$ and `let-return` cases use Lemma I.2.  Branch rules retain the
 declared common effect.  Context closure uses associativity of graded
 sequencing.
 
-### Theorem I.4 `[C1-CERT.2.2]` — effect-aware progress [[Lean: exact statement]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed_exactlyOne#doc)
+### Theorem I.4 `[C1-CERT.2.2]` — effect-aware progress [[Lean: exactly one]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed_exactlyOne#doc) [[Lean: expanded cases]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed_cases#doc)
 
 If
 
@@ -127,8 +127,10 @@ These alternatives are mutually exclusive.  An exposed request is an
 operational boundary rather than a stuck term: the base machine may answer it
 and resume the computation.
 
-The linked Lean theorem states this three-way alternative and its pairwise
-exclusivity directly.  Its exhaustiveness is derived from
+The primary Lean theorem writes the result concisely as
+`ExactlyOne (LanguageProgressCase term)`.  The expanded corollary states the
+three alternatives and their pairwise exclusivity directly.  Exhaustiveness
+is derived from
 [`progressClosed`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed#doc),
 and exclusivity from
 [`kind_unique`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageProgress.kind_unique#doc).

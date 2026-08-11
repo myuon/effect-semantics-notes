@@ -131,11 +131,68 @@ def HasLanguageComp.progressClosed
       | .inl _ => .internal .caseInl
       | .inr _ => .internal .caseInr
 
-/-- The research-note progress theorem in its direct, proposition-level form:
-a closed well-typed computation is in exactly one of the returned, internal-step,
-or exposed-boundary cases.  Exhaustiveness comes from `progressClosed`; pairwise
-exclusivity comes from `LanguageProgress.kind_unique`. -/
+/-- Exactly one input satisfies a predicate. -/
+def ExactlyOne (predicate : α → Prop) : Prop :=
+  ∃ witness, predicate witness ∧
+    ∀ other, predicate other → other = witness
+
+/-- The proposition represented by each of the three progress classes. -/
+def LanguageProgressCase {mode : RecMode} (term : LanguageComp mode) :
+    LanguageProgressKind → Prop
+  | .returned => ∃ value, term = .ret value
+  | .internal => ∃ next, Nonempty (term ⟶ next)
+  | .boundary => Nonempty (LanguageBoundary term)
+
+/-- Every progress derivation witnesses its corresponding proposition. -/
+theorem LanguageProgress.toCase (progress : LanguageProgress term) :
+    LanguageProgressCase term progress.kind := by
+  cases progress with
+  | returned => exact ⟨_, rfl⟩
+  | internal step => exact ⟨_, ⟨step⟩⟩
+  | boundary boundary => exact ⟨boundary⟩
+
+/-- The concise form of the research-note progress theorem: exactly one of
+the returned, internal-step, or exposed-boundary classes applies. -/
 theorem HasLanguageComp.progressClosed_exactlyOne
+    (typing : [] ⊢[sig] term : ty ! effect) :
+    ExactlyOne (LanguageProgressCase term) := by
+  have progress := typing.progressClosed
+  refine ⟨progress.kind, progress.toCase, ?_⟩
+  intro kind case
+  cases progress with
+  | returned =>
+      cases kind with
+      | returned => rfl
+      | internal =>
+          obtain ⟨next, ⟨step⟩⟩ := case
+          cases step
+      | boundary =>
+          obtain ⟨boundary⟩ := case
+          exact False.elim boundary.not_return
+  | internal progressStep =>
+      cases kind with
+      | returned =>
+          obtain ⟨value, same⟩ := case
+          cases same
+          cases progressStep
+      | internal => rfl
+      | boundary =>
+          obtain ⟨boundary⟩ := case
+          exact False.elim (progressStep.not_boundary boundary)
+  | boundary progressBoundary =>
+      cases kind with
+      | returned =>
+          obtain ⟨value, same⟩ := case
+          cases same
+          exact False.elim progressBoundary.not_return
+      | internal =>
+          obtain ⟨next, ⟨step⟩⟩ := case
+          exact False.elim (step.not_boundary progressBoundary)
+      | boundary => rfl
+
+/-- The exact progress theorem with all three alternatives and their pairwise
+exclusivity expanded. -/
+theorem HasLanguageComp.progressClosed_cases
     (typing : [] ⊢[sig] term : ty ! effect) :
     ((∃ value, term = .ret value) ∨
       (∃ next, Nonempty (term ⟶ next)) ∨
