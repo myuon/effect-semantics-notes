@@ -70,6 +70,7 @@ Read in this order:
 | ordered may-effect languages | Lean checked | [`EffectLanguage`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.EffectLanguage#doc) |
 | value/computation typing | Lean checked | [`HasLanguageVal`, `HasLanguageComp`](https://myuon.github.io/effect-semantics-notes/lean/EffectSemantics/Syntax/LanguageCalculus.html) |
 | CBV internal reduction | Lean checked | [`LanguageStep`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep#doc) |
+| general computation application elaboration | Lean checked | [`HasLanguageComp.elaborateApplication`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.elaborateApplication#doc) |
 | Evaluation-context presentation of CBV reduction | Lean checked; equivalent to finite `LanguageStep` | [`languageContextStep_iff_languageStep`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageContextStep_iff_languageStep#doc) |
 | finite-to-recursive syntax and step embedding | Lean checked | [`LanguageComp.toRecursive`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageComp.toRecursive#doc), [`LanguageStep.toRecursive`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.toRecursive#doc) |
 | preservation | Lean checked | [`LanguageStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc) |

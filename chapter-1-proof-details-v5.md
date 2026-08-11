@@ -43,7 +43,7 @@ the grammar. $\square$
 
 ## 2. Preservation
 
-:::{prf:lemma} `[C1-PROOF.2.1]` Application elaboration [Derived notation]
+:::{prf:lemma} `[C1-PROOF.2.1]` Application elaboration [[Lean: typing]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.elaborateApplication#doc) [[Lean: elaboration]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageComp.elaborateApplication#doc)
 :label: lem-i-application-elaboration-v5
 
 If
@@ -63,7 +63,14 @@ that order.
 $x:A$ has effect $e$.  The inner `let` therefore has effect $e_N\cdot e$.
 The outer `let` has effect $e_M\cdot(e_N\cdot e)$, equal to the claimed grade
 by associativity.  The two nested `let` evaluation contexts enforce the same
-left-to-right order. $\square$
+left-to-right order. Lean exposes the three operational phases separately:
+function-side steps lift by
+[`elaborateApplication_function`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.elaborateApplication_function#doc),
+function return advances to the argument phase by
+[`languageElaborateApplication_functionReturn`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageElaborateApplication_functionReturn#doc),
+and argument return exposes core value application by
+[`languageApplicationArgumentPhase_return`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageApplicationArgumentPhase_return#doc).
+$\square$
 
 :::{prf:theorem} `[C1-PROOF.2.2]` Internal preservation [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc)
 :label: thm-i-preservation-detail-v5

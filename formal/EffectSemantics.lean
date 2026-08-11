@@ -75,6 +75,7 @@ import EffectSemantics.Examples.EffectErasureCounterexample
 import EffectSemantics.Metatheory.LanguageProgress
 import EffectSemantics.Metatheory.LanguageNormalization
 import EffectSemantics.Metatheory.LanguageRequests
+import EffectSemantics.Metatheory.LanguageApplicationElaboration
 import EffectSemantics.Operational.LanguageShallowHandler
 import EffectSemantics.Metatheory.LanguageHandlerTyping
 import EffectSemantics.Metatheory.LanguageHandlerPreservation

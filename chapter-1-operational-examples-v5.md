@@ -36,7 +36,10 @@ M N  :=  let f <- M in let x <- N in f x
 ```
 
 Thus $M$ runs first, $N$ second, and only then does the latent effect of the
-function body occur.  Operational proofs reason about the elaborated core.
+function body occur. Operational proofs reason about the elaborated core; the
+construction and phase transitions are Lean checked by
+[`LanguageComp.elaborateApplication`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageComp.elaborateApplication#doc) and
+[`languageElaborateApplication_functionReturn`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageElaborateApplication_functionReturn#doc).
 
 Separate the principal, context-free redex relation $\rightsquigarrow$ from
 the one-step relation $\longrightarrow$. The principal internal reductions

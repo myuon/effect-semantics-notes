@@ -99,6 +99,10 @@ let x <- N in
 f x
 ```
 
+This elaboration and its derived effect-aware typing rule are Lean checked by
+[`LanguageComp.elaborateApplication`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageComp.elaborateApplication#doc) and
+[`HasLanguageComp.elaborateApplication`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.elaborateApplication#doc).
+
 Its effect and evaluation order follow from the core `let` and value
 application rules, so no separate typing rule is required.
 
