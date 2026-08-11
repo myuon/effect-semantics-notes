@@ -59,7 +59,7 @@ $$
 
 This proves derived/deep coincidence.
 
-## 3. Operational elimination invariant `[C4-PROOF.3.1]` [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageAffineHandler.exhaustive_no_escaping_selected_request#doc)
+## 3. Operational elimination invariant `[C4-PROOF.3.1]` [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.recLanguageHandlerExhaustive_no_escaping_selected_request#doc)
 
 Define $P(C)$ to mean: no finite reduction prefix of $C$ ends at an exposed
 $\Delta$ request outside a pending derived handler.  Prove $P(\mathsf{loop}_n

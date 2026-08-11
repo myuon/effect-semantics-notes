@@ -82,7 +82,7 @@ The $\beta$ and `let-return` cases use Lemma I.2.  Branch rules retain the
 declared common effect.  Context closure uses associativity of graded
 sequencing.
 
-### Theorem I.4 `[C1-CERT.2.2]` — effect-aware progress [[Lean: progress]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed#doc) [[Lean: exclusivity]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageProgress.kind_unique#doc)
+### Theorem I.4 `[C1-CERT.2.2]` — effect-aware progress [[Lean: exact statement]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed_exactlyOne#doc)
 
 If
 
@@ -107,6 +107,16 @@ can make an internal step, or has exposed one request to the base machine.
 These alternatives are mutually exclusive.  An exposed request is an
 operational boundary rather than a stuck term: the base machine may answer it
 and resume the computation.
+
+The linked Lean theorem states this three-way alternative and its pairwise
+exclusivity directly.  Its exhaustiveness is derived from
+[`progressClosed`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed#doc),
+and exclusivity from
+[`kind_unique`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageProgress.kind_unique#doc).
+The reusable Lean development also admits free-operation boundaries; in the
+Chapter I fragment, where no free operations occur, its `LanguageBoundary`
+case is precisely an evaluation context exposing a base primitive
+$\mathcal E[\beta(V)]$.
 
 ### Theorem I.5 `[C1-CERT.2.3]` — deterministic internal reduction [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.deterministic#doc)
 
@@ -440,9 +450,9 @@ assembling the revised `writerBaseCert`, `stateBaseCert`, and
 not treated as a proof of those declarations. $\square$
 
 The generic finite structures are kernel-checked by
-[`writerGenericExtensionCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.writerGenericExtensionCert#doc),
-[`stateGenericExtensionCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.stateGenericExtensionCert#doc), and
-[`exceptionGenericExtensionCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.exceptionGenericExtensionCert#doc).
+[`genericWriterExtensionCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericWriterExtensionCert#doc),
+[`genericStateExtensionCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericStateExtensionCert#doc), and
+[`genericExceptionExtensionCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericExceptionExtensionCert#doc).
 Random/SubDist remains a separate unformalized instance and is not part of the
 checked extraction claim.
 

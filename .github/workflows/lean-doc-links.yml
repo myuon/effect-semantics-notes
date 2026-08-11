@@ -1,0 +1,43 @@
+name: Check research-note links to Lean
+
+on:
+  pull_request:
+    paths:
+      - "**.md"
+      - "formal/**"
+      - "scripts/check-lean-doc-links.mjs"
+      - ".github/workflows/lean-doc-links.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-links:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Lean
+        uses: leanprover/lean-action@v1
+        with:
+          lake-package-directory: formal
+          build: false
+          test: false
+          lint: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.x
+
+      - name: Build Lean API reference
+        working-directory: formal/docbuild
+        env:
+          DOCGEN_SRC: github
+          DISABLE_EQUATIONS: "1"
+        run: lake build EffectSemantics:docs
+
+      - name: Check links to Lean API declarations
+        run: node scripts/check-lean-doc-links.mjs

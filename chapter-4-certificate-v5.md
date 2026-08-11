@@ -13,7 +13,7 @@ The canonical generic certificate is [`GenericRecursiveResumptionCert`](https://
 | recursive preservation/progress | Lean checked source-language component | [`languageRecursiveStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageRecursiveStructurePreservation#doc) |
 | finite-to-recursive operational inclusion | Lean checked | [`LanguageStep.toRecursive`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.toRecursive#doc) |
 | derived/deep coincidence | Lean checked semantically by shallow reinstallation functional | [`RecursiveResumptionSystem.functional`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.RecursiveResumptionSystem.functional#doc) |
-| exhaustive-interface elimination | Lean checked source-boundary theorem under exhaustiveness | [`exhaustive_no_escaping_selected_request`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageAffineHandler.exhaustive_no_escaping_selected_request#doc) |
+| exhaustive-interface elimination | Lean checked source-boundary theorem under exhaustiveness | [`recLanguageHandlerExhaustive_no_escaping_selected_request`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.recLanguageHandlerExhaustive_no_escaping_selected_request#doc) |
 | recursive adequacy transport | Lean checked | [`GenericRecursiveResumptionCert.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumptionCert.main#doc) |
 | Definition IV.2 and layered theorem | readable decomposition with exact source and generic packages | [`LanguageRecursiveStructureCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveStructureCert#doc) |
 
@@ -180,7 +180,7 @@ identify their suprema. $\square$
 
 ## 4. Deep elimination
 
-:::{prf:theorem} `[C4-CERT.4.1]` Elimination of an exhaustive interface [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageAffineHandler.exhaustive_no_escaping_selected_request#doc)
+:::{prf:theorem} `[C4-CERT.4.1]` Elimination of an exhaustive interface [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.recLanguageHandlerExhaustive_no_escaping_selected_request#doc)
 :label: thm-deep-elimination-v5
 
 If

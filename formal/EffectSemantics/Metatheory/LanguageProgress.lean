@@ -131,4 +131,43 @@ def HasLanguageComp.progressClosed
       | .inl _ => .internal .caseInl
       | .inr _ => .internal .caseInr
 
+/-- The research-note progress theorem in its direct, proposition-level form:
+a closed well-typed computation is in exactly one of the returned, internal-step,
+or exposed-boundary cases.  Exhaustiveness comes from `progressClosed`; pairwise
+exclusivity comes from `LanguageProgress.kind_unique`. -/
+theorem HasLanguageComp.progressClosed_exactlyOne
+    (typing : [] ⊢[sig] term : ty ! effect) :
+    ((∃ value, term = .ret value) ∨
+      (∃ next, Nonempty (term ⟶ next)) ∨
+      Nonempty (LanguageBoundary term)) ∧
+    ¬ ((∃ value, term = .ret value) ∧
+      (∃ next, Nonempty (term ⟶ next))) ∧
+    ¬ ((∃ value, term = .ret value) ∧
+      Nonempty (LanguageBoundary term)) ∧
+    ¬ ((∃ next, Nonempty (term ⟶ next)) ∧
+      Nonempty (LanguageBoundary term)) := by
+  have progress := typing.progressClosed
+  constructor
+  · cases progress with
+    | returned => exact .inl ⟨_, rfl⟩
+    | internal step => exact .inr (.inl ⟨_, ⟨step⟩⟩)
+    | boundary boundary => exact .inr (.inr ⟨boundary⟩)
+  constructor
+  · rintro ⟨⟨value, rfl⟩, ⟨next, ⟨step⟩⟩⟩
+    have impossible := LanguageProgress.kind_unique
+      (LanguageProgress.returned (value := value))
+      (LanguageProgress.internal step)
+    contradiction
+  constructor
+  · rintro ⟨⟨value, rfl⟩, ⟨boundary⟩⟩
+    have impossible := LanguageProgress.kind_unique
+      (LanguageProgress.returned (value := value))
+      (LanguageProgress.boundary boundary)
+    contradiction
+  · rintro ⟨⟨next, ⟨step⟩⟩, ⟨boundary⟩⟩
+    have impossible := LanguageProgress.kind_unique
+      (LanguageProgress.internal step)
+      (LanguageProgress.boundary boundary)
+    contradiction
+
 end EffectSemantics

@@ -55,6 +55,9 @@ jobs:
           DISABLE_EQUATIONS: "1"
         run: lake build EffectSemantics:docs
 
+      - name: Check links to Lean API declarations
+        run: node scripts/check-lean-doc-links.mjs
+
       - name: Add Lean API reference to website
         run: cp -R formal/docbuild/.lake/build/doc _build/html/lean
 
