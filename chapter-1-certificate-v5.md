@@ -16,7 +16,7 @@
 | Theorem I.6, recursion-free internal normalization | Lean checked | [`HasLanguageComp.stronglyNormalizing`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.stronglyNormalizing#doc), [`HasLanguageComp.internallyNormalizesToBoundary`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.internallyNormalizesToBoundary#doc) |
 | Lemma I.7–Theorem I.8, semantic substitution/soundness | Lean checked for the relational Writer/free-tree semantics | [`letE`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.letE#doc), [`internalStepInvariant`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.internalStepInvariant#doc) |
 | Theorem I.9, effect upper-bound safety | Lean checked component | [`HasLanguageEffect.observationMember`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.TypedWriterTree.HasLanguageEffect.observationMember#doc) |
-| Definition I.1 and Boundary I.10, `BaseCert` | Paper certificate packaging | component theorems above |
+| Definition I.1 and Boundary I.10, `BaseCert` | Finite model extraction Lean checked; typed graded assembly remains an instance boundary | [`writerFiniteBaseModelCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.writerFiniteBaseModelCert#doc), [`stateFiniteBaseModelCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.stateFiniteBaseModelCert#doc), [`exceptionFiniteBaseModelCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.exceptionFiniteBaseModelCert#doc) |
 
 ## Status
 
@@ -458,7 +458,7 @@ $$
 \end{aligned}
 $$
 
-### Boundary I.10 `[C1-CERT.7.2]` — Base certificate extraction [Instance boundary]
+### Boundary I.10 `[C1-CERT.7.2]` — Base certificate extraction [[Lean: Writer]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.writerFiniteBaseModelCert#doc) [[Lean: State]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.stateFiniteBaseModelCert#doc) [[Lean: Exception]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.exceptionFiniteBaseModelCert#doc)
 
 For each $X\in\{\mathsf{Writer},\mathsf{State},\mathsf{Exception}\}$, let
 $L_X,E_X,S^X,T^X,q^X$ be the syntax/machine, ordered algebra, operational
@@ -479,17 +479,37 @@ structures of $S^X$ and $T^X$. Theorems I.7–I.8 supply `semsubst` and
 `redsnd`; primitive commutation plus induction on computations supplies the
 comparison theorem. No free-operation or handler property is used.
 
-The generic finite structure certificates below are mechanized. Fully
-assembling the revised `writerBaseCert`, `stateBaseCert`, and
-`exceptionBaseCert` records is an explicit Lean boundary; this paragraph is
-not treated as a proof of those declarations. $\square$
+The finite semantic model records are now assembled for Writer, State, and
+Exception. Fully assembling the stronger typed **graded** `writerBaseCert`,
+`stateBaseCert`, and `exceptionBaseCert` records remains an explicit Lean
+boundary; the displayed `BaseCert` statement is not treated as a proof of
+those stronger declarations. $\square$
 
-The generic finite structures are kernel-checked by
+The source-language component now includes substitution, preservation,
+progress, determinism, strong normalization, and finite arrival at return or
+boundary in
+[`LanguageCoreCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageCoreCert#doc).
+
+The semantic extraction is split explicitly into
+[`OperationalModelCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.OperationalModelCert#doc),
+[`DenotationalModelCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.DenotationalModelCert#doc),
+[`ModelComparisonCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparisonCert#doc), and
+[`MachineSoundnessCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.MachineSoundnessCert#doc).
+For each of Writer, State, and Exception, `FiniteBaseModelCert` packages the
+initial response-tree denotation, the dedicated operational monad, their fold
+comparison, and agreement with the concrete `runClosed` evaluator.
+
+The generic finite extension structures are kernel-checked by
 [`genericWriterExtensionCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericWriterExtensionCert#doc),
 [`genericStateExtensionCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericStateExtensionCert#doc), and
 [`genericExceptionExtensionCert`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericExceptionExtensionCert#doc).
-Random/SubDist remains a separate unformalized instance and is not part of the
-checked extraction claim.
+
+The remaining instance boundary is narrower but real: `FiniteMonadCert` is an
+ordinary finite monad interface. A single dependent record connecting each
+generic operation signature to the typed `LanguageSignature`, its ordered
+grade, and graded weakening has not yet been assembled. Thus the displayed
+fully typed graded `BaseCert` is not claimed as a Lean declaration. Random/
+SubDist also remains a separate unformalized instance.
 
 ## 8. Boundary exported to Chapter II
 

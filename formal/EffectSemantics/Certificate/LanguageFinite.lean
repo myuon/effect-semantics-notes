@@ -1,5 +1,6 @@
 import EffectSemantics.Denotational.LanguageSourceShallow
 import EffectSemantics.Denotational.LanguageWriterTT
+import EffectSemantics.Metatheory.LanguageNormalization
 
 namespace EffectSemantics
 
@@ -27,6 +28,13 @@ structure LanguageCoreCert (sig : LanguageSignature) where
       (first second : LanguageProgress term), first.kind = second.kind
   reductUnique : ∀ {term left right : FinLanguageComp},
     term ⟶ left → term ⟶ right → left = right
+  internalNormalization : ∀ {term : FinLanguageComp} {resultTy effect},
+    [] ⊢[sig] term : resultTy ! effect → LanguageStronglyNormalizing term
+  terminalBoundary : ∀ {term : FinLanguageComp} {resultTy effect},
+    [] ⊢[sig] term : resultTy ! effect →
+      ∃ normal, Nonempty (FinLanguageSteps term normal) ∧
+        ((∃ value, normal = .ret value) ∨
+          Nonempty (LanguageBoundary normal))
   canonicalBool : ∀ {value : FinLanguageVal}, [] ⊢[sig] value :ᵥ .bool →
     ∃ boolean, value = .bool boolean
   canonicalArrow : ∀ {value : FinLanguageVal} {domain latent codomain},
@@ -45,6 +53,8 @@ def languageCoreCert (sig : LanguageSignature) : LanguageCoreCert sig where
   progress := HasLanguageComp.progressClosed
   progressClassUnique := LanguageProgress.kind_unique
   reductUnique := LanguageStep.deterministic
+  internalNormalization := HasLanguageComp.stronglyNormalizing
+  terminalBoundary := HasLanguageComp.internallyNormalizesToBoundary
   canonicalBool := HasLanguageVal.closed_bool_canonical
   canonicalArrow := HasLanguageVal.closed_arr_canonical
   canonicalSum := HasLanguageVal.closed_sum_canonical

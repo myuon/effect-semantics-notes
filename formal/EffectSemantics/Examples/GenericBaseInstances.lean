@@ -2,6 +2,8 @@ import EffectSemantics.Certificate.GenericFreeExtension
 
 namespace EffectSemantics
 
+open GenericExtensionAlgebra
+
 /-!
 # Concrete signatures for the generic free extension
 
@@ -200,14 +202,6 @@ def writerOutcomeAlgebra :
     change WriterOutcome.bind none next = none
     rfl
 
-def genericInitialAlgebra (base free : OperationSignature) :
-    GenericExtensionAlgebra base free (FreeExtension base free) where
-  monad := genericFreeMonadCert base free
-  interpretBase := FreeExtension.baseOp
-  interpretFree := FreeExtension.freeOp
-  baseBind := fun _ _ _ => rfl
-  freeBind := fun _ _ _ => rfl
-
 /-- Compositional interpretation in the dedicated operational Writer monad.
 This is the Lean counterpart of `⟦-⟧_S`, not direct small-step execution. -/
 def genericWriterOperationalInterpretation
@@ -288,5 +282,232 @@ theorem genericWriterOperationalInterpretation_writerToGeneric (tree : WriterTre
   | free interface operation parameter continuation ih =>
       change none = none
       rfl
+
+/-! ## Dedicated operational State monad and model comparison -/
+
+abbrev StateOutcome (α : Type) := Bool → Option (α × Bool)
+
+def StateOutcome.pure (value : α) : StateOutcome α :=
+  fun state => some (value, state)
+
+def StateOutcome.bind (result : StateOutcome α)
+    (next : α → StateOutcome β) : StateOutcome β :=
+  fun state =>
+    match result state with
+    | none => none
+    | some (value, nextState) => next value nextState
+
+def stateOutcomeMonadCert : FiniteMonadCert StateOutcome where
+  pure := StateOutcome.pure
+  bind := StateOutcome.bind
+  leftUnit := by intro α β value next; rfl
+  rightUnit := by
+    intro α result
+    funext state
+    cases found : result state <;>
+      simp [StateOutcome.bind, StateOutcome.pure, found]
+  associative := by
+    intro α β γ result first second
+    funext state
+    cases found : result state with
+    | none => simp [StateOutcome.bind, found]
+    | some result =>
+        rcases result with ⟨value, nextState⟩
+        cases nextFound : first value nextState <;>
+          simp [StateOutcome.bind, found, nextFound]
+
+def stateOutcomeAlgebra :
+    GenericExtensionAlgebra stateBaseSignature userOperationSignature
+      StateOutcome where
+  monad := stateOutcomeMonadCert
+  interpretBase
+    | .get, continuation => fun state => continuation state state
+    | .put nextState, continuation => fun _ => continuation () nextState
+  interpretFree := fun _ _ _ => none
+  baseBind := by intro α β operation continuation next; cases operation <;> rfl
+  freeBind := by intro α β operation continuation next; rfl
+
+/-- Compositional interpretation `⟦-⟧_S` in the operational State monad. -/
+def genericStateOperationalInterpretation
+    (tree : FreeExtension stateBaseSignature userOperationSignature α) :
+    StateOutcome α := stateOutcomeAlgebra.fold tree
+
+def genericToState :
+    FreeExtension stateBaseSignature userOperationSignature α → StateTree α
+  | .ret value => .ret value
+  | .baseOp .get continuation => .get (fun state =>
+      genericToState (continuation state))
+  | .baseOp (.put state) continuation => .put state
+      (genericToState (continuation ()))
+  | .freeOp request continuation =>
+      .free request.interface request.operation request.parameter
+        (fun response => genericToState (continuation response))
+
+/-- Machine soundness for the concrete finite State evaluator. -/
+theorem genericStateOperationalInterpretation_runClosed
+    (tree : FreeExtension stateBaseSignature userOperationSignature α) :
+    genericStateOperationalInterpretation tree =
+      StateTree.runClosed (genericToState tree) := by
+  funext state
+  induction tree generalizing state with
+  | ret => rfl
+  | baseOp operation continuation ih =>
+      cases operation with
+      | get => exact ih state state
+      | put nextState => exact ih () nextState
+  | freeOp => rfl
+
+def genericStateModelComparisonCert :
+    GenericExtensionAlgebra.ModelComparisonCert
+      (genericInitialAlgebra stateBaseSignature userOperationSignature)
+      stateOutcomeAlgebra :=
+  GenericExtensionAlgebra.initialModelComparisonCert stateOutcomeAlgebra
+
+/-! ## Dedicated operational Exception monad and model comparison -/
+
+abbrev ExceptionOutcome (α : Type) := Except Val α
+
+def ExceptionOutcome.pure (value : α) : ExceptionOutcome α := .ok value
+
+def ExceptionOutcome.bind (result : ExceptionOutcome α)
+    (next : α → ExceptionOutcome β) : ExceptionOutcome β :=
+  match result with
+  | .error error => .error error
+  | .ok value => next value
+
+def exceptionOutcomeMonadCert : FiniteMonadCert ExceptionOutcome where
+  pure := ExceptionOutcome.pure
+  bind := ExceptionOutcome.bind
+  leftUnit := by intro α β value next; rfl
+  rightUnit := by intro α result; cases result <;> rfl
+  associative := by
+    intro α β γ result first second
+    cases result with
+    | error => rfl
+    | ok value => cases first value <;> rfl
+
+def exceptionOutcomeAlgebra :
+    GenericExtensionAlgebra exceptionBaseSignature userOperationSignature
+      ExceptionOutcome where
+  monad := exceptionOutcomeMonadCert
+  interpretBase
+    | .raise error, _ => .error error
+  interpretFree := fun _ _ => .error .unit
+  baseBind := by intro α β operation continuation next; cases operation <;> rfl
+  freeBind := by intro α β operation continuation next; rfl
+
+/-- Compositional interpretation `⟦-⟧_S` in the operational Exception monad. -/
+def genericExceptionOperationalInterpretation
+    (tree : FreeExtension exceptionBaseSignature userOperationSignature α) :
+    ExceptionOutcome α := exceptionOutcomeAlgebra.fold tree
+
+def genericToException :
+    FreeExtension exceptionBaseSignature userOperationSignature α →
+      ExceptionTree α
+  | .ret value => .ret value
+  | .baseOp (.raise error) _ => .raise error
+  | .freeOp request continuation =>
+      .free request.interface request.operation request.parameter
+        (fun response => genericToException (continuation response))
+
+/-- Machine soundness for the concrete finite Exception evaluator. -/
+theorem genericExceptionOperationalInterpretation_runClosed
+    (tree : FreeExtension exceptionBaseSignature userOperationSignature α) :
+    genericExceptionOperationalInterpretation tree =
+      ExceptionTree.runClosed (genericToException tree) := by
+  induction tree with
+  | ret => rfl
+  | baseOp operation continuation ih => cases operation <;> rfl
+  | freeOp => rfl
+
+def genericExceptionModelComparisonCert :
+    GenericExtensionAlgebra.ModelComparisonCert
+      (genericInitialAlgebra exceptionBaseSignature userOperationSignature)
+      exceptionOutcomeAlgebra :=
+  GenericExtensionAlgebra.initialModelComparisonCert exceptionOutcomeAlgebra
+
+/-! ## Extracted model packages -/
+
+def writerBaseModelComparisonCert :
+    GenericExtensionAlgebra.BaseModelComparisonCert
+      writerBaseSignature userOperationSignature
+      (FreeExtension writerBaseSignature userOperationSignature) WriterOutcome where
+  denotational := ⟨genericInitialAlgebra _ _⟩
+  operational := ⟨writerOutcomeAlgebra⟩
+  comparison := genericWriterModelComparisonCert
+
+def stateBaseModelComparisonCert :
+    GenericExtensionAlgebra.BaseModelComparisonCert
+      stateBaseSignature userOperationSignature
+      (FreeExtension stateBaseSignature userOperationSignature) StateOutcome where
+  denotational := ⟨genericInitialAlgebra _ _⟩
+  operational := ⟨stateOutcomeAlgebra⟩
+  comparison := genericStateModelComparisonCert
+
+def exceptionBaseModelComparisonCert :
+    GenericExtensionAlgebra.BaseModelComparisonCert
+      exceptionBaseSignature userOperationSignature
+      (FreeExtension exceptionBaseSignature userOperationSignature)
+      ExceptionOutcome where
+  denotational := ⟨genericInitialAlgebra _ _⟩
+  operational := ⟨exceptionOutcomeAlgebra⟩
+  comparison := genericExceptionModelComparisonCert
+
+def writerMachineSoundnessCert :
+    GenericExtensionAlgebra.MachineSoundnessCert
+      writerBaseSignature userOperationSignature WriterOutcome
+      writerOutcomeAlgebra where
+  run := fun tree => WriterTree.runClosed (genericToWriter tree)
+  sound := by
+    intro α tree
+    calc
+      WriterTree.runClosed (genericToWriter tree) =
+          genericWriterOperationalInterpretation
+            (writerToGeneric (genericToWriter tree)) :=
+        (genericWriterOperationalInterpretation_writerToGeneric
+          (genericToWriter tree)).symm
+      _ = genericWriterOperationalInterpretation tree := by
+        rw [writerToGeneric_genericToWriter]
+      _ = writerOutcomeAlgebra.fold tree := rfl
+
+def stateMachineSoundnessCert :
+    GenericExtensionAlgebra.MachineSoundnessCert
+      stateBaseSignature userOperationSignature StateOutcome
+      stateOutcomeAlgebra where
+  run := fun tree => StateTree.runClosed (genericToState tree)
+  sound := fun tree => (genericStateOperationalInterpretation_runClosed tree).symm
+
+def exceptionMachineSoundnessCert :
+    GenericExtensionAlgebra.MachineSoundnessCert
+      exceptionBaseSignature userOperationSignature ExceptionOutcome
+      exceptionOutcomeAlgebra where
+  run := fun tree => ExceptionTree.runClosed (genericToException tree)
+  sound := fun tree =>
+    (genericExceptionOperationalInterpretation_runClosed tree).symm
+
+/-- Extracted semantic certificate for the concrete Writer base instance. -/
+def writerFiniteBaseModelCert :
+    GenericExtensionAlgebra.FiniteBaseModelCert
+      writerBaseSignature userOperationSignature
+      (FreeExtension writerBaseSignature userOperationSignature) WriterOutcome where
+  models := writerBaseModelComparisonCert
+  machine := writerMachineSoundnessCert
+
+/-- Extracted semantic certificate for the concrete State base instance. -/
+def stateFiniteBaseModelCert :
+    GenericExtensionAlgebra.FiniteBaseModelCert
+      stateBaseSignature userOperationSignature
+      (FreeExtension stateBaseSignature userOperationSignature) StateOutcome where
+  models := stateBaseModelComparisonCert
+  machine := stateMachineSoundnessCert
+
+/-- Extracted semantic certificate for the concrete Exception base instance. -/
+def exceptionFiniteBaseModelCert :
+    GenericExtensionAlgebra.FiniteBaseModelCert
+      exceptionBaseSignature userOperationSignature
+      (FreeExtension exceptionBaseSignature userOperationSignature)
+      ExceptionOutcome where
+  models := exceptionBaseModelComparisonCert
+  machine := exceptionMachineSoundnessCert
 
 end EffectSemantics

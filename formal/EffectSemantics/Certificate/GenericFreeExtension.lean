@@ -117,6 +117,16 @@ theorem fold_bind (algebra : GenericExtensionAlgebra base free carrier)
       funext response
       exact ih response
 
+/-- The initial response-tree algebra, used as the canonical compositional
+denotational model for the concrete Chapter-I instances. -/
+def genericInitialAlgebra (base free : OperationSignature) :
+    GenericExtensionAlgebra base free (FreeExtension base free) where
+  monad := genericFreeMonadCert base free
+  interpretBase := FreeExtension.baseOp
+  interpretFree := FreeExtension.freeOp
+  baseBind := fun _ _ _ => rfl
+  freeBind := fun _ _ _ => rfl
+
 /-- A monad morphism that also commutes with interpretations of every old and
 new operation. -/
 structure Morphism
@@ -299,6 +309,41 @@ structure ModelComparisonCert
     (operational : GenericExtensionAlgebra base free operation) where
   comparison : GenericExtensionAlgebra.Morphism denotational operational
 
+/-- The operational-model component of a Chapter-I base package. Direct
+small-step execution is deliberately not part of this record. -/
+structure OperationalModelCert (base free : OperationSignature)
+    (carrier : Type → Type) where
+  algebra : GenericExtensionAlgebra base free carrier
+
+/-- The compositional denotational-model component of a Chapter-I base
+package. -/
+structure DenotationalModelCert (base free : OperationSignature)
+    (carrier : Type → Type) where
+  algebra : GenericExtensionAlgebra base free carrier
+
+/-- The semantic half of a finite base certificate: separate denotational and
+operational monads together with their structure-preserving comparison. -/
+structure BaseModelComparisonCert (base free : OperationSignature)
+    (denotation operation : Type → Type) where
+  denotational : DenotationalModelCert base free denotation
+  operational : OperationalModelCert base free operation
+  comparison : ModelComparisonCert denotational.algebra operational.algebra
+
+/-- Agreement of a direct finite evaluator with the compositional
+interpretation in its operational monad. -/
+structure MachineSoundnessCert (base free : OperationSignature)
+    (operation : Type → Type)
+    (operational : GenericExtensionAlgebra base free operation) where
+  run : ∀ {α}, FreeExtension base free α → operation α
+  sound : ∀ {α} (tree : FreeExtension base free α),
+    run tree = operational.fold tree
+
+/-- The fully assembled semantic part of a Chapter-I base instance. -/
+structure FiniteBaseModelCert (base free : OperationSignature)
+    (denotation operation : Type → Type) where
+  models : BaseModelComparisonCert base free denotation operation
+  machine : MachineSoundnessCert base free operation models.operational.algebra
+
 /-- A base comparison that commutes with every one-layer interpretation lifts
 through the complete finite free extension. -/
 theorem ModelComparisonCert.lift
@@ -312,6 +357,19 @@ theorem ModelComparisonCert.lift
         (denotational.fold (base := base) (free := free) tree) =
       operational.fold (base := base) (free := free) tree :=
   cert.comparison.lift tree
+
+/-- Folding the initial response-tree model into an algebra is the canonical
+comparison with that model. -/
+def initialModelComparisonCert
+    (operational : GenericExtensionAlgebra base free carrier) :
+    ModelComparisonCert (genericInitialAlgebra base free) operational where
+  comparison := {
+    map := operational.fold
+    pure := fun _ => rfl
+    bind := fun tree next => operational.fold_bind tree next
+    preservesBase := fun _ _ => rfl
+    preservesFree := fun _ _ => rfl
+  }
 
 /-- Compatibility name for the older observation-oriented presentation.
 New developments should use `ModelComparisonCert`: the target algebra is the
