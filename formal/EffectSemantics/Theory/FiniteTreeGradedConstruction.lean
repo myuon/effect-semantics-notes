@@ -97,29 +97,6 @@ theorem FreeExtension.baseAct_mult
       exact ih response
   | freeOp operation _ => exact Empty.elim operation
 
-/-- The two action equations used in the paper proof, now for the canonical
-finite-tree construction. -/
-structure FiniteTreeActionLaws (base free : OperationSignature) : Prop where
-  unit : ∀ {α} (tree : FreeExtension base free α),
-    FreeExtension.baseAct
-      (.ret tree : FreeExtension.BaseTree base (FreeExtension base free α)) = tree
-  natural : ∀ {α β} (function : α → β)
-      (tree : FreeExtension.BaseTree base (FreeExtension base free α)),
-    FreeExtension.baseAct
-      (FreeExtension.map (FreeExtension.map function) tree) =
-      FreeExtension.map function (FreeExtension.baseAct tree)
-  multiplication : ∀ {α}
-      (tree : FreeExtension.BaseTree base
-        (FreeExtension.BaseTree base (FreeExtension base free α))),
-    FreeExtension.baseAct (tree.bind id) =
-      FreeExtension.baseAct (FreeExtension.map FreeExtension.baseAct tree)
-
-theorem finiteTreeActionLaws (base free : OperationSignature) :
-    FiniteTreeActionLaws base free where
-  unit := FreeExtension.baseAct_ret
-  natural := FreeExtension.baseAct_map
-  multiplication := FreeExtension.baseAct_mult
-
 /-- Every pair of typed finite algebraic signatures constructs an actual
 object of the abstract package category. -/
 def finiteTreeExtensiblePackage (base free : OperationSignature) :

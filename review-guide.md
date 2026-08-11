@@ -76,9 +76,9 @@ Read in this order:
 | preservation | Lean checked | [`LanguageStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc) |
 | closed progress | Lean checked | [`HasLanguageComp.progressClosed`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed#doc) |
 | recursion-free internal normalization | Lean checked | [`HasLanguageComp.stronglyNormalizing`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.stronglyNormalizing#doc), [`HasLanguageComp.internallyNormalizesToBoundary`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.internallyNormalizesToBoundary#doc) |
-| Writer/State/Exception finite model extraction | Lean checked; typed graded signature bridge remains | [`writerFiniteBaseModel`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.writerFiniteBaseModel#doc), [`stateFiniteBaseModel`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.stateFiniteBaseModel#doc), [`exceptionFiniteBaseModel`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.exceptionFiniteBaseModel#doc) |
+| Writer/State/Exception model comparisons | Lean checked individually; typed graded signature bridge remains | [`genericWriterModelComparison`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericWriterModelComparison#doc), [`genericStateModelComparison`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericStateModelComparison#doc), [`genericExceptionModelComparison`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericExceptionModelComparison#doc) |
 | Writer operational/tree adequacy | Lean checked | [`language_writer_operational_tree_adequacy`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.language_writer_operational_tree_adequacy#doc) |
-| source-language base package | Lean checked | [`LanguageCoreMetatheory`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageCoreMetatheory#doc), [`LanguageWriterSemantics`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageWriterSemantics#doc) |
+| source-language preservation and tree semantics | Lean checked separately | [`LanguageStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc), [`ProducesLanguageWriterTree`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree#doc) |
 | categorical `BasePackage` presentation | Readable abstraction | exact instance boundary is stated in [package assumptions](chapter-1-main-results-v5.md) |
 
 ## Chapter II — free operations
@@ -116,7 +116,7 @@ graded theorem:
 | finite relation lifting | Lean checked | [`GenericExtensionAlgebra.Relation.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.Relation.lift#doc) |
 | finite TT lifting | Lean checked | [`GenericExtensionAlgebra.TTLayerAssumptions.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.TTLayerAssumptions.lift#doc) |
 | finite operational/denotational comparison transport | Lean checked | [`GenericExtensionAlgebra.ModelComparison.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparison.lift#doc) |
-| Chapter-II source package | Lean checked | [`LanguageFreeStage`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFreeStage#doc) |
+| Chapter-II source metatheory | Lean checked as individual theorems | [`progressClosed_fourWayExactlyOne`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed_fourWayExactlyOne#doc) |
 
 The ordered grade-indexed carrier in the chapter notes is a stronger paper
 presentation. Lean now connects the source-specific finite tree to the generic
@@ -137,10 +137,10 @@ $F_eA$. The latter still requires the `StrongGradedFreeT` hypothesis.
 | forwarding shallow transformation | Lean checked | [`FreeExtension.shallow`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.shallow#doc) |
 | matching and forwarding equations | Lean checked | [`shallow_match`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.shallow_match#doc), [`shallow_forward`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.shallow_forward#doc) |
 | map naturality | Lean checked | [`shallow_map`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.shallow_map#doc) |
-| Chapter-III source package | Lean checked | [`LanguageHandlerStage`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageHandlerStage#doc) |
+| Chapter-III source progress and preservation | Lean checked separately | [`HasLanguageHandlerState.progressClosed`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageHandlerState.progressClosed#doc), [`LanguageShallowStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageShallowStep.preserve#doc) |
 | structural relation preservation | Lean checked | [`Rel.shallow`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.Rel.shallow#doc) |
-| source-language shallow package | Lean checked | [`languageShallowMetatheory`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageShallowMetatheory#doc) |
-| finite structure-preservation bundle | Lean checked | [`languageFiniteStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageFiniteStructurePreservation#doc) |
+| source-language shallow relation preservation | Lean checked | [`LanguageWriterTree.Rel.shallow`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageWriterTree.Rel.shallow#doc) |
+| matching source/tree commutation | Lean checked | [`ProducesLanguageWriterTree.answerWith`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.answerWith#doc) |
 
 ## Chapter IV — recursion and derived deep handling
 

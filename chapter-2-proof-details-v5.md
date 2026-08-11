@@ -37,7 +37,7 @@ whose actions are:
 
 Initiality yields one map, written $(-)\mathbin{\gg=}f$.
 
-:::{prf:theorem} `[C2-PROOF.2.1]` Free graded-monad laws [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericFreeExtensionStructurePreservation#doc)
+:::{prf:theorem} `[C2-PROOF.2.1]` Free graded-monad laws [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericFreeMonad#doc)
 :label: thm-ii-free-monad-laws-v5
 
 The resulting return and bind satisfy both unit laws and associativity, and

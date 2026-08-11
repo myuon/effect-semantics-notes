@@ -55,7 +55,7 @@ not merely the matching one.
 
 ## 4. Commutation
 
-:::{prf:theorem} `[C3-PROOF.4.1]` Shallow commutation [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageFiniteStructurePreservation#doc)
+:::{prf:theorem} `[C3-PROOF.4.1]` Shallow commutation [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.answerWith#doc)
 :label: thm-iii-commutation-detail-v5
 
 The direct handler interpretation equals the first-matching structural map.

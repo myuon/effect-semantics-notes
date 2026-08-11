@@ -160,5 +160,5 @@ The canonical records are conceptually:
 5. `MachineSoundness(L,S)` -- optional identification of direct execution
    with the operational model.
 
-The old name `AdequacyAssumptions` remains temporarily as a Lean compatibility API,
-but new statements use the comparison package explicitly.
+The former `AdequacyAssumptions` compatibility wrapper has been removed; new
+Lean statements use `ModelComparison` explicitly.

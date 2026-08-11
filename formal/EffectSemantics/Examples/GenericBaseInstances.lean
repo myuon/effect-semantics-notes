@@ -108,18 +108,6 @@ abbrev exceptionBaseSignature : OperationSignature where
   Response
     | .raise _ => Empty
 
-def genericWriterExtension :
-    FreeExtensionStructure writerBaseSignature userOperationSignature :=
-  genericFreeExtensionStructurePreservation _ _
-
-def genericStateExtension :
-    FreeExtensionStructure stateBaseSignature userOperationSignature :=
-  genericFreeExtensionStructurePreservation _ _
-
-def genericExceptionExtension :
-    FreeExtensionStructure exceptionBaseSignature userOperationSignature :=
-  genericFreeExtensionStructurePreservation _ _
-
 /-! ## Dedicated operational Writer monad and model comparison -/
 
 abbrev WriterOutcome (α : Type) := Option (List Val × α)
@@ -243,12 +231,6 @@ def genericWriterModelComparison :
       (genericInitialAlgebra writerBaseSignature userOperationSignature)
       writerOutcomeAlgebra where
   comparison := genericWriterObservationMorphism
-
-def genericWriterAdequacyAssumptions :
-    GenericExtensionAlgebra.AdequacyAssumptions
-      (genericInitialAlgebra writerBaseSignature userOperationSignature)
-      writerOutcomeAlgebra where
-  observe := genericWriterObservationMorphism
 
 theorem genericWriter_finite_model_comparison
     (tree : FreeExtension writerBaseSignature userOperationSignature α) :
@@ -425,89 +407,5 @@ def genericExceptionModelComparison :
       (genericInitialAlgebra exceptionBaseSignature userOperationSignature)
       exceptionOutcomeAlgebra :=
   GenericExtensionAlgebra.initialModelComparison exceptionOutcomeAlgebra
-
-/-! ## Extracted model packages -/
-
-def writerBaseModelComparison :
-    GenericExtensionAlgebra.BaseModelComparison
-      writerBaseSignature userOperationSignature
-      (FreeExtension writerBaseSignature userOperationSignature) WriterOutcome where
-  denotational := ⟨genericInitialAlgebra _ _⟩
-  operational := ⟨writerOutcomeAlgebra⟩
-  comparison := genericWriterModelComparison
-
-def stateBaseModelComparison :
-    GenericExtensionAlgebra.BaseModelComparison
-      stateBaseSignature userOperationSignature
-      (FreeExtension stateBaseSignature userOperationSignature) StateOutcome where
-  denotational := ⟨genericInitialAlgebra _ _⟩
-  operational := ⟨stateOutcomeAlgebra⟩
-  comparison := genericStateModelComparison
-
-def exceptionBaseModelComparison :
-    GenericExtensionAlgebra.BaseModelComparison
-      exceptionBaseSignature userOperationSignature
-      (FreeExtension exceptionBaseSignature userOperationSignature)
-      ExceptionOutcome where
-  denotational := ⟨genericInitialAlgebra _ _⟩
-  operational := ⟨exceptionOutcomeAlgebra⟩
-  comparison := genericExceptionModelComparison
-
-def writerMachineSoundness :
-    GenericExtensionAlgebra.MachineSoundness
-      writerBaseSignature userOperationSignature WriterOutcome
-      writerOutcomeAlgebra where
-  run := fun tree => WriterTree.runClosed (genericToWriter tree)
-  sound := by
-    intro α tree
-    calc
-      WriterTree.runClosed (genericToWriter tree) =
-          genericWriterOperationalInterpretation
-            (writerToGeneric (genericToWriter tree)) :=
-        (genericWriterOperationalInterpretation_writerToGeneric
-          (genericToWriter tree)).symm
-      _ = genericWriterOperationalInterpretation tree := by
-        rw [writerToGeneric_genericToWriter]
-      _ = writerOutcomeAlgebra.fold tree := rfl
-
-def stateMachineSoundness :
-    GenericExtensionAlgebra.MachineSoundness
-      stateBaseSignature userOperationSignature StateOutcome
-      stateOutcomeAlgebra where
-  run := fun tree => StateTree.runClosed (genericToState tree)
-  sound := fun tree => (genericStateOperationalInterpretation_runClosed tree).symm
-
-def exceptionMachineSoundness :
-    GenericExtensionAlgebra.MachineSoundness
-      exceptionBaseSignature userOperationSignature ExceptionOutcome
-      exceptionOutcomeAlgebra where
-  run := fun tree => ExceptionTree.runClosed (genericToException tree)
-  sound := fun tree =>
-    (genericExceptionOperationalInterpretation_runClosed tree).symm
-
-/-- Extracted semantic package for the concrete Writer base instance. -/
-def writerFiniteBaseModel :
-    GenericExtensionAlgebra.FiniteBaseModel
-      writerBaseSignature userOperationSignature
-      (FreeExtension writerBaseSignature userOperationSignature) WriterOutcome where
-  models := writerBaseModelComparison
-  machine := writerMachineSoundness
-
-/-- Extracted semantic package for the concrete State base instance. -/
-def stateFiniteBaseModel :
-    GenericExtensionAlgebra.FiniteBaseModel
-      stateBaseSignature userOperationSignature
-      (FreeExtension stateBaseSignature userOperationSignature) StateOutcome where
-  models := stateBaseModelComparison
-  machine := stateMachineSoundness
-
-/-- Extracted semantic package for the concrete Exception base instance. -/
-def exceptionFiniteBaseModel :
-    GenericExtensionAlgebra.FiniteBaseModel
-      exceptionBaseSignature userOperationSignature
-      (FreeExtension exceptionBaseSignature userOperationSignature)
-      ExceptionOutcome where
-  models := exceptionBaseModelComparison
-  machine := exceptionMachineSoundness
 
 end EffectSemantics

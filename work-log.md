@@ -151,7 +151,7 @@ Choose between $X+\mathsf{Op}_\Delta(K)$ and $K+\mathsf{Op}_\Delta(K)$ by recons
 - structural relation and TT-lifting preservation;
 - source `answerWith`/semantic matching commutation, including opened
   continuation substitution;
-- `LanguageFiniteTheory`, uniformly for every fixed signature.
+- the individual finite-language theorems, uniformly for every fixed signature.
 
 ### Remaining boundary
 

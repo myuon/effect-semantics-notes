@@ -3,10 +3,14 @@
 :::{admonition} Lean correspondence — `FreeExtensionPackage`
 :class: tip
 Read this page in three layers: typed source, finite semantic core, and the
-conditional general graded theorem. The source-language Chapter-II boundary is an exact Lean record,
-[`LanguageFreeStage`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFreeStage#doc), constructed by
-[`languageFreeStagePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageFreeStagePreservation#doc).
-The grade-independent semantic core is [`FreeExtensionStructure`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtensionStructure#doc), with morphism, relation and model-comparison lifts checked separately. `LanguageWriterTree.toFreeExtension` now connects the finite source tree to that generic core and preserves bind. The stronger grade-indexed initial-algebra presentation below remains a readable abstraction, not an identification theorem between the finite and graded representations. [Full mapping](review-guide.md#chapter-ii-free-operations).
+conditional general graded theorem. Lean states substitution, preservation,
+four-way progress, tree semantics, and adequacy as individual declarations;
+there is no source-stage result record. Likewise, the grade-independent core
+is [`FreeExtension`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension#doc)
+plus separate monad, embedding, relation, shallow-handler, and fold theorems.
+`LanguageWriterTree.toFreeExtension` connects the finite source tree to that
+generic core and preserves bind. The stronger grade-indexed presentation below
+remains a paper abstraction. [Full mapping](review-guide.md#chapter-ii-free-operations).
 :::
 
 ### Numbered-statement inventory
@@ -16,10 +20,10 @@ The grade-independent semantic core is [`FreeExtensionStructure`](https://myuon.
 | Lemma II.1–Theorem II.3, substitution/preservation/progress | Lean checked, including exact four-way statement | [`LanguageStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc), [`progressClosed_fourWayExactlyOne`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed_fourWayExactlyOne#doc) |
 | Boundary II.4, empty-free-effect safety | false without non-erasure; repaired theorem Lean checked | [`not_exposed_of_interface_absent`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.TypedLanguageFreeRequest.not_exposed_of_interface_absent#doc) |
 | Theorem II.5, old-language operational conservativity | Lean checked for current `LanguageComp` | [`FinLanguageSteps.baseOnly_boundary_is_base`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FinLanguageSteps.baseOnly_boundary_is_base#doc) |
-| Theorem II.6, free-extension algebra | Lean checked | [`genericFreeExtensionStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericFreeExtensionStructurePreservation#doc) |
+| Theorem II.6, free-extension algebra | Lean checked as separate laws | [`genericFreeMonad`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericFreeMonad#doc), [`embedBase_bind`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.embedBase_bind#doc), [`Rel.bind`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.Rel.bind#doc) |
 | Theorem II.7, finite denotational conservativity | Lean checked, with source-tree bridge | [`eraseFree_embedBase`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.eraseFree_embedBase#doc), [`toFreeExtension_bind`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageWriterTree.toFreeExtension_bind#doc) |
 | Theorem II.8, finite model-comparison lifting | Lean checked | [`GenericExtensionAlgebra.ModelComparison.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparison.lift#doc) |
-| Definition II.1–II.2 and Theorem II.9, `FreeExtensionPackage` | readable grade-indexed abstraction; ungraded structural core Lean checked | [`FreeExtensionStructure`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtensionStructure#doc) |
+| Definition II.1–II.2 and Theorem II.9, `FreeExtensionPackage` | readable grade-indexed abstraction; finite components Lean checked separately | [`FreeExtension`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension#doc) |
 
 ## Status
 
@@ -111,7 +115,7 @@ $\square$
 
 ## 4. Free-extension algebra
 
-### Theorem II.6 `[C2-MAIN.4.1]` — free-extension algebra [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericFreeExtensionStructurePreservation#doc)
+### Theorem II.6 `[C2-MAIN.4.1]` — free-extension algebra [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericFreeMonad#doc)
 
 Assume that the strong graded free monad transformer
 $\widehat T=\operatorname{FreeT}_\Sigma(T)$ exists in the sense of
@@ -228,12 +232,12 @@ for adequacy.
 
 ## 8. Chapter-II structure-preservation theorem
 
-The current language-graded finite realization is checked by
-[`languageFiniteStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageFiniteStructurePreservation#doc);
+The matching source/tree commutation is checked by
+[`ProducesLanguageWriterTree.answerWith`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.answerWith#doc);
 its operational/tree adequacy component is
 [`language_writer_operational_tree_adequacy`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.language_writer_operational_tree_adequacy#doc).
 
-### Definition II.1 `[C2-MAIN.8.1]` — layered Chapter-II packages [[Lean: source stage]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFreeStage#doc) [[Lean: semantic core]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtensionStructure#doc)
+### Definition II.1 `[C2-MAIN.8.1]` — layered Chapter-II packages [[Lean: source stage]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed_fourWayExactlyOne#doc) [[Lean: semantic core]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension#doc)
 
 For $\widehat L=L_B+\Sigma$, the paper proof is factored into the following
 eight package interfaces. These names describe the dependency boundary;
@@ -271,9 +275,9 @@ they are not eight same-named Lean structures.
    canonical pole, pole closure, the finite fundamental lemma and equality of
    closed ground observations.
 
-Lean packages the checked finite portions differently: chiefly as
-`LanguageFreeStage`, `FreeExtensionStructure`, and the associated
-model-comparison packages. The grade-indexed fields in items 4–8 remain
+Lean exposes the checked finite portions as individual source and
+free-extension theorems, plus narrowly scoped model-comparison assumptions.
+The grade-indexed fields in items 4–8 remain
 requirements of the paper `StrongGradedFreeT` presentation.
 
 ### Definition II.2 `[C2-MAIN.8.2]` — bundled `FreeExtensionPackage` [Readable grade-indexed abstraction]
@@ -409,7 +413,7 @@ $$
 
 where $o$ ranges over separated returns, base outcomes and free requests.
 
-### Theorem II.9 `[C2-MAIN.8.3]` — layered free-extension packages [[Lean: source theorem]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageFreeStagePreservation#doc) [[Lean: generic theorem]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericFreeExtensionStructurePreservation#doc)
+### Theorem II.9 `[C2-MAIN.8.3]` — layered free-extension packages [[Lean: source theorem]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc) [[Lean: generic theorem]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericFreeMonad#doc)
 
 Assume the following premises, each only where cited below.
 

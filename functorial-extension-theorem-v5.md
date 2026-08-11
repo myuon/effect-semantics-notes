@@ -4,9 +4,9 @@
 :class: note
 **Lean-checked concrete functor and graded package functor.** The
 Type-level finite carrier is now bundled by
-[`FunctorialFreeExtension`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FunctorialFreeExtension#doc),
+[`FreeExtension.mapSignature`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.mapSignature#doc),
 and instantiated by
-[`functorialFreeExtension`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.functorialFreeExtension#doc).
+[`functorialFreeExtension`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.mapSignature_comp#doc).
 This proves identity, composition, bind naturality, exact graph lifting,
 structural relation compatibility and the same-carrier shallow laws in one
 declaration. At the abstract boundary,
@@ -25,14 +25,14 @@ with initiality and both action equations checked separately.
 
 | statement | Lean status | correspondence |
 |---|---|---|
-| `[FUN.2.1]` finite free-carrier functor | checked at Type/signature level | [`functorialFreeExtension`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.functorialFreeExtension#doc) |
-| `[FUN.2.2]` finite carrier/action existence | constructed for every pair of typed signatures over the one-point grade algebra | [`finiteTreeExtensiblePackage`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.finiteTreeExtensiblePackage#doc), [`StructuralMap.unique`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.StructuralMap.unique#doc), [`finiteTreeActionLaws`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.finiteTreeActionLaws#doc) |
+| `[FUN.2.1]` finite free-carrier functor | checked at Type/signature level | [`functorialFreeExtension`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.mapSignature_comp#doc) |
+| `[FUN.2.2]` finite carrier/action existence | constructed for every pair of typed signatures over the one-point grade algebra | [`finiteTreeExtensiblePackage`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.finiteTreeExtensiblePackage#doc), [`StructuralMap.unique`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.StructuralMap.unique#doc), [`FreeExtension.baseAct_mult`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.baseAct_mult#doc) |
 | `[PKG.4.1]` chosen graded-package functor | category, `Act-Morphism` closure and functor laws checked; object construction remains conditional | [`gradedFreeExtensionFunctor`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.gradedFreeExtensionFunctor#doc) |
 | `[FUN.3.1]` structural relation closure | checked | [`Rel.bind`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.Rel.bind#doc) |
 | `[FUN.4.1]` graph equality | checked in both directions | [`Rel.graphMapSignature_iff`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.Rel.graphMapSignature_iff#doc) |
 | `[FUN.5.1]` structural-to-TT inclusion | checked under layer package | [`TTLayerAssumptions.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.TTLayerAssumptions.lift#doc) |
 | `[FUN.6.1]` shallow compatibility | checked for one shared handler and for distinct value-compatible handlers; heterogeneous TT clauses remain conditional | [`shallow_map_compatible`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.shallow_map_compatible#doc), [`Rel.shallow`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.Rel.shallow#doc) |
-| `[FUN.7.1]` finite adequacy transport | checked as fold naturality; the typed-language fundamental lemma remains separate | [`functorialFreeExtension_adequacyTransport`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.functorialFreeExtension_adequacyTransport#doc) |
+| `[FUN.7.1]` finite model-comparison transport | checked as fold naturality; the typed-language fundamental lemma remains separate | [`ModelComparison.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparison.lift#doc) |
 
 ## Status
 
@@ -89,7 +89,7 @@ visible $\Delta$ factor. Sufficient existence conditions are in
 
 ## 2. Object and morphism theorem
 
-:::{prf:theorem} `[FUN.2.1]` Functorial free-effect extension [[Lean: finite instance]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.functorialFreeExtension#doc) [[Lean: graded package laws]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.gradedFreeExtensionFunctor#doc)
+:::{prf:theorem} `[FUN.2.1]` Functorial free-effect extension [[Lean: finite instance]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.mapSignature_comp#doc) [[Lean: graded package laws]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.gradedFreeExtensionFunctor#doc)
 :label: thm-functorial-free-extension-v5
 
 There is a functor
@@ -335,7 +335,7 @@ Let a graded `TTClosure` be generated from a base observation pole that reflects
 the selected ground $\mathcal K$-observation, and suppose the extended pole
 distinguishes returns, terminal base outcomes and free requests.
 
-:::{prf:theorem} `[FUN.7.1]` Finite fundamental lemma and adequacy transport [[Lean: adequacy fold transport]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.functorialFreeExtension_adequacyTransport#doc)
+:::{prf:theorem} `[FUN.7.1]` Finite fundamental lemma and model-comparison transport [[Lean: fold transport]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparison.lift#doc)
 :label: thm-fundamental-adequacy-transport-v5
 
 Every well-typed recursion-free extended term is related to its denotation by

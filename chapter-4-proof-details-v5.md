@@ -7,7 +7,7 @@ This is the recursive proof appendix. The exact LFP, adequacy, morphism, relatio
 
 ## 1. One-step recursion safety
 
-:::{prf:theorem} `[C4-PROOF.1.1]` Recursive one-step progress and preservation [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageRecursiveStructurePreservation#doc)
+:::{prf:theorem} `[C4-PROOF.1.1]` Recursive one-step progress and preservation [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.language_deep_writer_semantic_adequacy#doc)
 :label: thm-iv-one-step-safety-v5
 
 A closed typed computation is a classified boundary or has one uniquely
@@ -108,7 +108,7 @@ $(b\cdot e'\cdot e)^*$.  The effect-safety interpretation concerns finite
 execution prefixes, so this uniform bound covers the recursive computation.
 No equality or exact multiplicity follows.
 
-## 6. Assembly of the layered packages `[C4-PROOF.6.1]` [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageRecursiveStructurePreservation#doc)
+## 6. Assembly of the layered packages `[C4-PROOF.6.1]` [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.language_deep_writer_semantic_adequacy#doc)
 
 One-step safety supplies `RecursiveSafety`; the
 source/semantic approximation lemma supplies definability and the deep

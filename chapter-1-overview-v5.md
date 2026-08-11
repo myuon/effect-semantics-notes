@@ -74,7 +74,7 @@ the qualifications recorded in the package page:
 | determinism | an internal reduct is unique | [`LanguageStep.deterministic`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.deterministic#doc) |
 | semantic soundness | internal steps preserve the selected semantics | [`internalStepInvariant`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.internalStepInvariant#doc) |
 | concrete adequacy | direct Writer execution agrees with its tree model | [`language_writer_operational_tree_adequacy`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.language_writer_operational_tree_adequacy#doc) |
-| finite structure package | checked finite source-language structure | [`LanguageFiniteTheory`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFiniteTheory#doc) |
+| finite structure package | checked finite source-language structure | [the individual finite-language theorems](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageWriterTree#doc) |
 
 The readable paper-level name `BasePackage` additionally records the operational
 model, denotational model, and their comparison.  It must not be read as a

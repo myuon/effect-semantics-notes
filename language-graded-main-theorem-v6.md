@@ -2,7 +2,11 @@
 
 :::{admonition} Canonical checked theorem
 :class: tip
-This is the source-language summary after the concrete chapters. The finite bundle is [`languageFiniteStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageFiniteStructurePreservation#doc); the recursive Writer bundle is [`languageRecursiveStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageRecursiveStructurePreservation#doc). For the base-independent construction, continue to the [generic finite](generic-free-extension-theorem-v1.md) and [generic recursive](generic-recursive-resumption-theorem-v1.md) theorems.
+This is the source-language summary after the concrete chapters. The finite
+and recursive conclusions are linked below as individual Lean theorems rather
+than collected into result records. For the base-independent construction,
+continue to the [generic finite](generic-free-extension-theorem-v1.md) and
+[generic recursive](generic-recursive-resumption-theorem-v1.md) theorems.
 :::
 
 This page records the theorem that is now checked in Lean.  It supersedes the
@@ -15,7 +19,7 @@ The previously missing base-independent finite construction is now stated in
 The generated Lean API reference contains the exact checked declarations:
 
 - [`LanguageRecursiveModel.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveModel.main#doc)
-- [`languageRecursiveStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageRecursiveStructurePreservation#doc)
+- [`language_deep_writer_semantic_adequacy`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.language_deep_writer_semantic_adequacy#doc)
 - [`LanguageRecursiveMorphism.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveMorphism.lift#doc)
 - [`LanguageRecursiveRelation.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveRelation.lift#doc)
 
@@ -36,7 +40,7 @@ concatenation, while conditional and case effects use language union.
 The annotation is a may-effect upper bound.  It need not equal the unique
 runtime path, but it retains ordering information between all possible paths.
 
-## 2. Finite theorem `[LG.2.1]` [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageFiniteStructurePreservation#doc)
+## 2. Finite theorem `[LG.2.1]` [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.answerWith#doc)
 
 For every fixed typed base/free signature, adding free requests and affine
 shallow handlers preserves the following structures.
@@ -53,9 +57,9 @@ shallow handlers preserves the following structures.
 8. A matching source reduct denotes clause execution followed by the bare
    captured continuation.  The handler is not reinstalled after the match.
 
-Lean packages these conclusions as `LanguageFiniteTheory`.
+Lean packages these conclusions as the individual finite-language theorems.
 
-## 3. Recursive completion and derived deep handling `[LG.3.1]` [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageRecursiveStructurePreservation#doc)
+## 3. Recursive completion and derived deep handling `[LG.3.1]` [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.language_deep_writer_semantic_adequacy#doc)
 
 Let
 
@@ -95,7 +99,7 @@ If $M:A\,!\,L$, every denoted finite result $v$ still has type $A$.
 Thus the shallow-handler typing theorem, recursive operational semantics,
 least-fixed-point denotation, adequacy, and ground fundamental property form
 one checked proof chain.  These conclusions are packaged as
-`LanguageRecursiveTheory`.
+the individual recursive theorems.
 
 ## 4. Abstract base theorem `[LG.4.1]` [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveModel.main#doc)
 

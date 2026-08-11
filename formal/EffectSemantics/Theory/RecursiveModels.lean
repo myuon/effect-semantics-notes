@@ -191,45 +191,4 @@ def recursiveStateDischarge
         exact deep_state_boundary_limit_discharges typing handlerTyping
           exhaustive stateLaws observed
 
-structure RecursiveFiniteExtension (Outcome : Type) (selected : Nat) where
-  boundary : RecursiveBoundaryModel Outcome
-  discharge : RecursiveDischarge boundary selected
-
-/-- Finite-boundary recursive structure-preservation theorem. -/
-theorem RecursiveFiniteExtension.main
-    (cert : RecursiveFiniteExtension Outcome selected) :
-    (cert.boundary.Runs term outcome ↔
-      cert.boundary.limit term = some outcome) ∧
-    (∀ {left right}, cert.boundary.Runs term left →
-      cert.boundary.Runs term right → left = right) ∧
-    (cert.discharge.Good term →
-      cert.boundary.limit term = some outcome →
-      cert.discharge.freeInterface outcome ≠ some selected) := by
-  exact ⟨cert.boundary.limit_adequacy,
-    fun first second => cert.boundary.runs_deterministic first second,
-    cert.discharge.discharge⟩
-
-def recursiveWriterExtension
-    (handlerTyping : HasAffineHandler sig [] interface handler clauseEffect)
-    (exhaustive : handler.Exhaustive sig interface)
-    (writerUnit : WriterResponseUnit sig) :
-    RecursiveFiniteExtension DeepWriterBoundary interface where
-  boundary := recursiveWriterBoundaryModel interface handler
-  discharge := recursiveWriterDischarge handlerTyping exhaustive writerUnit
-
-def recursiveExceptionExtension
-    (handlerTyping : HasAffineHandler sig [] interface handler clauseEffect)
-    (exhaustive : handler.Exhaustive sig interface) :
-    RecursiveFiniteExtension DeepExceptionBoundary interface where
-  boundary := recursiveExceptionBoundaryModel interface handler
-  discharge := recursiveExceptionDischarge handlerTyping exhaustive
-
-def recursiveStateExtension
-    (handlerTyping : HasAffineHandler sig [] interface handler clauseEffect)
-    (exhaustive : handler.Exhaustive sig interface)
-    (stateLaws : StateResponseLaws sig) (state : Bool) :
-    RecursiveFiniteExtension DeepStateBoundary interface where
-  boundary := recursiveStateBoundaryModel interface handler state
-  discharge := recursiveStateDischarge handlerTyping exhaustive stateLaws state
-
 end EffectSemantics

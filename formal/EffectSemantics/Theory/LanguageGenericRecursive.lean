@@ -1,4 +1,4 @@
-import EffectSemantics.Theory.LanguageFinite
+import EffectSemantics.Metatheory.LanguageHandlerProgress
 import EffectSemantics.Recursive.FlatApproximation
 import EffectSemantics.Recursive.FlatApproximationTransport
 
@@ -11,42 +11,11 @@ This module states the base-independent recursive structure-preservation
 theorem and the separate morphism and logical-relation lifting principles.
 -/
 
-/-- Base-independent syntax/effect part of the extension theorem. -/
-structure LanguageSourceTheory (sig : LanguageSignature) where
-  effects : LanguageEffectLaws
-  preservation : ∀ {term next : RecLanguageComp} {ctx resultTy effect},
-    term ⟶ next → HasLanguageComp sig ctx term resultTy effect →
-      HasLanguageComp sig ctx next resultTy effect
-  progress : ∀ {term : RecLanguageComp} {resultTy effect},
-    HasLanguageComp sig [] term resultTy effect → LanguageProgress term
-  handlerPreservation : ∀ {ctx interface handler replacement input resultTy
-      state next},
-    HasLanguageAffineHandler sig ctx interface handler replacement →
-    LanguageShallowStep state next →
-    HasLanguageHandlerState sig ctx interface handler replacement input resultTy
-      state →
-    HasLanguageHandlerState sig ctx interface handler replacement input resultTy
-      next
-  handlerProgress : ∀ {interface handler replacement input resultTy term},
-    HasLanguageHandlerState sig [] interface handler replacement input resultTy
-      (.shallow interface handler term) →
-    LanguageShallowProgress (.shallow interface handler term)
-
-def languageSourceTheory (sig : LanguageSignature) :
-    LanguageSourceTheory sig where
-  effects := languageEffectLaws
-  preservation := LanguageStep.preserve
-  progress := HasLanguageComp.progressClosed
-  handlerPreservation := fun handlerTyping step typing =>
-    step.preserve handlerTyping typing
-  handlerProgress := HasLanguageHandlerState.progressClosed
-
 /-- Non-circular conditions required from an arbitrary recursive base
 observation.  `finiteAdequacy` speaks only about finite functional iterates;
 the completed semantics and its fundamental property are derived below. -/
 structure LanguageRecursiveModel (sig : LanguageSignature)
     (Outcome : Type) where
-  source : LanguageSourceTheory sig
   functional : FlatApproximation.Carrier RecLanguageComp Outcome →
     FlatApproximation.Carrier RecLanguageComp Outcome
   continuous : FlatApproximation.OmegaContinuous functional

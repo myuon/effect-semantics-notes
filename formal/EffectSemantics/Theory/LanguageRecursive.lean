@@ -1,4 +1,3 @@
-import EffectSemantics.Theory.LanguageFinite
 import EffectSemantics.Theory.LanguageGenericRecursive
 import EffectSemantics.Recursive.LanguageDeepWriter
 
@@ -10,33 +9,6 @@ namespace EffectSemantics
 This module discharges the generic recursive package for the ordered
 language-graded Writer observation and proves the typed observation pole.
 -/
-
-/-- The recursive completion of the finite ordered-language theorem for the
-Writer base observation.  Its base-specific premises are isolated at the two
-visible recursive boundaries: the Writer response and a matched free request. -/
-structure LanguageRecursiveTheory
-    (sig : LanguageSignature) (selected : Nat)
-    (handler : LanguageAffineHandler .recursive) (replacement : EffectLanguage) where
-  finite : LanguageFiniteTheory sig
-  boundaries : LanguageRecursiveBoundaryTyping sig selected handler replacement
-  continuous : FlatApproximation.OmegaContinuous
-    (languageDeepWriterFunctional selected handler)
-  unfold : languageDeepWriterFunctional selected handler
-      (languageDeepWriterSemantics selected handler) =
-    languageDeepWriterSemantics selected handler
-  least : ∀ {candidate}, FlatApproximation.LE
-      (languageDeepWriterFunctional selected handler candidate) candidate →
-    FlatApproximation.LE (languageDeepWriterSemantics selected handler) candidate
-  adequacy : ∀ {term log value},
-    LanguageDeepWriterRuns selected handler term log value ↔
-      languageDeepWriterSemantics selected handler term = some (log, value)
-  fundamental : ∀ {term resultTy effect log value},
-    [] ⊢[sig] term : resultTy ! effect →
-    languageDeepWriterSemantics selected handler term = some (log, value) →
-    Nonempty ([] ⊢[sig] value :ᵥ resultTy)
-  poleAdmissible : ∀ (pole : RecLanguageComp →
-      (List RecLanguageVal × RecLanguageVal) → Prop),
-    FlatApproximation.Admissible (FlatApproximation.Satisfies pole)
 
 def LanguageTypedWriterPole (sig : LanguageSignature) :
     RecLanguageComp → (List RecLanguageVal × RecLanguageVal) → Prop :=
@@ -96,7 +68,6 @@ theorem languageDeepWriterLayer_preserves_typedPole
 noncomputable def languageWriterRecursiveModel
     (boundaries : LanguageRecursiveBoundaryTyping sig selected handler replacement) :
     LanguageRecursiveModel sig (List RecLanguageVal × RecLanguageVal) where
-  source := languageSourceTheory sig
   functional := languageDeepWriterFunctional selected handler
   continuous := languageDeepWriterFunctional_continuous selected handler
   Runs term outcome := LanguageDeepWriterRuns selected handler term outcome.1 outcome.2
@@ -118,23 +89,5 @@ noncomputable def languageWriterRecursiveModel
   pole := LanguageTypedWriterPole sig
   layerPreservesPole := languageDeepWriterLayer_preserves_typedPole
     boundaries
-
-/-- Recursive ordered-language structure-preservation theorem.  Shallow
-handling supplies the one-layer functional; recursion supplies its least
-fixed point.  Adequacy and the ground fundamental property survive this
-completion. -/
-noncomputable def languageRecursiveStructurePreservation
-    (boundaries : LanguageRecursiveBoundaryTyping sig selected handler replacement) :
-    LanguageRecursiveTheory sig selected handler replacement where
-  finite := languageFiniteStructurePreservation sig
-  boundaries := boundaries
-  continuous := languageDeepWriterFunctional_continuous selected handler
-  unfold := languageDeepWriterSemantics_unfold
-  least := languageDeepWriterSemantics_le_prefixed
-  adequacy := language_deep_writer_semantic_adequacy
-  fundamental := fun typing observed =>
-    languageDeepWriterSemantics_result_typed boundaries
-      typing observed
-  poleAdmissible := FlatApproximation.satisfies_admissible
 
 end EffectSemantics

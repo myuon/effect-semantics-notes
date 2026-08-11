@@ -31,14 +31,12 @@ import EffectSemantics.Denotational.TypedShallow
 import EffectSemantics.Denotational.TypedWriterTT
 import EffectSemantics.Denotational.EffectLanguage
 import EffectSemantics.Denotational.LanguageGradedWriter
-import EffectSemantics.Theory.FiniteWriter
 import EffectSemantics.Denotational.StateTree
 import EffectSemantics.Examples.StateShallow
 import EffectSemantics.Denotational.ExceptionTree
 import EffectSemantics.Examples.ExceptionShallow
 import EffectSemantics.Theory.BaseModels
 import EffectSemantics.Theory.GenericFreeExtension
-import EffectSemantics.Theory.FunctorialFreeExtension
 import EffectSemantics.Theory.GradedPackageFunctor
 import EffectSemantics.Theory.FiniteTreeGradedConstruction
 import EffectSemantics.Examples.GenericBaseInstances
@@ -89,7 +87,6 @@ import EffectSemantics.Operational.LanguageWriterAdequacy
 import EffectSemantics.Denotational.LanguageTypedShallow
 import EffectSemantics.Denotational.LanguageSourceShallow
 import EffectSemantics.Denotational.LanguageWriterTT
-import EffectSemantics.Theory.LanguageFinite
 import EffectSemantics.Recursive.LanguageFiniteObservation
 import EffectSemantics.Recursive.GenericResumption
 import EffectSemantics.Recursive.GenericWriterResumption

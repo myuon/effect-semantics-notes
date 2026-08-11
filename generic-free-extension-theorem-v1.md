@@ -2,7 +2,12 @@
 
 :::{admonition} Canonical checked abstraction
 :class: tip
-Every construction and theorem claimed on this page has an individual generated-API link. The overall checked bundle is [`genericFreeExtensionStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericFreeExtensionStructurePreservation#doc). Read the concrete Chapter-II programs before this abstraction; see the [dependency map](review-guide.md#chapter-ii-free-operations).
+Every construction and theorem claimed on this page has an individual
+generated-API link. There is deliberately no overall structure collecting
+them: the monad, base embedding, signature map, structural relation, shallow
+handler, and fold laws are independent declarations. Read the concrete
+Chapter-II programs before this abstraction; see the [dependency
+map](review-guide.md#chapter-ii-free-operations).
 :::
 
 ## Status
@@ -91,8 +96,17 @@ the handler terminates.  This is exactly the forwarding shallow semantics used
 in the current source calculus.
 
 Lean proves map naturality and preservation of every structural result
-relation.  These results are bundled into
-[`genericFreeExtensionStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericFreeExtensionStructurePreservation#doc).
+relation separately; see
+[`shallow_map`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.shallow_map#doc)
+and [`Rel.shallow`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.Rel.shallow#doc).
+
+### What the structural relation does
+
+Given a relation $R\subseteq A\times B$, `FreeExtension.Rel R` relates two
+operation trees when they have matching base/free nodes and their returned
+values are related by $R$; continuations must be related pointwise for every
+response. Thus it lifts a relation on results to a relation on computations.
+The main uses are [`Rel.bind`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.Rel.bind#doc), which proves compatibility with sequencing, and `Rel.shallow`, which proves compatibility with shallow handling. It is a proof device for simulations and logical relations, not extra runtime data and not part of the definition of a monad.
 
 ## 5. Folding into an arbitrary model `[GF.5.1]` [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.fold_bind#doc)
 

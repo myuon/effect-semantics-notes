@@ -60,7 +60,7 @@ $(\Sigma_B,\Delta)$, Lean constructs the old and extended models, their
 canonical embedding, and `baseAct` by recursively flattening an old tree whose
 leaves are extended computations. It then checks unit, multiplication and
 naturality of that action, plus uniqueness of the structural fold. See
-[`finiteTreeActionLaws`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.finiteTreeActionLaws#doc)
+[`FreeExtension.baseAct_mult`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.baseAct_mult#doc)
 and
 [`StructuralMap.unique`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.StructuralMap.unique#doc).
 

@@ -2,7 +2,7 @@
 
 :::{admonition} Lean correspondence — theorem bundle
 :class: tip
-**Lean checked components:** substitution and typing live in [`LanguageRenameSubst`](https://myuon.github.io/effect-semantics-notes/lean/EffectSemantics/Syntax/LanguageRenameSubst.html), preservation in [`LanguageStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc), progress in [`HasLanguageComp.progressClosed`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed#doc), and the exact mechanized bundle in [`LanguageFiniteTheory`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFiniteTheory#doc). The broader categorical `BasePackage` notation remains a readable abstraction. [Statement-by-statement map](review-guide.md#chapter-i-fixed-base-language).
+**Lean checked components:** substitution and typing live in [`LanguageRenameSubst`](https://myuon.github.io/effect-semantics-notes/lean/EffectSemantics/Syntax/LanguageRenameSubst.html), preservation in [`LanguageStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc), progress in [`HasLanguageComp.progressClosed`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed#doc), and the exact mechanized bundle in [the individual finite-language theorems](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageWriterTree#doc). The broader categorical `BasePackage` notation remains a readable abstraction. [Statement-by-statement map](review-guide.md#chapter-i-fixed-base-language).
 :::
 
 ### Numbered-statement inventory
@@ -16,7 +16,7 @@
 | Theorem I.6, recursion-free internal normalization | Lean checked | [`HasLanguageComp.stronglyNormalizing`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.stronglyNormalizing#doc), [`HasLanguageComp.internallyNormalizesToBoundary`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.internallyNormalizesToBoundary#doc) |
 | Lemma I.7–Theorem I.8, semantic substitution/soundness | Lean checked for the relational Writer/free-tree semantics | [`letE`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.letE#doc), [`internalStepInvariant`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.internalStepInvariant#doc) |
 | Theorem I.9, effect upper-bound safety | Lean checked component | [`HasLanguageEffect.observationMember`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.TypedWriterTree.HasLanguageEffect.observationMember#doc) |
-| Definition I.1 and Boundary I.10, `BasePackage` | Finite model extraction Lean checked; typed graded assembly remains an instance boundary | [`writerFiniteBaseModel`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.writerFiniteBaseModel#doc), [`stateFiniteBaseModel`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.stateFiniteBaseModel#doc), [`exceptionFiniteBaseModel`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.exceptionFiniteBaseModel#doc) |
+| Definition I.1 and Boundary I.10, `BasePackage` | Finite model extraction Lean checked; typed graded assembly remains an instance boundary | [`genericWriterModelComparison`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericWriterModelComparison#doc), [`genericStateModelComparison`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericStateModelComparison#doc), [`genericExceptionModelComparison`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericExceptionModelComparison#doc) |
 
 ## Status
 
@@ -339,7 +339,7 @@ These declarations instantiate the concrete formal calculus; they do not by
 themselves mechanize the paper-level quantification over every base listed
 below.
 
-### Definition I.1 `[C1-MAIN.7.1]` — split base packages [Readable abstraction; mechanized core](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFiniteTheory#doc)
+### Definition I.1 `[C1-MAIN.7.1]` — split base packages [Readable abstraction; mechanized core](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageWriterTree#doc)
 
 For a base calculus $L_B$ and ordered effect algebra
 $E_B=(B,1,\cdot,\leq)$, use four independent records:
@@ -459,7 +459,7 @@ $$
 \end{aligned}
 $$
 
-### Boundary I.10 `[C1-MAIN.7.2]` — Base package extraction [[Lean: Writer]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.writerFiniteBaseModel#doc) [[Lean: State]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.stateFiniteBaseModel#doc) [[Lean: Exception]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.exceptionFiniteBaseModel#doc)
+### Boundary I.10 `[C1-MAIN.7.2]` — Base package extraction [[Lean: Writer]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericWriterModelComparison#doc) [[Lean: State]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericStateModelComparison#doc) [[Lean: Exception]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericExceptionModelComparison#doc)
 
 For each $X\in\{\mathsf{Writer},\mathsf{State},\mathsf{Exception}\}$, let
 $L_X,E_X,S^X,T^X,q^X$ be the syntax/machine, ordered algebra, operational
@@ -489,21 +489,21 @@ those stronger declarations. $\square$
 The source-language component now includes substitution, preservation,
 progress, determinism, strong normalization, and finite arrival at return or
 boundary in
-[`LanguageCoreMetatheory`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageCoreMetatheory#doc).
+[`LanguageStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc).
 
-The semantic extraction is split explicitly into
-[`OperationalModel`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.OperationalModel#doc),
-[`DenotationalModel`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.DenotationalModel#doc),
-[`ModelComparison`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparison#doc), and
-[`MachineSoundness`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.MachineSoundness#doc).
-For each of Writer, State, and Exception, `FiniteBaseModel` packages the
-initial response-tree denotation, the dedicated operational monad, their fold
-comparison, and agreement with the concrete `runClosed` evaluator.
+The semantic extraction uses
+[`GenericExtensionAlgebra`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra#doc)
+for each denotational or operational interpretation and
+[`ModelComparison`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparison#doc)
+for a structure-preserving map between two such algebras. Writer, State, and
+Exception each have their own comparison value and a separate theorem agreeing
+with the concrete `runClosed` evaluator; no aggregate base-model record is
+needed.
 
-The generic finite extension structures are kernel-checked by
-[`genericWriterExtension`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericWriterExtension#doc),
-[`genericStateExtension`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericStateExtension#doc), and
-[`genericExceptionExtension`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericExceptionExtension#doc).
+The generic finite monad works uniformly for the Writer, State, and Exception
+signatures by applying
+[`genericFreeMonad`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericFreeMonad#doc)
+to each signature pair; separate named wrapper values add no information.
 
 The remaining instance boundary is narrower but real: `MonadStructure` is an
 ordinary finite monad interface. A single dependent record connecting each

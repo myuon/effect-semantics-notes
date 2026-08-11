@@ -19,49 +19,6 @@ def genericFreeMonad (base free : OperationSignature) :
   rightUnit := FreeExtension.bind_ret
   associative := FreeExtension.bind_assoc
 
-def genericFreeRelator (base free : OperationSignature) :
-    MonadRelator (FreeExtension base free) (genericFreeMonad base free) where
-  Rel := FreeExtension.Rel (FreeExtension.SignatureRelation.identity base)
-    (FreeExtension.SignatureRelation.identity free)
-  reflEq := FreeExtension.Rel.reflEq
-  bindClosed := FreeExtension.Rel.bind
-
-/-- Finite abstract structure-preservation result: adjoining any typed
-free signature preserves monad laws, embeds the old base carrier injectively,
-and equips the result with a bind-compatible structural relation. -/
-structure FreeExtensionStructure (base free : OperationSignature) where
-  monad : MonadStructure (FreeExtension base free)
-  relator : MonadRelator (FreeExtension base free) monad
-  baseEmbeddingRetraction : ∀ {α} (tree : FreeExtension.BaseTree base α),
-    FreeExtension.eraseFree
-      (FreeExtension.embedBase (free := free) tree)
-      (FreeExtension.embedBase_baseOnly tree) = tree
-  baseEmbeddingBind : ∀ {α β} (tree : FreeExtension.BaseTree base α)
-      (next : α → FreeExtension.BaseTree base β),
-    FreeExtension.embedBase (free := free) (tree.bind next) =
-      (FreeExtension.embedBase (free := free) tree).bind
-        (fun value => FreeExtension.embedBase (free := free) (next value))
-  shallowNatural : ∀ {α β} (handler : FreeExtension.AffineHandler base free)
-      (function : α → β) (tree : FreeExtension base free α),
-    FreeExtension.map function (FreeExtension.shallow handler tree) =
-      FreeExtension.shallow handler (FreeExtension.map function tree)
-  shallowRelation : ∀ {α β} {relation : α → β → Prop}
-      {left : FreeExtension base free α} {right : FreeExtension base free β},
-    FreeExtension.Rel (FreeExtension.SignatureRelation.identity base)
-      (FreeExtension.SignatureRelation.identity free) relation left right →
-    ∀ handler, FreeExtension.Rel (FreeExtension.SignatureRelation.identity base)
-      (FreeExtension.SignatureRelation.identity free) relation
-      (FreeExtension.shallow handler left) (FreeExtension.shallow handler right)
-
-def genericFreeExtensionStructurePreservation (base free : OperationSignature) :
-    FreeExtensionStructure base free where
-  monad := genericFreeMonad base free
-  relator := genericFreeRelator base free
-  baseEmbeddingRetraction := FreeExtension.eraseFree_embedBase
-  baseEmbeddingBind := FreeExtension.embedBase_bind
-  shallowNatural := FreeExtension.shallow_map
-  shallowRelation := fun related handler => related.shallow handler
-
 /-- A model of both old and newly adjoined operations in a target monad.
 The two distributivity laws are precisely what makes structural folding
 compatible with sequencing. -/
@@ -309,41 +266,6 @@ structure ModelComparison
     (operational : GenericExtensionAlgebra base free operation) where
   comparison : GenericExtensionAlgebra.Morphism denotational operational
 
-/-- The operational-model component of a Chapter-I base package. Direct
-small-step execution is deliberately not part of this record. -/
-structure OperationalModel (base free : OperationSignature)
-    (carrier : Type → Type) where
-  algebra : GenericExtensionAlgebra base free carrier
-
-/-- The compositional denotational-model component of a Chapter-I base
-package. -/
-structure DenotationalModel (base free : OperationSignature)
-    (carrier : Type → Type) where
-  algebra : GenericExtensionAlgebra base free carrier
-
-/-- The semantic half of a finite base package: separate denotational and
-operational monads together with their structure-preserving comparison. -/
-structure BaseModelComparison (base free : OperationSignature)
-    (denotation operation : Type → Type) where
-  denotational : DenotationalModel base free denotation
-  operational : OperationalModel base free operation
-  comparison : ModelComparison denotational.algebra operational.algebra
-
-/-- Agreement of a direct finite evaluator with the compositional
-interpretation in its operational monad. -/
-structure MachineSoundness (base free : OperationSignature)
-    (operation : Type → Type)
-    (operational : GenericExtensionAlgebra base free operation) where
-  run : ∀ {α}, FreeExtension base free α → operation α
-  sound : ∀ {α} (tree : FreeExtension base free α),
-    run tree = operational.fold tree
-
-/-- The fully assembled semantic part of a Chapter-I base instance. -/
-structure FiniteBaseModel (base free : OperationSignature)
-    (denotation operation : Type → Type) where
-  models : BaseModelComparison base free denotation operation
-  machine : MachineSoundness base free operation models.operational.algebra
-
 /-- A base comparison that commutes with every one-layer interpretation lifts
 through the complete finite free extension. -/
 theorem ModelComparison.lift
@@ -370,48 +292,6 @@ def initialModelComparison
     preservesBase := fun _ _ => rfl
     preservesFree := fun _ _ => rfl
   }
-
-/-- Compatibility name for the older observation-oriented presentation.
-New developments should use `ModelComparison`: the target algebra is the
-operational monad `S`, not `Id` applied to a packed observation type. -/
-structure AdequacyAssumptions
-    (denotational : GenericExtensionAlgebra base free denotation)
-    (operational : GenericExtensionAlgebra base free outcome) where
-  observe : GenericExtensionAlgebra.Morphism denotational operational
-
-def AdequacyAssumptions.toModelComparison
-    (cert : AdequacyAssumptions denotational operational) :
-    ModelComparison denotational operational where
-  comparison := cert.observe
-
-/-- Local observation laws imply adequacy for every finite computation in the
-extended language. -/
-theorem AdequacyAssumptions.lift
-    {base free : OperationSignature}
-    {denotation outcome : Type → Type}
-    {denotational : GenericExtensionAlgebra base free denotation}
-    {operational : GenericExtensionAlgebra base free outcome}
-    (cert : AdequacyAssumptions denotational operational)
-    (tree : FreeExtension base free α) :
-    cert.observe.map
-        (denotational.fold (base := base) (free := free) tree) =
-      operational.fold (base := base) (free := free) tree :=
-  cert.toModelComparison.lift tree
-
-/-- The same adequacy equation specialized to an old-language computation.
-It shows that the generic theorem restricts to the base observation rather
-than changing it when the free signature is adjoined. -/
-theorem AdequacyAssumptions.liftBase
-    {base free : OperationSignature}
-    {denotation outcome : Type → Type}
-    {denotational : GenericExtensionAlgebra base free denotation}
-    {operational : GenericExtensionAlgebra base free outcome}
-    (cert : AdequacyAssumptions denotational operational)
-    (tree : FreeExtension.BaseTree base α) :
-    cert.observe.map
-        (denotational.fold (FreeExtension.embedBase (free := free) tree)) =
-      operational.fold (FreeExtension.embedBase (free := free) tree) :=
-  cert.lift _
 
 end GenericExtensionAlgebra
 

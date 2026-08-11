@@ -10,12 +10,12 @@ The canonical generic package is [`GenericRecursiveResumption`](https://myuon.gi
 | statement | review status | correspondence |
 |---|---|---|
 | Definition IV.1, recursive local package | Lean checked counterpart | [`GenericRecursiveResumption`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumption#doc) |
-| recursive preservation/progress | Lean checked source-language component | [`languageRecursiveStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageRecursiveStructurePreservation#doc) |
+| recursive preservation/progress | Lean checked directly | [`LanguageStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc), [`HasLanguageComp.progressClosed`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed#doc) |
 | finite-to-recursive operational inclusion | Lean checked | [`LanguageStep.toRecursive`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.toRecursive#doc) |
 | derived/deep coincidence | Lean checked semantically by shallow reinstallation functional | [`RecursiveResumptionSystem.functional`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.RecursiveResumptionSystem.functional#doc) |
 | exhaustive-interface elimination | Lean checked source-boundary theorem under exhaustiveness | [`recLanguageHandlerExhaustive_no_escaping_selected_request`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.recLanguageHandlerExhaustive_no_escaping_selected_request#doc) |
 | recursive adequacy transport | Lean checked | [`GenericRecursiveResumption.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumption.main#doc) |
-| Definition IV.2 and layered theorem | readable decomposition with exact source and generic packages | [`LanguageRecursiveTheory`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveTheory#doc) |
+| Definition IV.2 and layered theorem | readable paper decomposition; Lean conclusions linked separately | [`LanguageRecursiveModel.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveModel.main#doc) |
 
 ## Status
 
@@ -124,7 +124,7 @@ explicit premise, not an implicit reuse of the finite request theorem.
 
 ## 2. Recursive safety
 
-:::{prf:theorem} `[C4-MAIN.2.1]` Recursive preservation and progress [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageRecursiveStructurePreservation#doc)
+:::{prf:theorem} `[C4-MAIN.2.1]` Recursive preservation and progress [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.language_deep_writer_semantic_adequacy#doc)
 :label: thm-recursive-preservation-v5
 
 If
@@ -266,12 +266,10 @@ or a least principal word is outside the basic theorem.
 
 The abstract recursive implication is checked by
 [`LanguageRecursiveModel.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveModel.main#doc).
-Its concrete ordered-language Writer instance is
-[`languageRecursiveStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageRecursiveStructurePreservation#doc),
-and the completed adequacy theorem is
+Its concrete ordered-language Writer adequacy theorem is
 [`language_deep_writer_semantic_adequacy`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.language_deep_writer_semantic_adequacy#doc).
 
-### Definition IV.2 `[C4-MAIN.7.1]` — layered derived-deep packages [[Lean: source package]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveTheory#doc)
+### Definition IV.2 `[C4-MAIN.7.1]` — layered derived-deep packages [[Lean: source package]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageRecursiveModel#doc)
 
 Define:
 
@@ -324,7 +322,7 @@ $$
 \end{aligned}
 $$
 
-:::{prf:theorem} `[C4-MAIN.7.2]` Layered recursive derived-deep packages [[Lean: source theorem]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageRecursiveStructurePreservation#doc)
+:::{prf:theorem} `[C4-MAIN.7.2]` Layered recursive derived-deep packages [[Lean: source theorem]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.language_deep_writer_semantic_adequacy#doc)
 :label: thm-recursive-derived-deep-package-v5
 
 The conclusions and their premises are separate implications:

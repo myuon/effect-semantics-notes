@@ -2,9 +2,11 @@
 
 :::{admonition} Lean correspondence — `ShallowHandlerPackage`
 :class: tip
-The source-language Chapter-III boundary is the exact Lean record
-[`LanguageHandlerStage`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageHandlerStage#doc), constructed by
-[`languageHandlerStagePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageHandlerStagePreservation#doc). Structural relation and TT preservation are bundled by [`languageShallowMetatheory`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageShallowMetatheory#doc). [Full mapping](review-guide.md#chapter-iii-shallow-handlers).
+The source-language results are separate Lean theorems: handler preservation
+is [`LanguageShallowStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageShallowStep.preserve#doc),
+progress is [`HasLanguageHandlerState.progressClosed`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageHandlerState.progressClosed#doc),
+and structural/TT preservation is stated directly on `LanguageWriterTree.Rel`.
+No stage record collects these results. [Full mapping](review-guide.md#chapter-iii-shallow-handlers).
 :::
 
 ### Numbered-statement inventory
@@ -12,11 +14,11 @@ The source-language Chapter-III boundary is the exact Lean record
 | statement | review status | correspondence |
 |---|---|---|
 | Lemma III.1, continuation typing | Lean checked component | [`LanguageFreeRequest.openResume_subst0`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFreeRequest.openResume_subst0#doc) |
-| Theorem III.2, handler preservation | Lean checked in source-stage bundle | [`languageHandlerStagePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageHandlerStagePreservation#doc) |
+| Theorem III.2, handler preservation | Lean checked directly | [`LanguageShallowStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageShallowStep.preserve#doc) |
 | Theorem III.3, affine effect transformation | Lean checked component | [`EffectLanguage.handleWith_mono`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.EffectLanguage.handleWith_mono#doc) |
-| Theorem III.4, operational/denotational commutation | Lean checked in source/tree bundle | [`languageFiniteStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageFiniteStructurePreservation#doc) |
+| Theorem III.4, operational/denotational commutation | Lean checked directly | [`ProducesLanguageWriterTree.answerWith`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.answerWith#doc) |
 | Theorem III.5, adequacy preservation | Model-comparison component Lean checked; observation/handler theorem remains conditional | [`GenericExtensionAlgebra.ModelComparison.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.ModelComparison.lift#doc) |
-| Definition III.1–III.3 and Theorem III.6 | readable decomposition with exact source-stage package | [`LanguageHandlerStage`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageHandlerStage#doc) |
+| Definition III.1–III.3 and Theorem III.6 | readable paper decomposition; Lean components are separate | [`HasLanguageHandlerState.progressClosed`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageHandlerState.progressClosed#doc) |
 
 ## Status
 
@@ -45,7 +47,7 @@ $$
 The ordered input bound contains the primitive grade $\Delta$ before $e_k$,
 up to the declared weakening.
 
-### Theorem III.2 `[C3-MAIN.1.2]` — handler preservation [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageHandlerStagePreservation#doc)
+### Theorem III.2 `[C3-MAIN.1.2]` — handler preservation [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageShallowStep.preserve#doc)
 
 If
 
@@ -114,7 +116,7 @@ monotone; that stronger formulation is therefore not claimed.
 
 ## 3. Operational/denotational commutation
 
-### Theorem III.4 `[C3-MAIN.3.1]` — operational/denotational commutation [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageFiniteStructurePreservation#doc)
+### Theorem III.4 `[C3-MAIN.3.1]` — operational/denotational commutation [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.answerWith#doc)
 
 If
 
@@ -201,12 +203,12 @@ return clause is identity on old programs.
 
 ## 6. Chapter-III structure-preservation theorem
 
-The mechanized finite bundle is
-[`languageFiniteStructurePreservation`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageFiniteStructurePreservation#doc),
-with shallow naturality, structural-relation preservation and TT preservation
-collected in [`languageShallowMetatheory`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageShallowMetatheory#doc).
+The mechanized matching theorem is
+[`ProducesLanguageWriterTree.answerWith`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.answerWith#doc),
+while shallow naturality, structural-relation preservation and TT preservation
+are separate theorems such as [`LanguageWriterTree.Rel.shallow`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageWriterTree.Rel.shallow#doc).
 
-### Definition III.1 `[C3-MAIN.6.1]` — layered handler packages [[Lean: exact source package]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageHandlerStage#doc)
+### Definition III.1 `[C3-MAIN.6.1]` — layered handler packages [[Lean: exact source package]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageHandlerState.progressClosed#doc)
 
 Let $J\subseteq I_\Delta$ be the operations for which $h$ supplies clauses,
 and let $\Phi_h:\widehat E\to\widehat E$. We say that
@@ -335,7 +337,7 @@ $\mathsf{EliminationLaws}(\Delta,I_\Delta,h,\Phi_{\Delta,e'})$. A partial
 affine family has the same clause calculation but not this interface-level
 elimination conclusion.
 
-### Definition III.3 `[C3-MAIN.6.3]` — layered shallow packages [[Lean: exact source package]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageHandlerStage#doc)
+### Definition III.3 `[C3-MAIN.6.3]` — layered shallow packages [[Lean: exact source package]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageHandlerState.progressClosed#doc)
 
 Define:
 
@@ -384,7 +386,7 @@ M\in L_B+\Sigma\Rightarrow
 \end{aligned}
 $$
 
-### Theorem III.6 `[C3-MAIN.6.4]` — layered shallow packages [[Lean: source theorem]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.languageHandlerStagePreservation#doc)
+### Theorem III.6 `[C3-MAIN.6.4]` — layered shallow packages [[Lean: source theorem]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageShallowStep.preserve#doc)
 
 Let $J\subseteq I_\Delta$. Then:
 
