@@ -328,6 +328,7 @@ for every ground outcome $o$.  Thus preservation and adequacy survive, while
 the conclusion is equality of probability weights rather than uniqueness of
 the returned value.
 
+(the-chapter-i-structure-theorem)=
 ## 7. The Chapter-I structure theorem
 
 For the fixed mechanized base calculus, the operational components are checked

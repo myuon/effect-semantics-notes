@@ -1,7 +1,12 @@
 # Review guide and theorem dependency map
 
-This is the canonical entry point for mathematical review.  The notes are
-ordered **concrete programs first, abstract transport theorems second**.
+This is the canonical statement-by-statement map for mathematical review. The
+public table of contents separates [motivation and examples](motivation-and-examples.md),
+[formal definitions](formal-setting-and-definitions.md), [theorem
+statements](theorem-statements.md), [proofs](proofs-and-dependencies.md), and
+[open obligations](scope-and-open-obligations.md). Within the mathematical
+path, the notes remain ordered **concrete programs first, abstract transport
+theorems second**.
 
 ## How formalization status is displayed
 

@@ -33,9 +33,19 @@ effect annotation は、runtimeで起きうるeffectsを順序を保って上か
 
 ## 読み方
 
-最初に [Review guide and theorem dependency map](review-guide.md) を開く。
-ここに標準的な読書順、各定義・定理の Lean 対応、形式化されていない
-境界を集約している。
+公開ノートは内容の役割に従って5部に分けている。
+
+1. [Motivation and examples](motivation-and-examples.md): 何が起きるかを具体的なプログラムで見る。
+2. [Formal setting and definitions](formal-setting-and-definitions.md): 構文、判断、意味論的対象を固定する。
+3. [Theorem statements](theorem-statements.md): concreteな章からabstract transport theoremへ進む。
+4. [Proofs and dependencies](proofs-and-dependencies.md): 詳細証明と横断的な証明依存を確認する。
+5. [Scope, status, and open obligations](scope-and-open-obligations.md): conditionalな主張、未解決事項、形式化状況を確認する。
+
+定義や定理に付いた **Lean** リンクはstatementの近くに置く。リンク先は
+対応するkernel-checked declarationであり、単なる関連ファイルではない。
+
+全statementの対応表が必要な場合は [Review guide and theorem dependency
+map](review-guide.md) を参照する。
 
 本文は次のように、具体的な計算から抽象定理へ進む。
 
@@ -49,9 +59,9 @@ effect annotation は、runtimeで起きうるeffectsを順序を保って上か
 8. [Generic recursive theorem](generic-recursive-resumption-theorem-v1.md)
 9. [Functorial extension theorem](functorial-extension-theorem-v5.md) と [package categories](package-categories-v5.md)
 
-各 chapter では **operational examples → syntax/typing → denotation →
-package → detailed proofs** の順に読む。公開サイトとリポジトリには、
-現在の主定理の依存関係に入る現行資料だけを置く。
+各chapter内でも **motivation/examples → definitions → statements → proofs
+→ scope/open obligations** の役割を区別する。公開目次はこの役割によって
+ページを配置し、数学的本文と研究管理情報を混同しない。
 
 ## ステータス記法
 

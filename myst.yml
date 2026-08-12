@@ -18,74 +18,81 @@ project:
   license: CC-BY-4.0
   toc:
     - file: README.md
-    - title: Start here
+
+    - title: Motivation and examples
       children:
-        - file: review-guide.md
+        - file: motivation-and-examples.md
         - file: research-program-v5.md
-        - file: objects-and-notation.md
-        - file: lean-api-reference.md
-        - file: claims-ledger.md
         - file: chapter-method-v5.md
-    - title: "Chapter I — concrete base language"
-      children:
         - file: chapter-1-overview-v5.md
         - file: chapter-1-operational-examples-v5.md
-        - file: chapter-1-foundations-v5.md
-        - file: chapter-1-denotational-v5.md
-        - file: chapter-1-main-results-v5.md
-        - file: chapter-1-proof-details-v5.md
-    - title: "Chapter II — concrete free operations"
-      children:
         - file: chapter-2-operational-examples-v5.md
-        - file: chapter-2-free-operations-v5.md
         - file: writer-end-to-end-v5.md
         - file: state-end-to-end-v5.md
         - file: exception-end-to-end-v5.md
         - file: random-end-to-end-v5.md
+        - file: chapter-3-operational-examples-v5.md
+        - file: chapter-4-operational-examples-v5.md
+
+    - title: Formal setting and definitions
+      children:
+        - file: formal-setting-and-definitions.md
+        - file: objects-and-notation.md
+        - file: chapter-1-foundations-v5.md
+        - file: chapter-1-denotational-v5.md
+        - file: chapter-2-free-operations-v5.md
         - file: chapter-2-denotational-v5.md
-        - file: chapter-2-main-results-v5.md
-        - file: chapter-2-proof-details-v5.md
         - file: graded-freet-existence-v1.md
         - file: grade-indexed-free-carrier-v5.md
         - file: base-action-law-v5.md
         - file: base-action-construction-v5.md
-    - title: "Chapter III — concrete shallow handlers"
-      children:
-        - file: chapter-3-operational-examples-v5.md
         - file: chapter-3-shallow-handlers-v5.md
         - file: chapter-3-denotational-v5.md
-        - file: chapter-3-main-results-v5.md
-        - file: chapter-3-proof-details-v5.md
-    - title: "Chapter IV — recursion and derived deep handling"
-      children:
-        - file: chapter-4-operational-examples-v5.md
         - file: chapter-4-fixpoint-derived-deep-v5.md
         - file: chapter-4-denotational-v5.md
-        - file: chapter-4-main-results-v5.md
-        - file: chapter-4-proof-details-v5.md
-        - file: recursive-tt-audit-v5.md
-    - title: Abstract theorems after the examples
+        - file: operational-denotational-comparison-v1.md
+
+    - title: Theorem statements
       children:
+        - file: theorem-statements.md
+        - file: chapter-1-main-results-v5.md
+        - file: chapter-2-main-results-v5.md
+        - file: chapter-3-main-results-v5.md
+        - file: chapter-4-main-results-v5.md
         - file: language-graded-main-theorem-v6.md
         - file: generic-free-extension-theorem-v1.md
         - file: generic-recursive-resumption-theorem-v1.md
         - file: functorial-extension-theorem-v5.md
         - file: package-categories-v5.md
+
+    - title: Proofs and dependencies
+      children:
+        - file: proofs-and-dependencies.md
+        - file: chapter-1-proof-details-v5.md
+        - file: chapter-2-proof-details-v5.md
+        - file: chapter-3-proof-details-v5.md
+        - file: chapter-4-proof-details-v5.md
         - file: assumption-dependency-audit-v5.md
         - file: graded-tt-lifting-v5.md
         - file: adequacy-pole-construction-v5.md
+        - file: recursive-tt-audit-v5.md
         - file: effect-language-repair-v5.md
-    - title: Formalization and audit
+
+    - title: Scope, status, and open obligations
       children:
+        - file: scope-and-open-obligations.md
+        - file: review-guide.md
+        - file: lean-api-reference.md
+        - file: claims-ledger.md
         - file: formalization-gap-audit.md
         - file: lean-formalization-roadmap-v5.md
-    - title: Future directions
-      children:
         - file: quantitative-catch-handlers-direction.md
-    - title: Research context
+
+    - title: Research context and history
       children:
         - file: literature-map.md
         - file: work-log.md
+
 site:
   template: book-theme
   title: Effect Semantics Notes
