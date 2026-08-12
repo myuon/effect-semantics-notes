@@ -1,4 +1,4 @@
-# Chapter II — denotational free extension
+# Free-operation semantics: carriers, bind, and base embedding
 
 :::{admonition} Lean correspondence — finite denotation
 :class: tip

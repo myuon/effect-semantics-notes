@@ -1,4 +1,4 @@
-# Claims ledger
+# Claim status and supersession ledger
 
 ## 2026-08 operational-model correction
 

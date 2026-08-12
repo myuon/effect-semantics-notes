@@ -23,10 +23,24 @@ The last class is indexed in [Scope, status, and open
 obligations](scope-and-open-obligations.md), rather than being silently folded
 into a theorem.
 
-## Reading order
+## Read this part from top to bottom
 
-1. Chapter I: safety, normalization, semantic soundness, and base comparison.
-2. Chapter II: conservative free extension.
-3. Chapter III: shallow-handler preservation and commutation.
-4. Chapter IV: recursive completion and derived deep handling.
-5. Abstract transport theorems, read only after the concrete chapters.
+1. [Base-language theorems](chapter-1-main-results-v5.md): substitution,
+   preservation, progress, normalization, soundness, and model comparison.
+2. [Free-extension theorems](chapter-2-main-results-v5.md): operational and
+   denotational conservativity after adding requests.
+3. [Shallow-handler theorems](chapter-3-main-results-v5.md): preservation,
+   effect transformation, and operational/denotational commutation.
+4. [Recursive theorems](chapter-4-main-results-v5.md): finite and limit
+   adequacy, derived/deep coincidence, and interface elimination.
+5. [The main language theorem](language-graded-main-theorem-v6.md) assembles
+   those four concrete stages.
+6. The [abstract finite](generic-free-extension-theorem-v1.md) and
+   [abstract recursive](generic-recursive-resumption-theorem-v1.md) theorems
+   factor out the reusable transport principles.
+7. The [functorial theorem](functorial-extension-theorem-v5.md) and
+   [categorical formulation](package-categories-v5.md) state the strongest
+   abstract view and its exact boundary.
+
+For proof details, continue with [Proofs and
+dependencies](proofs-and-dependencies.md).

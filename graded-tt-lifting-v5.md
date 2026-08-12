@@ -1,4 +1,4 @@
-# Graded TT-lifting and adequacy relations
+# Relational proof method: graded TT-lifting
 
 :::{admonition} Formalization status
 :class: note

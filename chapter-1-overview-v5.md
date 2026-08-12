@@ -1,4 +1,4 @@
-# Chapter I — concrete base languages
+# Why start with concrete base languages?
 
 ## Purpose
 

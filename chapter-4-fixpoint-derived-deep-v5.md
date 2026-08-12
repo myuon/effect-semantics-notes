@@ -1,4 +1,4 @@
-# Chapter IV — fixed points and derived deep handlers
+# Recursive calculus: fixed points and derived deep handlers
 
 :::{admonition} Formalization status
 :class: tip

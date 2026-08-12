@@ -1,4 +1,4 @@
-# Generic recursive resumption theorem
+# Abstract recursive theorem: resumption and fixed-point transport
 
 :::{admonition} Canonical checked abstraction
 :class: tip

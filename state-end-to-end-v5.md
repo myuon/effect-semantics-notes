@@ -1,4 +1,4 @@
-# State end-to-end package instance
+# State case study: free choice with state threading
 
 :::{admonition} Lean correspondence — State
 :class: tip

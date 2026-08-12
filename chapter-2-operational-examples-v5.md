@@ -1,4 +1,4 @@
-# Chapter II — direct semantics and concrete free-operation programs
+# Free-operation behavior: requests before handlers
 
 :::{admonition} Lean correspondence — Chapter II
 :class: tip

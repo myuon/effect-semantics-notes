@@ -1,6 +1,6 @@
-# Chapter II — preservation proofs and `FreeExtensionPackage`
+# Free-extension theorems: safety and conservativity
 
-:::{admonition} Lean correspondence — `FreeExtensionPackage`
+:::{admonition} Lean correspondence — free-extension results
 :class: tip
 Read this page in three layers: typed source, finite semantic core, and the
 conditional general graded theorem. Lean states substitution, preservation,

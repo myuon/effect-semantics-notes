@@ -1,4 +1,4 @@
-# Chapter IV — detailed recursive and derived-deep proofs
+# Proofs for recursion and derived deep handling
 
 :::{admonition} Review role
 :class: note

@@ -1,4 +1,4 @@
-# Chapter I.2 — core calculus and type safety
+# Finite base calculus: syntax, typing, and internal reduction
 
 :::{admonition} Lean correspondence — syntax and typing
 :class: tip
@@ -7,10 +7,11 @@
 
 ## Status
 
-**Foundational specification and safety interface.**  This page fixes the
-common language used by the machines on the previous page and identifies its
-type-safety results.  Full theorem statements are collected in the
-[exported package](chapter-1-main-results-v5.md); detailed derivations are
+**Foundational specification and safety interface.** This page formalizes the
+common language motivated by the [base-machine
+examples](chapter-1-operational-examples-v5.md) and identifies its type-safety
+results. Full theorem statements are collected with the [base-language
+theorems](chapter-1-main-results-v5.md); detailed derivations are
 in [Appendix I-A](chapter-1-proof-details-v5.md).
 
 ## 1. Syntactic categories

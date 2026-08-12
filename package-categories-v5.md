@@ -1,4 +1,4 @@
-# Categories of extensible semantic packages
+# Categorical formulation of extensible models
 
 :::{admonition} Formalization status — categorical layer
 :class: note

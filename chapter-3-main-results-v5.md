@@ -1,6 +1,6 @@
-# Chapter III — shallow-handler proofs and `ShallowHandlerPackage`
+# Shallow-handler theorems: preservation and commutation
 
-:::{admonition} Lean correspondence — `ShallowHandlerPackage`
+:::{admonition} Lean correspondence — shallow-handler results
 :class: tip
 The source-language results are separate Lean theorems: handler preservation
 is [`LanguageShallowStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageShallowStep.preserve#doc),

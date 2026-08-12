@@ -1,4 +1,4 @@
-# Chapter III — direct shallow-handler semantics and programs
+# Shallow-handler behavior: matching and forwarding
 
 :::{admonition} Lean correspondence — Chapter III
 :class: tip

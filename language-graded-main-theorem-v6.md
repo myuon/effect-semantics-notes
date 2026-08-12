@@ -1,4 +1,4 @@
-# Language-graded structure-preservation theorem
+# Main language theorem: structure preservation across all stages
 
 :::{admonition} Canonical checked theorem
 :class: tip

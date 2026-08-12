@@ -1,4 +1,4 @@
-# Chapter I.4 — exported base package
+# Base-language theorems and exported assumptions
 
 :::{admonition} Lean correspondence — theorem bundle
 :class: tip
@@ -20,8 +20,9 @@
 
 ## Status
 
-**Paper proof package and Chapter-I export.**  Sections 1–6 collect the
-metatheoretic and semantic evidence established by the preceding pages.
+**Paper proof package and Chapter-I export.** Sections 1–6 collect the
+metatheoretic and semantic evidence established by the [finite base
+calculus](chapter-1-foundations-v5.md) and [base semantics](chapter-1-denotational-v5.md).
 Sections 7–8 package exactly what Chapter II may assume when it adds free
 operations.  Readers interested only in the chapter interface may start at
 [the structure theorem](#the-chapter-i-structure-theorem).

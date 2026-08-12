@@ -1,4 +1,4 @@
-# Chapter III — detailed shallow-handler proofs
+# Proofs for shallow-handler preservation
 
 :::{admonition} Review role
 :class: note

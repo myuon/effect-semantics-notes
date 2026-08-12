@@ -1,4 +1,4 @@
-# Review guide and theorem dependency map
+# Statement-to-Lean review map
 
 This is the canonical statement-by-statement map for mathematical review. The
 public table of contents separates [motivation and examples](motivation-and-examples.md),
@@ -52,9 +52,10 @@ flowchart TD
   A2 --> A3["Functorial/package-level formulation and boundaries"]
 ```
 
-The operational-example page comes first in every chapter.  Syntax and
-denotation are introduced only after the intended behavior has been seen in
-Writer, State, or Exception.
+The public navigation first groups all motivational and operational material,
+then all definitions, statements, proofs, and status records. Within that
+path, intended behavior is still shown before its syntax and denotation are
+formalized.
 
 ## Chapter I — fixed base language
 

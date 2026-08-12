@@ -1,4 +1,4 @@
-# Chapter I.1 — concrete base machines
+# Base-language behavior: Writer, State, Exception, and Random
 
 :::{admonition} Lean correspondence — Chapter I
 :class: tip
@@ -7,8 +7,9 @@
 
 ## Status
 
-**Derived operational development.**  This page gives the concrete executions
-that motivate the common calculus fixed on the [next page](chapter-1-foundations-v5.md).
+**Derived operational development.** This page gives the concrete executions
+that motivate the common calculus later fixed in [finite syntax, typing, and
+internal reduction](chapter-1-foundations-v5.md).
 There are still no free operations, handlers or fixed points.  See the
 [Chapter I overview](chapter-1-overview-v5.md) for the full proof path.
 

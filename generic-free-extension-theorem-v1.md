@@ -1,4 +1,4 @@
-# Generic finite free-extension theorem
+# Abstract finite theorem: free-extension transport
 
 :::{admonition} Canonical checked abstraction
 :class: tip

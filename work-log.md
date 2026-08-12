@@ -1,4 +1,4 @@
-# Work log
+# Historical work log
 
 ## 2026-08-04 — Notebook initialization
 

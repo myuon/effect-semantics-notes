@@ -1,4 +1,4 @@
-# Existence of the graded free monad transformer
+# When does the graded free carrier exist?
 
 ## Status
 

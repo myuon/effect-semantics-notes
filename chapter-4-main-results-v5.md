@@ -1,6 +1,6 @@
-# Chapter IV — recursion package and derived-deep theorem
+# Recursive theorems: safety, adequacy, and deep elimination
 
-:::{admonition} Lean correspondence — recursive package
+:::{admonition} Lean correspondence — recursive results
 :class: tip
 The canonical generic package is [`GenericRecursiveResumption`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumption#doc), with main theorem [`main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumption.main#doc). Morphism, relation, and TT conclusions have separate checked lifts; see the [Chapter-IV table](review-guide.md#chapter-iv-recursion-and-derived-deep-handling).
 :::

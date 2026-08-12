@@ -1,4 +1,4 @@
-# Chapter IV — recursive denotation and the derived handler
+# Recursive semantics: least fixed points and derived handling
 
 :::{admonition} Lean correspondence — recursive denotation
 :class: tip

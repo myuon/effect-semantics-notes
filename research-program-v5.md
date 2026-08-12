@@ -1,4 +1,4 @@
-# Ordered-effect research program v5
+# Research question and staged development
 
 ## Status
 

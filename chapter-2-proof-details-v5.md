@@ -1,4 +1,4 @@
-# Chapter II — detailed free-extension proofs
+# Proofs for free-extension safety and conservativity
 
 :::{admonition} Review role
 :class: note

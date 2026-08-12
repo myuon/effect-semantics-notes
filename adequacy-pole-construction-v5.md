@@ -1,4 +1,4 @@
-# Non-circular observation pole and adequacy transport
+# Adequacy proof method: a non-circular observation pole
 
 :::{admonition} Lean correspondence
 :class: tip

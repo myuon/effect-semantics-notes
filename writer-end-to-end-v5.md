@@ -1,4 +1,4 @@
-# Writer end-to-end package instance
+# Writer case study: from `tell` to semantic comparison
 
 :::{admonition} Lean correspondence — Writer
 :class: tip

@@ -1,4 +1,4 @@
-# Grade-indexed free carrier
+# Constructing the grade-indexed free carrier
 
 ## Status
 
