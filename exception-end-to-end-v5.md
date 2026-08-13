@@ -1,4 +1,4 @@
-# Exception end-to-end package instance
+# Exception case study: free requests around abortive effects
 
 :::{admonition} Lean correspondence — Exception
 :class: tip

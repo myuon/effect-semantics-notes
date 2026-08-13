@@ -1,4 +1,4 @@
-# Formalization gap audit
+# Open formalization obligations
 
 This is the dependency-ordered working ledger for closing every `[Paper]` and
 partial `[Lean: ...]` statement on the canonical proof path.  Repeated

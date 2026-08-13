@@ -1,4 +1,4 @@
-# Chapter I.4 — exported base package
+# Base-language theorems and exported assumptions
 
 :::{admonition} Lean correspondence — theorem bundle
 :class: tip
@@ -20,8 +20,9 @@
 
 ## Status
 
-**Paper proof package and Chapter-I export.**  Sections 1–6 collect the
-metatheoretic and semantic evidence established by the preceding pages.
+**Paper proof package and Chapter-I export.** Sections 1–6 collect the
+metatheoretic and semantic evidence established by the [finite base
+calculus](chapter-1-foundations-v5.md) and [base semantics](chapter-1-denotational-v5.md).
 Sections 7–8 package exactly what Chapter II may assume when it adds free
 operations.  Readers interested only in the chapter interface may start at
 [the structure theorem](#the-chapter-i-structure-theorem).
@@ -44,7 +45,7 @@ field before giving the formal package in Section 7.
 
 ## 1. Syntactic substitution
 
-### Lemma I.1 `[C1-MAIN.1.1]` — value substitution [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageVal.subst_preserved#doc)
+### Lemma I.1 `[C1-MAIN.1.1]` — value substitution
 
 If
 
@@ -60,7 +61,10 @@ $$
 \Gamma\vdash V[W/x]:B.
 $$
 
-### Lemma I.2 `[C1-MAIN.1.2]` — computation substitution [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.subst_preserved#doc)
+**Proof.** Lean checked:
+[`HasLanguageVal.subst_preserved`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageVal.subst_preserved#doc).
+
+### Lemma I.2 `[C1-MAIN.1.2]` — computation substitution
 
 If
 
@@ -76,12 +80,12 @@ $$
 \Gamma\vdash M[W/x]:C!b.
 $$
 
-Both are proved simultaneously by induction on typing.  The primitive case
-uses substitution only in its parameter; no continuation case exists.
+**Proof.** Lean checked:
+[`HasLanguageComp.subst_preserved`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.subst_preserved#doc).
 
 ## 2. Preservation and decomposition
 
-### Theorem I.3 `[C1-MAIN.2.1]` — internal preservation [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc)
+### Theorem I.3 `[C1-MAIN.2.1]` — internal preservation
 
 If
 
@@ -97,11 +101,10 @@ $$
 \Gamma\vdash M':A!b.
 $$
 
-The $\beta$ and `let-return` cases use Lemma I.2.  Branch rules retain the
-declared common effect.  Context closure uses associativity of graded
-sequencing.
+**Proof.** Lean checked:
+[`LanguageStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc).
 
-### Theorem I.4 `[C1-MAIN.2.2]` — effect-aware progress [[Lean: exactly one]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed_exactlyOne#doc) [[Lean: expanded cases]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed_cases#doc)
+### Theorem I.4 `[C1-MAIN.2.2]` — effect-aware progress
 
 If
 
@@ -127,7 +130,7 @@ These alternatives are mutually exclusive.  An exposed request is an
 operational boundary rather than a stuck term: the base machine may answer it
 and resume the computation.
 
-The primary Lean theorem writes the result concisely as
+**Lean correspondence.** The primary Lean theorem writes the result concisely as
 `ExactlyOne (LanguageProgressCase term)`.  The expanded corollary states the
 three alternatives and their pairwise exclusivity directly.  Exhaustiveness
 is derived from
@@ -139,7 +142,13 @@ Chapter I fragment, where no free operations occur, its `LanguageBoundary`
 case is precisely an evaluation context exposing a base primitive
 $\mathcal E[\beta(V)]$.
 
-### Theorem I.5 `[C1-MAIN.2.3]` — deterministic internal reduction [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.deterministic#doc)
+The displayed trichotomy therefore follows after ruling out the reusable
+development's free-operation case. The checked results are
+[`progressClosed_exactlyOne`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed_exactlyOne#doc)
+and
+[`progressClosed_cases`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed_cases#doc).
+
+### Theorem I.5 `[C1-MAIN.2.3]` — deterministic internal reduction
 
 For all computations $M,M_1,M_2$,
 
@@ -154,9 +163,12 @@ This concerns only the language's internal reduction relation.  It neither
 asserts that a base request has a unique response nor requires the response
 mechanism itself to be deterministic.
 
+**Proof.** Lean checked:
+[`LanguageStep.deterministic`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.deterministic#doc).
+
 ## 3. Termination
 
-### Theorem I.6 `[C1-MAIN.3.1]` — recursion-free internal normalization [[Lean: strong normalization]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.stronglyNormalizing#doc) [[Lean: terminal form]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.internallyNormalizesToBoundary#doc)
+### Theorem I.6 `[C1-MAIN.3.1]` — recursion-free internal normalization
 
 Every closed well-typed $M:\mathsf{FinLanguageComp}$ is strongly normalizing
 for internal reduction. Consequently there are a computation $N$ and a finite
@@ -177,14 +189,10 @@ claim. The Lean theorem here establishes only termination of the language's
 **internal** reduction; none of these claims says that an effectful result has
 a unique outcome.
 
-### Proof sketch
-
-The mechanized proof defines reducible values by recursion on their type and
-reducible computations as strongly normalizing computations whose reachable
-returned values are reducible. The fundamental theorem is proved by induction
-on typing under a reducible closing substitution. The empty substitution gives
-strong normalization; induction over its accessibility proof, using Theorem
-I.4, gives the terminal-form corollary.
+**Proof.** Lean checked by
+[`stronglyNormalizing`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.stronglyNormalizing#doc)
+and
+[`internallyNormalizesToBoundary`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.internallyNormalizesToBoundary#doc).
 
 The recursion-free fragment is the separate Lean type
 [`FinLanguageComp`](https://myuon.github.io/effect-semantics-notes/lean/EffectSemantics/Syntax/LanguageCalculus.html).
@@ -196,7 +204,7 @@ is deliberately absent from Chapter IV.
 
 ## 4. Denotational soundness
 
-### Lemma I.7 `[C1-MAIN.4.1]` — semantic sequencing/substitution [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.letE#doc)
+### Lemma I.7 `[C1-MAIN.4.1]` — semantic sequencing/substitution
 
 For a computation $M$,
 
@@ -208,13 +216,15 @@ $$
 \langle\mathsf{id},\llbracket W\rrbracket\rangle.
 $$
 
-The exact mechanized counterpart is relational: producing `tree` from the
+**Lean correspondence.** The mechanized counterpart
+[`ProducesLanguageWriterTree.letE`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.letE#doc)
+is relational: producing `tree` from the
 bound and producing `continuation value` from every substituted body entails
 that the whole `let` produces `tree.bind continuation`. This is
 `ProducesLanguageWriterTree.letE`. The displayed categorical equality is its
 paper presentation for a total model satisfying the same bind law.
 
-### Theorem I.8 `[C1-MAIN.4.2]` — internal reduction soundness [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.internalStepInvariant#doc)
+### Theorem I.8 `[C1-MAIN.4.2]` — internal reduction soundness
 
 If $M\to M'$, then
 
@@ -222,13 +232,15 @@ $$
 \llbracket M\rrbracket=\llbracket M'\rrbracket.
 $$
 
-The exact mechanized statement says: if $M\to M'$ and $M'$ produces a tree,
+**Lean correspondence.** The mechanized theorem
+[`ProducesLanguageWriterTree.internalStepInvariant`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.internalStepInvariant#doc)
+says: if $M\to M'$ and $M'$ produces a tree,
 then $M$ produces the same tree. The displayed equality follows when the
 chosen denotation is total and functional; no termination is silently assumed.
 
 ## 5. Effect upper-bound safety
 
-### Theorem I.9 `[C1-MAIN.5.1]` — effect upper-bound safety [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.effectSound#doc)
+### Theorem I.9 `[C1-MAIN.5.1]` — effect upper-bound safety
 
 If
 
@@ -239,14 +251,8 @@ $$
 then every base primitive that the machine can execute is permitted by the
 ordered upper bound $b$ at its typed position.  Effects in $b$ need not execute.
 
-### Proof idea
-
-Effect-aware progress and residual-context typing show that an exposed
-$\beta(V)$ occurs with primitive grade $|\beta|$ in the ordered position
-assigned by the surrounding `let` contexts.  Internal reduction preserves the
-declared bound.  Branch selection may remove potential effects but cannot add
-an effect outside the common upper bound.  The selected base package separately
-checks that its external response rule implements only the declared primitive.
+**Proof.** Lean checked:
+[`ProducesLanguageWriterTree.effectSound`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.effectSound#doc).
 
 This is a may-effect theorem.  It is intentionally one-way and introduces no
 runtime trace object.
@@ -328,6 +334,7 @@ for every ground outcome $o$.  Thus preservation and adequacy survive, while
 the conclusion is equality of probability weights rather than uniqueness of
 the returned value.
 
+(the-chapter-i-structure-theorem)=
 ## 7. The Chapter-I structure theorem
 
 For the fixed mechanized base calculus, the operational components are checked

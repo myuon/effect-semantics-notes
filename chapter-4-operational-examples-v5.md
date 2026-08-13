@@ -1,4 +1,4 @@
-# Chapter IV — recursion, derived deep handling, and programs
+# Recursive behavior: deriving deep handling from shallow handling
 
 :::{admonition} Lean correspondence — Chapter IV
 :class: tip

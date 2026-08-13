@@ -1,4 +1,4 @@
-# Lean formalization index
+# Lean index: mathematical statements to declarations
 
 This page connects the mathematical statements in the active research notes
 to the exact declarations checked by Lean.  The complete generated library is

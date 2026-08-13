@@ -1,4 +1,4 @@
-# Assumption dependency audit
+# Which theorem uses which assumption?
 
 :::{admonition} Review role
 :class: note

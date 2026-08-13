@@ -1,4 +1,4 @@
-# Recursive TT-lifting and derived-deep audit
+# Recursive proof method: admissible TT-lifting
 
 ## Status
 

@@ -1,4 +1,4 @@
-# Appendix I-A — detailed Chapter I proofs
+# Proofs for the finite base calculus
 
 :::{admonition} Review role
 :class: note

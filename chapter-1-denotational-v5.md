@@ -1,4 +1,4 @@
-# Chapter I.3 — denotational models and operational comparison
+# Base semantics: denotational models and operational comparison
 
 :::{admonition} Formalization status
 :class: tip
@@ -280,5 +280,5 @@ not require a denotation to reveal which effects occurred. It requires
 coherent operational and denotational graded models and a separately stated
 morphism or logical relation between them.
 
-The next page turns these requirements, together with the core type-safety
-results, into the [exported base package](chapter-1-main-results-v5.md).
+The corresponding [base-language theorem page](chapter-1-main-results-v5.md)
+combines these requirements with the core type-safety results.

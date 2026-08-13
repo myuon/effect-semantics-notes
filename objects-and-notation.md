@@ -2,7 +2,9 @@
 
 ## Base effects
 
-**Candidate.** Base effects は preordered monoid $(B,\cdot,1,\leq)$ とする。
+**Paper-level setting.** Base effects は preordered monoid
+$(B,\cdot,1,\leq)$ とする。このページでは以後の定義に共通する記号だけを
+固定し、存在定理や形式化状況はそれぞれの定義・定理ページに分離する。
 
 - $1$: unit effect（何もeffectを追加しない上界）
 - $b\cdot c$: evaluation orderを保つ逐次合成

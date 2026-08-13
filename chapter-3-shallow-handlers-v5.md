@@ -1,4 +1,4 @@
-# Chapter III — shallow handlers over ordered effects
+# Shallow-handler calculus: clauses, continuations, and effects
 
 :::{admonition} Formalization status
 :class: tip

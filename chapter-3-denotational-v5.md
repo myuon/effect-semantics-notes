@@ -1,4 +1,4 @@
-# Chapter III — denotational shallow handling
+# Shallow-handler semantics on computation trees
 
 :::{admonition} Lean correspondence — shallow denotation
 :class: tip

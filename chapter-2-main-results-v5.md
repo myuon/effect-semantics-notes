@@ -1,6 +1,6 @@
-# Chapter II — preservation proofs and `FreeExtensionPackage`
+# Free-extension theorems: safety and conservativity
 
-:::{admonition} Lean correspondence — `FreeExtensionPackage`
+:::{admonition} Lean correspondence — free-extension results
 :class: tip
 Read this page in three layers: typed source, finite semantic core, and the
 conditional general graded theorem. Lean states substitution, preservation,
@@ -33,7 +33,7 @@ hypotheses.
 
 ## 1. Substitution and preservation
 
-### Lemma II.1 `[C2-MAIN.1.1]` — substitution [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.subst_preserved#doc)
+### Lemma II.1 `[C2-MAIN.1.1]` — substitution
 
 The Chapter-I value/computation substitution lemmas remain valid after adding
 free operations.
@@ -61,15 +61,21 @@ $$
 
 No continuation substitution case is needed in source syntax.
 
-### Theorem II.2 `[C2-MAIN.1.2]` — internal preservation [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc)
+**Proof.** Lean checked:
+[`HasLanguageComp.subst_preserved`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.subst_preserved#doc).
+
+### Theorem II.2 `[C2-MAIN.1.2]` — internal preservation
 
 If $M:A!e$ and $M\to M'$, then $M':A!e$.  All principal reductions are old
 Chapter-I rules; the only new form is inert until captured by a future handler.
 Context preservation follows from ordered multiplication.
 
+**Proof.** Lean checked:
+[`LanguageStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc).
+
 ## 2. Effect-aware progress
 
-### Theorem II.3 `[C2-MAIN.2.1]` — extended decomposition [[Lean: exact four-way theorem]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed_fourWayExactlyOne#doc)
+### Theorem II.3 `[C2-MAIN.2.1]` — extended decomposition
 
 A closed well-typed computation has exactly one selected evaluation form: it
 returns, has a uniquely located internal redex, exposes a uniquely located base
@@ -77,11 +83,8 @@ request, or exposes a free request of the response type declared by its
 interface. Effectful branching may live in the operational monad $S$; this
 does not create two evaluation positions.
 
-### Proof
-
-Induction on syntax, reusing Chapter-I canonical forms.  The new operation case
-is immediate.  In a sequencing context, unique decomposition of the left term
-determines exactly one enclosing case. $\square$
+**Proof.** Lean checked:
+[`progressClosed_fourWayExactlyOne`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.HasLanguageComp.progressClosed_fourWayExactlyOne#doc).
 
 ### Boundary II.4 `[C2-MAIN.2.2]` — empty-free-effect safety [[Lean: counterexample]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.empty_free_effect_safety_counterexample#doc) [[Lean: repaired theorem]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.TypedLanguageFreeRequest.not_exposed_of_interface_absent#doc)
 
@@ -98,24 +101,21 @@ $1\leq\Delta$ may terminate without exposing $\Delta$.
 
 ## 3. Old-language operational conservativity
 
-### Theorem II.5 `[C2-MAIN.3.1]` — old-language operational conservativity [[Lean: one step]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preservesBaseOnly#doc) [[Lean: finite run]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FinLanguageSteps.baseOnly_boundary_is_base#doc)
+### Theorem II.5 `[C2-MAIN.3.1]` — old-language operational conservativity
 
 For an old Chapter-I term, the Chapter-II transition relation and observations
 coincide with the Chapter-I ones.
 
-### Proof
-
-Base-only syntax contains no `freeOp` form. Lean proves closure under renaming
-and substitution, then preservation by every `LanguageStep`. Induction over
-`FinLanguageSteps` shows that any boundary reached from such a term has kind
-`base`; hence the new free-request case is unreachable. Equality of a chosen
-base interpreter is a separate, model-specific consequence rather than part
-of this operational theorem.
-$\square$
+**Proof.** Lean checks the one-step invariant in
+[`LanguageStep.preservesBaseOnly`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preservesBaseOnly#doc)
+and the finite-run conclusion in
+[`FinLanguageSteps.baseOnly_boundary_is_base`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FinLanguageSteps.baseOnly_boundary_is_base#doc).
+Equality of a chosen base interpreter is a separate, model-specific consequence
+rather than part of this operational theorem.
 
 ## 4. Free-extension algebra
 
-### Theorem II.6 `[C2-MAIN.4.1]` — free-extension algebra [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericFreeMonad#doc)
+### Theorem II.6 `[C2-MAIN.4.1]` — free-extension algebra
 
 Assume that the strong graded free monad transformer
 $\widehat T=\operatorname{FreeT}_\Sigma(T)$ exists in the sense of
@@ -128,7 +128,12 @@ $$
 \land\mathsf{FreeGenerators}(\mathsf{op}^{\mathsf F}).
 $$
 
-### Proof sketch
+### Lean correspondence and paper proof
+
+Lean checks the grade-independent monad component as
+[`genericFreeMonad`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericFreeMonad#doc).
+The displayed strong graded theorem additionally assumes and uses the paper
+`StrongGradedFreeT` package; that stronger package is not one Lean declaration.
 
 For the ordinary ungraded FreeT, fold/unfold derives the base action as
 $\mathsf{roll}\circ\mu^T\circ T(\mathsf{out})$. A
@@ -143,7 +148,7 @@ $T$. $\square$
 
 ## 5. Denotational conservativity
 
-### Theorem II.7 `[C2-MAIN.5.1]` — finite denotational conservativity [[Lean: base retraction]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.eraseFree_embedBase#doc) [[Lean: source-tree bridge]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageWriterTree.toFreeExtension_bind#doc)
+### Theorem II.7 `[C2-MAIN.5.1]` — finite denotational conservativity
 
 For every old typed term,
 
@@ -152,7 +157,14 @@ $$
 =j\circ\llbracket M\rrbracket_T.
 $$
 
-### Proof
+### Lean correspondence and paper proof
+
+Lean checks the base retraction
+[`eraseFree_embedBase`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.FreeExtension.eraseFree_embedBase#doc)
+and the source-tree bind bridge
+[`toFreeExtension_bind`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageWriterTree.toFreeExtension_bind#doc).
+The displayed categorical equality packages those components with a total
+typed denotation, so the remaining induction is stated on paper.
 
 Induction on typing.  Return uses preservation of $\eta$ by $j$; `let` uses
 preservation of graded bind; primitive operations use the definition of the
@@ -165,7 +177,7 @@ Extend both models by the same free signature:
 $\widehat S=\mathsf F_\Sigma(S)$ and
 $\widehat T=\mathsf F_\Sigma(T)$.
 
-### Theorem II.8 `[C2-MAIN.6.1]` — finite model-comparison lifting [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.Morphism.lift#doc)
+### Theorem II.8 `[C2-MAIN.6.1]` — finite model-comparison lifting
 
 Assume
 
@@ -184,7 +196,12 @@ $$
 =\llbracket M\rrbracket_{\widehat S}.
 $$
 
-### Proof sketch
+### Lean correspondence and paper proof
+
+Lean checks the algebra-morphism lift in
+[`GenericExtensionAlgebra.Morphism.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.Morphism.lift#doc).
+The displayed theorem also identifies that lift with every closed source
+denotation; this source-level adequacy step remains the following paper proof.
 
 Induct on the finite operation tree. Base segments use primitive commutation;
 the free case maps the request and its continuations recursively. Initiality
@@ -413,7 +430,7 @@ $$
 
 where $o$ ranges over separated returns, base outcomes and free requests.
 
-### Theorem II.9 `[C2-MAIN.8.3]` — layered free-extension packages [[Lean: source theorem]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc) [[Lean: generic theorem]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericFreeMonad#doc)
+### Theorem II.9 `[C2-MAIN.8.3]` — layered free-extension packages
 
 Assume the following premises, each only where cited below.
 
@@ -451,8 +468,12 @@ $$
 
 holds.
 
-The two linked Lean theorems check the source-language and ungraded generic
-structural layers exactly. The strong graded FreeT existence theorem remains a
+**Lean correspondence.**
+[`LanguageStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageStep.preserve#doc)
+and
+[`genericFreeMonad`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.genericFreeMonad#doc)
+check the source-language and ungraded generic structural layers. The strong
+graded FreeT existence theorem remains a
 paper-level premise; no unchecked bridge equating the Lean finite tree carrier
 with the general categorical construction is claimed.
 

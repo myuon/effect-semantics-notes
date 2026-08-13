@@ -1,4 +1,4 @@
-# The base-action law
+# How the base monad acts on the free extension
 
 ## Status
 

@@ -1,4 +1,4 @@
-# Quantitative catch handlers — future direction
+# Future direction: quantitative catch handlers
 
 ## Status
 

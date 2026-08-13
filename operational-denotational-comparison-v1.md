@@ -1,4 +1,4 @@
-# Operational and denotational graded models
+# Why operational and denotational models remain separate
 
 ## Status
 

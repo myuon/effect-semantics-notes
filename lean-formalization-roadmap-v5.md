@@ -1,4 +1,4 @@
-# Lean formalization roadmap
+# Lean implementation roadmap
 
 ## Status
 

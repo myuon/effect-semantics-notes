@@ -1,4 +1,4 @@
-# Chapter II — ordered free-operation extension
+# Free-operation calculus: syntax, typing, and requests
 
 Chapter II asks what is preserved when typed, user-defined operations are
 adjoined to the finite language of Chapter I.  The answer is easiest to read
@@ -93,7 +93,7 @@ The fully grade-indexed extension theorem remains conditional on the strong
 graded FreeT package.  Adequacy is also observation-relative: a base
 observation must be extended to represent unhandled free requests.
 
-## 5. Reading order
+## 5. Where this definition is used
 
 1. [Direct semantics and concrete programs](chapter-2-operational-examples-v5.md)
    for syntax, requests, and execution examples.

@@ -1,4 +1,4 @@
-# Common chapter method v5
+# How the development proceeds
 
 ## Status
 
@@ -39,8 +39,8 @@ normalization is replaced by an explicit partiality or fixed-point principle.
 
 ### 6. Extract a structure-preservation package
 
-Package exactly what the next chapter may reuse.  The package lists both
-positive fields and boundaries.  A later chapter proves a transformer
+State exactly what the next extension stage may reuse. The exported interface
+lists both positive results and boundaries. A later stage proves a transformer
 
 $$
 \mathsf{Package}_n(P)

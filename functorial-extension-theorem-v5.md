@@ -1,4 +1,4 @@
-# Functorial free-effect extension and adequacy transport
+# Functorial theorem: free extension and adequacy transport
 
 :::{admonition} Formalization status — abstract packaging
 :class: note

@@ -1,4 +1,4 @@
-# Constructing the base action
+# A sufficient construction of the base action
 
 ## Status
 

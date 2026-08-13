@@ -1,4 +1,4 @@
-# Random/SubDist end-to-end package instance
+# Random case study: probabilistic observations and free requests
 
 :::{admonition} Formalization status — Random
 :class: warning
@@ -51,8 +51,8 @@ branches.
 
 ## 2. Free operation and canonical observation
 
-Add $\mathsf{ask}:1\to\mathsf{Bool}$ in interface $\Delta$.  The indexed layer
-is the construction of the previous page with outer
+Add $\mathsf{ask}:1\to\mathsf{Bool}$ in interface $\Delta$. The indexed layer
+uses the same construction as the other concrete case studies, now with outer
 $\mathsf{FinSubDist}_b$.  Finite support, finite response type and finite source
 trees give the required indexed initial algebra.  Its base action samples a
 finite distribution of residual trees and flattens it by finite

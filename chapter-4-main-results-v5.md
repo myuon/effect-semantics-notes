@@ -1,6 +1,6 @@
-# Chapter IV — recursion package and derived-deep theorem
+# Recursive theorems: safety, adequacy, and deep elimination
 
-:::{admonition} Lean correspondence — recursive package
+:::{admonition} Lean correspondence — recursive results
 :class: tip
 The canonical generic package is [`GenericRecursiveResumption`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumption#doc), with main theorem [`main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumption.main#doc). Morphism, relation, and TT conclusions have separate checked lifts; see the [Chapter-IV table](review-guide.md#chapter-iv-recursion-and-derived-deep-handling).
 :::
@@ -124,7 +124,7 @@ explicit premise, not an implicit reuse of the finite request theorem.
 
 ## 2. Recursive safety
 
-:::{prf:theorem} `[C4-MAIN.2.1]` Recursive preservation and progress [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.language_deep_writer_semantic_adequacy#doc)
+:::{prf:theorem} `[C4-MAIN.2.1]` Recursive preservation and progress
 :label: thm-recursive-preservation-v5
 
 If
@@ -151,12 +151,19 @@ Consequently, every maximal supported branch reaches a classified boundary or
 is infinite.
 :::
 
+**Lean correspondence.** The linked development checks the concrete recursive
+Writer language, including finite-result adequacy in
+[`language_deep_writer_semantic_adequacy`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.language_deep_writer_semantic_adequacy#doc)
+and result typing at visible boundaries. It does not package the three displayed
+generic safety clauses as one theorem; those clauses remain the paper-level
+abstraction over the concrete results.
+
 The final alternative is new: normalization from the recursion-free chapters
 does not survive.
 
 ## 3. Derived/deep coincidence
 
-:::{prf:theorem} `[C4-MAIN.3.1]` Derived source handler equals semantic deep handler [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.RecursiveResumptionSystem.functional#doc)
+:::{prf:theorem} `[C4-MAIN.3.1]` Derived source handler equals semantic deep handler
 :label: thm-derived-deep-coincidence-v5
 
 If $\mathsf{RecursiveModel}(\mathsf R)$ holds, the Chapter-III shallow map and
@@ -171,7 +178,12 @@ $$
 $$
 :::
 
-**Proof.**  Unfolding the source `loop` once gives exactly the Chapter-III
+**Lean correspondence and paper proof.** Lean defines the one-layer operator
+as
+[`RecursiveResumptionSystem.functional`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.RecursiveResumptionSystem.functional#doc)
+and proves least-fixed-point unfolding in the generic recursive theorem, but it
+does not state this source-syntax equality as one declaration. Unfolding the
+source `loop` once gives exactly the Chapter-III
 shallow map whose matching continuations are wrapped by the previous
 approximation; nonmatching continuations remain under that shallow map.  Hence
 the $n$th source approximant denotes
@@ -180,7 +192,7 @@ identify their suprema. $\square$
 
 ## 4. Deep elimination
 
-:::{prf:theorem} `[C4-MAIN.4.1]` Elimination of an exhaustive interface [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.recLanguageHandlerExhaustive_no_escaping_selected_request#doc)
+:::{prf:theorem} `[C4-MAIN.4.1]` Elimination of an exhaustive interface
 :label: thm-deep-elimination-v5
 
 If
@@ -202,20 +214,18 @@ $$
 $$
 :::
 
-**Proof sketch.**  Induct on finite unfoldings and finite reductions.  A
-matching request enters a clause; a nonmatching request is rebuilt with the
-invariant in its continuation.  Admissibility closes the semantic statement
-at the least fixed point.  Divergence does not invalidate the prefix safety
-invariant.
-
-In Lean, `EscapingSelectedRequest` is the directly checkable boundary
+**Lean correspondence.** In Lean, `EscapingSelectedRequest` is the directly checkable boundary
 predicate: the current head is a selected free request for which lookup
 returns `none`. Exhaustiveness rules this out for every configuration, hence
 also for every member of any finite execution prefix; termination is not used.
+This concrete statement is checked by
+[`recLanguageHandlerExhaustive_no_escaping_selected_request`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.recLanguageHandlerExhaustive_no_escaping_selected_request#doc).
+The paper statement additionally phrases the invariant through derived-handler
+finite reductions and therefore is not literally the Lean signature.
 
 ## 5. Adequacy
 
-:::{prf:theorem} `[C4-MAIN.5.1]` Recursive adequacy transport [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumption.main#doc)
+:::{prf:theorem} `[C4-MAIN.5.1]` Recursive adequacy transport
 :label: thm-recursive-adequacy-v5
 
 If
@@ -240,9 +250,9 @@ Here $\ell$ is exactly the observation level stored in
 stronger divergence or productive-infinite conclusion is implicit.
 :::
 
-The recursion case uses fixed-point induction.  The handler case uses the
-derived/deep coincidence theorem rather than assuming a primitive deep
-operator.
+**Proof.** Lean checked, including fixed-point unfolding, leastness, finite
+adequacy, and pole closure:
+[`GenericRecursiveResumption.main`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericRecursiveResumption.main#doc).
 
 ## 6. Ordered-effect theorem
 
@@ -322,7 +332,7 @@ $$
 \end{aligned}
 $$
 
-:::{prf:theorem} `[C4-MAIN.7.2]` Layered recursive derived-deep packages [[Lean: source theorem]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.language_deep_writer_semantic_adequacy#doc)
+:::{prf:theorem} `[C4-MAIN.7.2]` Layered recursive derived-deep packages
 :label: thm-recursive-derived-deep-package-v5
 
 The conclusions and their premises are separate implications:
@@ -345,6 +355,12 @@ The conclusions and their premises are separate implications:
 Conclusions 1--5 give the non-eliminating `DeepHandlerPackage`. Conclusion 6 may be
 attached when its stronger premises hold.
 :::
+
+**Lean correspondence.** The concrete Writer instance and finite-result
+adequacy are checked by
+[`language_deep_writer_semantic_adequacy`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.language_deep_writer_semantic_adequacy#doc).
+The displayed theorem assembles additional abstract safety, relational, effect,
+and elimination implications, so it remains a paper-level package theorem.
 
 ## 8. Sharp limits
 
