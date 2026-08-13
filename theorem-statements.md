@@ -7,9 +7,16 @@ transport principles.
 
 ## How to read a statement
 
-Every stable statement has an identifier such as `[C2-MAIN.6.1]`. When an exact
-Lean theorem exists, a **Lean** link appears in the heading or directly beside
-the statement. Follow that link to inspect the checked signature.
+Every stable statement has an identifier such as `[C2-MAIN.6.1]`. When Lean
+checks the displayed statement, its declaration is cited in the **Proof**
+position: the checked term is the proof, so the notes do not repeat a parallel
+paper proof. Follow the link to inspect the exact signature and proof.
+
+A separate proof or **Lean correspondence** paragraph appears only when no Lean
+proof exists, or when the displayed mathematical statement is stronger,
+weaker, or more abstract than the linked declaration. In the latter case the
+paragraph says explicitly which part is checked and what additional step or
+assumption remains on paper.
 
 The labels have deliberately different force:
 

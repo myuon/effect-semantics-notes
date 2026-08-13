@@ -28,7 +28,7 @@ package.
 
 ## 1. Typing preservation
 
-### Lemma III.1 `[C3-MAIN.1.1]` — continuation typing [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFreeRequest.openResume_subst0#doc)
+### Lemma III.1 `[C3-MAIN.1.1]` — continuation typing
 
 If
 
@@ -47,7 +47,10 @@ $$
 The ordered input bound contains the primitive grade $\Delta$ before $e_k$,
 up to the declared weakening.
 
-### Theorem III.2 `[C3-MAIN.1.2]` — handler preservation [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageShallowStep.preserve#doc)
+**Proof.** Lean checked:
+[`LanguageFreeRequest.openResume_subst0`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageFreeRequest.openResume_subst0#doc).
+
+### Theorem III.2 `[C3-MAIN.1.2]` — handler preservation
 
 If
 
@@ -67,16 +70,12 @@ $$
 
 and every handler reduction preserves this type and bound.
 
-### Proof
-
-`SH-Ret` uses value substitution.  `SH-Match` uses parameter substitution and
-Lemma III.1 for $k$.  `SH-Forward` uses the free-request typing rule and the
-structural handler-typing induction for its rewrapped continuation.  Reductions
-inside the scrutinee use Chapter-II preservation. $\square$
+**Proof.** Lean checked:
+[`LanguageShallowStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageShallowStep.preserve#doc).
 
 ## 2. Affine effect theorem
 
-### Theorem III.3 `[C3-MAIN.2.1]` — affine effect transformation [[Lean: anchored theorem]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.EffectLanguage.anchored_replacement_le_handleWith_of_bounds#doc) [[Lean: monotonicity]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.EffectLanguage.handleWith_mono#doc) [[Boundary: naive word transformer]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.TypedWriterTree.replaceFirst_not_monotone#doc)
+### Theorem III.3 `[C3-MAIN.2.1]` — affine effect transformation
 
 If $b$ is $\Delta$-free and
 
@@ -108,15 +107,19 @@ $$
 
 follows from $1\leq e'$ and monotonicity.  The return rule is identity. $\square$
 
-This theorem is an upper-bound theorem, not an assertion that every run reaches
+**Lean correspondence.** This theorem is an upper-bound theorem, not an assertion that every run reaches
 $\Delta$. Lean checks the sharp theorem for the displayed anchored
-factorization and obtains its weakened language-bound form by monotonicity. It
-separately checks that raw `replaceFirst` on arbitrary upper words is not
-monotone; that stronger formulation is therefore not claimed.
+factorization in
+[`anchored_replacement_le_handleWith_of_bounds`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.EffectLanguage.anchored_replacement_le_handleWith_of_bounds#doc)
+and obtains its weakened language-bound form by
+[`handleWith_mono`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.EffectLanguage.handleWith_mono#doc).
+It separately checks that raw `replaceFirst` on arbitrary upper words is
+[`not monotone`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.TypedWriterTree.replaceFirst_not_monotone#doc);
+that stronger formulation is therefore not claimed.
 
 ## 3. Operational/denotational commutation
 
-### Theorem III.4 `[C3-MAIN.3.1]` — operational/denotational commutation [[Lean]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.answerWith#doc)
+### Theorem III.4 `[C3-MAIN.3.1]` — operational/denotational commutation
 
 If
 
@@ -137,7 +140,12 @@ $$
 \mathsf{sh}_{\Delta,h}(\llbracket M\rrbracket).
 $$
 
-### Proof sketch
+### Lean correspondence and paper proof
+
+Lean checks the relational source-tree equation in
+[`ProducesLanguageWriterTree.answerWith`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.ProducesLanguageWriterTree.answerWith#doc).
+The displayed equality is its total, functional denotational presentation, so
+the conversion from the relation to equality remains an explicit paper step.
 
 Induct on the finite outer base/free structure supplied by `CarrierStructure`.
 
@@ -152,7 +160,7 @@ bare continuation.  This distinguishes shallow from deep handling.
 
 ## 4. Adequacy preservation
 
-### Theorem III.5 `[C3-MAIN.4.1]` — adequacy preservation [[Lean: model-comparison component]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.Morphism.lift#doc)
+### Theorem III.5 `[C3-MAIN.4.1]` — adequacy preservation
 
 Assume
 
@@ -180,7 +188,9 @@ Then ground adequacy is preserved by the shallow handler:
 operational returns, base outcomes, matching replacements and forwarded
 requests agree with the structural shallow denotation.
 
-The linked Lean theorem checks the fold-naturality/model-comparison component.
+**Lean correspondence.**
+[`GenericExtensionAlgebra.Morphism.lift`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.GenericExtensionAlgebra.Morphism.lift#doc)
+checks the fold-naturality/model-comparison component.
 The observation-specific TT and handler conclusion remains conditional on the
 displayed `FiniteAdequacyAssumptions`, `TTClosure`, and `HandlerTTClosure` premises.
 
@@ -386,7 +396,7 @@ M\in L_B+\Sigma\Rightarrow
 \end{aligned}
 $$
 
-### Theorem III.6 `[C3-MAIN.6.4]` — layered shallow packages [[Lean: source theorem]](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageShallowStep.preserve#doc)
+### Theorem III.6 `[C3-MAIN.6.4]` — layered shallow packages
 
 Let $J\subseteq I_\Delta$. Then:
 
@@ -409,6 +419,12 @@ Let $J\subseteq I_\Delta$. Then:
 
 The bundled `ShallowHandlerPackage` follows from conclusions 1--4 and conservativity;
 the elimination field is attached only under conclusion 5.
+
+**Lean correspondence.**
+[`LanguageShallowStep.preserve`](https://myuon.github.io/effect-semantics-notes/lean/find/?pattern=EffectSemantics.LanguageShallowStep.preserve#doc)
+checks the source preservation component. The displayed layered package also
+contains semantic, relational, adequacy, and elimination implications and is
+therefore not the statement of that one Lean theorem.
 
 ## 7. What is passed to Chapter IV
 

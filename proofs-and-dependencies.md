@@ -4,9 +4,12 @@ This part contains detailed derivations and reusable proof architecture. It is
 separated from the statement pages so that the main results can be read without
 interleaving every induction, admissibility argument, or dependency table.
 
-Exact formal counterparts remain linked at the lemma or theorem where they are
-used. The [Lean formalization index](lean-api-reference.md) provides the reverse
-lookup from mathematical result to declaration.
+An exact formal counterpart is placed in the theorem's **Proof** position and
+replaces a duplicate paper derivation. A proof is written out here only when
+there is no Lean proof, or when a **Lean correspondence** paragraph is needed
+to explain a real difference between the mathematical statement and the
+mechanized one. The [Lean formalization index](lean-api-reference.md) provides
+the reverse lookup from mathematical result to declaration.
 
 ## Read this part from top to bottom
 
@@ -24,8 +27,9 @@ lookup from mathematical result to declaration.
 6. [The ordered-effect repair](effect-language-repair-v5.md) closes the proof
    story by replacing a non-monotone word operation with effect languages.
 
-Proof sketches that merely orient the reader remain beside their theorem. Full
-derivations and cross-cutting proof architecture belong here.
+Expository proof sketches are retained only for unmechanized steps and genuine
+statement mismatches. Full derivations and cross-cutting proof architecture
+belong here.
 
 The remaining conditions and unfinished constructions are listed in [Scope,
 status, and open obligations](scope-and-open-obligations.md).
